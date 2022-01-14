@@ -2,7 +2,9 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot;
+package frc.robot.utils;
+
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -12,4 +14,12 @@ package frc.robot;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-public final class Constants {}
+public final class Constants {
+
+    public static final boolean DRIVE_USE_NORMALIZED_INPUTS = false;
+    public static final boolean DRIVE_USE_SQUARED_INPUTS = true;
+
+    public static final double DRIVING_DEADBANDS = 0.08;
+    public static final double SPEED_MULTIPLIER = 0.08;
+    public static final double TURN_MULTIPLIER = 0.08;
+}
