@@ -6,4 +6,5 @@ public class RobotMap {
   public static final int DRIVE_LEFT_FOLLOWER = 2;
   public static final int DRIVE_RIGHT_MASTER = 3;
   public static final int DRIVE_RIGHT_FOLLOWER = 4;
+  
 }
