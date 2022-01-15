@@ -47,6 +47,8 @@ public class Drivetrain extends SubsystemBase {
     drive.setDeadband(Constants.DRIVING_DEADBANDS);
     drive.setSafetyEnabled(false);
 
+    leftMaster.setInverted(true);
+    
     leftFollower.follow(leftMaster);
     rightFollower.follow(rightMaster);
 
