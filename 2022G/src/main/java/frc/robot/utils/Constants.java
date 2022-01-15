@@ -13,11 +13,13 @@ package frc.robot.utils;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-
+    
     public static final boolean DRIVE_USE_NORMALIZED_INPUTS = false;
     public static final boolean DRIVE_USE_SQUARED_INPUTS = true;
 
     public static final double DRIVING_DEADBANDS = 0.08;
     public static final double SPEED_MULTIPLIER = 0.2;
     public static final double TURN_MULTIPLIER = 0.08;
+
 }
+
