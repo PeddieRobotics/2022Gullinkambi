@@ -8,6 +8,10 @@ plugins {
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
 
+repositories {
+    maven { url "https://jitpack.io" }
+}
+
 def ROBOT_MAIN_CLASS = "frc.robot.Main"
 
 // Define my targets (RoboRIO) and artifacts (deployable files)
@@ -68,6 +72,7 @@ dependencies {
     simulationRelease wpi.sim.enableRelease()
 
     testImplementation 'junit:junit:4.12'
+    implementation 'com.github.TripleHelixProgramming:HelixUtilities:v2020.1'
 }
 
 // Simulation configuration (e.g. environment variables).

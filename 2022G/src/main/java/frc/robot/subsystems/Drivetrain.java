@@ -18,6 +18,8 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.team2363.logger.HelixLogger;
+
 
 import frc.robot.utils.RobotMap;
 import frc.robot.utils.Constants;
@@ -123,6 +125,10 @@ public void arcadeDrive(double speed, double turn){
     Constants.DRIVE_USE_SQUARED_INPUTS);
   }
 
+  private void setupLogs() {
+    HelixLogger.getInstance().addSource("L Encoder Velocity", leftEncoder::getVelocity);
+    HelixLogger.getInstance().addSource("R Encoder Velocity", rightEncoder::getVelocity);
+
   public void putSmartDashboard(){
     SmartDashboard.putNumber("speed", 0);
     SmartDashboard.putNumber("turn", 0);
@@ -130,6 +136,5 @@ public void arcadeDrive(double speed, double turn){
     SmartDashboard.putNumber("R Enc Pos", getRightEncoderPosition());
     SmartDashboard.putNumber("L Enc Vel", getLeftEncoderVelocity());
     SmartDashboard.putNumber("R Enc Vel", getRightEncoderVelocity());
-
   }
 }
