@@ -132,6 +132,5 @@ public void arcadeDrive(double speed, double turn){
     SmartDashboard.putNumber("R Enc Pos", getRightEncoderPosition());
     SmartDashboard.putNumber("L Enc Vel", getLeftEncoderVelocity());
     SmartDashboard.putNumber("R Enc Vel", getRightEncoderVelocity());
-
   }
 }

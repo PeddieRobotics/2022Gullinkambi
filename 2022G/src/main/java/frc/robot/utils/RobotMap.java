@@ -19,5 +19,9 @@ public class RobotMap {
   public static final int SOLENOID_INTAKE = 7;
   public static final int SOLENOID_HOOD = 6;
  
+
+  public static final int INTAKE_PNEUMATIC_LEFT = 7;
+  public static final int INTAKE_PNEUMATIC_RIGHT = 8;
+
   
 }
