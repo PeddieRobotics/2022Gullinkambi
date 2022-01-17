@@ -60,11 +60,11 @@ public class Tower extends SubsystemBase{
         towerBeltLower.set(speed);
     }
 
-    public void runUpperBelt(double speed){
+    public void runUpperBelt(double speed){ 
         towerBeltUpper.set(speed);
     }
 
-    public void runTowerBelts(double upperSpeed, double lowerSpeed) {
+    public void runTowerBelts(double upperSpeed, double lowerSpeed) { //to run both belts at the same time
         runUpperBelt(upperSpeed);
         runLowerBelt(lowerSpeed);
     }
