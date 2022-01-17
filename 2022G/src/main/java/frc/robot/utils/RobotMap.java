@@ -12,8 +12,12 @@ public class RobotMap {
   public static final int TOWER_BELT = 11;
   public static final int TOWER_ROLLER = 12; 
 
+
+    // Solenoids
   public static final int SOLENOID_CLIMBER_LEFT = 1;
   public static final int SOLENOID_CLIMBER_RIGHT = 2;
-
+  public static final int SOLENOID_INTAKE = 7;
+  public static final int SOLENOID_HOOD = 6;
+ 
   
 }
