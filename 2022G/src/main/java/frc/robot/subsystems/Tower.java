@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Tower extends SubsystemBase{
 
-    private CANSparkMax towerBelt, towerRoller;
+    private CANSparkMax towerBeltUpper, towerBeltLower;
     private static Tower tower;
     //private AnalogInput topSensor0, middleSensor1, bottomSensor2, bottomSensor3;
 
@@ -32,7 +32,7 @@ public class Tower extends SubsystemBase{
         middleSensor1 = new DigitalInput(1);
         bottomSensor2 = new DigitalInput(2);
         bottomSensor3 = new DigitalInput(3);
-        
+
         /* 
         topSensor0 = new AnalogInput(0);
         middleSensor1 = new AnalogInput(1);
@@ -42,35 +42,36 @@ public class Tower extends SubsystemBase{
     }
 
     private void setupTower() {
-        towerRoller = new CANSparkMax(RobotMap.TOWER_ROLLER, MotorType.kBrushless);
-        towerBelt = new CANSparkMax(RobotMap.TOWER_BELT, MotorType.kBrushless);
-        towerRoller.setIdleMode(IdleMode.kBrake);
-        towerBelt.setIdleMode(IdleMode.kBrake);
-        towerRoller.setSmartCurrentLimit(Constants.MAX_TOWERROLLER_SPEED);
-        towerBelt.setSmartCurrentLimit(Constants.MAX_TOWERBELT_SPEED);
+        towerBeltUpper = new CANSparkMax(RobotMap.TOWER_BELT_UPPER, MotorType.kBrushless);
+        towerBeltLower = new CANSparkMax(RobotMap.TOWER_BELT_LOWER, MotorType.kBrushless);
+
+        towerBeltUpper.setIdleMode(IdleMode.kBrake);
+        towerBeltLower.setIdleMode(IdleMode.kBrake);
+
+        towerBeltUpper.setSmartCurrentLimit(Constants.MAX_TOWERBELTS_SPEED);
+        towerBeltLower.setSmartCurrentLimit(Constants.MAX_TOWERBELTS_SPEED);
     }
 
     public void reverseTower(double percent) { 
-        //In the Egret code, the speed of the roller was reverse, so there's a difference between the signs for the speed of the roller and the belt
-        runTowerRoller(percent);
-        runTowerBelt(-percent);
+        runLowerBelt(-percent);
+        runUpperBelt(-percent);
     }
 
-    public void runTowerRoller(double speed){
-        towerRoller.set(-speed);
+    public void runLowerBelt(double speed){
+        towerBeltLower.set(speed);
     }
 
-    public void runTowerBelt(double speed){
-        towerBelt.set(speed);
+    public void runUpperBelt(double speed){
+        towerBeltUpper.set(speed);
     }
 
-    public void runTowerMotors(double beltSpeed, double rollerSpeed) {
-        runTowerBelt(beltSpeed);
-        runTowerRoller(rollerSpeed);
+    public void runTowerBelts(double upperSpeed, double lowerSpeed) {
+        runUpperBelt(upperSpeed);
+        runLowerBelt(lowerSpeed);
     }
 
     public void stopTower() {
-        runTowerMotors(0.0, 0.0);
+        runTowerBelts(0.0, 0.0);
     }
 
     public boolean sensesBallBottom(){
