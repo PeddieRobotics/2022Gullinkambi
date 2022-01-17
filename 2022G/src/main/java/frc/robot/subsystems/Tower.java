@@ -15,7 +15,6 @@ public class Tower extends SubsystemBase{
     private CANSparkMax towerBeltUpper, towerBeltLower;
     private static Tower tower;
     //private AnalogInput topSensor0, middleSensor1, bottomSensor2, bottomSensor3;
-
     private DigitalInput topSensor0, middleSensor1, bottomSensor2, bottomSensor3;
     
     public static Tower getInstance(){
