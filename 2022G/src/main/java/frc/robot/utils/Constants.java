@@ -20,6 +20,13 @@ public final class Constants {
     public static final double DRIVING_DEADBANDS = 0.08;
     public static final double SPEED_MULTIPLIER = 0.2;
     public static final double TURN_MULTIPLIER = 0.08;
+    
+  // Shooter constants
+  public static final double FLYWHEEL_P = 0.00015;
+  public static final double FLYWHEEL_I = 0.0000002;
+  public static final double FLYWHEEL_D = 0.0;
+  public static final double FLYWHEEL_FF = 0.0002;
+  public static final double FLYWHEEL_IZONE = 300;
 
 }
 
