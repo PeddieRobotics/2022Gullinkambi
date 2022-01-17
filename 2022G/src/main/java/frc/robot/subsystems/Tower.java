@@ -15,7 +15,6 @@ public class Tower extends SubsystemBase{
     private CANSparkMax towerBeltUpper, towerBeltLower;
     private static Tower tower;
     //private AnalogInput topSensor0, middleSensor1, bottomSensor2, bottomSensor3;
-
     private DigitalInput topSensor0, middleSensor1, bottomSensor2, bottomSensor3;
     
     public static Tower getInstance(){
@@ -61,11 +60,11 @@ public class Tower extends SubsystemBase{
         towerBeltLower.set(speed);
     }
 
-    public void runUpperBelt(double speed){
+    public void runUpperBelt(double speed){ 
         towerBeltUpper.set(speed);
     }
 
-    public void runTowerBelts(double upperSpeed, double lowerSpeed) {
+    public void runTowerBelts(double upperSpeed, double lowerSpeed) { //to run both belts at the same time 
         runUpperBelt(upperSpeed);
         runLowerBelt(lowerSpeed);
     }

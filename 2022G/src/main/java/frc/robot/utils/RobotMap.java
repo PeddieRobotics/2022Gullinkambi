@@ -8,12 +8,14 @@ public class RobotMap {
   public static final int DRIVE_LEFT_FOLLOWER = 2;
   public static final int DRIVE_RIGHT_MASTER = 3;
   public static final int DRIVE_RIGHT_FOLLOWER = 4;
+  public static final int HOPPER_ROLLER_LEFT = 5;
+  public static final int HOPPER_ROLLER_RIGHT = 6;
   public static final int INTAKE_MOTOR = 9;
+  public static final int HOPPER_BELT = 10;
   public static final int TOWER_BELT_UPPER = 11;
   public static final int TOWER_BELT_LOWER = 12; 
 
-
-    // Solenoids
+  
   public static final int SOLENOID_CLIMBER_LEFT = 1;
   public static final int SOLENOID_CLIMBER_RIGHT = 2;
   public static final int SOLENOID_INTAKE = 7;
