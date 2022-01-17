@@ -47,8 +47,8 @@ public class Tower extends SubsystemBase{
         towerBeltUpper.setIdleMode(IdleMode.kBrake);
         towerBeltLower.setIdleMode(IdleMode.kBrake);
 
-        towerBeltUpper.setSmartCurrentLimit(Constants.MAX_TOWERBELTS_SPEED);
-        towerBeltLower.setSmartCurrentLimit(Constants.MAX_TOWERBELTS_SPEED);
+        towerBeltUpper.setSmartCurrentLimit(Constants.MAX_TOWERBELT_SPEED);
+        towerBeltLower.setSmartCurrentLimit(Constants.MAX_TOWERBELT_SPEED);
     }
 
     public void reverseTower(double percent) { 

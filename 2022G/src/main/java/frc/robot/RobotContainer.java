@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.OI;
@@ -31,15 +32,18 @@ public class RobotContainer {
   private final OI oi;
   private final Drivetrain drivetrain;
   private final Intake intake;
+  private final Hopper hopper;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     oi = new OI();
     drivetrain = Drivetrain.getInstance();
     intake = Intake.getInstance();
+    hopper = Hopper.getInstance();
 
     drivetrain.setDefaultCommand(new Drive());
     intake.register();
+    hopper.register();
     // Configure the button bindings
     configureButtonBindings();
   }
