@@ -128,6 +128,7 @@ public void arcadeDrive(double speed, double turn){
   private void setupLogs() {
     HelixLogger.getInstance().addSource("L Encoder Velocity", leftEncoder::getVelocity);
     HelixLogger.getInstance().addSource("R Encoder Velocity", rightEncoder::getVelocity);
+  }
 
   public void putSmartDashboard(){
     SmartDashboard.putNumber("speed", 0);
