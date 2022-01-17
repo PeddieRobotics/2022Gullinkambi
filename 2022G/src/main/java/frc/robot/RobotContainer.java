@@ -6,8 +6,10 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.OI;
 import frc.robot.subsystems.Drivetrain;
@@ -28,13 +30,16 @@ public class RobotContainer {
 
   private final OI oi;
   private final Drivetrain drivetrain;
+  private final Intake intake;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     oi = new OI();
     drivetrain = Drivetrain.getInstance();
+    intake = Intake.getInstance();
 
     drivetrain.setDefaultCommand(new Drive());
+    intake.register();
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -55,5 +60,24 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return m_autoCommand;
+  }
+
+  public void setupSmartDashboard() {
+    drivetrain.putSmartDashboard();
+    intake.putSmartDashboard();
+  }
+
+  public void testAllSystems() {
+    //Drivetrain
+    drivetrain.arcadeDrive(SmartDashboard.getNumber("speed", 0), SmartDashboard.getNumber("turn", 0));
+    
+    //Intake
+    intake.runIntake(SmartDashboard.getNumber("Intake Rollers Speed", 0), SmartDashboard.getBoolean("Intake State", false));
+
+    //Hopper
+
+    //Tower
+
+    //Flywheel
   }
 }

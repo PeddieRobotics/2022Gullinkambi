@@ -20,11 +20,12 @@ public class Intake extends SubsystemBase {
 
   private static Intake intake;
 
-  private Solenoid intakeSolenoid;
+  private Solenoid leftIntakeSolenoid, rightIntakeSolenoid;
   private CANSparkMax intakeMotor;
 
   public Intake(){
-    intakeSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 7);
+    leftIntakeSolenoid = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.INTAKE_PNEUMATIC_LEFT);
+    rightIntakeSolenoid = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.INTAKE_PNEUMATIC_RIGHT);
     intakeMotor = new CANSparkMax(RobotMap.INTAKE_MOTOR, MotorType.kBrushless);
 
   }
@@ -38,17 +39,9 @@ public class Intake extends SubsystemBase {
   }
 
   public void runIntake(double speed, boolean solenoidState){
-    intakeMotor.set(speed); // I took out ControlMode.PercentOutput from right before speed, I still don't know what it does, but .set only takes one value anyways
-    intakeSolenoid.set(solenoidState);
-  }
-
-  public void startIntake() {
-    intakeSolenoid.set(true);
-    setIntakeMotor(0.2);
-  }
-
-  private void setIntakeMotor(double setpoint) {
-    intakeMotor.set(setpoint); // This also had ControlMode.PercentOutput before it
+    intakeMotor.set(speed);//may need multiplier
+    leftIntakeSolenoid.set(solenoidState);
+    rightIntakeSolenoid.set(solenoidState);
   }
 
   public void stopIntake(){
@@ -56,13 +49,25 @@ public class Intake extends SubsystemBase {
   }
 
   public void reverseIntake(double speed){
-    intakeMotor.set(-speed); //ControlMode.PercentOutput
+    runIntake(-speed, true);
   }
 
-  
   public boolean isIntaking() {
     //SmartDashboard.putNumber("intake motor reported %", intakeMotor.getMotorOutputPercent());
      return (intakeMotor.get() > 0.0);
   }
   
+
+  public boolean getSolenoidState() {
+    return(leftIntakeSolenoid.get());
+  }
+
+  public double getRollersSpeed() {
+    return(intakeMotor.get());
+  }
+
+  public void putSmartDashboard() {
+    SmartDashboard.putNumber("Intake Rollers Speed", getRollersSpeed());
+    SmartDashboard.putBoolean("Intake State", getSolenoidState());
+  }
 }
