@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 
 import frc.robot.utils.ControllerMap;
+import frc.robot.commands.ClimbCommands.RaiseClimber;
+import frc.robot.commands.ClimbCommands.LowerClimber;
 
 public class OI {
 
@@ -27,17 +29,11 @@ public class OI {
     return oi;
   }
 
-  private void configureXboxControllers() {
+  private void configureXboxControllers() { 
+    new JoystickButton(driverXboxController, ControllerMap.XBOX_B).whenPressed(new RaiseClimber());
+    new JoystickButton(driverXboxController, ControllerMap.XBOX_A).whenPressed(new LowerClimber());
 
-
-   
-/*
-    new JoystickButton(driverXboxController, ControllerMap.XBOX_B)
-        .whenPressed(new TurnToAngleProfiled(180));
-        */
-
-
-    }
+  }
 
   public double getSpeed() {
     return -driverXboxController.getRawAxis(ControllerMap.XBOX_LEFT_STICK_Y);
