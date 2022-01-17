@@ -24,7 +24,7 @@ public class Intake extends SubsystemBase {
   private CANSparkMax intakeMotor;
 
   public Intake(){
-    intakeSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, 7);
+    intakeSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 7);
     intakeMotor = new CANSparkMax(RobotMap.INTAKE_MOTOR, MotorType.kBrushless);
 
   }

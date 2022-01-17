@@ -33,7 +33,7 @@ public class Flywheel extends SubsystemBase {
   //seperator
   public Flywheel() {
     setUpFlywheel();
-    hoodSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, RobotMap.SOLENOID_HOOD);
+    hoodSolenoid = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.SOLENOID_HOOD);
   }
 
 
