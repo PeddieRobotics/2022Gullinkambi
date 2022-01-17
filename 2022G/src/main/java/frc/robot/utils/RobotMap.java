@@ -14,6 +14,8 @@ public class RobotMap {
   public static final int HOPPER_BELT = 10;
   public static final int TOWER_BELT_UPPER = 11;
   public static final int TOWER_BELT_LOWER = 12; 
+
+  
   public static final int SOLENOID_CLIMBER_LEFT = 1;
   public static final int SOLENOID_CLIMBER_RIGHT = 2;
 
