@@ -63,7 +63,9 @@ public class Limelight extends SubsystemBase {
       return true;
     }else return false;
   }
-  public void periodic(){
+  
+  public void putSmartDashboard(){
+    SmartDashboard.putNumber("Limelight Vertical Error", getTy());
+    SmartDashboard.putNumber("Limelight Horizontal Error", getTx());
   }
-
 }

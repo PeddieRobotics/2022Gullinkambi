@@ -40,10 +40,17 @@ public class Tower extends SubsystemBase{
         bottomSensor3 = new DigitalInput(3);
     }
 
+    public void runLowerBelt(double speed){
+        towerBeltLower.set(speed);
+    }
+
+    public void runUpperBelt(double speed){
+        towerBeltUpper.set(speed);
+    }
 
     public void runTower(double lowerSpeed, double upperSpeed) { //to run both belts at the same time 
-        towerBeltLower.set(lowerSpeed);
-        towerBeltUpper.set(upperSpeed);
+        runLowerBelt(lowerSpeed);
+        runUpperBelt(upperSpeed);
     }
 
     public void reverseTower(double lowerSpeed, double upperSpeed) { 
