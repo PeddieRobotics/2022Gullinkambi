@@ -14,16 +14,15 @@ public class RobotMap {
   public static final int HOPPER_BELT = 10;
   public static final int TOWER_BELT_UPPER = 11;
   public static final int TOWER_BELT_LOWER = 12; 
+  public static final int TURRET_MOTOR = 13;
 
   
   public static final int SOLENOID_CLIMBER_LEFT = 1;
   public static final int SOLENOID_CLIMBER_RIGHT = 2;
-  public static final int SOLENOID_INTAKE = 7;
-  public static final int SOLENOID_HOOD = 6;
- 
-
-  public static final int INTAKE_PNEUMATIC_LEFT = 7;
-  public static final int INTAKE_PNEUMATIC_RIGHT = 8;
+  public static final int SOLENOID_INTAKE = 3;
+  public static final int SOLENOID_HOOD = 4;
+  public static final int INTAKE_PNEUMATIC_LEFT = 5;
+  public static final int INTAKE_PNEUMATIC_RIGHT = 6;
 
   
 }
