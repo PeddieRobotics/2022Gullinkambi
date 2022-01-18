@@ -11,6 +11,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Tower;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.OI;
 import frc.robot.subsystems.Drivetrain;
@@ -33,6 +34,7 @@ public class RobotContainer {
   private final Drivetrain drivetrain;
   private final Intake intake;
   private final Hopper hopper;
+  private final Tower tower;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -40,10 +42,12 @@ public class RobotContainer {
     drivetrain = Drivetrain.getInstance();
     intake = Intake.getInstance();
     hopper = Hopper.getInstance();
+    tower = Tower.getInstance();
 
     drivetrain.setDefaultCommand(new Drive());
     intake.register();
     hopper.register();
+    tower.register();
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -70,6 +74,7 @@ public class RobotContainer {
     drivetrain.putSmartDashboard();
     intake.putSmartDashboard();
     hopper.putSmartDashboard();
+    tower.putSmartDashboard();
   }
 
   public void testAllSystems() {
@@ -83,6 +88,7 @@ public class RobotContainer {
     hopper.runHopper(SmartDashboard.getNumber("Hopper Left Roller Speed", 0), SmartDashboard.getNumber("Hopper Right Roller Speed", 0), SmartDashboard.getNumber("Hopper Belt Speed", 0));
 
     //Tower
+    tower.runTower(SmartDashboard.getNumber("Tower Lower Belt Speed", 0), SmartDashboard.getNumber("Tower Upper Belt Speed", 0));
 
     //Flywheel
   }
