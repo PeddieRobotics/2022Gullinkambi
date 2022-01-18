@@ -29,7 +29,7 @@ public class ShootLow extends CommandBase {
   @Override
   public void execute() {
     // Checking whether the speed of flywheel is good enough to shoot
-    if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_LAYUP)){
+    if (flywheel.isAtRPM(Constants.TURN_MULTIPLIER)){
       tower.runUpperBelt(0.8);
   }
   else {

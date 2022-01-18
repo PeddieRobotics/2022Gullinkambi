@@ -28,9 +28,12 @@ public final class Constants {
   public static final double FLYWHEEL_D = 0.0;
   public static final double FLYWHEEL_FF = 0.0002;
   public static final double FLYWHEEL_IZONE = 300;
-public static final double FLYWHEEL_THRESHOLD_FAR = 0;
+
 public static final double RPM_FAR = 0;
 public static final double FLYWHEEL_THRESHOLD_LAYUP = 0;
 
+public static final double FLYWHEEL_THRESHOLD_HIGH=0;
+public static final double FLYWHEEL_THRESHOLD_LOW=0;
+public static final double FLYWHEEL_THRESHOLD_FAR=0;
 }
 
