@@ -3,7 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.OI;
-import frc.robot.commands.FollowTarget;
+//import frc.robot.commands.FollowTarget;
 import frc.robot.utils.RobotMap;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -138,7 +138,7 @@ public class Turret extends SubsystemBase {
     mode = previousMode;
     previousMode = TurretMode.OVERRIDING;
     if(mode == TurretMode.TARGETING){
-      turret.runFollowTarget();
+      //turret.runFollowTarget();
     }
     else if (mode == TurretMode.INTAKING){
       turret.setTurret(0);
