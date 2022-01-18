@@ -48,10 +48,10 @@ public class IndexCargo extends CommandBase{
             tower.stopTower();
           } else if (tower.sensesBallTop() || tower.sensesBallMiddle()){
             //stop the upper belt, run the lower belt
-            tower.runTowerBelts(0.0, 0.2);
+            tower.runTower(0.0, 0.2);
           } else {
             //run both the belts
-            tower.runTowerBelts(0.5, 0.5);
+            tower.runTower(0.5, 0.5);
           }
         }
       
