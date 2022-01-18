@@ -7,12 +7,12 @@ import frc.robot.subsystems.Tower;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.utils.Constants;
 
-public class ShootHigh extends CommandBase {
+public class ShootFar extends CommandBase {
 
   private Flywheel flywheel;
     private Tower tower;
 
-  public ShootHigh() {
+  public ShootFar() {
     flywheel = Flywheel.getInstance();
     tower = Tower.getInstance();
     addRequirements(flywheel);
@@ -21,7 +21,7 @@ public class ShootHigh extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    flywheel.setHood(false); //turn hood off cus its a high shot to the high goal
+    flywheel.setHood(true); //turn hood on cus shoot far with high speed
     flywheel.setFlywheelVelocity(Constants.RPM_FAR);
   }
 
@@ -52,3 +52,4 @@ public class ShootHigh extends CommandBase {
     return false;
   }
 }
+
