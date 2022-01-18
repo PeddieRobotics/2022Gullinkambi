@@ -69,6 +69,7 @@ public class RobotContainer {
   public void setupSmartDashboard() {
     drivetrain.putSmartDashboard();
     intake.putSmartDashboard();
+    hopper.putSmartDashboard();
   }
 
   public void testAllSystems() {
@@ -79,6 +80,7 @@ public class RobotContainer {
     intake.runIntake(SmartDashboard.getNumber("Intake Rollers Speed", 0), SmartDashboard.getBoolean("Intake State", false));
 
     //Hopper
+    hopper.runHopper(SmartDashboard.getNumber("Hopper Left Roller Speed", 0), SmartDashboard.getNumber("Hopper Right Roller Speed", 0), SmartDashboard.getNumber("Hopper Belt Speed", 0));
 
     //Tower
 

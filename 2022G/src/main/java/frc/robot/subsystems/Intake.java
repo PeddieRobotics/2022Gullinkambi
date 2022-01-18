@@ -58,8 +58,12 @@ public class Intake extends SubsystemBase {
   }
   
 
-  public boolean getSolenoidState() {
+  public boolean getLeftSolenoidState() {
     return(leftIntakeSolenoid.get());
+  }
+
+  public boolean getRightSolenoidState() {
+    return(rightIntakeSolenoid.get());
   }
 
   public double getRollersSpeed() {
@@ -68,6 +72,6 @@ public class Intake extends SubsystemBase {
 
   public void putSmartDashboard() {
     SmartDashboard.putNumber("Intake Rollers Speed", getRollersSpeed());
-    SmartDashboard.putBoolean("Intake State", getSolenoidState());
+    SmartDashboard.putBoolean("Intake State", getLeftSolenoidState());
   }
 }

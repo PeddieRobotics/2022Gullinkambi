@@ -20,7 +20,7 @@ public final class Constants {
     public static final double DRIVING_DEADBANDS = 0.08;
     public static final double SPEED_MULTIPLIER = 0.2;
     public static final double TURN_MULTIPLIER = 0.08;
-    public static final int MAX_TOWERBELTS_SPEED = 15;
+    public static final int MAX_TOWERBELT_SPEED = 15;
     public static final int HOPPER_SPEED_MULTIPLIER = 1; 
 
   // Shooter constants

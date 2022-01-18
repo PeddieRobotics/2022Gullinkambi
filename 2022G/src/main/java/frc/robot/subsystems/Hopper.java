@@ -1,6 +1,8 @@
 package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.RobotMap;
 import frc.robot.utils.Constants;
@@ -35,6 +37,25 @@ public class Hopper extends SubsystemBase {
 
     public void reverseHopper(double hopperRollerLeftSpeed, double hopperRollerRightSpeed, double hopperBeltSpeed){
         runHopper(-hopperRollerLeftSpeed, -hopperRollerRightSpeed, -hopperBeltSpeed);
+    }
+
+
+    public double getBeltSpeed(){
+        return(hopperBelt.get());
+    }
+
+    public double getRollerLeftSpeed(){
+        return(hopperRollerLeft.get());
+    }
+
+    public double getRollerRightSpeed(){
+        return(hopperRollerRight.get());
+    }
+
+    public void putSmartDashboard(){
+        SmartDashboard.putNumber("Hopper Belt Speed", getBeltSpeed());
+        SmartDashboard.putNumber("Hopper Left Roller Speed", getRollerLeftSpeed());
+        SmartDashboard.putNumber("Hopper Right Roller Speed", getRollerRightSpeed());
     }
 }
 
