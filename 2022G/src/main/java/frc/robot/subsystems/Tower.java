@@ -25,22 +25,6 @@ public class Tower extends SubsystemBase{
     }
     
     public Tower() {
-        setupTower();
-        
-        topSensor0 = new DigitalInput(0);
-        middleSensor1 = new DigitalInput(1);
-        bottomSensor2 = new DigitalInput(2);
-        bottomSensor3 = new DigitalInput(3);
-
-        /* 
-        topSensor0 = new AnalogInput(0);
-        middleSensor1 = new AnalogInput(1);
-        bottomSensor2 = new AnalogInput(2);
-        bottomSensor3 = new AnalogInput(3);
-        */
-    }
-
-    private void setupTower() {
         towerBeltUpper = new CANSparkMax(RobotMap.TOWER_BELT_UPPER, MotorType.kBrushless);
         towerBeltLower = new CANSparkMax(RobotMap.TOWER_BELT_LOWER, MotorType.kBrushless);
 
@@ -49,30 +33,28 @@ public class Tower extends SubsystemBase{
 
         towerBeltUpper.setSmartCurrentLimit(Constants.MAX_TOWERBELT_SPEED);
         towerBeltLower.setSmartCurrentLimit(Constants.MAX_TOWERBELT_SPEED);
+        
+        topSensor0 = new DigitalInput(0);// may be analog sensors
+        middleSensor1 = new DigitalInput(1);
+        bottomSensor2 = new DigitalInput(2);
+        bottomSensor3 = new DigitalInput(3);
     }
 
-    public void reverseTower(double percent) { 
-        runLowerBelt(-percent);
-        runUpperBelt(-percent);
+
+    public void runTower(double lowerSpeed, double upperSpeed) { //to run both belts at the same time 
+        towerBeltLower.set(lowerSpeed);
+        towerBeltUpper.set(upperSpeed);
     }
 
-    public void runLowerBelt(double speed){
-        towerBeltLower.set(speed);
-    }
-
-    public void runUpperBelt(double speed){ 
-        towerBeltUpper.set(speed);
-    }
-
-    public void runTowerBelts(double upperSpeed, double lowerSpeed) { //to run both belts at the same time 
-        runUpperBelt(upperSpeed);
-        runLowerBelt(lowerSpeed);
+    public void reverseTower(double lowerSpeed, double upperSpeed) { 
+        runTower(-lowerSpeed, -upperSpeed);
     }
 
     public void stopTower() {
-        runTowerBelts(0.0, 0.0);
+        runTower(0.0, 0.0);
     }
 
+    //need to change to mirror this years sensor layout
     public boolean sensesBallBottom(){
         return (bottomSensor2.get() && bottomSensor3.get());
     }
@@ -110,4 +92,17 @@ public class Tower extends SubsystemBase{
         return topSensor0.getVoltage();
     } 
     */
+
+    public double getLowerBeltSpeed(){
+        return(towerBeltLower.get());
+    }
+
+    public double getUpperBeltSpeed(){
+        return(towerBeltUpper.get());
+    }
+
+    public void putSmartDashboard(){
+        SmartDashboard.putNumber("Tower Lower Belt Speed", getLowerBeltSpeed());
+        SmartDashboard.putNumber("Tower Upper Belt Speed", getUpperBeltSpeed());
+    }
 }
