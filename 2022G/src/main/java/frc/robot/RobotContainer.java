@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
@@ -37,6 +38,7 @@ public class RobotContainer {
   private final Hopper hopper;
   private final Tower tower;
   private final Limelight limelight;
+  private final Flywheel flywheel;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -46,12 +48,14 @@ public class RobotContainer {
     hopper = Hopper.getInstance();
     tower = Tower.getInstance();
     limelight  = Limelight.getInstance();
+    flywheel = Flywheel.getInstance();
 
     drivetrain.setDefaultCommand(new Drive());
     intake.register();
     hopper.register();
     tower.register();
     limelight.register();
+    flywheel.register();
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -80,6 +84,7 @@ public class RobotContainer {
     hopper.putSmartDashboard();
     tower.putSmartDashboard();
     limelight.putSmartDashboard();
+    flywheel.putSmartDashboard();
   }
 
   public void testAllSystems() {
@@ -96,5 +101,7 @@ public class RobotContainer {
     tower.runTower(SmartDashboard.getNumber("Tower Lower Belt Speed", 0), SmartDashboard.getNumber("Tower Upper Belt Speed", 0));
 
     //Flywheel
+    flywheel.setHood(SmartDashboard.getBoolean("Hood Up", false));
+    flywheel.runFlywheelSetPoint(SmartDashboard.getNumber("Flywheel Setpoint", 0));
   }
 }

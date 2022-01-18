@@ -27,23 +27,17 @@ public class Flywheel extends SubsystemBase {
   private double kD = Constants.FLYWHEEL_D;
   private double kIz = Constants.FLYWHEEL_IZONE;
   private double kFF = Constants.FLYWHEEL_FF;
-  private Solenoid hoodSolenoid;
+  private Solenoid hoodSolenoid1, hoodSolenoid2;
    double flywheelSetpoint = 0;
   double flywheelPower = 0;
   //seperator
   public Flywheel() {
-    setUpFlywheel();
-    hoodSolenoid = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.SOLENOID_HOOD);
-  }
-
-
-private void setUpFlywheel() {
-  flywheel1 = new CANSparkMax(7, MotorType.kBrushless);
-  flywheel2 = new CANSparkMax(8, MotorType.kBrushless);
-   flywheelPIDController = flywheel1.getPIDController();
-  flywheelEncoder = flywheel1.getEncoder();
-  //set values
-  flywheelPIDController.setP(kP);
+    flywheel1 = new CANSparkMax(7, MotorType.kBrushless);
+    flywheel2 = new CANSparkMax(8, MotorType.kBrushless);
+    flywheelPIDController = flywheel1.getPIDController();
+    flywheelEncoder = flywheel1.getEncoder();
+    //set values
+    flywheelPIDController.setP(kP);
     flywheelPIDController.setI(kI);
     flywheelPIDController.setD(kD);
     flywheelPIDController.setIZone(kIz);
@@ -55,25 +49,38 @@ private void setUpFlywheel() {
     SmartDashboard.putNumber("I Zone", kIz);
     SmartDashboard.putNumber("Feed Forward", kFF);
     flywheelPIDController.setOutputRange(0, 1);
-  flywheel2.follow(flywheel1, true);
+    flywheel2.follow(flywheel1, true);
+    hoodSolenoid1 = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.SOLENOID_HOOD);
+    hoodSolenoid2 = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.SOLENOID_HOOD);
+  }
 
-}
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Flywheel Velocity", getFlywheelVelocity());
   }
 
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
   }
-  public static Flywheel rf() {
-    if (flywheel == null) {
+  
+  public static Flywheel getInstance(){
+
+    if (flywheel==null){
       flywheel = new Flywheel();
     }
-  return flywheel;
-
+    return flywheel;
   }
+
+  public void runFlywheelSetPoint(double rpm) {
+    flywheelSetpoint = rpm;
+    if (flywheelSetpoint < 200 || flywheelSetpoint > 4000) {// bounds may need to be changed based on desired limits
+      flywheelSetpoint = 0;
+    }
+   flywheelPIDController.setReference(flywheelSetpoint, ControlType.kVelocity);
+  }
+
   public void runFlyWheelPower(double num) { //restriction num has to be 0<num<1
       if ((0<num) && (num<=0.2)) {
         flywheel1.set(num);
@@ -87,37 +94,20 @@ private void setUpFlywheel() {
   public boolean isAtRPM(double threshold){
     if(getFlywheelSetpoint()>0){
         return (Math.abs(getFlywheelVelocity()-getFlywheelSetpoint())<threshold);
-
     }
     return false;
   }
 
   public void setHood(boolean isUp){
-    hoodSolenoid.set(isUp);
-  }
-
-  public boolean isHoodUp(){
-    return hoodSolenoid.get();
+    hoodSolenoid1.set(isUp);
+    hoodSolenoid2.set(isUp);
   }
 
   public void stopFlywheel(){
     setHood(false);
-    setFlywheelVelocity(0);
-  }
-  public void setFlywheelVelocity(double rpm) {
-    flywheelSetpoint = rpm;
-
-    flywheelPIDController.setReference(flywheelSetpoint, ControlType.kVelocity);
+    flywheelPIDController.setReference(0, ControlType.kVelocity);
   }
 
-
-  public void runFlywheelSetPoint(double rpm) {
-    flywheelSetpoint = rpm;
-    if (flywheelSetpoint < 200 || flywheelSetpoint > 4000) {
-      flywheelSetpoint = 0;
-    }
-   flywheelPIDController.setReference(flywheelSetpoint, ControlType.kVelocity);
-  }
 
   public double getFlywheelSetpoint() {
     return flywheelSetpoint;
@@ -127,13 +117,13 @@ private void setUpFlywheel() {
     return flywheel1.getEncoder().getVelocity();
   }
 
-  public static Flywheel getInstance(){
+  public boolean isHoodUp(){
+    return hoodSolenoid1.get();
+  }
 
-    if (flywheel==null){
-      flywheel = new Flywheel();
-
-
-    }
-    return flywheel;
+  public void putSmartDashboard() {
+    SmartDashboard.putNumber("Flywheel Velocity", getFlywheelVelocity());
+    SmartDashboard.putNumber("Flywheel Setpoint", getFlywheelSetpoint());
+    SmartDashboard.putBoolean("Hood Up", isHoodUp());
   }
 }

@@ -22,7 +22,7 @@ public class ShootHigh extends CommandBase {
   @Override
   public void initialize() {
     flywheel.setHood(false); //turn hood off cus its a high shot to the high goal
-    flywheel.setFlywheelVelocity(Constants.RPM_FAR);
+    flywheel.runFlywheelSetPoint(Constants.RPM_FAR);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

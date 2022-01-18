@@ -22,7 +22,7 @@ public class ShootLow extends CommandBase {
   @Override
   public void initialize() {
     flywheel.setHood(true); //turn hood on to shoot low
-    flywheel.setFlywheelVelocity(Constants.RPM_FAR);
+    flywheel.runFlywheelSetPoint(Constants.RPM_FAR);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

@@ -22,7 +22,7 @@ public class ShootFar extends CommandBase {
   @Override
   public void initialize() {
     flywheel.setHood(true); //turn hood on cus shoot far with high speed
-    flywheel.setFlywheelVelocity(Constants.RPM_FAR);
+    flywheel.runFlywheelSetPoint(Constants.RPM_FAR);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
