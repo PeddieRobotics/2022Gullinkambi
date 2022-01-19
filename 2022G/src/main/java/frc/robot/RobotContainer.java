@@ -14,6 +14,7 @@ import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Tower;
+import frc.robot.subsystems.Turret;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.OI;
 import frc.robot.subsystems.Drivetrain;
@@ -39,6 +40,7 @@ public class RobotContainer {
   private final Tower tower;
   private final Limelight limelight;
   private final Flywheel flywheel;
+  private final Turret turret;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -49,6 +51,7 @@ public class RobotContainer {
     tower = Tower.getInstance();
     limelight  = Limelight.getInstance();
     flywheel = Flywheel.getInstance();
+    turret = Turret.getInstance();
 
     drivetrain.setDefaultCommand(new Drive());
     intake.register();
@@ -56,6 +59,7 @@ public class RobotContainer {
     tower.register();
     limelight.register();
     flywheel.register();
+    turret.register();
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -85,6 +89,7 @@ public class RobotContainer {
     tower.putSmartDashboard();
     limelight.putSmartDashboard();
     flywheel.putSmartDashboard();
+    turret.putSmartDashboard();
   }
 
   public void testAllSystems() {

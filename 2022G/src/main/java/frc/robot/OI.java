@@ -5,10 +5,12 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import frc.robot.utils.ControllerMap;
 import frc.robot.commands.ClimbCommands.RaiseClimber;
 import frc.robot.commands.ClimbCommands.LowerClimber;
+import frc.robot.subsystems.Turret;
+import frc.robot.subsystems.Turret.TurretMode;
 
 public class OI {
 
@@ -16,6 +18,7 @@ public class OI {
 
   private final Joystick driverXboxController = new Joystick(ControllerMap.DRIVER_PORT);
   private final Joystick operatorXboxController = new Joystick(ControllerMap.OPERATOR_PORT);
+  public final JoystickButton override = new JoystickButton(operatorXboxController, ControllerMap.XBOX_A);
 
   public OI() {
     configureXboxControllers();
@@ -32,7 +35,8 @@ public class OI {
   private void configureXboxControllers() { 
     new JoystickButton(driverXboxController, ControllerMap.XBOX_B).whenPressed(new RaiseClimber());
     new JoystickButton(driverXboxController, ControllerMap.XBOX_A).whenPressed(new LowerClimber());
-
+    override.toggleWhenPressed(new StartEndCommand(Turret.getInstance()::setOverride, Turret.getInstance()::setPreviousMode,
+        Turret.getInstance()));
   }
 
   public double getSpeed() {
@@ -42,6 +46,10 @@ public class OI {
   public double getTurn() {
     return driverXboxController.getRawAxis(ControllerMap.XBOX_RIGHT_STICK_X);
   }
+
+  public double getTurretInputFromOperatorThumbstick(){
+    return operatorXboxController.getRawAxis(ControllerMap.XBOX_LEFT_STICK_X);
+}
 
   public void setControllerRumble(boolean driver, boolean operator) {
     if (driver == true) {
