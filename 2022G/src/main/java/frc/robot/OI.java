@@ -27,6 +27,7 @@ import frc.robot.subsystems.Tower;
 import frc.robot.utils.Constants;
 
 public class OI {
+    private static OI oi;
     private final Drivetrain m_driveTrain;
     private final Tower m_tower;
     private final Hopper m_hopper;
@@ -89,6 +90,18 @@ public class OI {
     opButton12 = new JoystickButton(operatorJoystick, 12);
 
   }
+
+  public static OI getInstance() {
+    if (oi == null) {
+      oi = new OI(Drivetrain.getInstance(), Tower.getInstance(), Hopper.getInstance(),Flywheel.getInstance(), Intake.getInstance(),Climber.getInstance(), Limelight.getInstance());
+    }
+
+    return oi;
+  }
+
+  public double getTurretInputFromOperatorThumbstick(){
+    return operatorJoystick.getRawAxis(0);
+}
 
   private void configureJoysticks() {
 
