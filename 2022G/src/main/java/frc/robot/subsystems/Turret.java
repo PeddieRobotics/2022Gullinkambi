@@ -185,7 +185,7 @@ public class Turret extends SubsystemBase {
       case OVERRIDING:
         // If we are overriding the normal turret behavior from the controls, make updates to the turret angle based on
         // some scale factor of the thumbstick input. Here 5.0 has been chosen arbitrary for test purposes...
-        this.setTurret(this.getCurrentAngle() + ( Bruh this is a problem because we are not using XBOX OI) XboxOI.getInstance().getTurretInputFromOperatorThumbstick() * 5.0);    //THISIS A PROBLEM!!!
+        this.setTurret(this.getCurrentAngle() + ( Bruh this is FOR THE OPERATOR controller ) XboxOI.getInstance().getTurretInputFromOperatorThumbstick() * 5.0);    //THISIS A PROBLEM!!!
     };
   }
   public void putSmartDashboard() {

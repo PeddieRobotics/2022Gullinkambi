@@ -24,6 +24,7 @@ import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Tower;
+import frc.robot.utils.Constants;
 
 public class OI {
     private final Drivetrain m_driveTrain;
@@ -41,7 +42,7 @@ public class OI {
     private JoystickButton opTrigger, opButton2, opButton3, opButton4, opButton5, opButton6, opButton7, opButton8, opButton9, opButton10, opButton11, opButton12;
     private JoystickButton driverButtonA, driverButtonB, driverButtonX, driverButtonY, driverButtonLeftBumper, driverButtonRightBumper, driverButtonBack, driverButtonStart, driverButtonLeftStick, driverButtonRightStick;
 
-    // private XboxTrigger driverLeftTrigger, driverRightTrigger;
+    private XboxTrigger driverLeftTrigger, driverRightTrigger;
 
     public OI(Drivetrain d, Tower t, Hopper h, Flywheel f, Intake i, Climber c, Limelight l){
         m_driveTrain = d;
@@ -158,27 +159,30 @@ public class OI {
     // public static class XboxTrigger extends JoystickButton {
         
     //     /* Instance Values */
-    //     private final Joystick m_parent;        
-    //     private int m_axis;
+    public static class XboxTrigger extends JoystickButton {
         
-    //     public XboxTrigger(Joystick joystick, int axis) {
-    //         super(joystick, axis);
-    //         m_parent = joystick;
-    //         m_axis = axis;
+        /* Instance Values */
+        private final Joystick m_parent;        
+        private int m_axis;
+        
+        public XboxTrigger(Joystick joystick, int axis) {
+            super(joystick, axis);
+            m_parent = joystick;
+            m_axis = axis;
 
-    //     }
+        }
         
-    //     /**
-    //      * 0 = Not pressed
-    //      * 1 = Completely pressed
-    //      * @return How far its pressed
-    //      */
-    //     @Override
-    //     public boolean get() {
-    //         double rawInput = m_parent.getRawAxis(m_axis);
+        /**
+         * 0 = Not pressed
+         * 1 = Completely pressed
+         * @return How far its pressed
+         */
+        @Override
+        public boolean get() {
+            double rawInput = m_parent.getRawAxis(m_axis);
             
-    //         return (createDeadZone(rawInput, Constants.XBOX_TRIGGER_DEADZONE) > Constants.XBOX_TRIGGER_SENSITIVITY);
-    //     }
+            return (createDeadZone(rawInput, Constants.XBOX_TRIGGER_DEADZONE) > Constants.XBOX_TRIGGER_SENSITIVITY);
+        }
         
             /**
          * Creates a deadzone, but without clipping the lower values.
@@ -207,10 +211,8 @@ public class OI {
             
             return negative * adjusted;
         }
-
-            public static Object getInstance() {
-                return null;
-            }
         
     }
+}
+
 
