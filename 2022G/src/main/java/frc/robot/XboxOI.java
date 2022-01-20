@@ -12,21 +12,21 @@ import frc.robot.commands.ClimbCommands.LowerClimber;
 import frc.robot.subsystems.Turret;
 import frc.robot.subsystems.Turret.TurretMode;
 
-public class OI {
+public class XboxOI {
 
-  private static OI oi;
+  private static XboxOI oi;
 
   private final Joystick driverXboxController = new Joystick(ControllerMap.DRIVER_PORT);
   private final Joystick operatorXboxController = new Joystick(ControllerMap.OPERATOR_PORT);
   public final JoystickButton override = new JoystickButton(operatorXboxController, ControllerMap.XBOX_A);
 
-  public OI() {
+  public XboxOI() {
     configureXboxControllers();
   }
 
-  public static OI getInstance() {
+  public static XboxOI getInstance() {
     if (oi == null) {
-      oi = new OI();
+      oi = new XboxOI();
     }
 
     return oi;

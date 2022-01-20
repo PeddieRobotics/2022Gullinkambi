@@ -16,7 +16,7 @@ import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Tower;
 import frc.robot.subsystems.Turret;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.OI;
+import frc.robot.XboxOI;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.commands.Drive;
 
@@ -33,7 +33,7 @@ public class RobotContainer {
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
-  private final OI oi;
+  private final XboxOI oi;
   private final Drivetrain drivetrain;
   private final Intake intake;
   private final Hopper hopper;
@@ -44,7 +44,7 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    oi = new OI();
+    oi = new XboxOI();
     drivetrain = Drivetrain.getInstance();
     intake = Intake.getInstance();
     hopper = Hopper.getInstance();
