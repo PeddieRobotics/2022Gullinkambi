@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.OI;
+import frc.robot.XboxOI;
 import frc.robot.commands.AimCommands.FollowTarget;
 //import frc.robot.commands.FollowTarget;
 import frc.robot.utils.RobotMap;
@@ -184,7 +185,7 @@ public class Turret extends SubsystemBase {
       case OVERRIDING:
         // If we are overriding the normal turret behavior from the controls, make updates to the turret angle based on
         // some scale factor of the thumbstick input. Here 5.0 has been chosen arbitrary for test purposes...
-        this.setTurret(this.getCurrentAngle() + OI.getInstance().getTurretInputFromOperatorThumbstick() * 5.0);    
+        this.setTurret(this.getCurrentAngle() + ( Bruh this is a problem because we are not using XBOX OI) XboxOI.getInstance().getTurretInputFromOperatorThumbstick() * 5.0);    //THISIS A PROBLEM!!!
     };
   }
   public void putSmartDashboard() {
