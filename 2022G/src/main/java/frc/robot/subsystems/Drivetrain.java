@@ -14,6 +14,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -24,6 +25,7 @@ import frc.robot.utils.Constants;
 
 public class Drivetrain extends SubsystemBase {
   private static Drivetrain drivetrain;
+  private Joystick leftJoystick, rightJoystick;
 
   private final CANSparkMax leftMaster, rightMaster, leftFollower, rightFollower;
   private final MotorControllerGroup leftMotors, rightMotors;
@@ -55,6 +57,12 @@ public class Drivetrain extends SubsystemBase {
     leftEncoder = leftMaster.getEncoder();
     rightEncoder = rightMaster.getEncoder();
   }
+
+  public void setJoysticks(Joystick left, Joystick right){
+    leftJoystick = left;
+    rightJoystick = right;
+  }
+
   @Override
   public void periodic() {
   }
