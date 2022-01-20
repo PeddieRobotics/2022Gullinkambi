@@ -35,5 +35,7 @@ public final class Constants {
   public static final double FLYWHEEL_THRESHOLD_HIGH=0;
   public static final double FLYWHEEL_THRESHOLD_LOW=0;
   public static final double FLYWHEEL_THRESHOLD_FAR=0;
+public static final int XBOX_TRIGGER_SENSITIVITY = 0;
+public static final double XBOX_TRIGGER_DEADZONE = 0;
 }
 
