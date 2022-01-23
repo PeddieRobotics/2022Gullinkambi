@@ -9,11 +9,11 @@ package frc.robot.commands.ClimbCommands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
 
-public class RaiseClimber extends CommandBase {
+public class TiltClimber extends CommandBase {
 
   private Climber climber;
 
-  public RaiseClimber() {
+  public TiltClimber() {
     climber = Climber.getInstance();
     addRequirements(climber);
   }
@@ -21,7 +21,7 @@ public class RaiseClimber extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    climber.raiseClimber();
+    climber.setClimberTilt(true);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

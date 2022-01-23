@@ -1,35 +1,27 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.ClimbCommands.LowerClimber;
-import frc.robot.commands.ClimbCommands.RaiseClimber;
-import frc.robot.commands.Drive;
+import frc.robot.commands.ClimbCommands.TiltClimber;
+import frc.robot.commands.ClimbCommands.UntiltClimber;
+import frc.robot.commands.IntakeCommands.IndexCargo;
 import frc.robot.commands.IntakeCommands.StartIntake;
 import frc.robot.commands.IntakeCommands.StopIntake;
-import frc.robot.commands.AimCommands.FollowTarget;
 import frc.robot.commands.ShootCommands.ShootFar;
 import frc.robot.commands.ShootCommands.ShootHigh;
 import frc.robot.commands.ShootCommands.ShootLow;
-import frc.robot.commands.IndexCargo;
-import frc.robot.commands.SplitFFRamseteCommand;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
-import frc.robot.subsystems.Tower;
 import frc.robot.utils.Constants;
 
 public class OI {
     private static OI oi;
-    private final Drivetrain m_driveTrain;
-    private final Tower m_tower;
+
+    private final Drivetrain m_drivetrain;
     private final Hopper m_hopper;
     private final Flywheel m_flywheel;
     private final Intake m_intake;
@@ -45,18 +37,16 @@ public class OI {
 
     private XboxTrigger driverLeftTrigger, driverRightTrigger;
 
-    public OI(Drivetrain d, Tower t, Hopper h, Flywheel f, Intake i, Climber c, Limelight l){
-        m_driveTrain = d;
-        m_tower = t;
-        m_hopper = h;
-        m_flywheel = f;
-        m_intake = i;
-        m_climber = c;
-        m_limelight = l;
+    public OI(){
+        m_drivetrain = Drivetrain.getInstance();
+        m_hopper = Hopper.getInstance();
+        m_flywheel = Flywheel.getInstance();
+        m_intake = Intake.getInstance();
+        m_climber = Climber.getInstance();
+        m_limelight = Limelight.getInstance();
 
-            initializeJoysticks();
-            configureJoysticks();
-            m_driveTrain.setJoysticks(leftJoystick, rightJoystick);
+        initializeJoysticks();
+        configureJoysticks();
         
 }
 
@@ -93,7 +83,7 @@ public class OI {
 
   public static OI getInstance() {
     if (oi == null) {
-      oi = new OI(Drivetrain.getInstance(), Tower.getInstance(), Hopper.getInstance(),Flywheel.getInstance(), Intake.getInstance(),Climber.getInstance(), Limelight.getInstance());
+      oi = new OI();
     }
 
     return oi;
@@ -108,8 +98,8 @@ public class OI {
     // Driver joystick binds (dual joystick)
     leftTrigger.whenHeld(new IndexCargo());
     leftButton2.whileHeld(new StopIntake());
-    leftButton3.whenPressed(new RaiseClimber());
-    leftButton4.whenPressed(new LowerClimber());
+    leftButton3.whenPressed(new UntiltClimber());
+    leftButton4.whenPressed(new TiltClimber());
     
     rightTrigger.whenHeld(new StartIntake());
     rightButton2.whileHeld(new ShootFar());

@@ -4,29 +4,23 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-//import com.ctre.phoenix.motorcontrol.ControlMode; - I don't know what this is so I'm leaving it here but just commenting it out 
-
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.Constants;
 import frc.robot.utils.RobotMap;
 
 public class Intake extends SubsystemBase {
-  /** Creates a new ExampleSubsystem. */
 
   private static Intake intake;
 
-  private Solenoid leftIntakeSolenoid, rightIntakeSolenoid;
-  private CANSparkMax intakeMotor;
+  private Solenoid intakeSolenoid;
+  private VictorSP intakeMotor;
 
   public Intake(){
-    leftIntakeSolenoid = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.INTAKE_PNEUMATIC_LEFT);
-    rightIntakeSolenoid = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.INTAKE_PNEUMATIC_RIGHT);
-    intakeMotor = new CANSparkMax(RobotMap.INTAKE_MOTOR, MotorType.kBrushless);
+    intakeSolenoid = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.SOLENOID_INTAKE);
+    intakeMotor = new VictorSP(RobotMap.MOTOR_INTAKE);
 
   }
 
@@ -44,9 +38,8 @@ public class Intake extends SubsystemBase {
   }
 
   public void runIntake(double speed, boolean solenoidState){
-    intakeMotor.set(speed);//may need multiplier
-    leftIntakeSolenoid.set(solenoidState);
-    rightIntakeSolenoid.set(solenoidState);
+    intakeMotor.set(speed);
+    intakeSolenoid.set(solenoidState);
   }
 
   public void stopIntake(){
@@ -58,25 +51,19 @@ public class Intake extends SubsystemBase {
   }
 
   public boolean isIntaking() {
-    //SmartDashboard.putNumber("intake motor reported %", intakeMotor.getMotorOutputPercent());
      return (intakeMotor.get() > 0.0);
   }
   
-
-  public boolean getLeftSolenoidState() {
-    return(leftIntakeSolenoid.get());
+  public boolean getSolenoidState() {
+    return intakeSolenoid.get();
   }
 
-  public boolean getRightSolenoidState() {
-    return(rightIntakeSolenoid.get());
-  }
-
-  public double getRollersSpeed() {
+  public double getSpeed() {
     return(intakeMotor.get());
   }
 
-  public void putSmartDashboard() {
-    SmartDashboard.putNumber("Intake Rollers Speed", getRollersSpeed());
-    SmartDashboard.putBoolean("Intake State", getLeftSolenoidState());
+  public void putSmartDashboardOverrides() {
+    SmartDashboard.putNumber("OR: Intake speed", getSpeed());
+    SmartDashboard.putBoolean("OR: Intake solenoid", getSolenoidState());
   }
 }
