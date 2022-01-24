@@ -9,7 +9,17 @@ sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
 
 repositories {
-    maven { url "https://jitpack.io" }
+    maven {
+        url = uri("https://maven.pkg.github.com/Mechanical-Advantage/AdvantageKit")
+        credentials {
+            username = "Mechanical-Advantage-Bot"
+            password = "ghp_ykO20iuCY5H2i" + "LgmNxz8VIKJ2uQa6g1DdV0i"
+        }
+    }
+}
+
+configurations.all {
+    exclude group: "edu.wpi.first.wpilibj"
 }
 
 def ROBOT_MAIN_CLASS = "frc.robot.Main"
@@ -72,7 +82,6 @@ dependencies {
     simulationRelease wpi.sim.enableRelease()
 
     testImplementation 'junit:junit:4.12'
-    implementation 'com.github.TripleHelixProgramming:HelixUtilities:v2020.1'
 }
 
 // Simulation configuration (e.g. environment variables).

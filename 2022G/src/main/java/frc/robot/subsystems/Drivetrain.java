@@ -14,8 +14,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import com.team2363.logger.HelixLogger;
-
+import org.littletonrobotics.junction.Logger;
 
 import frc.robot.utils.RobotMap;
 import frc.robot.utils.Constants;
@@ -63,6 +62,8 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("R enc pos", getRightEncoderPosition());
     SmartDashboard.putNumber("L enc vel", getLeftEncoderVelocity());
     SmartDashboard.putNumber("R enc vel", getRightEncoderVelocity());
+
+    updateLogData();
   }
 
   @Override
@@ -137,9 +138,9 @@ public void arcadeDrive(double speed, double turn){
     Constants.DRIVE_USE_SQUARED_INPUTS);
   }
 
-  private void setupLogs() {
-    HelixLogger.getInstance().addSource("L Encoder Velocity", leftEncoder::getVelocity);
-    HelixLogger.getInstance().addSource("R Encoder Velocity", rightEncoder::getVelocity);
+  private void updateLogData() {
+    Logger.getInstance().recordOutput("DriveTrain/EncPosition", getLeftEncoderPosition());
+    Logger.getInstance().recordOutput("DriveTrain/EncVelocity", getLeftEncoderVelocity());
   }
 
   public void putSmartDashboard(){

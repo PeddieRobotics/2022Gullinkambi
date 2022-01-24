@@ -4,7 +4,12 @@
 
 package frc.robot;
 
-import com.team2363.logger.HelixLogger;
+
+import org.littletonrobotics.junction.LoggedRobot;
+import org.littletonrobotics.junction.Logger;
+import org.littletonrobotics.junction.inputs.LoggedNetworkTables;
+import org.littletonrobotics.junction.io.ByteLogReceiver;
+import org.littletonrobotics.junction.io.LogSocketServer;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -16,7 +21,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * the package after creating this project, you must also update the build.gradle file in the
  * project.
  */
-public class Robot extends TimedRobot {
+public class Robot extends LoggedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
@@ -29,6 +34,13 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
+    Logger logger = Logger.getInstance();
+    setUseTiming(true);
+    LoggedNetworkTables.getInstance().addTable("/LiveWindow");
+    logger.addDataReceiver(new ByteLogReceiver("/home/lvuser/"));
+    logger.addDataReceiver(new LogSocketServer(5800));
+    logger.start();
+
     m_robotContainer = new RobotContainer();
   }
 
@@ -46,6 +58,13 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+
+    Logger.getInstance().recordOutput("SineWave",
+        Math.sin(Logger.getInstance().getTimestamp() / 2) * 10);
+    Logger.getInstance().recordOutput("CosineWave",
+        Math.cos(Logger.getInstance().getTimestamp() / 2) * 10);
+    Logger.getInstance().recordOutput("FastWave",
+        Math.sin(Logger.getInstance().getTimestamp() * 2) * 10);
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -87,7 +106,6 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    HelixLogger.getInstance().saveLogs();
   }
 
   @Override
