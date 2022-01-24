@@ -5,14 +5,10 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.RelativeEncoder;
 
-import edu.wpi.first.math.controller.SimpleMotorFeedforward;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
@@ -23,41 +19,50 @@ import com.team2363.logger.HelixLogger;
 
 import frc.robot.utils.RobotMap;
 import frc.robot.utils.Constants;
+import frc.robot.utils.RobotMap;
 
 public class Drivetrain extends SubsystemBase {
   private static Drivetrain drivetrain;
 
-  private final CANSparkMax leftMaster, rightMaster, leftFollower, rightFollower;
+  private final CANSparkMax leftMaster, rightMaster, leftFollower1, rightFollower1, leftFollower2, rightFollower2;
   private final MotorControllerGroup leftMotors, rightMotors;
 
   private final DifferentialDrive drive;
 
   private final RelativeEncoder leftEncoder, rightEncoder;
 
-  
-  /** Creates a new ExampleSubsystem. */
   public Drivetrain() {
-    leftMaster = new CANSparkMax(RobotMap.DRIVE_LEFT_MASTER, MotorType.kBrushless);
-    rightMaster = new CANSparkMax(RobotMap.DRIVE_RIGHT_MASTER, MotorType.kBrushless);
-    leftFollower = new CANSparkMax(RobotMap.DRIVE_LEFT_FOLLOWER, MotorType.kBrushless);
-    rightFollower = new CANSparkMax(RobotMap.DRIVE_RIGHT_FOLLOWER, MotorType.kBrushless);
+    leftMaster = new CANSparkMax(RobotMap.MOTOR_DRIVE_LEFT_MASTER, MotorType.kBrushless);
+    rightMaster = new CANSparkMax(RobotMap.MOTOR_DRIVE_RIGHT_MASTER, MotorType.kBrushless);
+    leftFollower1 = new CANSparkMax(RobotMap.MOTOR_DRIVE_LEFT_FOLLOWER1, MotorType.kBrushless);
+    rightFollower1 = new CANSparkMax(RobotMap.MOTOR_DRIVE_RIGHT_FOLLOWER1, MotorType.kBrushless);
+    leftFollower2 = new CANSparkMax(RobotMap.MOTOR_DRIVE_LEFT_FOLLOWER2, MotorType.kBrushless);
+    rightFollower2 = new CANSparkMax(RobotMap.MOTOR_DRIVE_RIGHT_FOLLOWER2, MotorType.kBrushless);
 
-    leftMotors = new MotorControllerGroup(leftMaster, leftFollower);
-    rightMotors = new MotorControllerGroup(rightMaster, rightFollower);
+    leftMotors = new MotorControllerGroup(leftMaster, leftFollower1, leftFollower2);
+    rightMotors = new MotorControllerGroup(rightMaster, rightFollower1, rightFollower2);
     
     drive = new DifferentialDrive(leftMotors, rightMotors);
     drive.setDeadband(Constants.DRIVING_DEADBANDS);
     drive.setSafetyEnabled(false);
 
-    leftFollower.follow(leftMaster);
-    rightFollower.follow(rightMaster);
+    leftMaster.setInverted(true);
+    
+    leftFollower1.follow(leftMaster);
+    leftFollower2.follow(leftMaster);
+    rightFollower1.follow(rightMaster);
+    rightFollower2.follow(rightMaster);
 
     leftEncoder = leftMaster.getEncoder();
     rightEncoder = rightMaster.getEncoder();
   }
+
   @Override
   public void periodic() {
-    putSmartDashboard();
+    SmartDashboard.putNumber("L enc pos", getLeftEncoderPosition());
+    SmartDashboard.putNumber("R enc pos", getRightEncoderPosition());
+    SmartDashboard.putNumber("L enc vel", getLeftEncoderVelocity());
+    SmartDashboard.putNumber("R enc vel", getRightEncoderVelocity());
   }
 
   @Override
@@ -103,16 +108,23 @@ public void setBrake() {
   leftMaster.setIdleMode(IdleMode.kBrake);
   rightMaster.setIdleMode(IdleMode.kBrake);
 
-  leftFollower.setIdleMode(IdleMode.kBrake);
-  rightFollower.setIdleMode(IdleMode.kBrake);
+  leftFollower1.setIdleMode(IdleMode.kBrake);
+  rightFollower1.setIdleMode(IdleMode.kBrake);
+
+  leftFollower2.setIdleMode(IdleMode.kBrake);
+  rightFollower2.setIdleMode(IdleMode.kBrake);
 }
 
 public void setCoast(){
   leftMaster.setIdleMode(IdleMode.kCoast);
   rightMaster.setIdleMode(IdleMode.kCoast);
 
-  leftFollower.setIdleMode(IdleMode.kCoast);
-  rightFollower.setIdleMode(IdleMode.kCoast);
+  leftFollower1.setIdleMode(IdleMode.kCoast);
+  rightFollower1.setIdleMode(IdleMode.kCoast);
+
+  leftFollower2.setIdleMode(IdleMode.kCoast);
+  rightFollower2.setIdleMode(IdleMode.kCoast);
+
 }
 
 public void resetEncoders(){
@@ -137,5 +149,9 @@ public void arcadeDrive(double speed, double turn){
     SmartDashboard.putNumber("R Enc Pos", getRightEncoderPosition());
     SmartDashboard.putNumber("L Enc Vel", getLeftEncoderVelocity());
     SmartDashboard.putNumber("R Enc Vel", getRightEncoderVelocity());
+  }
+public void putSmartDashboardOverrides(){
+    SmartDashboard.putNumber("OR: Drivetrain speed", 0);
+    SmartDashboard.putNumber("OR: Drivetrain turn", 0);
   }
 }

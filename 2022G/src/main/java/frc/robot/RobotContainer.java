@@ -4,14 +4,15 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.OI;
+import frc.robot.commands.DriveCommands.Drive;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.commands.Drive;
+import frc.robot.subsystems.Flywheel;
+import frc.robot.subsystems.Hopper;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Limelight;
 
 
 /**
@@ -21,31 +22,33 @@ import frc.robot.commands.Drive;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-
-  private final OI oi;
+  private final XboxOI oi;
   private final Drivetrain drivetrain;
+  private final Intake intake;
+  private final Hopper hopper;
+  private final Flywheel flywheel;
+  private final Climber climber;
+  private final Limelight limelight;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    oi = new OI();
+    oi = new XboxOI();
+    
     drivetrain = Drivetrain.getInstance();
-
+    intake = Intake.getInstance();
+    hopper = Hopper.getInstance();
+    flywheel = Flywheel.getInstance();
+    climber = Climber.getInstance();
+    limelight  = Limelight.getInstance();
+    
     drivetrain.setDefaultCommand(new Drive());
-    // Configure the button bindings
-    configureButtonBindings();
+    intake.register();
+    hopper.register();
+    flywheel.register();
+    climber.register();
+    limelight.register();
+    
   }
-
-  /**
-   * Use this method to define your button->command mappings. Buttons can be created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
-   * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
-   */
-  private void configureButtonBindings() {}
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -53,7 +56,43 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    // needs to be merged/fixed from autonomous work in 2022Preseason repo
+    return null;
+  }
+
+  public void setupSmartDashboard() {
+    drivetrain.putSmartDashboardOverrides();
+    intake.putSmartDashboardOverrides();
+    hopper.putSmartDashboardOverrides();
+    limelight.putSmartDashboardOverrides();
+    climber.putSmartDashboardOverrides();
+    flywheel.putSmartDashboardOverrides();
+  }
+
+  // Overrides for interfacing with robot hardware
+  // The SmartDashboard fields for all of these should be configured with the putSmartDashboardOverrides method
+  // in each respective subsystem.
+  public void testAllSystems() {
+    // Drivetrain
+    // Be exceptionally careful driving the robot via dashboard. Usually done on blocks.
+    drivetrain.arcadeDrive(SmartDashboard.getNumber("OR: Drivetrain speed", 0), SmartDashboard.getNumber("OR: Drivetrain turn", 0));
+    
+    // Intake
+    intake.runIntake(SmartDashboard.getNumber("OR: Intake speed", 0), SmartDashboard.getBoolean("Intake state", false));
+
+    // Hopper
+    hopper.runHopper(SmartDashboard.getNumber("OR: Hopper speed", 0));
+
+    // Flywheel
+    flywheel.setHood(SmartDashboard.getBoolean("OR: Hood up", false));
+    flywheel.runFlywheelSetPoint(SmartDashboard.getNumber("OR: Flywheel setpoint", 0));
+
+    // Climber
+    climber.setClimberSpeed(SmartDashboard.getNumber("OR: Climber speed", 0));
+    climber.setClimberTilt(SmartDashboard.getBoolean("OR: Climber tilt", false));
+    climber.setClimberHook(SmartDashboard.getBoolean("OR: Climber hook", false));
+
+
+    // Limelight - currently none
   }
 }
