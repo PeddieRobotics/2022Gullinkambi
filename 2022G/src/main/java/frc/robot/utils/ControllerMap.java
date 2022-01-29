@@ -3,7 +3,8 @@ package frc.robot.utils;
 public class ControllerMap {
     public static final int DRIVER_PORT = 0;
     public static final int OPERATOR_PORT = 1;
-
+	public static final int XBOX_OPERATOR_PORT = 2;
+	
     //Xbox One controller, joystick ports
 	public static final int XBOX_LEFT_STICK_X = 0;
 	public static final int XBOX_LEFT_STICK_Y = 1;

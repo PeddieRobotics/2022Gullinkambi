@@ -24,7 +24,7 @@ import com.kauailabs.navx.frc.AHRS;
 public class Drivetrain extends SubsystemBase {
   private static Drivetrain drivetrain;
 
-  private final CANSparkMax leftMaster, rightMaster, leftFollower1, rightFollower1, leftFollower2, rightFollower2;
+  private final CANSparkMax leftMaster, rightMaster, leftFollower1, rightFollower1; //leftFollower2, rightFollower2;
   private final MotorControllerGroup leftMotors, rightMotors;
 
   private final DifferentialDrive drive;
@@ -40,11 +40,13 @@ public class Drivetrain extends SubsystemBase {
     rightMaster = new CANSparkMax(RobotMap.MOTOR_DRIVE_RIGHT_MASTER, MotorType.kBrushless);
     leftFollower1 = new CANSparkMax(RobotMap.MOTOR_DRIVE_LEFT_FOLLOWER1, MotorType.kBrushless);
     rightFollower1 = new CANSparkMax(RobotMap.MOTOR_DRIVE_RIGHT_FOLLOWER1, MotorType.kBrushless);
-    leftFollower2 = new CANSparkMax(RobotMap.MOTOR_DRIVE_LEFT_FOLLOWER2, MotorType.kBrushless);
-    rightFollower2 = new CANSparkMax(RobotMap.MOTOR_DRIVE_RIGHT_FOLLOWER2, MotorType.kBrushless);
+    //leftFollower2 = new CANSparkMax(RobotMap.MOTOR_DRIVE_LEFT_FOLLOWER2, MotorType.kBrushless);
+    //rightFollower2 = new CANSparkMax(RobotMap.MOTOR_DRIVE_RIGHT_FOLLOWER2, MotorType.kBrushless);
 
-    leftMotors = new MotorControllerGroup(leftMaster, leftFollower1, leftFollower2);
-    rightMotors = new MotorControllerGroup(rightMaster, rightFollower1, rightFollower2);
+    leftMotors = new MotorControllerGroup(leftMaster, leftFollower1);
+    rightMotors = new MotorControllerGroup(rightMaster, rightFollower1);
+    //leftMotors = new MotorControllerGroup(leftMaster, leftFollower1, leftFollower2);
+    //rightMotors = new MotorControllerGroup(rightMaster, rightFollower1, rightFollower2);
     
     drive = new DifferentialDrive(leftMotors, rightMotors);
     drive.setDeadband(Constants.DRIVING_DEADBANDS);
@@ -54,9 +56,9 @@ public class Drivetrain extends SubsystemBase {
     rightMaster.setInverted(false);
     
     leftFollower1.follow(leftMaster);
-    leftFollower2.follow(leftMaster);
+    //leftFollower2.follow(leftMaster);
     rightFollower1.follow(rightMaster);
-    rightFollower2.follow(rightMaster);
+    //rightFollower2.follow(rightMaster);
 
     leftEncoder = leftMaster.getEncoder();
     rightEncoder = rightMaster.getEncoder();
@@ -127,8 +129,8 @@ public void setBrake() {
   leftFollower1.setIdleMode(IdleMode.kBrake);
   rightFollower1.setIdleMode(IdleMode.kBrake);
 
-  leftFollower2.setIdleMode(IdleMode.kBrake);
-  rightFollower2.setIdleMode(IdleMode.kBrake);
+  //leftFollower2.setIdleMode(IdleMode.kBrake);
+  //rightFollower2.setIdleMode(IdleMode.kBrake);
 }
 
 public void setCoast(){
@@ -138,8 +140,8 @@ public void setCoast(){
   leftFollower1.setIdleMode(IdleMode.kCoast);
   rightFollower1.setIdleMode(IdleMode.kCoast);
 
-  leftFollower2.setIdleMode(IdleMode.kCoast);
-  rightFollower2.setIdleMode(IdleMode.kCoast);
+  //leftFollower2.setIdleMode(IdleMode.kCoast);
+  //rightFollower2.setIdleMode(IdleMode.kCoast);
 
 }
 
@@ -162,4 +164,5 @@ public double getHeading(){
    headingValue = gyro.getAngle();
   return Math.IEEEremainder(headingValue, 360);
   }
+
 }
