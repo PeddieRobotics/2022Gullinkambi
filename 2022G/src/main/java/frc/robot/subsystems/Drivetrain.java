@@ -9,6 +9,8 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
@@ -17,6 +19,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.Constants;
 import frc.robot.utils.RobotMap;
 
+import com.kauailabs.navx.frc.AHRS;
+
 public class Drivetrain extends SubsystemBase {
   private static Drivetrain drivetrain;
 
@@ -24,6 +28,10 @@ public class Drivetrain extends SubsystemBase {
   private final MotorControllerGroup leftMotors, rightMotors;
 
   private final DifferentialDrive drive;
+  private final DifferentialDriveOdometry odometry;
+  private final AHRS gyro;
+
+  private double headingValue;
 
   private final RelativeEncoder leftEncoder, rightEncoder;
 
@@ -43,6 +51,7 @@ public class Drivetrain extends SubsystemBase {
     drive.setSafetyEnabled(false);
 
     leftMaster.setInverted(true);
+    rightMaster.setInverted(false);
     
     leftFollower1.follow(leftMaster);
     leftFollower2.follow(leftMaster);
@@ -51,14 +60,18 @@ public class Drivetrain extends SubsystemBase {
 
     leftEncoder = leftMaster.getEncoder();
     rightEncoder = rightMaster.getEncoder();
+
+    gyro = new AHRS();
+
+    odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
+
   }
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("L enc pos", getLeftEncoderPosition());
-    SmartDashboard.putNumber("R enc pos", getRightEncoderPosition());
-    SmartDashboard.putNumber("L enc vel", getLeftEncoderVelocity());
-    SmartDashboard.putNumber("R enc vel", getRightEncoderVelocity());
+    
+
+    putSmartDashboard();
   }
 
   @Override
@@ -98,6 +111,13 @@ public DifferentialDriveWheelSpeeds getWheelSpeeds() {
   return new DifferentialDriveWheelSpeeds(getLeftEncoderVelocity(), getRightEncoderVelocity());
 }
 
+public void putSmartDashboard(){
+  SmartDashboard.putNumber("L enc pos", getLeftEncoderPosition());
+  SmartDashboard.putNumber("R enc pos", getRightEncoderPosition());
+  SmartDashboard.putNumber("L enc vel", getLeftEncoderVelocity());
+  SmartDashboard.putNumber("R enc vel", getRightEncoderVelocity());
+  SmartDashboard.putNumber("Heading", getHeading());
+}
 
 public void setBrake() {
 
@@ -136,5 +156,10 @@ public void arcadeDrive(double speed, double turn){
 public void putSmartDashboardOverrides(){
     SmartDashboard.putNumber("OR: Drivetrain speed", 0);
     SmartDashboard.putNumber("OR: Drivetrain turn", 0);
+  }
+
+public double getHeading(){
+   headingValue = gyro.getAngle();
+  return Math.IEEEremainder(headingValue, 360);
   }
 }
