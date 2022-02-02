@@ -165,7 +165,7 @@ public void putSmartDashboardOverrides(){
 }
 
 public double getHeading(){
-   headingValue = gyro.getAngle();
+  headingValue = gyro.getAngle();
   return Math.IEEEremainder(headingValue, 360);
 }
 
