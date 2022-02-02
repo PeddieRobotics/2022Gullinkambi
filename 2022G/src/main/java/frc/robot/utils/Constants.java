@@ -19,7 +19,9 @@ public final class Constants {
 
   public static final double DRIVING_DEADBANDS = 0.08;
   public static final double SPEED_MULTIPLIER = 0.2;
-  public static final double TURN_MULTIPLIER = 0.08;
+  public static final double TURN_MULTIPLIER = 0.2;
+  public static final double SLOW_SPEED_MULTIPLIER = 0.6;
+  public static final double SLOW_TURN_MULTIPLIER = 0.7;
 
   // Hopper constants
   public static final int MAX_HOPPER_BELT_CURRENT = 15; // amps
@@ -52,7 +54,7 @@ public final class Constants {
 }
 
 //uncommment whichever one you want to use & comment the rest
-public static final OIConfig OI_CONFIG = OIConfig.COMPETITION; 
+public static final OIConfig OI_CONFIG = OIConfig.JOYSTICK_TEST; 
 //public static final OIConfig OI_CONFIG = OIConfig.XBOX_TEST; 
 //public static final OIConfig OI_CONFIG = OIConfig.JOYSTICK_TEST;
   
