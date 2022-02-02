@@ -76,8 +76,7 @@ public class Drivetrain extends SubsystemBase {
 
   @Override
   public void periodic() {
-    
-
+    odometry.update(getHeadingAsRotation2d(), leftEncoder.getPosition(), rightEncoder.getPosition());
     putSmartDashboard();
   }
 
@@ -130,6 +129,8 @@ public void putSmartDashboard(){
   SmartDashboard.putNumber("R enc vel", getRightEncoderVelocity());
   SmartDashboard.putNumber("Heading", getHeading());
   SmartDashboard.putNumber("Unbounded Heading", getUnboundedHeading());
+  SmartDashboard.putNumber("Odometry X", odometry.getPoseMeters().getTranslation().getX());
+  SmartDashboard.putNumber("Odometry Y", odometry.getPoseMeters().getTranslation().getY());
 }
 
 public void setBrake() {

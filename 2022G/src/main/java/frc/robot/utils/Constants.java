@@ -51,21 +51,12 @@ public final class Constants {
   public static final double XBOX_TRIGGER_DEADZONE = 0;
   public enum OIConfig {
     XBOX_TEST, JOYSTICK_TEST, COMPETITION
-}
+  }
 
 //uncommment whichever one you want to use & comment the rest
 //public static final OIConfig OI_CONFIG = OIConfig.COMPETITION; 
-public static final OIConfig OI_CONFIG = OIConfig.XBOX_TEST; 
-//public static final OIConfig OI_CONFIG = OIConfig.JOYSTICK_TEST;
-  
-  public enum OIConfig {
-    XBOX_TEST, JOYSTICK_TEST, COMPETITION
-  }
+// public static final OIConfig OI_CONFIG = OIConfig.XBOX_TEST;
+public static final OIConfig OI_CONFIG = OIConfig.JOYSTICK_TEST;
 
-  //uncommment whichever one you want to use & comment the rest
-  // public static final OIConfig OI_CONFIG = OIConfig.COMPETITION; 
-  public static final OIConfig OI_CONFIG = OIConfig.XBOX_TEST; 
-  //public static final OIConfig OI_CONFIG = OIConfig.JOYSTICK_TEST; 
-  
 }
 
