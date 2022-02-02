@@ -54,8 +54,8 @@ public final class Constants {
 }
 
 //uncommment whichever one you want to use & comment the rest
-public static final OIConfig OI_CONFIG = OIConfig.JOYSTICK_TEST; 
-//public static final OIConfig OI_CONFIG = OIConfig.XBOX_TEST; 
+//public static final OIConfig OI_CONFIG = OIConfig.COMPETITION; 
+public static final OIConfig OI_CONFIG = OIConfig.XBOX_TEST; 
 //public static final OIConfig OI_CONFIG = OIConfig.JOYSTICK_TEST;
   
 }
