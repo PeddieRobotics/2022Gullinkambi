@@ -6,21 +6,24 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.IntakeCommands.StartIntake;
 import frc.robot.commands.IntakeCommands.StopIntake;
 import frc.robot.commands.ShootCommands.ShootFar;
+//import frc.robot.commands.ShootCommands.ShootLayup;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Intake;
+//import frc.robot.subsystems.Tower;
 import frc.robot.utils.ControllerMap;
 
 public class JoystickOI {
 
   private static JoystickOI oi2;
   private final Drivetrain m_driveTrain;
-  private final Hopper m_hopper;
-  private final Flywheel m_flywheel;
-  private final Intake m_intake;
-  private final Climber m_climber;
+  //private final Tower m_tower;
+  // private final Hopper m_hopper;
+  // private final Flywheel m_flywheel;
+  // private final Intake m_intake;
+  // private final Climber m_climber;
   // private final Limelight m_limelight;
 
 
@@ -36,24 +39,25 @@ public class JoystickOI {
 
   // private XboxTrigger driverLeftTrigger, driverRightTrigger;
 
-  public JoystickOI(Drivetrain d, Hopper h, Flywheel f, Intake i, Climber c) {
+  public JoystickOI(Drivetrain d, Hopper h, Flywheel f, Intake i, Climber c) {  //add Tower t when needed
     m_driveTrain = d;
-    m_hopper = h;
-    m_flywheel = f;
-    m_intake = i;
-    m_climber = c;
+    //m_tower = t;
+    // m_hopper = h;
+    // m_flywheel = f;
+    // m_intake = i;
+    // m_climber = c;
     // m_limelight = l;
 
     initializeJoysticks();
     configureJoysticks();
-    // m_driveTrain.setJoysticks(leftJoystick, rightJoystick);
+    m_driveTrain.setJoysticks(leftJoystick, rightJoystick);
 
   }
 
   public void initializeJoysticks() {
 
-    // leftJoystick = new Joystick(ControllerMap.LEFT_JOYSTICK_DRIVER_PORT);
-    // rightJoystick = new Joystick(ControllerMap.RIGHT_JOYSTICK_DRIVER_PORT);
+    leftJoystick = new Joystick(ControllerMap.LEFT_JOYSTICK_DRIVER_PORT);
+    rightJoystick = new Joystick(ControllerMap.RIGHT_JOYSTICK_DRIVER_PORT);
 
     leftTrigger = new JoystickButton(leftJoystick, 1);
     leftButton2 = new JoystickButton(leftJoystick, 2);
@@ -70,11 +74,11 @@ public class JoystickOI {
   public void configureJoysticks() {
 
     // Driver joystick binds (dual joystick)
-    leftButton3.whenPressed(new StartIntake());
-    leftButton4.whenPressed(new StopIntake());
+    //leftButton3.whenPressed(new StartIntake());
+    //leftButton4.whenPressed(new StopIntake());
     
-    rightButton3.whileHeld(new ShootFar());
-    // rightButton4.whileHeld(new ShootLayup());
+    //rightButton3.whileHeld(new ShootFar());
+    //rightButton4.whileHeld(new ShootLayup());
 
   }
 
@@ -100,8 +104,10 @@ public class JoystickOI {
 
   public static JoystickOI getInstance() {
     if (oi2 == null) {
-      oi2 = new JoystickOI(Drivetrain.getInstance(), Hopper.getInstance(), Flywheel.getInstance(),
-          Intake.getInstance(), Climber.getInstance());
+      oi2 = new JoystickOI(Drivetrain.getInstance(), null, null, null, null);
+          
+      // oi2 = new JoystickOI(Drivetrain.getInstance(), Hopper.getInstance(), Flywheel.getInstance(), // add Tower.getInstance() later when we actually make the code
+      //     Intake.getInstance(), Climber.getInstance());
     }
     return oi2;
   }

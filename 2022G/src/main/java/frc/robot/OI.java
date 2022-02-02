@@ -1,3 +1,4 @@
+
 package frc.robot;
 
 import java.sql.Driver;
@@ -11,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.oi.JoystickOI;
 import frc.robot.oi.XboxOI;
-// import frc.robot.commands.SplitFFRamseteCommand;
+//import frc.robot.commands.SplitFFRamseteCommand;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.utils.Constants;
 import frc.robot.utils.Constants.OIConfig;
@@ -34,7 +35,7 @@ public class OI {
       m_JoystickOI = JoystickOI.getInstance();
       m_JoystickOI.initializeJoysticks();
       m_JoystickOI.configureJoysticks();
-      // m_driveTrain.setJoysticks(leftJoystick, rightJoystick);
+      m_driveTrain.setJoysticks(leftJoystick, rightJoystick);
     } else if (Constants.OI_CONFIG == OIConfig.XBOX_TEST) {
       m_XboxOI = XboxOI.getInstance();
       m_XboxOI.configureXboxControllers();
@@ -42,7 +43,7 @@ public class OI {
       m_JoystickOI = JoystickOI.getInstance();
       m_JoystickOI.initializeJoysticks();
       m_JoystickOI.configureJoysticks();
-      // m_driveTrain.setJoysticks(leftJoystick, rightJoystick);
+      m_driveTrain.setJoysticks(leftJoystick, rightJoystick);
     }
 
   }

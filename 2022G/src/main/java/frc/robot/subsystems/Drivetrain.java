@@ -13,6 +13,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -35,6 +36,7 @@ public class Drivetrain extends SubsystemBase {
   private double headingValue;
 
   private final RelativeEncoder leftEncoder, rightEncoder;
+  private Joystick leftJoystick, rightJoystick;
 
   public Drivetrain() {
     leftMaster = new CANSparkMax(RobotMap.MOTOR_DRIVE_LEFT_MASTER, MotorType.kBrushless);
@@ -93,6 +95,11 @@ public static Drivetrain getInstance(){
 
 public double getLeftEncoderPosition(){
   return leftEncoder.getPosition();
+}
+
+public void setJoysticks(Joystick left, Joystick right){
+  leftJoystick = left;
+  rightJoystick = right;
 }
 
 public double getRightEncoderPosition(){

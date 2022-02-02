@@ -15,6 +15,7 @@ import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
+import frc.robot.OI;
 
 
 /**
@@ -24,7 +25,7 @@ import frc.robot.subsystems.Limelight;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  private final OI oi;
+  public final OI m_oi;
   private final Drivetrain drivetrain;
   // private final Intake intake;
   // private final Hopper hopper;
@@ -34,7 +35,6 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    oi = OI.getInstance();
     
     drivetrain = Drivetrain.getInstance();
     //intake = Intake.getInstance();
@@ -42,6 +42,7 @@ public class RobotContainer {
     //flywheel = Flywheel.getInstance();
     //climber = Climber.getInstance();
     //limelight  = Limelight.getInstance();
+    m_oi = OI.getInstance();
     
     drivetrain.setDefaultCommand(new Drive());
     //intake.register();
@@ -80,17 +81,17 @@ public class RobotContainer {
     // Be exceptionally careful driving the robot via dashboard. Usually done on blocks.
     drivetrain.arcadeDrive(SmartDashboard.getNumber("OR: Drivetrain speed", 0), SmartDashboard.getNumber("OR: Drivetrain turn", 0));
     
-    // Intake
+    // // Intake
     // intake.runIntake(SmartDashboard.getNumber("OR: Intake speed", 0), SmartDashboard.getBoolean("Intake state", false));
 
-    // Hopper
+    // // Hopper
     // hopper.runHopper(SmartDashboard.getNumber("OR: Hopper speed", 0));
 
-    // Flywheel
+    // // Flywheel
     // flywheel.setHood(SmartDashboard.getBoolean("OR: Hood up", false));
     // flywheel.runFlywheelSetPoint(SmartDashboard.getNumber("OR: Flywheel setpoint", 0));
 
-    // Climber
+    // // Climber
     // climber.setClimberSpeed(SmartDashboard.getNumber("OR: Climber speed", 0));
     // climber.setClimberTilt(SmartDashboard.getBoolean("OR: Climber tilt", false));
     // climber.setClimberHook(SmartDashboard.getBoolean("OR: Climber hook", false));

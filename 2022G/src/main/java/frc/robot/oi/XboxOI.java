@@ -5,15 +5,14 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-// import frc.robot.commands.IndexCommand;
-// import frc.robot.commands.FlywheelCommands.SetFlywheelHood;
+//import frc.robot.commands.IndexCommand;
+//import frc.robot.commands.FlywheelCommands.SetFlywheelHood;
 import frc.robot.utils.Constants;
 import frc.robot.utils.ControllerMap;
 import frc.robot.utils.Constants.OIConfig;
-// import frc.robot.utils.Constants.OIConfig;
 import frc.robot.commands.IntakeCommands.StartIntake;
 import frc.robot.commands.IntakeCommands.StopIntake;
-// import frc.robot.commands.IntakeCommands.UnjamIntake;
+//import frc.robot.commands.IntakeCommands.UnjamIntake;
 import frc.robot.commands.ShootCommands.ShootFar;
 
 public class XboxOI {
@@ -48,19 +47,19 @@ public class XboxOI {
             - operator buttons to switch the driver from drive mode to climb mode?
             */
             
-            // new JoystickButton(driverXboxController, ControllerMap.XBOX_X).toggleWhenActive(new UnjamIntake()); // XBOX_X 
+            //new JoystickButton(driverXboxController, ControllerMap.XBOX_X).toggleWhenActive(new UnjamIntake()); // XBOX_X 
             
-            // new JoystickButton(driverXboxController, ControllerMap.XBOX_Y).toggleWhenActive(new SetFlywheelHood()); //XBOX_Y
+            //new JoystickButton(driverXboxController, ControllerMap.XBOX_Y).toggleWhenActive(new SetFlywheelHood()); //XBOX_Y
 
         } else if (Constants.OI_CONFIG == OIConfig.XBOX_TEST) {
             //Driver xbox controller binds
-            // new Button(() -> driverXboxController.getRawAxis(3) > 0.5).whenPressed(new IndexCommand()); // XBOX_RT
+            //new Button(() -> driverXboxController.getRawAxis(3) > 0.5).whenPressed(new IndexCommand()); // XBOX_RT
 
-            // new Button(() -> driverXboxController.getRawAxis(2) > 0.5).whenPressed(new StartIntake()); // XBOX_LT
+            //new Button(() -> driverXboxController.getRawAxis(2) > 0.5).whenPressed(new StartIntake()); // XBOX_LT
 
-            // new JoystickButton(driverXboxController, ControllerMap.XBOX_X).whileHeld(new ShootFar()); // XBOX_X
+            //new JoystickButton(driverXboxController, ControllerMap.XBOX_X).whileHeld(new ShootFar()); // XBOX_X
 
-            // new JoystickButton(driverXboxController, ControllerMap.XBOX_LB).whenPressed(new StopIntake()); // XBOX_LB
+            //new JoystickButton(driverXboxController, ControllerMap.XBOX_LB).whenPressed(new StopIntake()); // XBOX_LB
         }
     }
 
