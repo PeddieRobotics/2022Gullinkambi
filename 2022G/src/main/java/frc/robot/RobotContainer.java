@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.DriveCommands.Drive;
@@ -56,6 +58,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
+    drivetrain.resetPose(new Pose2d(0.0, 0.0, new Rotation2d(0.0)), new Rotation2d(0.0));
     // needs to be merged/fixed from autonomous work in 2022Preseason repo
     return null;
   }
@@ -94,5 +97,17 @@ public class RobotContainer {
 
 
     // Limelight - currently none
+  }
+
+  public void setDrivetrainToCoastMode(){
+    drivetrain.setCoast();
+  }
+
+  public void resetGyro() {
+    drivetrain.resetGyro();
+  }
+
+  public void setDrivetrainToBrakeMode() {
+    drivetrain.setBrake();
   }
 }

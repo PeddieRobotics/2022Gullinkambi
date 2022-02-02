@@ -9,6 +9,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
@@ -43,6 +44,10 @@ public class Drivetrain extends SubsystemBase {
     //leftFollower2 = new CANSparkMax(RobotMap.MOTOR_DRIVE_LEFT_FOLLOWER2, MotorType.kBrushless);
     //rightFollower2 = new CANSparkMax(RobotMap.MOTOR_DRIVE_RIGHT_FOLLOWER2, MotorType.kBrushless);
 
+    leftEncoder = leftMaster.getEncoder();
+    rightEncoder = rightMaster.getEncoder();
+    resetEncoders();
+
     leftMotors = new MotorControllerGroup(leftMaster, leftFollower1);
     rightMotors = new MotorControllerGroup(rightMaster, rightFollower1);
     //leftMotors = new MotorControllerGroup(leftMaster, leftFollower1, leftFollower2);
@@ -60,10 +65,8 @@ public class Drivetrain extends SubsystemBase {
     rightFollower1.follow(rightMaster);
     //rightFollower2.follow(rightMaster);
 
-    leftEncoder = leftMaster.getEncoder();
-    rightEncoder = rightMaster.getEncoder();
-
     gyro = new AHRS();
+    gyro.reset();
 
     odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
 
@@ -119,6 +122,7 @@ public void putSmartDashboard(){
   SmartDashboard.putNumber("L enc vel", getLeftEncoderVelocity());
   SmartDashboard.putNumber("R enc vel", getRightEncoderVelocity());
   SmartDashboard.putNumber("Heading", getHeading());
+  SmartDashboard.putNumber("Unbounded Heading", getUnboundedHeading());
 }
 
 public void setBrake() {
@@ -153,16 +157,41 @@ public void resetEncoders(){
 public void arcadeDrive(double speed, double turn){
   drive.arcadeDrive(speed, turn,
     Constants.DRIVE_USE_SQUARED_INPUTS);
-  }
+}
 
 public void putSmartDashboardOverrides(){
     SmartDashboard.putNumber("OR: Drivetrain speed", 0);
     SmartDashboard.putNumber("OR: Drivetrain turn", 0);
-  }
+}
 
 public double getHeading(){
    headingValue = gyro.getAngle();
   return Math.IEEEremainder(headingValue, 360);
-  }
+}
+
+public Rotation2d getHeadingAsRotation2d(){
+  return Rotation2d.fromDegrees(getHeading());
+}
+
+public double getUnboundedHeading(){
+  return gyro.getCompassHeading();
+}
+
+public void resetPose(Pose2d estimatedPostition, Rotation2d gyroAngle){
+    resetEncoders();
+    odometry.resetPosition(estimatedPostition, gyroAngle);
+}
+
+public Pose2d getPose(){
+  return odometry.getPoseMeters();
+}
+
+public void resetGyro(){
+  gyro.reset();
+  resetPose(new Pose2d(0.0, 0.0, new Rotation2d(0.0)), getHeadingAsRotation2d());
+  resetEncoders();
+}
+
+
 
 }
