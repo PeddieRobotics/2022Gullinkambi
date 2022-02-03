@@ -9,6 +9,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.DriveCommands.Drive;
+import frc.robot.subsystems.Autonomous;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Flywheel;
@@ -27,6 +28,7 @@ import frc.robot.OI;
 public class RobotContainer {
   public final OI m_oi;
   private final Drivetrain drivetrain;
+  private final Autonomous m_autonomous;
   // private final Intake intake;
   // private final Hopper hopper;
   // private final Flywheel flywheel;
@@ -37,6 +39,7 @@ public class RobotContainer {
   public RobotContainer() {
     
     drivetrain = Drivetrain.getInstance();
+    m_autonomous = Autonomous.getInstance();
     //intake = Intake.getInstance();
     //hopper = Hopper.getInstance();
     //flywheel = Flywheel.getInstance();
@@ -61,7 +64,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     drivetrain.resetPose(new Pose2d(0.0, 0.0, new Rotation2d(0.0)), new Rotation2d(0.0));
     // needs to be merged/fixed from autonomous work in 2022Preseason repo
-    return null;
+    return m_autonomous.returnAutonomousCommand();
   }
 
   public void setupSmartDashboard() {

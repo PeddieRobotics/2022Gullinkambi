@@ -18,7 +18,9 @@ import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstrai
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.commands.SplitFFRamseteCommand;
 import frc.robot.commands.DriveCommands.Drive;
 import frc.robot.utils.Constants;
 
@@ -26,10 +28,47 @@ public class Autonomous extends SubsystemBase{
 
     private final Drivetrain m_drivetrain;
     private static Autonomous autonomous;
+    private final TrajectoryConfig configForward;
+    private final TrajectoryConfig configBackwards;
+    private final DifferentialDriveVoltageConstraint autoVoltageConstraint;
+    private Trajectory moveForwards, sPathForward, turnInPlace;
+    
 
     public Autonomous() {
         m_drivetrain = Drivetrain.getInstance();
         m_drivetrain.setDefaultCommand(new Drive());
+
+        autoVoltageConstraint =
+        new DifferentialDriveVoltageConstraint(
+            new SimpleMotorFeedforward(
+                Constants.ksVolts,
+                Constants.kvVoltSecondsPerMeter,
+                Constants.kaVoltSecondsSquaredPerMeter),
+                Constants.kDriveKinematics,
+            10);
+
+    
+        configForward = 
+            new TrajectoryConfig(
+                Constants.kMaxSpeedMetersPerSecond,
+                Constants.kMaxAccelerationMetersPerSecondSquared)
+            // Add kinematics to ensure max speed is actually obeyed
+            .setKinematics(Constants.kDriveKinematics)
+            // Apply the voltage constraint
+            .addConstraint(autoVoltageConstraint);
+    
+        configBackwards = 
+            new TrajectoryConfig(
+                Constants.kMaxSpeedMetersPerSecond,
+                Constants.kMaxAccelerationMetersPerSecondSquared)
+            // Add kinematics to ensure max speed is actually obeyed
+            .setKinematics(Constants.kDriveKinematics)
+            // Apply the voltage constraint
+            .addConstraint(autoVoltageConstraint)
+            // Reverse the motors
+            .setReversed(true);
+        
+        defineAutoPaths();
     }
 
     public static Autonomous getInstance(){
@@ -44,10 +83,73 @@ public class Autonomous extends SubsystemBase{
     public void setupAutoRoutines(){}
 
     public Command returnAutonomousCommand() {
-        return null;
+        // return createCommandFromTrajectory(moveForwards);
+        // return createCommandFromTrajectory(sPathForward);
+        return createCommandFromTrajectory(turnInPlace);
     }
 
-    private void defineAutoPaths(){}
+    private void defineAutoPaths(){
+        moveForwards = 
+            TrajectoryGenerator.generateTrajectory(
+            // Start at the origin facing the +X direction
+            new Pose2d(0, 0, new Rotation2d(0)),
+            List.of(new Translation2d(0.5, 0)),
+            // End  meters straight ahead of where we started, facing forward
+            new Pose2d(1, 0, new Rotation2d(Math.toRadians(0))),
+            // Pass config
+            configForward);
+        
+        sPathForward = 
+            TrajectoryGenerator.generateTrajectory(
+              // Start at the origin facing the +X direction
+              new Pose2d(0, 0, new Rotation2d(0)),
+              // Pass through these two interior waypoints, making an 's' curve path
+              List.of(
+                  new Translation2d(1, 1),
+                  new Translation2d(2, -1)
+              ),
+              // End 3 meters straight ahead of where we started, facing forward
+              new Pose2d(3, 0, new Rotation2d(0)),
+              // Pass config
+              configForward
+          );
+
+        turnInPlace = 
+          TrajectoryGenerator.generateTrajectory(
+              // Start at the origin facing the +X direction
+              new Pose2d(0, 0, new Rotation2d(0)),
+              // Pass through these two interior waypoints, making an 's' curve path
+              List.of(new Translation2d(.75, 0)),
+              // End 3 meters straight ahead of where we started, facing forward
+              new Pose2d(1, 0, new Rotation2d(90)),
+              // Pass config
+              configForward
+          );
+    }
+
+    public SplitFFRamseteCommand createCommandFromTrajectory(Trajectory trajectory){
+        SplitFFRamseteCommand autoCommand  =
+          new SplitFFRamseteCommand(
+              trajectory,
+              m_drivetrain::getPose,
+              new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
+              new SimpleMotorFeedforward(
+                Constants.ksVolts,
+                Constants.kvVoltSecondsPerMeter,
+                Constants.kaVoltSecondsSquaredPerMeter),
+            new SimpleMotorFeedforward(
+                Constants.ksVolts,
+                Constants.kvVoltSecondsPerMeter,
+                Constants.kaVoltSecondsSquaredPerMeter),
+              Constants.kDriveKinematics,
+              m_drivetrain::getWheelSpeeds,
+              new PIDController(Constants.kPDriveVel, 0, 0),
+              new PIDController(Constants.kPDriveVel, 0, 0),
+              // RamseteCommand passes volts to the callback
+              m_drivetrain::tankDriveVolts,
+              m_drivetrain);
+        return autoCommand;
+      }
 
     @Override
     public void periodic() {
