@@ -13,6 +13,7 @@ import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
+import frc.robot.OI;
 
 
 /**
@@ -22,31 +23,31 @@ import frc.robot.subsystems.Limelight;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  private final XboxOI oi;
+  public final OI m_oi;
   private final Drivetrain drivetrain;
-  private final Intake intake;
-  private final Hopper hopper;
-  private final Flywheel flywheel;
-  private final Climber climber;
-  private final Limelight limelight;
+  // private final Intake intake;
+  // private final Hopper hopper;
+  // private final Flywheel flywheel;
+  // private final Climber climber;
+  // private final Limelight limelight;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    oi = new XboxOI();
     
     drivetrain = Drivetrain.getInstance();
-    intake = Intake.getInstance();
-    hopper = Hopper.getInstance();
-    flywheel = Flywheel.getInstance();
-    climber = Climber.getInstance();
-    limelight  = Limelight.getInstance();
+    //intake = Intake.getInstance();
+    //hopper = Hopper.getInstance();
+    //flywheel = Flywheel.getInstance();
+    //climber = Climber.getInstance();
+    //limelight  = Limelight.getInstance();
+    m_oi = OI.getInstance();
     
     drivetrain.setDefaultCommand(new Drive());
-    intake.register();
-    hopper.register();
-    flywheel.register();
-    climber.register();
-    limelight.register();
+    //intake.register();
+    //hopper.register();
+    //flywheel.register();
+    //climber.register();
+    //limelight.register();
     
   }
 
@@ -62,11 +63,11 @@ public class RobotContainer {
 
   public void setupSmartDashboard() {
     drivetrain.putSmartDashboardOverrides();
-    intake.putSmartDashboardOverrides();
-    hopper.putSmartDashboardOverrides();
-    limelight.putSmartDashboardOverrides();
-    climber.putSmartDashboardOverrides();
-    flywheel.putSmartDashboardOverrides();
+    // intake.putSmartDashboardOverrides();
+    // hopper.putSmartDashboardOverrides();
+    // limelight.putSmartDashboardOverrides();
+    // climber.putSmartDashboardOverrides();
+    // flywheel.putSmartDashboardOverrides();
   }
 
   // Overrides for interfacing with robot hardware
@@ -77,20 +78,20 @@ public class RobotContainer {
     // Be exceptionally careful driving the robot via dashboard. Usually done on blocks.
     drivetrain.arcadeDrive(SmartDashboard.getNumber("OR: Drivetrain speed", 0), SmartDashboard.getNumber("OR: Drivetrain turn", 0));
     
-    // Intake
-    intake.runIntake(SmartDashboard.getNumber("OR: Intake speed", 0), SmartDashboard.getBoolean("Intake state", false));
+    // // Intake
+    // intake.runIntake(SmartDashboard.getNumber("OR: Intake speed", 0), SmartDashboard.getBoolean("Intake state", false));
 
-    // Hopper
-    hopper.runHopper(SmartDashboard.getNumber("OR: Hopper speed", 0));
+    // // Hopper
+    // hopper.runHopper(SmartDashboard.getNumber("OR: Hopper speed", 0));
 
-    // Flywheel
-    flywheel.setHood(SmartDashboard.getBoolean("OR: Hood up", false));
-    flywheel.runFlywheelSetPoint(SmartDashboard.getNumber("OR: Flywheel setpoint", 0));
+    // // Flywheel
+    // flywheel.setHood(SmartDashboard.getBoolean("OR: Hood up", false));
+    // flywheel.runFlywheelSetPoint(SmartDashboard.getNumber("OR: Flywheel setpoint", 0));
 
-    // Climber
-    climber.setClimberSpeed(SmartDashboard.getNumber("OR: Climber speed", 0));
-    climber.setClimberTilt(SmartDashboard.getBoolean("OR: Climber tilt", false));
-    climber.setClimberHook(SmartDashboard.getBoolean("OR: Climber hook", false));
+    // // Climber
+    // climber.setClimberSpeed(SmartDashboard.getNumber("OR: Climber speed", 0));
+    // climber.setClimberTilt(SmartDashboard.getBoolean("OR: Climber tilt", false));
+    // climber.setClimberHook(SmartDashboard.getBoolean("OR: Climber hook", false));
 
 
     // Limelight - currently none
