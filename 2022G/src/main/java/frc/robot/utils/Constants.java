@@ -52,11 +52,20 @@ public final class Constants {
   public enum OIConfig {
     XBOX_TEST, JOYSTICK_TEST, COMPETITION
   }
+  public static final double DRIVE_GEAR_RATIO = 6.0;
+    public static final double CONVERT_INCHES_TO_METERS = 0.0254;
+    public static final double DRIVE_WHEEL_DIAMETER =
+    4.0 * Constants.CONVERT_INCHES_TO_METERS;
+  public static final double DRIVE_ENC_ROT_TO_DIST = 
+    (1 / Constants.DRIVE_GEAR_RATIO)
+          * Math.PI
+          * Constants.DRIVE_WHEEL_DIAMETER; // Encoder position conversion factor (native rotations ->
+  // meters)
 
 //uncommment whichever one you want to use & comment the rest
 //public static final OIConfig OI_CONFIG = OIConfig.COMPETITION; 
-// public static final OIConfig OI_CONFIG = OIConfig.XBOX_TEST;
-public static final OIConfig OI_CONFIG = OIConfig.JOYSTICK_TEST;
+public static final OIConfig OI_CONFIG = OIConfig.XBOX_TEST;
+// public static final OIConfig OI_CONFIG = OIConfig.JOYSTICK_TEST;
 
 }
 

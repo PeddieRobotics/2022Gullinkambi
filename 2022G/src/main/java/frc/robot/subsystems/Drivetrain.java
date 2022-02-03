@@ -13,6 +13,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
@@ -31,7 +32,7 @@ public class Drivetrain extends SubsystemBase {
 
   private final DifferentialDrive drive;
   private final DifferentialDriveOdometry odometry;
-  private final AHRS gyro;
+  private final ADIS16470_IMU gyro;
 
   private double headingValue;
 
@@ -67,11 +68,12 @@ public class Drivetrain extends SubsystemBase {
     rightFollower1.follow(rightMaster);
     //rightFollower2.follow(rightMaster);
 
-    gyro = new AHRS();
+    gyro = new ADIS16470_IMU();
     gyro.reset();
 
     odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
 
+    setConversionFactors();
   }
 
   @Override
@@ -115,6 +117,13 @@ public double getRightEncoderVelocity(){
 
 public double getAverageEncoderDistance(){
   return (leftEncoder.getPosition() + rightEncoder.getPosition())/2.0;
+}
+
+private void setConversionFactors() {
+  leftEncoder.setPositionConversionFactor(Constants.DRIVE_ENC_ROT_TO_DIST);
+  rightEncoder.setPositionConversionFactor(Constants.DRIVE_ENC_ROT_TO_DIST);
+  leftEncoder.setVelocityConversionFactor(Constants.DRIVE_ENC_ROT_TO_DIST / 60.0);
+  rightEncoder.setVelocityConversionFactor(Constants.DRIVE_ENC_ROT_TO_DIST / 60.0);
 }
 
 // Returns the current wheel speeds
@@ -182,12 +191,16 @@ public Rotation2d getHeadingAsRotation2d(){
 }
 
 public double getUnboundedHeading(){
-  return gyro.getCompassHeading();
+  return gyro.getAngle();
 }
 
 public void resetPose(Pose2d estimatedPostition, Rotation2d gyroAngle){
     resetEncoders();
     odometry.resetPosition(estimatedPostition, gyroAngle);
+}
+
+public void calibrateGyro() {
+  gyro.calibrate();
 }
 
 public Pose2d getPose(){
@@ -196,10 +209,7 @@ public Pose2d getPose(){
 
 public void resetGyro(){
   gyro.reset();
-  resetPose(new Pose2d(0.0, 0.0, new Rotation2d(0.0)), getHeadingAsRotation2d());
+  resetPose(new Pose2d(0.0, 0.0, new Rotation2d(0.0)), new Rotation2d(0.0));
   resetEncoders();
 }
-
-
-
 }
