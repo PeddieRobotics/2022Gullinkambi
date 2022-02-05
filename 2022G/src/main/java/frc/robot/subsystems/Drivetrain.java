@@ -9,10 +9,13 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 
+import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -38,6 +41,9 @@ public class Drivetrain extends SubsystemBase {
 
   private final RelativeEncoder leftEncoder, rightEncoder;
   private Joystick leftJoystick, rightJoystick;
+
+  NetworkTableEntry m_xEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("X");
+  NetworkTableEntry m_yEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("Y");
 
   public Drivetrain() {
     leftMaster = new CANSparkMax(RobotMap.MOTOR_DRIVE_LEFT_MASTER, MotorType.kBrushless);
@@ -81,6 +87,10 @@ public class Drivetrain extends SubsystemBase {
   public void periodic() {
     odometry.update(getHeadingAsRotation2d(), leftEncoder.getPosition(), rightEncoder.getPosition());
     putSmartDashboard();
+
+    var translation = odometry.getPoseMeters().getTranslation();
+    m_xEntry.setNumber(translation.getX());
+    m_yEntry.setNumber(translation.getY());
   }
 
   @Override
@@ -116,6 +126,10 @@ public double getRightEncoderVelocity(){
   return -rightEncoder.getVelocity();
 }
 
+public double getAverageEncoderVelocity(){
+  return (Math.abs(getLeftEncoderVelocity())+Math.abs(getRightEncoderVelocity()))/2;
+}
+
 public double getAverageEncoderDistance(){
   return (leftEncoder.getPosition() + rightEncoder.getPosition())/2.0;
 }
@@ -141,6 +155,11 @@ public void putSmartDashboard(){
   SmartDashboard.putNumber("Unbounded Heading", getUnboundedHeading());
   SmartDashboard.putNumber("Odometry X", odometry.getPoseMeters().getTranslation().getX());
   SmartDashboard.putNumber("Odometry Y", odometry.getPoseMeters().getTranslation().getY());
+  SmartDashboard.putNumber("Average Velocity", getAverageEncoderVelocity());
+  SmartDashboard.putNumber("Left Encoder Velocity", getLeftEncoderVelocity());
+  SmartDashboard.putNumber("Right Encoder Velocity", getRightEncoderVelocity());
+  SmartDashboard.putNumber("Target Velocity", 1.1);
+  SmartDashboard.putNumber("Set Off", 1.1-getAverageEncoderVelocity());
 }
 
 public void setBrake() {

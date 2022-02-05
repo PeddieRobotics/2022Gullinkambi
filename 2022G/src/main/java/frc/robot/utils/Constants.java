@@ -5,6 +5,7 @@
 package frc.robot.utils;
 
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -79,15 +80,15 @@ public static final OIConfig OI_CONFIG = OIConfig.XBOX_TEST;
     // These characterization values MUST be determined either experimentally or theoretically
     // for *your* robot's drive.
     // Example value only - as above, this must be tuned for your drive!
-    public static final double kPDriveVel = 0.00034928;
-    //public static final double kPDriveVel = 0.015732;
+    // public static final double kPDriveVel = 0.00034928;
+    public static final double kPDriveVel = SmartDashboard.getNumber("KPDriveVel", 0);
 
     public static final double kTrackwidthMeters = 0.5842;
     public static final DifferentialDriveKinematics kDriveKinematics =
         new DifferentialDriveKinematics(kTrackwidthMeters);
 
-    public static final double kMaxSpeedMetersPerSecond = 1.7;
-    public static final double kMaxAccelerationMetersPerSecondSquared = 1.7;
+    public static final double kMaxSpeedMetersPerSecond = 1.1;
+    public static final double kMaxAccelerationMetersPerSecondSquared = 1.1;
 
     // Reasonable baseline values for a RAMSET0E follower in units of meters and seconds
     public static final double kRamseteB = 2;

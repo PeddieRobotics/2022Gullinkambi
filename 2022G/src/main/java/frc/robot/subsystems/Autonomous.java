@@ -36,7 +36,6 @@ public class Autonomous extends SubsystemBase{
     private final TrajectoryConfig configBackwards;
     private final DifferentialDriveVoltageConstraint autoVoltageConstraint;
     private Trajectory moveForwards, sPathForward, turnInPlace, shoot2High_Layup_B;
-    
 
     public Autonomous() {
         m_drivetrain = Drivetrain.getInstance();
@@ -88,9 +87,9 @@ public class Autonomous extends SubsystemBase{
 
     public Command returnAutonomousCommand() {
         // return createCommandFromTrajectory(moveForwards);
-        // return createCommandFromTrajectory(sPathForward);
+        return createCommandFromTrajectory(sPathForward);
         // return createCommandFromTrajectory(turnInPlace);
-        return createCommandFromTrajectory(shoot2High_Layup_B);
+        // return createCommandFromTrajectory(shoot2High_Layup_B);
     }
 
     private void defineAutoPaths(){
@@ -112,11 +111,10 @@ public class Autonomous extends SubsystemBase{
               List.of(
                   new Translation2d(1, 1),
                   new Translation2d(1.5, 0),
-                  new Translation2d(2, -1),
-                  new Translation2d(3, 0)
+                  new Translation2d(2, -1)
               ),
               // End 3 meters straight ahead of where we started, facing forward
-              new Pose2d(3.5, 0, new Rotation2d(0)),
+              new Pose2d(3, 0, new Rotation2d(0)),
               // Pass config
               configForward
           );
@@ -141,7 +139,8 @@ public class Autonomous extends SubsystemBase{
           new SplitFFRamseteCommand(
               trajectory,
               m_drivetrain::getPose,
-              new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
+            //   new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
+                new RamseteController(),
               new SimpleMotorFeedforward(
                 Constants.ksVolts,
                 Constants.kvVoltSecondsPerMeter,
@@ -152,8 +151,8 @@ public class Autonomous extends SubsystemBase{
                 Constants.kaVoltSecondsSquaredPerMeter),
               Constants.kDriveKinematics,
               m_drivetrain::getWheelSpeeds,
-              new PIDController(Constants.kPDriveVel, 0, 0),
-              new PIDController(Constants.kPDriveVel, 0, 0),
+              new PIDController(SmartDashboard.getNumber("KPDriveVel", 0), 0, 0),
+              new PIDController(SmartDashboard.getNumber("KPDriveVel", 0), 0, 0),
               // RamseteCommand passes volts to the callback
               m_drivetrain::tankDriveVolts,
               m_drivetrain);

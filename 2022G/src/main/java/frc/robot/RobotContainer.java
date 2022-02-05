@@ -16,6 +16,7 @@ import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
+import frc.robot.utils.Constants;
 import frc.robot.OI;
 
 
@@ -53,7 +54,8 @@ public class RobotContainer {
     //flywheel.register();
     //climber.register();
     //limelight.register();
-    
+    setupSmartDashboard();
+
   }
 
   /**
@@ -69,6 +71,7 @@ public class RobotContainer {
 
   public void setupSmartDashboard() {
     drivetrain.putSmartDashboardOverrides();
+    SmartDashboard.putNumber("KPDriveVel", Constants.kPDriveVel);
     // intake.putSmartDashboardOverrides();
     // hopper.putSmartDashboardOverrides();
     // limelight.putSmartDashboardOverrides();
