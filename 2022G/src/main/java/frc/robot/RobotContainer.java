@@ -111,7 +111,13 @@ public class RobotContainer {
     drivetrain.resetGyro();
   }
 
+  public void calibrateGyro() {
+    drivetrain.calibrateGyro();
+  }
+
   public void setDrivetrainToBrakeMode() {
     drivetrain.setBrake();
   }
+
+
 }

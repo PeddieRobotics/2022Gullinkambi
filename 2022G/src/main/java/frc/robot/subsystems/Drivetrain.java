@@ -69,6 +69,7 @@ public class Drivetrain extends SubsystemBase {
     //rightFollower2.follow(rightMaster);
 
     gyro = new ADIS16470_IMU();
+    // calibrateGyro();
     gyro.reset();
 
     odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
@@ -172,7 +173,7 @@ public void resetEncoders(){
 }
 
 public void arcadeDrive(double speed, double turn){
-  drive.arcadeDrive(speed, turn,
+  drive.arcadeDrive(speed, turn*Constants.TURN_MULTIPLIER,
     Constants.DRIVE_USE_SQUARED_INPUTS);
 }
 

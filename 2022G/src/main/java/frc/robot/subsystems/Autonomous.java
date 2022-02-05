@@ -4,6 +4,9 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
@@ -24,6 +27,7 @@ import frc.robot.commands.SplitFFRamseteCommand;
 import frc.robot.commands.DriveCommands.Drive;
 import frc.robot.utils.Constants;
 
+
 public class Autonomous extends SubsystemBase{
 
     private final Drivetrain m_drivetrain;
@@ -31,7 +35,7 @@ public class Autonomous extends SubsystemBase{
     private final TrajectoryConfig configForward;
     private final TrajectoryConfig configBackwards;
     private final DifferentialDriveVoltageConstraint autoVoltageConstraint;
-    private Trajectory moveForwards, sPathForward, turnInPlace;
+    private Trajectory moveForwards, sPathForward, turnInPlace, shoot2High_Layup_B;
     
 
     public Autonomous() {
@@ -85,7 +89,8 @@ public class Autonomous extends SubsystemBase{
     public Command returnAutonomousCommand() {
         // return createCommandFromTrajectory(moveForwards);
         // return createCommandFromTrajectory(sPathForward);
-        return createCommandFromTrajectory(turnInPlace);
+        // return createCommandFromTrajectory(turnInPlace);
+        return createCommandFromTrajectory(shoot2High_Layup_B);
     }
 
     private void defineAutoPaths(){
@@ -106,10 +111,12 @@ public class Autonomous extends SubsystemBase{
               // Pass through these two interior waypoints, making an 's' curve path
               List.of(
                   new Translation2d(1, 1),
-                  new Translation2d(2, -1)
+                  new Translation2d(1.5, 0),
+                  new Translation2d(2, -1),
+                  new Translation2d(3, 0)
               ),
               // End 3 meters straight ahead of where we started, facing forward
-              new Pose2d(3, 0, new Rotation2d(0)),
+              new Pose2d(3.5, 0, new Rotation2d(0)),
               // Pass config
               configForward
           );
@@ -125,6 +132,8 @@ public class Autonomous extends SubsystemBase{
               // Pass config
               configForward
           );
+        
+        shoot2High_Layup_B = getTransformedTrajectory(PathPlanner.loadPath("Shoot2High-Layup-B", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared));
     }
 
     public SplitFFRamseteCommand createCommandFromTrajectory(Trajectory trajectory){
@@ -149,6 +158,12 @@ public class Autonomous extends SubsystemBase{
               m_drivetrain::tankDriveVolts,
               m_drivetrain);
         return autoCommand;
+      }
+    
+    public Trajectory getTransformedTrajectory(Trajectory t){
+        Transform2d transform = new Pose2d(0,0, Rotation2d.fromDegrees(0)).minus(t.getInitialPose());
+        Trajectory transformed = t.transformBy(transform);
+        return transformed;
       }
 
     @Override
