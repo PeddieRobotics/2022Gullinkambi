@@ -81,14 +81,15 @@ public static final OIConfig OI_CONFIG = OIConfig.XBOX_TEST;
     // for *your* robot's drive.
     // Example value only - as above, this must be tuned for your drive!
     // public static final double kPDriveVel = 0.00034928;
-    public static final double kPDriveVel = SmartDashboard.getNumber("KPDriveVel", 0);
+    //public static final double kPDriveVel = SmartDashboard.getNumber("KPDriveVel", 0);
+    public static final double kPDriveVel = 0; //remember to remove 2/7
 
     public static final double kTrackwidthMeters = 0.5842;
     public static final DifferentialDriveKinematics kDriveKinematics =
         new DifferentialDriveKinematics(kTrackwidthMeters);
 
-    public static final double kMaxSpeedMetersPerSecond = 1.1;
-    public static final double kMaxAccelerationMetersPerSecondSquared = 1.1;
+    public static final double kMaxSpeedMetersPerSecond = 0.8;
+    public static final double kMaxAccelerationMetersPerSecondSquared = 0.8;
 
     // Reasonable baseline values for a RAMSET0E follower in units of meters and seconds
     public static final double kRamseteB = 2;

@@ -18,6 +18,7 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -35,7 +36,7 @@ public class Autonomous extends SubsystemBase{
     private final TrajectoryConfig configForward;
     private final TrajectoryConfig configBackwards;
     private final DifferentialDriveVoltageConstraint autoVoltageConstraint;
-    private Trajectory moveForwards, sPathForward, turnInPlace, shoot2High_Layup_B;
+    private Trajectory moveForwards, sPathForward, turnInPlace, shoot2High_Layup_B, moveBackwards;
 
     public Autonomous() {
         m_drivetrain = Drivetrain.getInstance();
@@ -86,10 +87,11 @@ public class Autonomous extends SubsystemBase{
     public void setupAutoRoutines(){}
 
     public Command returnAutonomousCommand() {
-        // return createCommandFromTrajectory(moveForwards);
+         //return createCommandFromTrajectory(moveForwards);
         return createCommandFromTrajectory(sPathForward);
         // return createCommandFromTrajectory(turnInPlace);
-        // return createCommandFromTrajectory(shoot2High_Layup_B);
+        //return createCommandFromTrajectory(shoot2High_Layup_B);
+        //return createCommandFromTrajectory(moveBackwards);
     }
 
     private void defineAutoPaths(){
@@ -102,6 +104,16 @@ public class Autonomous extends SubsystemBase{
             new Pose2d(1, 0, new Rotation2d(Math.toRadians(0))),
             // Pass config
             configForward);
+
+        moveBackwards = 
+            TrajectoryGenerator.generateTrajectory(
+            // Start at the origin facing the +X direction
+            new Pose2d(0, 0, new Rotation2d(0)),
+            List.of(new Translation2d(-0.5, 0)),
+            // End  meters straight ahead of where we started, facing forward
+            new Pose2d(-1, 0, new Rotation2d(Math.toRadians(0))),
+            // Pass config
+            configBackwards);
         
         sPathForward = 
             TrajectoryGenerator.generateTrajectory(
@@ -135,12 +147,22 @@ public class Autonomous extends SubsystemBase{
     }
 
     public SplitFFRamseteCommand createCommandFromTrajectory(Trajectory trajectory){
+        RamseteController m_ramseteController = new RamseteController();
+        m_ramseteController.setEnabled(false);
+        var leftController = new PIDController(Constants.kPDriveVel, 0, 0);
+        var rightController = new PIDController(Constants.kPDriveVel, 0, 0);
+        var table = NetworkTableInstance.getDefault().getTable("troubleshooting");
+        var leftReference = table.getEntry("left_reference");
+        var leftMeasurement = table.getEntry("left_measurement");
+        var rightReference = table.getEntry("right_reference");
+        var rightMeasurement = table.getEntry("right_measurement");
+
         SplitFFRamseteCommand autoCommand  =
           new SplitFFRamseteCommand(
               trajectory,
               m_drivetrain::getPose,
             //   new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
-                new RamseteController(),
+                m_ramseteController, //NEED TO CHANGE BACK TO: new RamseteController(),
               new SimpleMotorFeedforward(
                 Constants.ksVolts,
                 Constants.kvVoltSecondsPerMeter,
@@ -151,10 +173,20 @@ public class Autonomous extends SubsystemBase{
                 Constants.kaVoltSecondsSquaredPerMeter),
               Constants.kDriveKinematics,
               m_drivetrain::getWheelSpeeds,
-              new PIDController(SmartDashboard.getNumber("KPDriveVel", 0), 0, 0),
-              new PIDController(SmartDashboard.getNumber("KPDriveVel", 0), 0, 0),
+            //   new PIDController(SmartDashboard.getNumber("KPDriveVel", 0), 0, 0),
+            //   new PIDController(SmartDashboard.getNumber("KPDriveVel", 0), 0, 0),
+            leftController,
+            rightController,
               // RamseteCommand passes volts to the callback
-              m_drivetrain::tankDriveVolts,
+              //m_drivetrain::tankDriveVolts,
+              (leftVolts, rightVolts) -> {
+                  m_drivetrain.tankDriveVolts(leftVolts, rightVolts);
+                  leftMeasurement.setNumber(m_drivetrain.getWheelSpeeds().leftMetersPerSecond);
+                  leftReference.setNumber(leftController.getSetpoint());
+
+                  rightMeasurement.setNumber(-m_drivetrain.getWheelSpeeds().rightMetersPerSecond); //PUT A NEGATIVE HERE, REMINDER TO FIX 2/7
+                  rightReference.setNumber(rightController.getSetpoint());
+              },
               m_drivetrain);
         return autoCommand;
       }
