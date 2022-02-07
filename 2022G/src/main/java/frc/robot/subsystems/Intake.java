@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.RobotMap;
+import frc.robot.utils.UpdateLogs;
 
 public class Intake extends SubsystemBase {
 
@@ -18,15 +19,17 @@ public class Intake extends SubsystemBase {
   private Solenoid intakeSolenoid;
   private VictorSP intakeMotor;
 
+  private static UpdateLogs updateLogs = UpdateLogs.getInstance();
+
   public Intake(){
     intakeSolenoid = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.SOLENOID_INTAKE);
     intakeMotor = new VictorSP(RobotMap.MOTOR_INTAKE);
-
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    updateLogs.updateIntakeLogData();
   }
 
   public static Intake getInstance(){
@@ -53,17 +56,19 @@ public class Intake extends SubsystemBase {
   public boolean isIntaking() {
      return (intakeMotor.get() > 0.0);
   }
-  
+
+  public void putSmartDashboardOverrides() {
+    SmartDashboard.putNumber("OR: Intake speed", getIntakeVelocity());
+    SmartDashboard.putBoolean("OR: Intake solenoid", getSolenoidState());
+  }
+
+  //Getters
+
   public boolean getSolenoidState() {
     return intakeSolenoid.get();
   }
 
-  public double getSpeed() {
+  public double getIntakeVelocity() {
     return(intakeMotor.get());
-  }
-
-  public void putSmartDashboardOverrides() {
-    SmartDashboard.putNumber("OR: Intake speed", getSpeed());
-    SmartDashboard.putBoolean("OR: Intake solenoid", getSolenoidState());
   }
 }

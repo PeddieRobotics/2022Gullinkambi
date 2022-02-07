@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.RobotMap;
+import frc.robot.utils.UpdateLogs;
 import frc.robot.utils.Constants;
 
 public class Hopper extends SubsystemBase {
@@ -19,6 +20,8 @@ public class Hopper extends SubsystemBase {
   
     // Define sensors for the hopper to count cargo
     private DigitalInput bottomSensor, topSensor;
+
+    private static UpdateLogs updateLogs = UpdateLogs.getInstance();
 
     public Hopper(){
        hopperSystem = new CANSparkMax(RobotMap.MOTOR_HOPPER, MotorType.kBrushless);
@@ -38,6 +41,11 @@ public class Hopper extends SubsystemBase {
         return hopper;
     }
 
+    @Override
+    public void periodic() {
+        updateLogs.updateHopperLogData();
+    }
+
     public void runHopper(double speed){
         hopperSystem.set(speed); //the speed input needs a multiplier
     }
@@ -50,7 +58,13 @@ public class Hopper extends SubsystemBase {
         runHopper(-speed);
     }
 
-    public double getHopperSpeed(){
+    public void putSmartDashboardOverrides(){
+        SmartDashboard.putNumber("OR: Hopper speed", getHopperVelocity());
+    }
+
+
+    //Getters
+    public double getHopperVelocity(){
         return hopperSystem.get();
     }
 
@@ -60,10 +74,6 @@ public class Hopper extends SubsystemBase {
 
     public boolean sensesBallTop(){
         return topSensor.get();
-    } 
-
-    public void putSmartDashboardOverrides(){
-        SmartDashboard.putNumber("OR: Hopper speed", getHopperSpeed());
     }
 }
 

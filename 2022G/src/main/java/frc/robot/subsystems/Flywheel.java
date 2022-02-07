@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.Constants;
 import frc.robot.utils.RobotMap;
+import frc.robot.utils.UpdateLogs;
 
 public class Flywheel extends SubsystemBase {
   private CANSparkMax flywheelPrimary, flywheelSecondary;
@@ -35,6 +36,9 @@ public class Flywheel extends SubsystemBase {
 
   private double flywheelSetpoint = 0;
   private double flywheelPower = 0;
+
+  private static UpdateLogs updateLogs = UpdateLogs.getInstance();
+
 
   public Flywheel() {
     // Set up flywheel motors
@@ -63,8 +67,8 @@ public class Flywheel extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Flywheel velocity", getFlywheelVelocity());
-
+    SmartDashboard.putNumber("Flywheel velocity", getFlywheelEncoderVelocity());
+    updateLogs.updateFlywheelLogData();
   }
   
   public static Flywheel getInstance(){
@@ -96,7 +100,7 @@ public class Flywheel extends SubsystemBase {
 
   public boolean isAtRPM(double threshold){
     if(getFlywheelSetpoint() > 0){
-        return Math.abs(getFlywheelVelocity()-getFlywheelSetpoint()) < threshold;
+        return Math.abs(getFlywheelEncoderVelocity()-getFlywheelSetpoint()) < threshold;
     }
     return false;
   }
@@ -115,18 +119,6 @@ public class Flywheel extends SubsystemBase {
     flywheelPIDController.setReference(0, ControlType.kVelocity);
   }
 
-  public double getFlywheelSetpoint() {
-    return flywheelSetpoint;
-  }
-
-  public double getFlywheelVelocity() {
-    return flywheelPrimary.getEncoder().getVelocity();
-  }
-
-  public boolean isHoodUp(){
-    return hoodSolenoid.get();
-  }
-
   public void putSmartDashboardOverrides() {
     SmartDashboard.putNumber("OR: Flywheel velocity", 0);
     SmartDashboard.putNumber("OR: Flywheel setpoint", 0);
@@ -138,5 +130,51 @@ public class Flywheel extends SubsystemBase {
     SmartDashboard.putNumber("OR: D gain", kD);
     SmartDashboard.putNumber("OR: I zone", kIz);
     SmartDashboard.putNumber("OR: Feed forward", kFF);
+  }
+
+
+  //Encoder Getters
+  public double getFlywheelEncoderPosition() {
+    return flywheelEncoder.getPosition();
+  }
+
+  public double getFlywheelEncoderVelocity() {
+    return flywheelEncoder.getVelocity();
+  }
+
+  //Setpoint Getters
+  public double getFlywheelSetpoint() {
+    return flywheelSetpoint;
+  }
+
+  public double getPrimaryflywheelVelocity(){
+    return flywheelPrimary.get();
+  }
+
+  public double getSecondaryflywheelVelocity(){
+    return flywheelSecondary.get();
+  }
+
+  //Current Getters
+  public double getPrimaryflywheelCurrent(){
+    return flywheelPrimary.getOutputCurrent();
+  }
+
+  public double getSecondaryflywheelCurrent(){
+    return flywheelSecondary.getOutputCurrent();
+  }
+
+  //Motor Temperature Getters
+  public double getPrimaryflywheelMotorTemperature(){
+    return flywheelPrimary.getMotorTemperature();
+  }
+
+  public double getSecondaryflywheelMotorTemperature(){
+    return flywheelSecondary.getMotorTemperature();
+  }
+
+  //Hood Getters
+  public boolean isHoodUp(){
+    return hoodSolenoid.get();
   }
 }

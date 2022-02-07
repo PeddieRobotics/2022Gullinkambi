@@ -60,13 +60,6 @@ public class Robot extends LoggedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-
-    Logger.getInstance().recordOutput("SineWave",
-        Math.sin(Logger.getInstance().getTimestamp() / 2) * 10);
-    Logger.getInstance().recordOutput("CosineWave",
-        Math.cos(Logger.getInstance().getTimestamp() / 2) * 10);
-    Logger.getInstance().recordOutput("FastWave",
-        Math.sin(Logger.getInstance().getTimestamp() * 2) * 10);
   }
 
   /** This function is called once each time the robot enters Disabled mode. */

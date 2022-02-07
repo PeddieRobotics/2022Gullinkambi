@@ -19,9 +19,9 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import org.littletonrobotics.junction.Logger;
 
 import frc.robot.utils.RobotMap;
+import frc.robot.utils.UpdateLogs;
 import frc.robot.utils.Constants;
 import frc.robot.utils.RobotMap;
 
@@ -41,6 +41,12 @@ public class Drivetrain extends SubsystemBase {
 
   private final RelativeEncoder leftEncoder, rightEncoder;
   private Joystick leftJoystick, rightJoystick;
+
+  //Logging
+  private static UpdateLogs updateLogs = UpdateLogs.getInstance();
+
+  private double speedSetpoint, turnSetpoint;
+
 
   public Drivetrain() {
     leftMaster = new CANSparkMax(RobotMap.MOTOR_DRIVE_LEFT_MASTER, MotorType.kBrushless);
@@ -84,6 +90,8 @@ public class Drivetrain extends SubsystemBase {
   public void periodic() {
     odometry.update(getHeadingAsRotation2d(), leftEncoder.getPosition(), rightEncoder.getPosition());
     putSmartDashboard();
+
+    updateLogs.updateDrivetrainLogData();
   }
 
   @Override
@@ -98,29 +106,9 @@ public static Drivetrain getInstance(){
   return drivetrain;
 }
 
-public double getLeftEncoderPosition(){
-  return leftEncoder.getPosition();
-}
-
 public void setJoysticks(Joystick left, Joystick right){
   leftJoystick = left;
   rightJoystick = right;
-}
-
-public double getRightEncoderPosition(){
-  return -rightEncoder.getPosition();
-}
-
-public double getLeftEncoderVelocity(){
-  return leftEncoder.getVelocity();
-}
-
-public double getRightEncoderVelocity(){
-  return -rightEncoder.getVelocity();
-}
-
-public double getAverageEncoderDistance(){
-  return (leftEncoder.getPosition() + rightEncoder.getPosition())/2.0;
 }
 
 private void setConversionFactors() {
@@ -147,15 +135,11 @@ public void putSmartDashboard(){
 }
 
 public void setBrake() {
-
   leftMaster.setIdleMode(IdleMode.kBrake);
   rightMaster.setIdleMode(IdleMode.kBrake);
 
   leftFollower1.setIdleMode(IdleMode.kBrake);
   rightFollower1.setIdleMode(IdleMode.kBrake);
-
-  //leftFollower2.setIdleMode(IdleMode.kBrake);
-  //rightFollower2.setIdleMode(IdleMode.kBrake);
 }
 
 public void setCoast(){
@@ -164,10 +148,6 @@ public void setCoast(){
 
   leftFollower1.setIdleMode(IdleMode.kCoast);
   rightFollower1.setIdleMode(IdleMode.kCoast);
-
-  //leftFollower2.setIdleMode(IdleMode.kCoast);
-  //rightFollower2.setIdleMode(IdleMode.kCoast);
-
 }
 
 public void resetEncoders(){
@@ -178,6 +158,8 @@ public void resetEncoders(){
 public void arcadeDrive(double speed, double turn){
   drive.arcadeDrive(speed, turn*Constants.TURN_MULTIPLIER,
     Constants.DRIVE_USE_SQUARED_INPUTS);
+  speedSetpoint = speed;
+  turnSetpoint = turn;
 }
 
 public void putSmartDashboardOverrides(){
@@ -227,6 +209,88 @@ public void resetGyro(){
     leftMotors.setVoltage(leftVolts);
     rightMotors.setVoltage(rightVolts);
     drive.feed();
+  }
+
+  //Encoder Getters
+  public double getLeftEncoderPosition(){
+    return leftEncoder.getPosition();
+  }
+
+  public double getRightEncoderPosition(){
+    return -rightEncoder.getPosition();
+  }
+
+  public double getLeftEncoderVelocity(){
+    return leftEncoder.getVelocity();
+  }
+
+  public double getRightEncoderVelocity(){
+    return -rightEncoder.getVelocity();
+  }
+
+  public double getAverageEncoderDistance(){
+    return (leftEncoder.getPosition() + rightEncoder.getPosition())/2.0;
+  }
+
+
+  //Setpoint Getters
+  public double getSpeedSetpoint(){
+    return speedSetpoint;
+  }
+  public double getTurnSetpoint(){
+    return turnSetpoint;
+  }
+
+  public double getLeftMasterVelocity(){
+    return leftMaster.get();
+  }
+  
+  public double getLeftFollowerVelocity(){
+    return leftMaster.get();
+  }
+  
+  public double getRightMasterVelocity(){
+    return leftMaster.get();
+  }
+  
+  public double getRightFollowerVelocity(){
+    return leftMaster.get();
+  }
+
+
+  //Current Getters
+  public double getLeftMasterCurrent(){
+    return leftMaster.getOutputCurrent();
+  }
+  
+  public double getLeftFollowerCurrent(){
+    return leftMaster.getOutputCurrent();
+  }
+  
+  public double getRightMasterCurrent(){
+    return leftMaster.getOutputCurrent();
+  }
+  
+  public double getRightFollowerCurrent(){
+    return leftMaster.getOutputCurrent();
+  }
+
+
+  //Motor Temperaure Getters
+  public double getLeftMasterMotorTemperature(){
+    return leftMaster.getMotorTemperature();
+  }
+  
+  public double getLeftFollowerMotorTemperature(){
+    return leftMaster.getMotorTemperature();
+  }
+  
+  public double getRightMasterMotorTemperature(){
+    return leftMaster.getMotorTemperature();
+  }
+  
+  public double getRightFollowerMotorTemperature(){
+    return leftMaster.getMotorTemperature();
   }
 
 }
