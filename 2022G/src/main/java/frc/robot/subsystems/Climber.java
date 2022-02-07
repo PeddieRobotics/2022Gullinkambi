@@ -20,7 +20,7 @@ public class Climber extends SubsystemBase{
   private static UpdateLogs updateLogs = UpdateLogs.getInstance();
 
   public Climber() {
-    arm = new Solenoid(PneumaticsModuleType.CTREPCM, 10);
+    arm = new Solenoid(PneumaticsModuleType.REVPH, 10);
     compressor = new Compressor(PneumaticsModuleType.REVPH);
   }
   
