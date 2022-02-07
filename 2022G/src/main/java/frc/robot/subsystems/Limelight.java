@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.utils.UpdateLogs;
 
 public class Limelight extends SubsystemBase {
   /**
@@ -23,6 +24,10 @@ public class Limelight extends SubsystemBase {
   NetworkTableEntry thor = limes.getEntry("thor");
   NetworkTableEntry tvert = limes.getEntry("tvert");
   NetworkTableEntry ta = limes.getEntry("ta");
+  NetworkTableEntry tv = limes.getEntry("tv");  
+
+  private static UpdateLogs updateLogs = UpdateLogs.getInstance();
+
     
   public Limelight() {
   }
@@ -39,6 +44,12 @@ public class Limelight extends SubsystemBase {
   public void periodic(){
     SmartDashboard.putNumber("Limelight vertical error", getTy());
     SmartDashboard.putNumber("Limelight horizontal error", getTx());
+    updateLogs.updateLimelightLogData();
+  }
+
+  //Tv is an indicator of whether the limelight has a targer (0 or 1)
+  public int getTv(){
+    return (int)(tv.getDouble(0.0));
   }
 
   //Tvert is the vertical sidelength of the rough bounding box (0 - 320 pixels)

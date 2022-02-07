@@ -6,6 +6,7 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Limelight;
 
 import org.littletonrobotics.junction.Logger;
 
@@ -16,6 +17,7 @@ public class UpdateLogs {
     private static Flywheel m_flywheel;
     private static Hopper m_hopper;
     private static Intake m_intake;
+    private static Limelight m_limelight;
 
     private static UpdateLogs instance;
 
@@ -25,6 +27,7 @@ public class UpdateLogs {
         m_flywheel = Flywheel.getInstance();
         m_hopper = Hopper.getInstance();
         m_intake = Intake.getInstance();
+        m_limelight = Limelight.getInstance();
     }
 
     public static UpdateLogs getInstance(){
@@ -106,5 +109,14 @@ public class UpdateLogs {
     public void updateIntakeLogData(){
         Logger.getInstance().recordOutput("Intake/IntakeSolenoidOn", m_intake.getSolenoidState());
         Logger.getInstance().recordOutput("Intake/IntakeMotorVelocity", m_intake.getIntakeVelocity());
+    }
+
+    public void updateLimelightLogData(){
+        Logger.getInstance().recordOutput("Limelight/HasTarget", m_limelight.getTv());
+        Logger.getInstance().recordOutput("Limelight/TargetHeightPixels", m_limelight.getTvert());
+        Logger.getInstance().recordOutput("Limelight/TargetWidthPixels", m_limelight.getThor());
+        Logger.getInstance().recordOutput("Limelight/HorizonalOffsetDegrees", m_limelight.getTx());
+        Logger.getInstance().recordOutput("Limelight/VerticalOffsetDegrees", m_limelight.getTy());
+        Logger.getInstance().recordOutput("Limelight/TargetArea%ofImmues", m_limelight.getTa());
     }
 }
