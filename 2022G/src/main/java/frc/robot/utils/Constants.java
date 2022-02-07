@@ -19,9 +19,9 @@ public final class Constants {
   public static final boolean DRIVE_USE_NORMALIZED_INPUTS = false;
   public static final boolean DRIVE_USE_SQUARED_INPUTS = true;
 
-  public static final double DRIVING_DEADBANDS = 0.08;
-  public static final double SPEED_MULTIPLIER = 0.2;
-  public static final double TURN_MULTIPLIER = 0.5;
+  public static final double DRIVING_DEADBANDS = 0.1;
+  public static final double SPEED_MULTIPLIER = 1;
+  public static final double TURN_MULTIPLIER = 1;
   public static final double SLOW_SPEED_MULTIPLIER = 0.6;
   public static final double SLOW_TURN_MULTIPLIER = 0.7;
 
