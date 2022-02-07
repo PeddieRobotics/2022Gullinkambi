@@ -42,6 +42,8 @@ public class Robot extends LoggedRobot {
     logger.start();
 
     m_robotContainer = new RobotContainer();
+    m_robotContainer.setDrivetrainToCoastMode();
+    m_robotContainer.calibrateGyro();
   }
 
   /**
@@ -69,7 +71,10 @@ public class Robot extends LoggedRobot {
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    m_robotContainer.resetGyro();
+    m_robotContainer.setDrivetrainToCoastMode();
+  }
 
   @Override
   public void disabledPeriodic() {}
@@ -77,10 +82,12 @@ public class Robot extends LoggedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    m_robotContainer.resetGyro();
+    m_robotContainer.setDrivetrainToBrakeMode();
 
     // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
+    if (!(m_robotContainer.getAutonomousCommand() == null)) {
+      m_autonomousCommand = m_robotContainer.getAutonomousCommand();
       m_autonomousCommand.schedule();
     }
   }
@@ -91,6 +98,8 @@ public class Robot extends LoggedRobot {
 
   @Override
   public void teleopInit() {
+    m_robotContainer.resetGyro();
+    m_robotContainer.setDrivetrainToCoastMode();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -100,7 +109,6 @@ public class Robot extends LoggedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    m_robotContainer.setupSmartDashboard();
   }
 
   /** This function is called periodically during operator control. */

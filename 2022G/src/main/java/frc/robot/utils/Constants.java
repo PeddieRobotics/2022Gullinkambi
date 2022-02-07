@@ -4,6 +4,8 @@
 
 package frc.robot.utils;
 
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -19,7 +21,9 @@ public final class Constants {
 
   public static final double DRIVING_DEADBANDS = 0.08;
   public static final double SPEED_MULTIPLIER = 0.2;
-  public static final double TURN_MULTIPLIER = 0.08;
+  public static final double TURN_MULTIPLIER = 0.5;
+  public static final double SLOW_SPEED_MULTIPLIER = 0.6;
+  public static final double SLOW_TURN_MULTIPLIER = 0.7;
 
   // Hopper constants
   public static final int MAX_HOPPER_BELT_CURRENT = 15; // amps
@@ -47,6 +51,45 @@ public final class Constants {
   // OI constants
   public static final int XBOX_TRIGGER_SENSITIVITY = 0;
   public static final double XBOX_TRIGGER_DEADZONE = 0;
-  
-}
+  public enum OIConfig {
+    XBOX_TEST, JOYSTICK_TEST, COMPETITION
+  }
+  public static final double DRIVE_GEAR_RATIO = 6.0;
+    public static final double CONVERT_INCHES_TO_METERS = 0.0254;
+    public static final double DRIVE_WHEEL_DIAMETER =
+    4.0 * Constants.CONVERT_INCHES_TO_METERS;
+  public static final double DRIVE_ENC_ROT_TO_DIST = 
+    (1 / Constants.DRIVE_GEAR_RATIO)
+          * Math.PI
+          * Constants.DRIVE_WHEEL_DIAMETER; // Encoder position conversion factor (native rotations ->
+  // meters)
 
+//uncommment whichever one you want to use & comment the rest
+//public static final OIConfig OI_CONFIG = OIConfig.COMPETITION; 
+public static final OIConfig OI_CONFIG = OIConfig.XBOX_TEST;
+    // The Robot Characterization Toolsuite provides a convenient tool for obtaining these
+    // values for your robot.
+    public static final double ksVolts = 0.13563;
+    public static final double kvVoltSecondsPerMeter = 2.3576;
+    public static final double kaVoltSecondsSquaredPerMeter = 0.21274;
+
+// public static final OIConfig OI_CONFIG = OIConfig.JOYSTICK_TEST;
+
+      // These are example values only - DO NOT USE THESE FOR YOUR OWN ROBOT!
+    // These characterization values MUST be determined either experimentally or theoretically
+    // for *your* robot's drive.
+    // Example value only - as above, this must be tuned for your drive!
+    public static final double kPDriveVel = 0.00034928;
+    //public static final double kPDriveVel = 0.015732;
+
+    public static final double kTrackwidthMeters = 0.5842;
+    public static final DifferentialDriveKinematics kDriveKinematics =
+        new DifferentialDriveKinematics(kTrackwidthMeters);
+
+    public static final double kMaxSpeedMetersPerSecond = 1.7;
+    public static final double kMaxAccelerationMetersPerSecondSquared = 1.7;
+
+    // Reasonable baseline values for a RAMSET0E follower in units of meters and seconds
+    public static final double kRamseteB = 2;
+    public static final double kRamseteZeta = .7;
+}
