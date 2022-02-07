@@ -180,19 +180,6 @@ public void arcadeDrive(double speed, double turn){
     Constants.DRIVE_USE_SQUARED_INPUTS);
 }
 
-  private void updateLogData() {
-    Logger.getInstance().recordOutput("DriveTrain/EncPosition", getLeftEncoderPosition());
-    Logger.getInstance().recordOutput("DriveTrain/EncVelocity", getLeftEncoderVelocity());
-  }
-
-  public void putSmartDashboard(){
-    SmartDashboard.putNumber("speed", 0);
-    SmartDashboard.putNumber("turn", 0);
-    SmartDashboard.putNumber("L Enc Pos", getLeftEncoderPosition());
-    SmartDashboard.putNumber("R Enc Pos", getRightEncoderPosition());
-    SmartDashboard.putNumber("L Enc Vel", getLeftEncoderVelocity());
-    SmartDashboard.putNumber("R Enc Vel", getRightEncoderVelocity());
-  }
 public void putSmartDashboardOverrides(){
     SmartDashboard.putNumber("OR: Drivetrain speed", 0);
     SmartDashboard.putNumber("OR: Drivetrain turn", 0);
