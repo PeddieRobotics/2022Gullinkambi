@@ -20,6 +20,7 @@ public final class Constants {
   public static final boolean DRIVE_USE_SQUARED_INPUTS = true;
 
   public static final double DRIVING_DEADBANDS = 0.1;
+  public static final double BACKWARDS_TURN_DEADBANDS = -0.42;
   public static final double SPEED_MULTIPLIER = 1;
   public static final double TURN_MULTIPLIER = 1;
   public static final double SLOW_SPEED_MULTIPLIER = 0.6;

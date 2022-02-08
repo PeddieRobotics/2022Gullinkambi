@@ -68,7 +68,12 @@ public class XboxOI {
     }
 
     public double getTurn() {
+        if(getSpeed() < Constants.BACKWARDS_TURN_DEADBANDS){
+            System.out.println(getSpeed());
+            return -driverXboxController.getRawAxis(ControllerMap.XBOX_RIGHT_STICK_X);
+        }
         return driverXboxController.getRawAxis(ControllerMap.XBOX_RIGHT_STICK_X);
+        
     }
 
     public void setControllerRumble(boolean driver, boolean operator) {
