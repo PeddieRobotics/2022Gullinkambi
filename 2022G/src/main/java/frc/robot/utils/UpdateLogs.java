@@ -59,18 +59,25 @@ public class UpdateLogs {
         //Drive Motor Data
         Logger.getInstance().recordOutput("Drivetrain/LeftMasterVelocity", m_drivetrain.getLeftMasterVelocity());
         Logger.getInstance().recordOutput("Drivetrain/LeftFollowerVelocity", m_drivetrain.getLeftFollowerVelocity());
+        //Logger.getInstance().recordOutput("Drivetrain/LeftFollower2Velocity", m_drivetrain.getLeftFollower2Velocity());
         Logger.getInstance().recordOutput("Drivetrain/RightMasterVelocity", m_drivetrain.getRightMasterVelocity());
         Logger.getInstance().recordOutput("Drivetrain/RightFollowerVelocity", m_drivetrain.getRightFollowerVelocity());
+        //Logger.getInstance().recordOutput("Drivetrain/RightFollower2Velocity", m_drivetrain.getRightFollower2Velocity());
+
         
         Logger.getInstance().recordOutput("Drivetrain/LeftMasterCurrent", m_drivetrain.getLeftMasterCurrent());
         Logger.getInstance().recordOutput("Drivetrain/LeftFollowerCurrent", m_drivetrain.getLeftFollowerCurrent());
+        //Logger.getInstance().recordOutput("Drivetrain/LeftFollower2Current", m_drivetrain.getLeftFollower2Current());
         Logger.getInstance().recordOutput("Drivetrain/RightMasterCurrent", m_drivetrain.getRightMasterCurrent());
         Logger.getInstance().recordOutput("Drivetrain/RightFollowerCurrent", m_drivetrain.getRightFollowerCurrent());
+        //Logger.getInstance().recordOutput("Drivetrain/RightFollower2Current", m_drivetrain.getRightFollower2Current());
         
         Logger.getInstance().recordOutput("Drivetrain/LeftMasterTemperature", m_drivetrain.getLeftMasterMotorTemperature());
         Logger.getInstance().recordOutput("Drivetrain/LeftFollowerTemperature", m_drivetrain.getLeftFollowerMotorTemperature());
+        //Logger.getInstance().recordOutput("Drivetrain/LeftFollower2Temperature", m_drivetrain.getLeftFollower2MotorTemperature());
         Logger.getInstance().recordOutput("Drivetrain/RightMasterTemperature", m_drivetrain.getRightMasterMotorTemperature());
         Logger.getInstance().recordOutput("Drivetrain/RightFollowerTemperature", m_drivetrain.getRightFollowerMotorTemperature());
+        //Logger.getInstance().recordOutput("Drivetrain/RightFollower2Temperature", m_drivetrain.getRightFollower2MotorTemperature());
     }
 
     public void updateClimberLogData(){

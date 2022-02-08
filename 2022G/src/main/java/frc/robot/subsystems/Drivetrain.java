@@ -30,7 +30,7 @@ import com.kauailabs.navx.frc.AHRS;
 public class Drivetrain extends SubsystemBase {
   private static Drivetrain drivetrain;
 
-  private final CANSparkMax leftMaster, rightMaster, leftFollower1, rightFollower1, leftFollower2, rightFollower2;
+  private final CANSparkMax leftMaster, rightMaster, leftFollower1, rightFollower1;// leftFollower2, rightFollower2;
   private final MotorControllerGroup leftMotors, rightMotors;
 
   private final DifferentialDrive drive;
@@ -53,8 +53,8 @@ public class Drivetrain extends SubsystemBase {
     rightMaster = new CANSparkMax(RobotMap.MOTOR_DRIVE_RIGHT_MASTER, MotorType.kBrushless);
     leftFollower1 = new CANSparkMax(RobotMap.MOTOR_DRIVE_LEFT_FOLLOWER1, MotorType.kBrushless);
     rightFollower1 = new CANSparkMax(RobotMap.MOTOR_DRIVE_RIGHT_FOLLOWER1, MotorType.kBrushless);
-    leftFollower2 = new CANSparkMax(RobotMap.MOTOR_DRIVE_LEFT_FOLLOWER2, MotorType.kBrushless);
-    rightFollower2 = new CANSparkMax(RobotMap.MOTOR_DRIVE_RIGHT_FOLLOWER2, MotorType.kBrushless);
+    // leftFollower2 = new CANSparkMax(RobotMap.MOTOR_DRIVE_LEFT_FOLLOWER2, MotorType.kBrushless);
+    // rightFollower2 = new CANSparkMax(RobotMap.MOTOR_DRIVE_RIGHT_FOLLOWER2, MotorType.kBrushless);
 
     leftEncoder = leftMaster.getEncoder();
     rightEncoder = rightMaster.getEncoder();
@@ -62,8 +62,8 @@ public class Drivetrain extends SubsystemBase {
 
     //leftMotors = new MotorControllerGroup(leftMaster, leftFollower1);
     //rightMotors = new MotorControllerGroup(rightMaster, rightFollower1);
-    leftMotors = new MotorControllerGroup(leftMaster, leftFollower1, leftFollower2);
-    rightMotors = new MotorControllerGroup(rightMaster, rightFollower1, rightFollower2);
+    leftMotors = new MotorControllerGroup(leftMaster, leftFollower1);
+    rightMotors = new MotorControllerGroup(rightMaster, rightFollower1);
     
     drive = new DifferentialDrive(leftMotors, rightMotors);
     drive.setDeadband(Constants.DRIVING_DEADBANDS);
@@ -249,9 +249,9 @@ public void resetGyro(){
     return leftFollower1.get();
   }
 
-  public double getLeftFollower2Velocity(){
-    return leftFollower2.get();
-  }
+  // public double getLeftFollower2Velocity(){
+  //   return leftFollower2.get();
+  // }
   
   public double getRightMasterVelocity(){
     return rightMaster.get();
@@ -261,9 +261,9 @@ public void resetGyro(){
     return rightFollower1.get();
   }
 
-  public double getRightFollower2Velocity(){
-    return rightFollower2.get();
-  }
+  // public double getRightFollower2Velocity(){
+  //   return rightFollower2.get();
+  // }
 
 
   //Current Getters
@@ -275,9 +275,9 @@ public void resetGyro(){
     return leftFollower1.getOutputCurrent();
   }
 
-  public double getLeftFollower2Current(){
-    return leftFollower2.getOutputCurrent();
-  }
+  // public double getLeftFollower2Current(){
+  //   return leftFollower2.getOutputCurrent();
+  // }
   
   public double getRightMasterCurrent(){
     return rightMaster.getOutputCurrent();
@@ -287,9 +287,9 @@ public void resetGyro(){
     return rightFollower1.getOutputCurrent();
   }
 
-  public double getRightFollower2Current(){
-    return rightFollower2.getOutputCurrent();
-  }
+  // public double getRightFollower2Current(){
+  //   return rightFollower2.getOutputCurrent();
+  // }
 
 
   //Motor Temperaure Getters
@@ -301,9 +301,9 @@ public void resetGyro(){
     return leftFollower1.getMotorTemperature();
   }
 
-  public double getLeftFollower2MotorTemperature(){
-    return leftFollower2.getMotorTemperature();
-  }
+  // public double getLeftFollower2MotorTemperature(){
+  //   return leftFollower2.getMotorTemperature();
+  // }
   
   public double getRightMasterMotorTemperature(){
     return rightMaster.getMotorTemperature();
@@ -313,8 +313,8 @@ public void resetGyro(){
     return rightFollower1.getMotorTemperature();
   }
 
-  public double getRightFollower2MotorTemperature(){
-    return rightFollower2.getMotorTemperature();
-  }
+  // public double getRightFollower2MotorTemperature(){
+  //   return rightFollower2.getMotorTemperature();
+  // }
 
 }
