@@ -36,7 +36,7 @@ public class Autonomous extends SubsystemBase{
     private final TrajectoryConfig configForward;
     private final TrajectoryConfig configBackwards;
     private final DifferentialDriveVoltageConstraint autoVoltageConstraint;
-    private Trajectory moveForwards, sPathForward, turnInPlace, shoot2High_Layup_B, moveBackwards;
+    private Trajectory moveForwards, sPathForward, turnInPlace, shoot2High_Layup_B, moveBackwards, Test;
 
     public Autonomous() {
         m_drivetrain = Drivetrain.getInstance();
@@ -88,10 +88,11 @@ public class Autonomous extends SubsystemBase{
 
     public Command returnAutonomousCommand() {
          //return createCommandFromTrajectory(moveForwards);
-        return createCommandFromTrajectory(sPathForward);
+        //return createCommandFromTrajectory(sPathForward);
         // return createCommandFromTrajectory(turnInPlace);
-        //return createCommandFromTrajectory(shoot2High_Layup_B);
+        return createCommandFromTrajectory(shoot2High_Layup_B);
         //return createCommandFromTrajectory(moveBackwards);
+        // return createCommandFromTrajectory(Test);
     }
 
     private void defineAutoPaths(){
@@ -144,6 +145,8 @@ public class Autonomous extends SubsystemBase{
           );
         
         shoot2High_Layup_B = getTransformedTrajectory(PathPlanner.loadPath("Shoot2High-Layup-B", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared));
+
+        Test = getTransformedTrajectory(PathPlanner.loadPath("Test", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared));
     }
 
     public SplitFFRamseteCommand createCommandFromTrajectory(Trajectory trajectory){

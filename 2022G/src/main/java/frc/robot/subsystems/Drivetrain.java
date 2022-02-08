@@ -192,8 +192,7 @@ public void resetEncoders(){
 }
 
 public void arcadeDrive(double speed, double turn){
-  drive.arcadeDrive(speed, turn*Constants.TURN_MULTIPLIER,
-    Constants.DRIVE_USE_SQUARED_INPUTS);
+  drive.arcadeDrive(speed, turn, Constants.DRIVE_USE_SQUARED_INPUTS);
 }
 
 public void putSmartDashboardOverrides(){
