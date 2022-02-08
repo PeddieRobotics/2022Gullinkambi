@@ -42,7 +42,7 @@ public class Climber extends SubsystemBase{
 
   @Override
   public void periodic() {
-    updateLogs.updateClimberLogData();
+    //updateLogs.updateClimberLogData();
   }
 
   public boolean getArmState(){

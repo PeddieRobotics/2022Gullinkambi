@@ -28,8 +28,8 @@ public class Hopper extends SubsystemBase {
        hopperSystem.setIdleMode(IdleMode.kBrake);
        hopperSystem.setSmartCurrentLimit(Constants.MAX_HOPPER_BELT_CURRENT);
        
-       bottomSensor = new DigitalInput(0);
-       topSensor = new DigitalInput(1);
+       //bottomSensor = new DigitalInput(0);
+       //topSensor = new DigitalInput(1);
 
     }
 
@@ -43,7 +43,7 @@ public class Hopper extends SubsystemBase {
 
     @Override
     public void periodic() {
-        updateLogs.updateHopperLogData();
+        //updateLogs.updateHopperLogData();
     }
 
     public void runHopper(double speed){
