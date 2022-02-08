@@ -180,6 +180,11 @@ public void arcadeDrive(double speed, double turn){
     Constants.DRIVE_USE_SQUARED_INPUTS);
 }
 
+public void curvatureDrive(double speed, double turn){
+  drive.curvatureDrive(-speed*Constants.SPEED_MULTIPLIER, -turn*Constants.TURN_MULTIPLIER,
+    true);
+}
+
 public void putSmartDashboardOverrides(){
     SmartDashboard.putNumber("OR: Drivetrain speed", 0);
     SmartDashboard.putNumber("OR: Drivetrain turn", 0);

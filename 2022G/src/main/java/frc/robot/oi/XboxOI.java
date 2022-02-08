@@ -1,6 +1,7 @@
 package frc.robot.oi;
 
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -18,8 +19,8 @@ import frc.robot.commands.ShootCommands.ShootFar;
 public class XboxOI {
 
     private static XboxOI oi;
+    private Joystick driverXboxController;
 
-    private final Joystick driverXboxController = new Joystick(ControllerMap.XBOX_OPERATOR_PORT);
     // private final Joystick operatorXboxController = new
     // Joystick(ControllerMap.RIGHT_JOYSTICK_DRIVER_PORT);
 
@@ -37,6 +38,7 @@ public class XboxOI {
 
     public void configureXboxControllers() {
         if (Constants.OI_CONFIG == OIConfig.COMPETITION) {
+            driverXboxController = new Joystick(ControllerMap.XBOX_OPERATOR_PORT);
             //Operator Xbox controller binds
             /*
             What we want it to do:
@@ -52,6 +54,7 @@ public class XboxOI {
             //new JoystickButton(driverXboxController, ControllerMap.XBOX_Y).toggleWhenActive(new SetFlywheelHood()); //XBOX_Y
 
         } else if (Constants.OI_CONFIG == OIConfig.XBOX_TEST) {
+            driverXboxController = new Joystick(ControllerMap.XBOX_DRIVER_PORT);
             //Driver xbox controller binds
             //new Button(() -> driverXboxController.getRawAxis(3) > 0.5).whenPressed(new IndexCommand()); // XBOX_RT
 
@@ -68,12 +71,7 @@ public class XboxOI {
     }
 
     public double getTurn() {
-        if(getSpeed() < Constants.BACKWARDS_TURN_DEADBANDS){
-            System.out.println(getSpeed());
-            return -driverXboxController.getRawAxis(ControllerMap.XBOX_RIGHT_STICK_X);
-        }
         return driverXboxController.getRawAxis(ControllerMap.XBOX_RIGHT_STICK_X);
-        
     }
 
     public void setControllerRumble(boolean driver, boolean operator) {
@@ -91,6 +89,10 @@ public class XboxOI {
             driverXboxController.setRumble(RumbleType.kLeftRumble, 0);
             driverXboxController.setRumble(RumbleType.kRightRumble, 0);
         }
+    }
+
+    public boolean getInverseMode() {
+        return driverXboxController.getRawButton(6);
     }
 
 }

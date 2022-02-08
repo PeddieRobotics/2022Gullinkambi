@@ -37,56 +37,39 @@ public class Drive extends CommandBase {
     // Executes the drive command
     @Override
     public void execute() {
+
+        boolean reverse = false;
+        double speedInput = 0.0;
+        double turnInput = 0.0;
+
         if (Constants.OI_CONFIG == OIConfig.COMPETITION) { // both joystick and xbox, but joysticks are the drivers and xbox is the operator
             //for now this is just the same stuff as joysticks, so it needs to change to something
-            double joystickSpeed = oi2.getSpeed();
-            double joystickTurn = oi2.getTurn();
-            System.out.println("joystickSpeed" + ": " + joystickSpeed);
-            System.out.println("joystickTurn)" + ": " + joystickTurn);
-            boolean reverse = oi2.getInverseMode(); // inverse and slow only work on joystick
-            boolean driveSlow = oi2.getSlowMode();
-            
-            if (!reverse && !driveSlow) {
-                drivetrain.arcadeDrive(joystickSpeed, joystickTurn);
-            } else if (!reverse && driveSlow) {
-                joystickSpeed = oi2.getSpeed() * Constants.SLOW_SPEED_MULTIPLIER;
-                joystickTurn = oi2.getTurn() * Constants.SLOW_TURN_MULTIPLIER;
-                drivetrain.arcadeDrive(joystickSpeed, joystickTurn);
-            } else if (!driveSlow && reverse) {
-                joystickSpeed = -oi2.getSpeed();
-                joystickTurn = oi2.getTurn();
-                drivetrain.arcadeDrive(joystickSpeed, joystickTurn);
-            } else {
-                joystickSpeed = -(oi2.getSpeed() * Constants.SLOW_SPEED_MULTIPLIER);
-                joystickTurn = oi2.getTurn() * Constants.SLOW_TURN_MULTIPLIER;
-                drivetrain.arcadeDrive(joystickSpeed, joystickTurn);
-            }
+            speedInput = oi2.getSpeed();
+            turnInput = oi2.getTurn();
+            reverse = oi2.getInverseMode(); 
+
         } else if (Constants.OI_CONFIG == OIConfig.XBOX_TEST) { // xbox
-            double speedInput = oi.getSpeed();
-            double turnInput = oi.getTurn();
-            drivetrain.arcadeDrive(speedInput, turnInput);
+
+            speedInput = oi.getSpeed();
+            turnInput = oi.getTurn();
+            reverse = oi.getInverseMode();
 
         } else if (Constants.OI_CONFIG == OIConfig.JOYSTICK_TEST) { // joystick
-            double joystickSpeed = oi2.getSpeed();
-            double joystickTurn = oi2.getTurn();
-            boolean reverse = oi2.getInverseMode(); // inverse and slow only work on joystick
-            boolean driveSlow = oi2.getSlowMode();
 
-            if (!reverse && !driveSlow) {
-                drivetrain.arcadeDrive(joystickSpeed, joystickTurn);
-            } else if (!reverse && driveSlow) {
-                joystickSpeed = oi2.getSpeed() * Constants.SLOW_SPEED_MULTIPLIER;
-                joystickTurn = oi2.getTurn() * Constants.SLOW_TURN_MULTIPLIER;
-                drivetrain.arcadeDrive(joystickSpeed, joystickTurn);
-            } else if (!driveSlow && reverse) {
-                joystickSpeed = -oi2.getSpeed();
-                joystickTurn = oi2.getTurn();
-                drivetrain.arcadeDrive(joystickSpeed, joystickTurn);
-            } else {
-                joystickSpeed = -(oi2.getSpeed() * Constants.SLOW_SPEED_MULTIPLIER);
-                joystickTurn = oi2.getTurn() * Constants.SLOW_TURN_MULTIPLIER;
-                drivetrain.arcadeDrive(joystickSpeed, joystickTurn);
-            }
+            speedInput = oi2.getSpeed();
+            turnInput = oi2.getTurn();
+            reverse = oi2.getInverseMode();
+
+        }
+        // if (!reverse) {
+        //     drivetrain.arcadeDrive(speedInput, turnInput);
+        // } else {
+        //     drivetrain.arcadeDrive(-speedInput, turnInput);
+        // }
+        if (!reverse) {
+            drivetrain.curvatureDrive(speedInput, turnInput);
+        } else {
+            drivetrain.curvatureDrive(-speedInput, turnInput);
         }
 
     }

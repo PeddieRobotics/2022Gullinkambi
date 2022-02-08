@@ -1,6 +1,7 @@
 package frc.robot.utils;
 
-public class ControllerMap {
+public class ControllerMap {	
+	public static final int XBOX_DRIVER_PORT = 0;
     public static final int LEFT_JOYSTICK_DRIVER_PORT = 0;
     public static final int RIGHT_JOYSTICK_DRIVER_PORT = 1;
 	public static final int XBOX_OPERATOR_PORT = 2;
