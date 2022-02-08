@@ -72,6 +72,7 @@ public class RobotContainer {
   public void setupSmartDashboard() {
     drivetrain.putSmartDashboardOverrides();
     SmartDashboard.putNumber("KPDriveVel", Constants.kPDriveVel);
+    SmartDashboard.putBoolean("sensor0", false);
     // intake.putSmartDashboardOverrides();
     // hopper.putSmartDashboardOverrides();
     // limelight.putSmartDashboardOverrides();
@@ -104,6 +105,8 @@ public class RobotContainer {
 
 
     // Limelight - currently none
+
+    SmartDashboard.putBoolean("sensor0", drivetrain.isSensor());
   }
 
   public void setDrivetrainToCoastMode(){
