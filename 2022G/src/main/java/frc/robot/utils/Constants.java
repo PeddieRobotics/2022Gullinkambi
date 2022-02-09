@@ -46,6 +46,10 @@ public final class Constants {
   public static final double FLYWHEEL_MAX_POWER = 0.5;
   public static final double FLYWHEEL_MAX_RPM = 4000;
 
+  public static final double INTAKE_SPEED = 0.2;
+
+  public static final double HOPPER_SPEED = 0.8;
+
 
   // OI constants
   public static final int XBOX_TRIGGER_SENSITIVITY = 0;

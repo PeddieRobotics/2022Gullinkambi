@@ -57,14 +57,13 @@ public class Flywheel extends SubsystemBase {
     // Set up pneumatics
     hoodSolenoid = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.SOLENOID_HOOD);
     shooterLockSolenoid = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.SOLENOID_SHOOTER_LOCK);
-
+    setShooterLock(true);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Flywheel velocity", getFlywheelVelocity());
-
   }
   
   public static Flywheel getInstance(){
@@ -138,5 +137,19 @@ public class Flywheel extends SubsystemBase {
     SmartDashboard.putNumber("OR: D gain", kD);
     SmartDashboard.putNumber("OR: I zone", kIz);
     SmartDashboard.putNumber("OR: Feed forward", kFF);
+  }
+
+  public void updatePIDGainsFromDashboard(){
+    kP = SmartDashboard.getNumber("OR: P gain", kP);
+    kI = SmartDashboard.getNumber("OR: I gain", kI);
+    kD = SmartDashboard.getNumber("OR: D gain", kD);
+    kIz = SmartDashboard.getNumber("OR: I zone", kIz);
+    kFF = SmartDashboard.getNumber("OR: Feed forward", kFF);
+    
+    flywheelPIDController.setP(kP);
+    flywheelPIDController.setI(kI);
+    flywheelPIDController.setD(kD);
+    flywheelPIDController.setIZone(kIz);
+    flywheelPIDController.setFF(kFF);
   }
 }
