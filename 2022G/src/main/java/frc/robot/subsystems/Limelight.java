@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.utils.RollingAverage;
 
 public class Limelight extends SubsystemBase {
   /**
@@ -17,12 +18,15 @@ public class Limelight extends SubsystemBase {
   private static Limelight limelight;
   double[] thorInputs = {};// make sure to go in increasing order, so from 1->100 vs 100->1
   double[] velocityOutputs = {};
-  NetworkTable limes = NetworkTableInstance.getDefault().getTable("limelight");
-  NetworkTableEntry tx = limes.getEntry("tx");
-  NetworkTableEntry ty = limes.getEntry("ty");
-  NetworkTableEntry thor = limes.getEntry("thor");
-  NetworkTableEntry tvert = limes.getEntry("tvert");
-  NetworkTableEntry ta = limes.getEntry("ta");
+  NetworkTable limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
+  NetworkTableEntry tx = limelightTable.getEntry("tx");
+  NetworkTableEntry ty = limelightTable.getEntry("ty");
+  NetworkTableEntry thor = limelightTable.getEntry("thor");
+  NetworkTableEntry tvert = limelightTable.getEntry("tvert");
+  NetworkTableEntry ta = limelightTable.getEntry("ta");
+  NetworkTableEntry tv = limelightTable.getEntry("tv");
+  private RollingAverage txAverage = new RollingAverage();
+  private RollingAverage tyAverage = new RollingAverage();
     
   public Limelight() {
   }
@@ -37,8 +41,10 @@ public class Limelight extends SubsystemBase {
 
   @Override
   public void periodic(){
+    updateRollingAverages();
     SmartDashboard.putNumber("Limelight vertical error", getTy());
     SmartDashboard.putNumber("Limelight horizontal error", getTx());
+    SmartDashboard.putNumber("Limelight distance", getDistance());
   }
 
   //Tvert is the vertical sidelength of the rough bounding box (0 - 320 pixels)
@@ -64,18 +70,35 @@ public class Limelight extends SubsystemBase {
   public double getTa(){
     return ta.getDouble(0.0);
   }
+
+  public double getTxAverage(){
+    return txAverage.getAverage();
+  }
+
+  public double getTyAverage(){
+    return tyAverage.getAverage();
+  }
   
-  /*public double getDistance(){
-    if(ty.getDouble(0.0)==0) return 0;
-    else return (98.25-24)/(Math.tan(Math.toRadians(25+ty.getDouble(0.0))));
-  }*/
+  public double getDistance(){
+    if(ty.getDouble(0.0)==0){
+      return 0;
+    }
+     else return (104-24)/(Math.tan(Math.toRadians(36+ty.getDouble(0.0))));
+  }
   
   public boolean hasTarget(){
-    if (limes.getEntry("tv").getDouble(0.0)==1){
+    if (limelightTable.getEntry("tv").getDouble(0.0)==1){
       return true;
     }else return false;
   }
-  
+
+  public void updateRollingAverages(){
+    if(hasTarget()){
+      txAverage.add(getTx());
+      tyAverage.add(getTy());
+    }
+  }
+
   public void putSmartDashboardOverrides(){
   }
 }
