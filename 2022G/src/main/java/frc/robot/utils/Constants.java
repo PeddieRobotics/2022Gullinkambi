@@ -84,7 +84,7 @@ public final class Constants {
     // Example value only - as above, this must be tuned for your drive!
     // public static final double kPDriveVel = 0.00034928;
     //public static final double kPDriveVel = SmartDashboard.getNumber("KPDriveVel", 0);
-    public static final double kPDriveVel = 0.00034928; 
+    public static final double kPDriveVel = 0.00034928;
 
     public static final double kTrackwidthMeters = 0.5842;
     public static final DifferentialDriveKinematics kDriveKinematics =

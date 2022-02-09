@@ -36,7 +36,7 @@ public class Autonomous extends SubsystemBase{
     private final TrajectoryConfig configForward;
     private final TrajectoryConfig configBackwards;
     private final DifferentialDriveVoltageConstraint autoVoltageConstraint;
-    private Trajectory moveForwards, sPathForward, turnInPlace, shoot2High_Layup_B, moveBackwards, Test;
+    private Trajectory straightPathTestHandwritten, straightPathTest, moveForwards, sPathForward, turnInPlace, shoot2High_Layup_B, moveBackwards, Test;
 
     public Autonomous() {
         m_drivetrain = Drivetrain.getInstance();
@@ -89,10 +89,12 @@ public class Autonomous extends SubsystemBase{
     public Command returnAutonomousCommand() {
          //return createCommandFromTrajectory(moveForwards);
         //return createCommandFromTrajectory(sPathForward);
+        //return createCommandFromTrajectory(straightPathTestHandwritten);
         // return createCommandFromTrajectory(turnInPlace);
-        return createCommandFromTrajectory(shoot2High_Layup_B);
+        // return createCommandFromTrajectory(shoot2High_Layup_B);
         //return createCommandFromTrajectory(moveBackwards);
-        // return createCommandFromTrajectory(Test);
+        //return createCommandFromTrajectory(Test);
+        return createCommandFromTrajectory(straightPathTest);
     }
 
     private void defineAutoPaths(){
@@ -132,6 +134,17 @@ public class Autonomous extends SubsystemBase{
               configForward
           );
 
+
+          straightPathTestHandwritten = 
+            TrajectoryGenerator.generateTrajectory(
+                new Pose2d(0,0, new Rotation2d(0)), 
+                List.of(
+                    new Translation2d(1.5, 0.5)
+                ), 
+                new Pose2d(3, 0, new Rotation2d(0)), 
+                
+                configForward);
+
         turnInPlace = 
           TrajectoryGenerator.generateTrajectory(
               // Start at the origin facing the +X direction
@@ -147,11 +160,13 @@ public class Autonomous extends SubsystemBase{
         shoot2High_Layup_B = getTransformedTrajectory(PathPlanner.loadPath("Shoot2High-Layup-B", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared));
 
         Test = getTransformedTrajectory(PathPlanner.loadPath("Test", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared));
+
+        straightPathTest = getTransformedTrajectory(PathPlanner.loadPath("StraightPathTest", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared));
     }
 
     public SplitFFRamseteCommand createCommandFromTrajectory(Trajectory trajectory){
         RamseteController m_ramseteController = new RamseteController();
-        m_ramseteController.setEnabled(false);
+        // m_ramseteController.setEnabled(false);
         var leftController = new PIDController(Constants.kPDriveVel, 0, 0);
         var rightController = new PIDController(Constants.kPDriveVel, 0, 0);
         var table = NetworkTableInstance.getDefault().getTable("troubleshooting");
