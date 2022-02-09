@@ -9,6 +9,7 @@ package frc.robot.commands.IntakeCommands;
 // import com.team2363.logger.HelixEvents;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Intake;
+import frc.robot.utils.Constants;
 
 public class StartIntake extends CommandBase {
 
@@ -21,7 +22,7 @@ public class StartIntake extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    mIntake.runIntake(0.2, true);
+    mIntake.runIntake(Constants.INTAKE_SPEED, true);
     // HelixEvents.getInstance().addEvent("INTAKE", "Initialized: StartIntake");
   }
 
