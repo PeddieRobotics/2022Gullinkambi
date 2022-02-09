@@ -16,8 +16,6 @@ public class Limelight extends SubsystemBase {
    */
   
   private static Limelight limelight;
-  double[] thorInputs = {};// make sure to go in increasing order, so from 1->100 vs 100->1
-  double[] velocityOutputs = {};
   NetworkTable limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
   NetworkTableEntry tx = limelightTable.getEntry("tx");
   NetworkTableEntry ty = limelightTable.getEntry("ty");

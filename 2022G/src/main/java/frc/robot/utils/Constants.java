@@ -45,6 +45,10 @@ public final class Constants {
 
   public static final double FLYWHEEL_MAX_POWER = 0.5;
   public static final double FLYWHEEL_MAX_RPM = 4000;
+  
+  public static final double [] LL_DIST = new double[]{100,150,200};
+  public static final double [] RPMS = new double[]{2800,3000,3200};
+  public static LookupTable DIST_TO_RPM = new LookupTable(LL_DIST, RPMS);
 
   public static final double INTAKE_SPEED = 0.2;
 
