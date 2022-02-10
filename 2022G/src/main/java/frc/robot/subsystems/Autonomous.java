@@ -35,7 +35,7 @@ public class Autonomous extends SubsystemBase{
     private final TrajectoryConfig configForward;
     private final TrajectoryConfig configBackwards;
     private final DifferentialDriveVoltageConstraint autoVoltageConstraint;
-    private Trajectory straightPathTestHandwritten, straightPathTest, moveForwards, sPathForward, turnInPlace, shoot2High_Layup_B, moveBackwards, Test;
+    private Trajectory slightCurve, slightCurveOffsetFromOrigin, slightCurveTransformed, straightPathTest, moveForwards, sPathForward, turnInPlace, shoot2High_Layup_B, moveBackwards, Test;
 
     public Autonomous() {
         m_drivetrain = Drivetrain.getInstance();
@@ -88,7 +88,8 @@ public class Autonomous extends SubsystemBase{
     public Command returnAutonomousCommand() {
          //return createCommandFromTrajectory(moveForwards);
         //return createCommandFromTrajectory(sPathForward);
-        return createCommandFromTrajectory(straightPathTestHandwritten);
+        return createCommandFromTrajectory(slightCurve);
+        //return createCommandFromTrajectory(slightCurveTransformed);
         // return createCommandFromTrajectory(turnInPlace);
         // return createCommandFromTrajectory(shoot2High_Layup_B);
         //return createCommandFromTrajectory(moveBackwards);
@@ -133,8 +134,7 @@ public class Autonomous extends SubsystemBase{
               configForward
           );
 
-
-          straightPathTestHandwritten = 
+          slightCurve = 
             TrajectoryGenerator.generateTrajectory(
                 new Pose2d(0,0, new Rotation2d(0)), 
                 List.of(
@@ -143,6 +143,18 @@ public class Autonomous extends SubsystemBase{
                 new Pose2d(3, 0, new Rotation2d(0)), 
                 
                 configForward);
+
+        slightCurveOffsetFromOrigin = TrajectoryGenerator.generateTrajectory(
+            new Pose2d(1,0.5, new Rotation2d(Math.toRadians(90))), 
+            List.of(
+                new Translation2d(2.5, 1)
+            ), 
+            new Pose2d(4, 0.5, new Rotation2d(Math.toRadians(90))), 
+            
+            configForward);
+
+
+        slightCurveTransformed = getTransformedTrajectory(slightCurveOffsetFromOrigin);
 
         turnInPlace = 
           TrajectoryGenerator.generateTrajectory(
