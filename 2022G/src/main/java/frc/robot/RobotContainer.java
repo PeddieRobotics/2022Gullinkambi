@@ -18,11 +18,13 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
 import frc.robot.OI;
 
-
 /**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
+ * This class is where the bulk of the robot should be declared. Since
+ * Command-based is a
+ * "declarative" paradigm, very little robot logic should actually be handled in
+ * the {@link Robot}
+ * periodic methods (other than the scheduler calls). Instead, the structure of
+ * the robot (including
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
@@ -35,25 +37,27 @@ public class RobotContainer {
   // private final Climber climber;
   // private final Limelight limelight;
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  /**
+   * The container for the robot. Contains subsystems, OI devices, and commands.
+   */
   public RobotContainer() {
-    
+
     drivetrain = Drivetrain.getInstance();
     autonomous = Autonomous.getInstance();
     intake = Intake.getInstance();
     hopper = Hopper.getInstance();
     flywheel = Flywheel.getInstance();
-    //climber = Climber.getInstance();
-    //limelight  = Limelight.getInstance();
+    // climber = Climber.getInstance();
+    // limelight = Limelight.getInstance();
     oi = OI.getInstance();
-    
+
     drivetrain.setDefaultCommand(new Drive());
     intake.register();
     hopper.register();
     flywheel.register();
-    //climber.register();
-    //limelight.register();
-    
+    // climber.register();
+    // limelight.register();
+
   }
 
   /**
@@ -78,35 +82,39 @@ public class RobotContainer {
   }
 
   // Overrides for interfacing with robot hardware
-  // The SmartDashboard fields for all of these should be configured with the putSmartDashboardOverrides method
+  // The SmartDashboard fields for all of these should be configured with the
+  // putSmartDashboardOverrides method
   // in each respective subsystem.
+
   public void testAllSystems() {
     // Drivetrain
-    // Be exceptionally careful driving the robot via dashboard. Usually done on blocks.
-    drivetrain.arcadeDrive(SmartDashboard.getNumber("OR: Drivetrain speed", 0), SmartDashboard.getNumber("OR: Drivetrain turn", 0));
-    
+    // Be exceptionally careful driving the robot via dashboard. Usually done on
+    // blocks.
+    drivetrain.arcadeDrive(SmartDashboard.getNumber("OR: Drivetrain speed", 0),
+        SmartDashboard.getNumber("OR: Drivetrain turn", 0));
+
     // Intake
     intake.updateIntakeFromDashboard();
 
     // Hopper
-    // hopper.runHopper(SmartDashboard.getNumber("OR: Hopper speed", 0));
+    hopper.updateSpeedFromDashboard();
 
     // Flywheel
     // flywheel.setHood(SmartDashboard.getBoolean("OR: Hood up", false));
-    // flywheel.runFlywheelSetPoint(SmartDashboard.getNumber("OR: Flywheel setpoint", 0));
+    // flywheel.runFlywheelSetPoint(SmartDashboard.getNumber("OR: Flywheel
+    // setpoint", 0));
 
     // Climber
     // climber.setClimberSpeed(SmartDashboard.getNumber("OR: Climber speed", 0));
     // climber.setClimberTilt(SmartDashboard.getBoolean("OR: Climber tilt", false));
     // climber.setClimberHook(SmartDashboard.getBoolean("OR: Climber hook", false));
 
-
     // Limelight - currently none
 
     SmartDashboard.putBoolean("sensor0", drivetrain.isSensor());
   }
 
-  public void setDrivetrainToCoastMode(){
+  public void setDrivetrainToCoastMode() {
     drivetrain.setCoast();
   }
 
@@ -121,6 +129,5 @@ public class RobotContainer {
   public void setDrivetrainToBrakeMode() {
     drivetrain.setBrake();
   }
-
 
 }
