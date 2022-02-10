@@ -26,12 +26,12 @@ import frc.robot.OI;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  public final OI m_oi;
+  public final OI oi;
   private final Drivetrain drivetrain;
-  private final Autonomous m_autonomous;
-  // private final Intake intake;
-  // private final Hopper hopper;
-  // private final Flywheel flywheel;
+  private final Autonomous autonomous;
+  private final Intake intake;
+  private final Hopper hopper;
+  private final Flywheel flywheel;
   // private final Climber climber;
   // private final Limelight limelight;
 
@@ -39,18 +39,18 @@ public class RobotContainer {
   public RobotContainer() {
     
     drivetrain = Drivetrain.getInstance();
-    m_autonomous = Autonomous.getInstance();
-    //intake = Intake.getInstance();
-    //hopper = Hopper.getInstance();
-    //flywheel = Flywheel.getInstance();
+    autonomous = Autonomous.getInstance();
+    intake = Intake.getInstance();
+    hopper = Hopper.getInstance();
+    flywheel = Flywheel.getInstance();
     //climber = Climber.getInstance();
     //limelight  = Limelight.getInstance();
-    m_oi = OI.getInstance();
+    oi = OI.getInstance();
     
     drivetrain.setDefaultCommand(new Drive());
-    //intake.register();
-    //hopper.register();
-    //flywheel.register();
+    intake.register();
+    hopper.register();
+    flywheel.register();
     //climber.register();
     //limelight.register();
     
@@ -64,17 +64,17 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     drivetrain.resetPose(new Pose2d(0.0, 0.0, new Rotation2d(0.0)), new Rotation2d(0.0));
     // needs to be merged/fixed from autonomous work in 2022Preseason repo
-    return m_autonomous.returnAutonomousCommand();
+    return autonomous.returnAutonomousCommand();
   }
 
   public void setupSmartDashboard() {
     drivetrain.putSmartDashboardOverrides();
     SmartDashboard.putBoolean("sensor0", false);
-    // intake.putSmartDashboardOverrides();
-    // hopper.putSmartDashboardOverrides();
+    intake.putSmartDashboardOverrides();
+    hopper.putSmartDashboardOverrides();
     // limelight.putSmartDashboardOverrides();
     // climber.putSmartDashboardOverrides();
-    // flywheel.putSmartDashboardOverrides();
+    flywheel.putSmartDashboardOverrides();
   }
 
   // Overrides for interfacing with robot hardware
@@ -85,17 +85,17 @@ public class RobotContainer {
     // Be exceptionally careful driving the robot via dashboard. Usually done on blocks.
     drivetrain.arcadeDrive(SmartDashboard.getNumber("OR: Drivetrain speed", 0), SmartDashboard.getNumber("OR: Drivetrain turn", 0));
     
-    // // Intake
-    // intake.runIntake(SmartDashboard.getNumber("OR: Intake speed", 0), SmartDashboard.getBoolean("Intake state", false));
+    // Intake
+    intake.updateIntakeFromDashboard();
 
-    // // Hopper
+    // Hopper
     // hopper.runHopper(SmartDashboard.getNumber("OR: Hopper speed", 0));
 
-    // // Flywheel
+    // Flywheel
     // flywheel.setHood(SmartDashboard.getBoolean("OR: Hood up", false));
     // flywheel.runFlywheelSetPoint(SmartDashboard.getNumber("OR: Flywheel setpoint", 0));
 
-    // // Climber
+    // Climber
     // climber.setClimberSpeed(SmartDashboard.getNumber("OR: Climber speed", 0));
     // climber.setClimberTilt(SmartDashboard.getBoolean("OR: Climber tilt", false));
     // climber.setClimberHook(SmartDashboard.getBoolean("OR: Climber hook", false));
