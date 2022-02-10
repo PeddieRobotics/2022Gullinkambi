@@ -27,7 +27,6 @@ public class Hopper extends SubsystemBase {
        
        bottomSensor = new DigitalInput(0);
        topSensor = new DigitalInput(1);
-
     }
 
     public static Hopper getInstance(){
