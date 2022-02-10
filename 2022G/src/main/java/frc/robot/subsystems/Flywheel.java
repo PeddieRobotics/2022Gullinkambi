@@ -160,5 +160,4 @@ public class Flywheel extends SubsystemBase {
     runFlywheelSetPoint(SmartDashboard.getNumber("OR: Flywheel setpoint", 0));
     runFlyWheelPower(SmartDashboard.getNumber("OR: Flywheel power", 0));
   }
-
 }
