@@ -88,8 +88,8 @@ public class Autonomous extends SubsystemBase{
     public Command returnAutonomousCommand() {
          //return createCommandFromTrajectory(moveForwards);
         //return createCommandFromTrajectory(sPathForward);
-        return createCommandFromTrajectory(slightCurve);
-        //return createCommandFromTrajectory(slightCurveTransformed);
+        //return createCommandFromTrajectory(slightCurve);
+        return createCommandFromTrajectory(slightCurveTransformed);
         // return createCommandFromTrajectory(turnInPlace);
         // return createCommandFromTrajectory(shoot2High_Layup_B);
         //return createCommandFromTrajectory(moveBackwards);
@@ -136,11 +136,11 @@ public class Autonomous extends SubsystemBase{
 
           slightCurve = 
             TrajectoryGenerator.generateTrajectory(
-                new Pose2d(0,0, new Rotation2d(0)), 
+                new Pose2d(0,0, new Rotation2d(Math.toRadians(90))), 
                 List.of(
                     new Translation2d(1.5, 0.5)
                 ), 
-                new Pose2d(3, 0, new Rotation2d(0)), 
+                new Pose2d(3, 0, new Rotation2d(Math.toRadians(90))), 
                 
                 configForward);
 
@@ -154,7 +154,9 @@ public class Autonomous extends SubsystemBase{
             configForward);
 
 
-        slightCurveTransformed = getTransformedTrajectory(slightCurveOffsetFromOrigin);
+        slightCurveTransformed = getTransformedTrajectory(slightCurve);
+
+        System.out.println(slightCurveTransformed.toString());
 
         turnInPlace = 
           TrajectoryGenerator.generateTrajectory(
