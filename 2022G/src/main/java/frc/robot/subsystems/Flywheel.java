@@ -63,7 +63,6 @@ public class Flywheel extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Flywheel velocity", getFlywheelVelocity());
   }
 
   public static Flywheel getInstance() {
@@ -107,6 +106,14 @@ public class Flywheel extends SubsystemBase {
     shooterLockSolenoid.set(isActivated);
   }
 
+  public void getHood() {
+    hoodSolenoid.get();
+  }
+
+  public void getShooterLock() {
+    shooterLockSolenoid.get();
+  }
+
   public void stopFlywheel() {
     setHood(false);
     setShooterLock(false);
@@ -126,9 +133,10 @@ public class Flywheel extends SubsystemBase {
   }
 
   public void putSmartDashboardOverrides() {
-    SmartDashboard.putNumber("OR: Flywheel velocity", 0);
+    SmartDashboard.putNumber("OR: Flywheel power", 0);
     SmartDashboard.putNumber("OR: Flywheel setpoint", 0);
     SmartDashboard.putBoolean("OR: Hood up", false);
+    SmartDashboard.putBoolean("OR: Lock Activated", true);
 
     // Smart dashboard controls for flywheel PID gain tuning
     SmartDashboard.putNumber("OR: P gain", kP);
@@ -138,17 +146,17 @@ public class Flywheel extends SubsystemBase {
     SmartDashboard.putNumber("OR: Feed forward", kFF);
   }
 
-  public void updatePIDGainsFromDashboard() {
-    kP = SmartDashboard.getNumber("OR: P gain", kP);
-    kI = SmartDashboard.getNumber("OR: I gain", kI);
-    kD = SmartDashboard.getNumber("OR: D gain", kD);
-    kIz = SmartDashboard.getNumber("OR: I zone", kIz);
-    kFF = SmartDashboard.getNumber("OR: Feed forward", kFF);
+  public void updateFlywheelFromDashboard() {
+    flywheelPIDController.setP(SmartDashboard.getNumber("OR: P gain", kP));
+    flywheelPIDController.setI(SmartDashboard.getNumber("OR: I gain", kI));
+    flywheelPIDController.setD(SmartDashboard.getNumber("OR: D gain", kD));
+    flywheelPIDController.setIZone(SmartDashboard.getNumber("OR: I zone", kIz));
+    flywheelPIDController.setFF(SmartDashboard.getNumber("OR: Feed forward", kFF));
 
-    flywheelPIDController.setP(kP);
-    flywheelPIDController.setI(kI);
-    flywheelPIDController.setD(kD);
-    flywheelPIDController.setIZone(kIz);
-    flywheelPIDController.setFF(kFF);
+    setShooterLock(SmartDashboard.getBoolean("OR: Lock Activated", true));
+    setHood(SmartDashboard.getBoolean("OR: Hood up", false));
+    runFlywheelSetPoint(SmartDashboard.getNumber("OR: Flywheel setpoint", 0));
+    runFlyWheelPower(SmartDashboard.getNumber("OR: Flywheel power", 0));
   }
+
 }

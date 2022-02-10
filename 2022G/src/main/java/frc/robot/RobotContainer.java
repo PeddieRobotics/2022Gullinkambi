@@ -100,9 +100,8 @@ public class RobotContainer {
     hopper.updateSpeedFromDashboard();
 
     // Flywheel
-    // flywheel.setHood(SmartDashboard.getBoolean("OR: Hood up", false));
-    // flywheel.runFlywheelSetPoint(SmartDashboard.getNumber("OR: Flywheel
-    // setpoint", 0));
+    flywheel.updateFlywheelFromDashboard();
+
 
     // Climber
     // climber.setClimberSpeed(SmartDashboard.getNumber("OR: Climber speed", 0));
