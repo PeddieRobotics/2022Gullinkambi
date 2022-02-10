@@ -29,9 +29,9 @@ public class RobotContainer {
   public final OI oi;
   private final Drivetrain drivetrain;
   private final Autonomous autonomous;
-  private final Intake intake;
-  private final Hopper hopper;
-  private final Flywheel flywheel;
+  //private final Intake intake;
+  //private final Hopper hopper;
+  //private final Flywheel flywheel;
   // private final Climber climber;
   // private final Limelight limelight;
 
@@ -40,17 +40,17 @@ public class RobotContainer {
     
     drivetrain = Drivetrain.getInstance();
     autonomous = Autonomous.getInstance();
-    intake = Intake.getInstance();
-    hopper = Hopper.getInstance();
-    flywheel = Flywheel.getInstance();
+    //intake = Intake.getInstance();
+    //hopper = Hopper.getInstance();
+    //flywheel = Flywheel.getInstance();
     //climber = Climber.getInstance();
     //limelight  = Limelight.getInstance();
     oi = OI.getInstance();
     
     drivetrain.setDefaultCommand(new Drive());
-    intake.register();
-    hopper.register();
-    flywheel.register();
+    //intake.register();
+    //hopper.register();
+    //flywheel.register();
     //climber.register();
     //limelight.register();
     
@@ -69,12 +69,12 @@ public class RobotContainer {
 
   public void setupSmartDashboard() {
     drivetrain.putSmartDashboardOverrides();
-    SmartDashboard.putBoolean("sensor0", false);
-    intake.putSmartDashboardOverrides();
-    hopper.putSmartDashboardOverrides();
+    //SmartDashboard.putBoolean("sensor0", false);
+    //intake.putSmartDashboardOverrides();
+    //hopper.putSmartDashboardOverrides();
     // limelight.putSmartDashboardOverrides();
     // climber.putSmartDashboardOverrides();
-    flywheel.putSmartDashboardOverrides();
+    //flywheel.putSmartDashboardOverrides();
   }
 
   // Overrides for interfacing with robot hardware
@@ -86,7 +86,7 @@ public class RobotContainer {
     drivetrain.arcadeDrive(SmartDashboard.getNumber("OR: Drivetrain speed", 0), SmartDashboard.getNumber("OR: Drivetrain turn", 0));
     
     // Intake
-    intake.updateIntakeFromDashboard();
+    //intake.updateIntakeFromDashboard();
 
     // Hopper
     // hopper.runHopper(SmartDashboard.getNumber("OR: Hopper speed", 0));
@@ -103,7 +103,7 @@ public class RobotContainer {
 
     // Limelight - currently none
 
-    SmartDashboard.putBoolean("sensor0", drivetrain.isSensor());
+    //SmartDashboard.putBoolean("sensor0", drivetrain.isSensor());
   }
 
   public void setDrivetrainToCoastMode(){
