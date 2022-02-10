@@ -63,6 +63,7 @@ public class Flywheel extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Flywheel velocity", getFlywheelVelocity());
   }
 
   public static Flywheel getInstance() {
