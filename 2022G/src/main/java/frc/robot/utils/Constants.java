@@ -20,7 +20,7 @@ public final class Constants {
   public static final boolean DRIVE_USE_NORMALIZED_INPUTS = false;
   public static final boolean DRIVE_USE_SQUARED_INPUTS = false;
 
-  public static final double DRIVING_DEADBANDS = 0.05;
+  public static final double DRIVING_DEADBANDS = 0.1;
   public static final double SPEED_MULTIPLIER = 1;
   public static final double TURN_MULTIPLIER = 1;
 
