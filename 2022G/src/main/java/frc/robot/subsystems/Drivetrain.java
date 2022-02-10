@@ -26,8 +26,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.Constants;
 import frc.robot.utils.RobotMap;
 
-import com.kauailabs.navx.frc.AHRS;
-
 public class Drivetrain extends SubsystemBase {
   private static Drivetrain drivetrain;
 
