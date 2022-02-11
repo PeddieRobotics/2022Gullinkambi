@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.OI;
 import frc.robot.commands.ClimbCommands.*;
+import frc.robot.utils.RobotMap;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -21,10 +22,12 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class Climber extends SubsystemBase {
   private static Climber climber;
-  private Solenoid arm;
+  private CANSparkMax armPrimary, armSecondary;
 
   public Climber() {
-    arm = new Solenoid(PneumaticsModuleType.CTREPCM, 10);
+    armPrimary = new CANSparkMax(RobotMap.MOTOR_CLIMBER_PRIMARY, MotorType.kBrushless);
+    armSecondary = new CANSparkMax(RobotMap.MOTOR_CLIMBER_SECONDARY, MotorType.kBrushless);
+    armSecondary.follow(armPrimary);
   }
 
   public static Climber getInstance() {
@@ -36,11 +39,11 @@ public class Climber extends SubsystemBase {
   }
 
   public void extend() {
-    arm.set(true);
+    //arm.set(true);
   }
 
   public void retract() {
-    arm.set(false);
+    //arm.set(false);
   }
 
   @Override
