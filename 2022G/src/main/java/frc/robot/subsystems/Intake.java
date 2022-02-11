@@ -20,7 +20,7 @@ public class Intake extends SubsystemBase {
 
   public Intake(){
     intakeSolenoid = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.SOLENOID_INTAKE);
-    intakeMotor = new VictorSP(RobotMap.MOTOR_INTAKE);
+    // intakeMotor = new VictorSP(RobotMap.MOTOR_INTAKE);
 
   }
 
@@ -73,12 +73,12 @@ public class Intake extends SubsystemBase {
   }
 
   public void putSmartDashboardOverrides() {
-    SmartDashboard.putNumber("OR: Intake speed", getIntakeSpeed());
+    // SmartDashboard.putNumber("OR: Intake speed", getIntakeSpeed());
     SmartDashboard.putBoolean("OR: Intake solenoid", getIntakeSolenoid());
   }
 
   public void updateIntakeFromDashboard() {
-    setIntakeSpeed(SmartDashboard.getNumber("OR: Intake speed", getIntakeSpeed()));
+    // setIntakeSpeed(SmartDashboard.getNumber("OR: Intake speed", getIntakeSpeed()));
     setIntakeSolenoid(SmartDashboard.getBoolean("OR: Intake solenoid", getIntakeSolenoid()));
   }
 }
