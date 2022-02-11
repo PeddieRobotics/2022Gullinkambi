@@ -13,6 +13,7 @@ import frc.robot.utils.ControllerMap;
 import frc.robot.utils.Constants.OIConfig;
 import frc.robot.commands.IntakeCommands.StartIntake;
 import frc.robot.commands.IntakeCommands.StopIntake;
+import frc.robot.commands.LightCommands.TurnOn;
 //import frc.robot.commands.IntakeCommands.UnjamIntake;
 import frc.robot.commands.ShootCommands.ShootFar;
 
@@ -64,6 +65,8 @@ public class XboxOI {
             //new JoystickButton(driverXboxController, ControllerMap.XBOX_X).whileHeld(new ShootFar()); // XBOX_X
 
             //new JoystickButton(driverXboxController, ControllerMap.XBOX_LB).whenPressed(new StopIntake()); // XBOX_LB
+
+            new JoystickButton(driverXboxController, ControllerMap.XBOX_X).whileHeld(new TurnOn());
         }
     }
 
@@ -74,6 +77,7 @@ public class XboxOI {
     public double getTurn() {
         return driverXboxController.getRawAxis(ControllerMap.XBOX_RIGHT_STICK_X);
     }
+
 
     public void setControllerRumble(boolean driver, boolean operator) {
         if (driver == true) {

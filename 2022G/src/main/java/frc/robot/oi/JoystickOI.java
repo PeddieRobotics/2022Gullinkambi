@@ -7,7 +7,7 @@ import frc.robot.commands.IntakeCommands.StartIntake;
 import frc.robot.commands.IntakeCommands.StopIntake;
 import frc.robot.commands.ShootCommands.ShootFar;
 //import frc.robot.commands.ShootCommands.ShootLayup;
-import frc.robot.subsystems.Climber;
+// import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hopper;
@@ -39,7 +39,7 @@ public class JoystickOI {
 
   // private XboxTrigger driverLeftTrigger, driverRightTrigger;
 
-  public JoystickOI(Drivetrain d, Hopper h, Flywheel f, Intake i, Climber c) {  //add Tower t when needed
+  public JoystickOI(Drivetrain d, Hopper h, Flywheel f, Intake i) {  //add Tower t when needed
     m_driveTrain = d;
     //m_tower = t;
     // m_hopper = h;
@@ -105,7 +105,7 @@ public class JoystickOI {
 
   public static JoystickOI getInstance() {
     if (oi2 == null) {
-      oi2 = new JoystickOI(Drivetrain.getInstance(), null, null, null, null);
+      // oi2 = new JoystickOI(Drivetrain.getInstance(), null, null, null, null);
           
       // oi2 = new JoystickOI(Drivetrain.getInstance(), Hopper.getInstance(), Flywheel.getInstance(), // add Tower.getInstance() later when we actually make the code
       //     Intake.getInstance(), Climber.getInstance());

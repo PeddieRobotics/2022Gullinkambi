@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.Lights;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -20,7 +21,8 @@ public class Robot extends TimedRobot {
   private Command autonomousCommand;
 
   private RobotContainer robotContainer;
-
+  private Command m_autonomousCommand;
+  private Lights lights;
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -33,6 +35,8 @@ public class Robot extends TimedRobot {
     robotContainer.setDrivetrainToCoastMode();
     robotContainer.calibrateGyro();
     robotContainer.setupSmartDashboard();
+
+    lights = Lights.getInstance();
   }
 
   /**
@@ -89,6 +93,7 @@ public class Robot extends TimedRobot {
     if (autonomousCommand != null) {
       autonomousCommand.cancel();
     }
+    lights.on();
   }
 
   /** This function is called periodically during operator control. */
