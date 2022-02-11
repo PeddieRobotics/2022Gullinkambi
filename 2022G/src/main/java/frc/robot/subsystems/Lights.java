@@ -23,7 +23,7 @@ public class Lights extends SubsystemBase{
     private static Lights lights;
     private Solenoid strip;
     public Lights() {
-        strip = new Solenoid(PneumaticsModuleType.REVPH, 7);
+        strip = new Solenoid(21,PneumaticsModuleType.REVPH, 15);
     }
     public static Lights getInstance(){
         if(lights == null){
