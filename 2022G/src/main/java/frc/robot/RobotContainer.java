@@ -10,12 +10,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.DriveCommands.Drive;
 import frc.robot.subsystems.Autonomous;
-import frc.robot.subsystems.Climber;
+// import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.Lights;
 import frc.robot.OI;
 
 
@@ -28,6 +29,7 @@ import frc.robot.OI;
 public class RobotContainer {
   public final OI m_oi;
   private final Drivetrain drivetrain;
+  private final Lights lights;
   private final Autonomous m_autonomous;
   // private final Intake intake;
   // private final Hopper hopper;
@@ -39,6 +41,7 @@ public class RobotContainer {
   public RobotContainer() {
     
     drivetrain = Drivetrain.getInstance();
+    lights = Lights.getInstance();
     m_autonomous = Autonomous.getInstance();
     //intake = Intake.getInstance();
     //hopper = Hopper.getInstance();
@@ -48,6 +51,8 @@ public class RobotContainer {
     m_oi = OI.getInstance();
     
     drivetrain.setDefaultCommand(new Drive());
+    lights.register();
+
     //intake.register();
     //hopper.register();
     //flywheel.register();
