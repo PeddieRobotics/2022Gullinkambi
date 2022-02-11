@@ -20,7 +20,7 @@ public class Intake extends SubsystemBase {
 
   public Intake(){
     intakeSolenoid = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.SOLENOID_INTAKE);
-    intakeMotor = new VictorSP(RobotMap.MOTOR_INTAKE);
+    // intakeMotor = new VictorSP(RobotMap.MOTOR_INTAKE);
 
   }
 
@@ -37,33 +37,48 @@ public class Intake extends SubsystemBase {
     return intake;
   }
 
-  public void runIntake(double speed, boolean solenoidState){
-    intakeMotor.set(speed);
+  public void setIntakeSpeed(double intakeSpeed){
+    intakeMotor.set(intakeSpeed);
+  }
+
+  public double getIntakeSpeed() {
+    return(intakeMotor.get());
+  }
+
+  public void setIntakeSolenoid(boolean solenoidState){
     intakeSolenoid.set(solenoidState);
+  }
+    
+  public boolean getIntakeSolenoid() {
+    return intakeSolenoid.get();
+  }
+
+  public void runIntake(double speed){
+    intakeMotor.set(speed);
+    intakeSolenoid.set(true);
   }
 
   public void stopIntake(){
-    runIntake(0, false);
+    intakeMotor.set(0);
+    intakeSolenoid.set(false);
   }
 
   public void reverseIntake(double speed){
-    runIntake(-speed, true);
+    runIntake(-speed);
+    intakeSolenoid.set(true);
   }
 
   public boolean isIntaking() {
      return (intakeMotor.get() > 0.0);
   }
-  
-  public boolean getSolenoidState() {
-    return intakeSolenoid.get();
-  }
-
-  public double getSpeed() {
-    return(intakeMotor.get());
-  }
 
   public void putSmartDashboardOverrides() {
-    SmartDashboard.putNumber("OR: Intake speed", getSpeed());
-    SmartDashboard.putBoolean("OR: Intake solenoid", getSolenoidState());
+    // SmartDashboard.putNumber("OR: Intake speed", getIntakeSpeed());
+    SmartDashboard.putBoolean("OR: Intake solenoid", getIntakeSolenoid());
+  }
+
+  public void updateIntakeFromDashboard() {
+    // setIntakeSpeed(SmartDashboard.getNumber("OR: Intake speed", getIntakeSpeed()));
+    setIntakeSolenoid(SmartDashboard.getBoolean("OR: Intake solenoid", getIntakeSolenoid()));
   }
 }

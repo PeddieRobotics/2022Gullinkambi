@@ -13,16 +13,16 @@ import frc.robot.utils.Constants;
 
 public class StartIntake extends CommandBase {
 
-  private Intake mIntake;
+  private Intake intake;
   /** Creates a new StartIntake. */
   public StartIntake() {
-    mIntake = Intake.getInstance();
+    intake = intake.getInstance();
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    mIntake.runIntake(Constants.INTAKE_SPEED, true);
+    intake.runIntake(Constants.INTAKE_SPEED);
     // HelixEvents.getInstance().addEvent("INTAKE", "Initialized: StartIntake");
   }
 

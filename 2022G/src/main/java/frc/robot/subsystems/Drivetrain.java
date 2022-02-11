@@ -33,7 +33,7 @@ public class Drivetrain extends SubsystemBase {
 
   private final DifferentialDrive drive;
   private final DifferentialDriveOdometry odometry;
-  private final ADIS16470_IMU gyro;
+  //private final ADIS16470_IMU gyro;
 
   private DigitalInput sensor0;
 
@@ -71,9 +71,9 @@ public class Drivetrain extends SubsystemBase {
 
     sensor0 = new DigitalInput(0);
 
-    gyro = new ADIS16470_IMU();
+    // gyro = new ADIS16470_IMU();
     // calibrateGyro();
-    gyro.reset();
+    //gyro.reset();
 
     odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
 
@@ -191,7 +191,7 @@ public void putSmartDashboardOverrides(){
 }
 
 public double getHeading(){
-  headingValue = gyro.getAngle();
+  //headingValue = gyro.getAngle();
   return Math.IEEEremainder(headingValue, 360);
 }
 
@@ -200,7 +200,7 @@ public Rotation2d getHeadingAsRotation2d(){
 }
 
 public double getUnboundedHeading(){
-  return gyro.getAngle();
+  return 0; //gyro.getAngle();
 }
 
 public void resetPose(Pose2d estimatedPostition, Rotation2d gyroAngle){
@@ -209,7 +209,7 @@ public void resetPose(Pose2d estimatedPostition, Rotation2d gyroAngle){
 }
 
 public void calibrateGyro() {
-  gyro.calibrate();
+  //gyro.calibrate();
 }
 
 public Pose2d getPose(){
@@ -217,7 +217,7 @@ public Pose2d getPose(){
 }
 
 public void resetGyro(){
-  gyro.reset();
+  //gyro.reset();
   resetPose(new Pose2d(0.0, 0.0, new Rotation2d(0.0)), new Rotation2d(0.0));
   resetEncoders();
 }
