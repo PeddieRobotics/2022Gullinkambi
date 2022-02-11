@@ -33,9 +33,6 @@ public class Robot extends TimedRobot {
     robotContainer.setDrivetrainToCoastMode();
     robotContainer.calibrateGyro();
     robotContainer.setupSmartDashboard();
-    Compressor phCompressor = new Compressor(1, PneumaticsModuleType.REVPH);
-    phCompressor.enableDigital();
-    boolean enabled = phCompressor.enabled();
   }
 
   /**

@@ -29,7 +29,7 @@ public class RobotContainer {
   public final OI oi;
   private final Drivetrain drivetrain;
   private final Autonomous autonomous;
-  //private final Intake intake;
+  private final Intake intake;
   //private final Hopper hopper;
   //private final Flywheel flywheel;
   // private final Climber climber;
@@ -40,7 +40,7 @@ public class RobotContainer {
     
     drivetrain = Drivetrain.getInstance();
     autonomous = Autonomous.getInstance();
-    //intake = Intake.getInstance();
+    intake = Intake.getInstance();
     //hopper = Hopper.getInstance();
     //flywheel = Flywheel.getInstance();
     //climber = Climber.getInstance();
@@ -48,7 +48,7 @@ public class RobotContainer {
     oi = OI.getInstance();
     
     drivetrain.setDefaultCommand(new Drive());
-    //intake.register();
+    intake.register();
     //hopper.register();
     //flywheel.register();
     //climber.register();
@@ -70,7 +70,7 @@ public class RobotContainer {
   public void setupSmartDashboard() {
     drivetrain.putSmartDashboardOverrides();
     //SmartDashboard.putBoolean("sensor0", false);
-    //intake.putSmartDashboardOverrides();
+    intake.putSmartDashboardOverrides();
     //hopper.putSmartDashboardOverrides();
     // limelight.putSmartDashboardOverrides();
     // climber.putSmartDashboardOverrides();
@@ -86,7 +86,7 @@ public class RobotContainer {
     drivetrain.arcadeDrive(SmartDashboard.getNumber("OR: Drivetrain speed", 0), SmartDashboard.getNumber("OR: Drivetrain turn", 0));
     
     // Intake
-    //intake.updateIntakeFromDashboard();
+    intake.updateIntakeFromDashboard();
 
     // Hopper
     // hopper.runHopper(SmartDashboard.getNumber("OR: Hopper speed", 0));

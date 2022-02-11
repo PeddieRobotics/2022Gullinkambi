@@ -18,7 +18,7 @@ public class RobotMap {
   public static final int MOTOR_FLYWHEEL_SECONDARY = 12;
 
   // Pneumatics
-  public static final int SOLENOID_INTAKE = 1;
+  public static final int SOLENOID_INTAKE = 0;
   public static final int SOLENOID_SHOOTER_LOCK = 2;
   public static final int SOLENOID_HOOD = 3;
   public static final int SOLENOID_CLIMBER_LEFT = 4;
