@@ -59,59 +59,59 @@ public class UpdateLogs {
         //Drive Motor Data
         Logger.getInstance().recordOutput("Drivetrain/LeftMasterVelocity", m_drivetrain.getLeftMasterVelocity());
         Logger.getInstance().recordOutput("Drivetrain/LeftFollowerVelocity", m_drivetrain.getLeftFollowerVelocity());
-        //Logger.getInstance().recordOutput("Drivetrain/LeftFollower2Velocity", m_drivetrain.getLeftFollower2Velocity());
+        Logger.getInstance().recordOutput("Drivetrain/LeftFollower2Velocity", m_drivetrain.getLeftFollower2Velocity());
         Logger.getInstance().recordOutput("Drivetrain/RightMasterVelocity", m_drivetrain.getRightMasterVelocity());
         Logger.getInstance().recordOutput("Drivetrain/RightFollowerVelocity", m_drivetrain.getRightFollowerVelocity());
-        //Logger.getInstance().recordOutput("Drivetrain/RightFollower2Velocity", m_drivetrain.getRightFollower2Velocity());
+        Logger.getInstance().recordOutput("Drivetrain/RightFollower2Velocity", m_drivetrain.getRightFollower2Velocity());
 
         
         Logger.getInstance().recordOutput("Drivetrain/LeftMasterCurrent", m_drivetrain.getLeftMasterCurrent());
         Logger.getInstance().recordOutput("Drivetrain/LeftFollowerCurrent", m_drivetrain.getLeftFollowerCurrent());
-        //Logger.getInstance().recordOutput("Drivetrain/LeftFollower2Current", m_drivetrain.getLeftFollower2Current());
+        Logger.getInstance().recordOutput("Drivetrain/LeftFollower2Current", m_drivetrain.getLeftFollower2Current());
         Logger.getInstance().recordOutput("Drivetrain/RightMasterCurrent", m_drivetrain.getRightMasterCurrent());
         Logger.getInstance().recordOutput("Drivetrain/RightFollowerCurrent", m_drivetrain.getRightFollowerCurrent());
-        //Logger.getInstance().recordOutput("Drivetrain/RightFollower2Current", m_drivetrain.getRightFollower2Current());
+        Logger.getInstance().recordOutput("Drivetrain/RightFollower2Current", m_drivetrain.getRightFollower2Current());
         
         Logger.getInstance().recordOutput("Drivetrain/LeftMasterTemperature", m_drivetrain.getLeftMasterMotorTemperature());
         Logger.getInstance().recordOutput("Drivetrain/LeftFollowerTemperature", m_drivetrain.getLeftFollowerMotorTemperature());
-        //Logger.getInstance().recordOutput("Drivetrain/LeftFollower2Temperature", m_drivetrain.getLeftFollower2MotorTemperature());
+        Logger.getInstance().recordOutput("Drivetrain/LeftFollower2Temperature", m_drivetrain.getLeftFollower2MotorTemperature());
         Logger.getInstance().recordOutput("Drivetrain/RightMasterTemperature", m_drivetrain.getRightMasterMotorTemperature());
         Logger.getInstance().recordOutput("Drivetrain/RightFollowerTemperature", m_drivetrain.getRightFollowerMotorTemperature());
-        //Logger.getInstance().recordOutput("Drivetrain/RightFollower2Temperature", m_drivetrain.getRightFollower2MotorTemperature());
+        Logger.getInstance().recordOutput("Drivetrain/RightFollower2Temperature", m_drivetrain.getRightFollower2MotorTemperature());
     }
 
-    // public void updateClimberLogData(){
-    //     Logger.getInstance().recordOutput("Climber/LeftSolenoidOn", m_climber.getArmState());
-    //     Logger.getInstance().recordOutput("CompressorPressure", m_climber.getCompressorPressure());
-    // }
+    public void updateClimberLogData(){
+        Logger.getInstance().recordOutput("Climber/LeftSolenoidOn", m_climber.getArmState());
+        Logger.getInstance().recordOutput("CompressorPressure", m_climber.getCompressorPressure());
+    }
 
-    // public void updateFlywheelLogData(){
-    //     //Encoders
-    //     Logger.getInstance().recordOutput("Flywheel/FlywheelEncPosition", m_flywheel.getFlywheelEncoderPosition());
-    //     Logger.getInstance().recordOutput("Flywheel/FlywheelEncVelocity", m_flywheel.getFlywheelEncoderVelocity());
+    public void updateFlywheelLogData(){
+        //Encoders
+        Logger.getInstance().recordOutput("Flywheel/FlywheelEncPosition", m_flywheel.getFlywheelEncoderPosition());
+        Logger.getInstance().recordOutput("Flywheel/FlywheelEncVelocity", m_flywheel.getFlywheelEncoderVelocity());
 
-    //     //Flywheel Setpoints
-    //     Logger.getInstance().recordOutput("Flywheel/RPMSetpoint", m_flywheel.getFlywheelSetpoint());
+        //Flywheel Setpoints
+        Logger.getInstance().recordOutput("Flywheel/RPMSetpoint", m_flywheel.getFlywheelSetpoint());
 
-    //     //Motor Data
-    //     Logger.getInstance().recordOutput("Flywheel/PrimaryFlywheelVelocity", m_flywheel.getPrimaryflywheelVelocity());
-    //     Logger.getInstance().recordOutput("Flywheel/SecondaryFlywheelVelocity", m_flywheel.getSecondaryflywheelVelocity());
+        //Motor Data
+        Logger.getInstance().recordOutput("Flywheel/PrimaryFlywheelVelocity", m_flywheel.getPrimaryflywheelVelocity());
+        Logger.getInstance().recordOutput("Flywheel/SecondaryFlywheelVelocity", m_flywheel.getSecondaryflywheelVelocity());
         
-    //     Logger.getInstance().recordOutput("Flywheel/PrimaryFlywheelCurrent", m_flywheel.getPrimaryflywheelCurrent());
-    //     Logger.getInstance().recordOutput("Flywheel/SecondaryFlywheel2Current", m_flywheel.getSecondaryflywheelCurrent());
+        Logger.getInstance().recordOutput("Flywheel/PrimaryFlywheelCurrent", m_flywheel.getPrimaryflywheelCurrent());
+        Logger.getInstance().recordOutput("Flywheel/SecondaryFlywheel2Current", m_flywheel.getSecondaryflywheelCurrent());
         
-    //     Logger.getInstance().recordOutput("Flywheel/PrimaryFlywheelTemperature", m_flywheel.getPrimaryflywheelMotorTemperature());
-    //     Logger.getInstance().recordOutput("Flywheel/SecondaryFlywheel2Temperature", m_flywheel.getSecondaryflywheelMotorTemperature());
+        Logger.getInstance().recordOutput("Flywheel/PrimaryFlywheelTemperature", m_flywheel.getPrimaryflywheelMotorTemperature());
+        Logger.getInstance().recordOutput("Flywheel/SecondaryFlywheel2Temperature", m_flywheel.getSecondaryflywheelMotorTemperature());
         
-    //     Logger.getInstance().recordOutput("Flywheel/HoodUp", m_flywheel.isHoodUp());
-    // }
+        Logger.getInstance().recordOutput("Flywheel/HoodUp", m_flywheel.isHoodUp());
+    }
 
-    // public void updateHopperLogData(){
-    //     Logger.getInstance().recordOutput("Hopper/HopperMotorVelocity", m_hopper.getHopperVelocity());
+    public void updateHopperLogData(){
+        Logger.getInstance().recordOutput("Hopper/HopperMotorVelocity", m_hopper.getHopperVelocity());
 
-    //     Logger.getInstance().recordOutput("Hopper/BottomSensorValue", m_hopper.sensesBallBottom());
-    //     Logger.getInstance().recordOutput("Hopper/BottomSensorValue", m_hopper.sensesBallTop());
-    // }
+        Logger.getInstance().recordOutput("Hopper/BottomSensorValue", m_hopper.sensesBallBottom());
+        Logger.getInstance().recordOutput("Hopper/BottomSensorValue", m_hopper.sensesBallTop());
+    }
 
     public void updateIntakeLogData(){
         Logger.getInstance().recordOutput("Intake/IntakeSolenoidOn", m_intake.getSolenoidState());

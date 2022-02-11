@@ -43,7 +43,7 @@ public class Hopper extends SubsystemBase {
 
     @Override
     public void periodic() {
-        //updateLogs.updateHopperLogData();
+        updateLogs.updateHopperLogData();
     }
 
     public void runHopper(double speed){

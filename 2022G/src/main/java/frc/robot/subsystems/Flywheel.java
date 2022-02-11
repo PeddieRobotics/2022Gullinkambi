@@ -176,6 +176,7 @@ public class Flywheel extends SubsystemBase {
   //Hood Getters
   public boolean isHoodUp(){
     return hoodSolenoid.get();
+  }
   public void updatePIDGainsFromDashboard(){
     kP = SmartDashboard.getNumber("OR: P gain", kP);
     kI = SmartDashboard.getNumber("OR: I gain", kI);
