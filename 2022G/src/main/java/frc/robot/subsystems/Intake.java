@@ -18,7 +18,7 @@ public class Intake extends SubsystemBase {
   private Solenoid intakeSolenoid;
   private VictorSP intakeMotor;
 
-  public Intake(){
+  public Intake() {
     intakeSolenoid = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.SOLENOID_INTAKE);
     // intakeMotor = new VictorSP(RobotMap.MOTOR_INTAKE);
 
@@ -29,47 +29,47 @@ public class Intake extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public static Intake getInstance(){
-    if (intake == null){
+  public static Intake getInstance() {
+    if (intake == null) {
       intake = new Intake();
     }
 
     return intake;
   }
 
-  public void setIntakeSpeed(double intakeSpeed){
+  public void setIntakeSpeed(double intakeSpeed) {
     intakeMotor.set(intakeSpeed);
   }
 
   public double getIntakeSpeed() {
-    return(intakeMotor.get());
+    return (intakeMotor.get());
   }
 
-  public void setIntakeSolenoid(boolean solenoidState){
+  public void setIntakeSolenoid(boolean solenoidState) {
     intakeSolenoid.set(solenoidState);
   }
-    
+
   public boolean getIntakeSolenoid() {
     return intakeSolenoid.get();
   }
 
-  public void runIntake(double speed){
+  public void runIntake(double speed) {
     intakeMotor.set(speed);
     intakeSolenoid.set(true);
   }
 
-  public void stopIntake(){
+  public void stopIntake() {
     intakeMotor.set(0);
     intakeSolenoid.set(false);
   }
 
-  public void reverseIntake(double speed){
+  public void reverseIntake(double speed) {
     runIntake(-speed);
     intakeSolenoid.set(true);
   }
 
   public boolean isIntaking() {
-     return (intakeMotor.get() > 0.0);
+    return (intakeMotor.get() > 0.0);
   }
 
   public void putSmartDashboardOverrides() {

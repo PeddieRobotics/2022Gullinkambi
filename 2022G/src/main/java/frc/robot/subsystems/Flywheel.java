@@ -19,18 +19,18 @@ import frc.robot.utils.RobotMap;
 
 public class Flywheel extends SubsystemBase {
   private CANSparkMax flywheelPrimary, flywheelSecondary;
-  
+
   private SparkMaxPIDController flywheelPIDController;
   private RelativeEncoder flywheelEncoder;
-  
+
   private static Flywheel flywheel;
-  
+
   private double kP = Constants.FLYWHEEL_P;
   private double kI = Constants.FLYWHEEL_I;
   private double kD = Constants.FLYWHEEL_D;
   private double kIz = Constants.FLYWHEEL_IZONE;
   private double kFF = Constants.FLYWHEEL_FF;
-  
+
   private Solenoid hoodSolenoid, shooterLockSolenoid;
 
   private double flywheelSetpoint = 0;
@@ -53,7 +53,7 @@ public class Flywheel extends SubsystemBase {
     flywheelPIDController.setIZone(kIz);
     flywheelPIDController.setFF(kFF);
     flywheelPIDController.setOutputRange(0, 1);
-    
+
     // Set up pneumatics
     hoodSolenoid = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.SOLENOID_HOOD);
     shooterLockSolenoid = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.SOLENOID_SHOOTER_LOCK);
@@ -63,12 +63,11 @@ public class Flywheel extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Flywheel velocity", getFlywheelVelocity());
   }
-  
-  public static Flywheel getInstance(){
 
-    if (flywheel==null){
+  public static Flywheel getInstance() {
+
+    if (flywheel == null) {
       flywheel = new Flywheel();
     }
     return flywheel;
@@ -77,38 +76,45 @@ public class Flywheel extends SubsystemBase {
   public void runFlywheelSetPoint(double rpm) {
     flywheelSetpoint = rpm;
     // bounds may need to be changed based on desired limits
-    if (flywheelSetpoint > Constants.FLYWHEEL_MAX_RPM){
+    if (flywheelSetpoint > Constants.FLYWHEEL_MAX_RPM) {
       flywheelSetpoint = 0;
     }
-   flywheelPIDController.setReference(flywheelSetpoint, ControlType.kVelocity);
+    flywheelPIDController.setReference(flywheelSetpoint, ControlType.kVelocity);
   }
 
   public void runFlyWheelPower(double power) {
-      if (power > 0 && power < Constants.FLYWHEEL_MAX_POWER) {
-        flywheelPrimary.set(power);
-      }
-      else {
-        flywheelPrimary.set(0);
-      }
-
+    if (power > 0 && power < Constants.FLYWHEEL_MAX_POWER) {
+      flywheelPrimary.set(power);
+    } else {
+      flywheelPrimary.set(0);
     }
 
-  public boolean isAtRPM(double threshold){
-    if(getFlywheelSetpoint() > 0){
-        return Math.abs(getFlywheelVelocity()-getFlywheelSetpoint()) < threshold;
+  }
+
+  public boolean isAtRPM(double threshold) {
+    if (getFlywheelSetpoint() > 0) {
+      return Math.abs(getFlywheelVelocity() - getFlywheelSetpoint()) < threshold;
     }
     return false;
   }
 
-  public void setHood(boolean isUp){
+  public void setHood(boolean isUp) {
     hoodSolenoid.set(isUp);
   }
 
-  public void setShooterLock(boolean isActivated){
+  public void setShooterLock(boolean isActivated) {
     shooterLockSolenoid.set(isActivated);
   }
 
-  public void stopFlywheel(){
+  public void getHood() {
+    hoodSolenoid.get();
+  }
+
+  public void getShooterLock() {
+    shooterLockSolenoid.get();
+  }
+
+  public void stopFlywheel() {
     setHood(false);
     setShooterLock(false);
     flywheelPIDController.setReference(0, ControlType.kVelocity);
@@ -122,14 +128,15 @@ public class Flywheel extends SubsystemBase {
     return flywheelPrimary.getEncoder().getVelocity();
   }
 
-  public boolean isHoodUp(){
+  public boolean isHoodUp() {
     return hoodSolenoid.get();
   }
 
   public void putSmartDashboardOverrides() {
-    SmartDashboard.putNumber("OR: Flywheel velocity", 0);
+    SmartDashboard.putNumber("OR: Flywheel power", 0);
     SmartDashboard.putNumber("OR: Flywheel setpoint", 0);
     SmartDashboard.putBoolean("OR: Hood up", false);
+    SmartDashboard.putBoolean("OR: Lock Activated", true);
 
     // Smart dashboard controls for flywheel PID gain tuning
     SmartDashboard.putNumber("OR: P gain", kP);
@@ -139,17 +146,17 @@ public class Flywheel extends SubsystemBase {
     SmartDashboard.putNumber("OR: Feed forward", kFF);
   }
 
-  public void updatePIDGainsFromDashboard(){
-    kP = SmartDashboard.getNumber("OR: P gain", kP);
-    kI = SmartDashboard.getNumber("OR: I gain", kI);
-    kD = SmartDashboard.getNumber("OR: D gain", kD);
-    kIz = SmartDashboard.getNumber("OR: I zone", kIz);
-    kFF = SmartDashboard.getNumber("OR: Feed forward", kFF);
-    
-    flywheelPIDController.setP(kP);
-    flywheelPIDController.setI(kI);
-    flywheelPIDController.setD(kD);
-    flywheelPIDController.setIZone(kIz);
-    flywheelPIDController.setFF(kFF);
+  public void updateFlywheelFromDashboard() {
+    flywheelPIDController.setP(SmartDashboard.getNumber("OR: P gain", kP));
+    flywheelPIDController.setI(SmartDashboard.getNumber("OR: I gain", kI));
+    flywheelPIDController.setD(SmartDashboard.getNumber("OR: D gain", kD));
+    flywheelPIDController.setIZone(SmartDashboard.getNumber("OR: I zone", kIz));
+    flywheelPIDController.setFF(SmartDashboard.getNumber("OR: Feed forward", kFF));
+
+    setShooterLock(SmartDashboard.getBoolean("OR: Lock Activated", true));
+    setHood(SmartDashboard.getBoolean("OR: Hood up", false));
+    runFlywheelSetPoint(SmartDashboard.getNumber("OR: Flywheel setpoint", 0));
+    runFlyWheelPower(SmartDashboard.getNumber("OR: Flywheel power", 0));
   }
+
 }

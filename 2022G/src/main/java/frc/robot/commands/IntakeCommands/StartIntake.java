@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands.IntakeCommands;
+
 // import com.team2363.logger.HelixEvents;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Intake;
@@ -14,6 +15,7 @@ import frc.robot.utils.Constants;
 public class StartIntake extends CommandBase {
 
   private Intake intake;
+
   /** Creates a new StartIntake. */
   public StartIntake() {
     intake = intake.getInstance();
@@ -28,7 +30,8 @@ public class StartIntake extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+  }
 
   // Called once the command ends or is interrupted.
   @Override

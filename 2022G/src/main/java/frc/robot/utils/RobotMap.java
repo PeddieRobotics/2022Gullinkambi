@@ -3,7 +3,7 @@ package frc.robot.utils;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
 public class RobotMap {
-    // Motors
+  // Motors
   public static final int MOTOR_DRIVE_LEFT_MASTER = 1;
   public static final int MOTOR_DRIVE_LEFT_FOLLOWER1 = 2;
   // public static final int MOTOR_DRIVE_LEFT_FOLLOWER2 = 3;
@@ -25,6 +25,4 @@ public class RobotMap {
   public static final int SOLENOID_CLIMBER_RIGHT = 5;
   public static final int SOLENOID_CLIMBER_HOOK = 6;
 
-
-  
 }
