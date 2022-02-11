@@ -20,23 +20,29 @@ import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class Lights extends SubsystemBase{
+
     private static Lights lights;
     private Solenoid strip;
+
     public Lights() {
         strip = new Solenoid(PneumaticsModuleType.REVPH, 7);
     }
+
     public static Lights getInstance(){
         if(lights == null){
           lights = new Lights();
         }
         return lights;
       }
+
     public void on(){
         strip.set(true);
     }  
+
     public void off(){
         strip.set(false);
     }  
+
     @Override
     public void periodic() {
      }
