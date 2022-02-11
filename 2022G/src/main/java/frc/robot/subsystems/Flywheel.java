@@ -58,12 +58,13 @@ public class Flywheel extends SubsystemBase {
     hoodSolenoid = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.SOLENOID_HOOD);
     shooterLockSolenoid = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.SOLENOID_SHOOTER_LOCK);
     setShooterLock(true);
+    setHood(false);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Flywheel velocity", getFlywheelVelocity());
+    putSmartDashboard();
   }
 
   public static Flywheel getInstance() {
@@ -107,12 +108,12 @@ public class Flywheel extends SubsystemBase {
     shooterLockSolenoid.set(isActivated);
   }
 
-  public void getHood() {
-    hoodSolenoid.get();
+  public boolean getHood() {
+    return hoodSolenoid.get();
   }
 
-  public void getShooterLock() {
-    shooterLockSolenoid.get();
+  public boolean getShooterLock() {
+    return shooterLockSolenoid.get();
   }
 
   public void stopFlywheel() {
@@ -158,5 +159,12 @@ public class Flywheel extends SubsystemBase {
     setHood(SmartDashboard.getBoolean("OR: Hood up", false));
     runFlywheelSetPoint(SmartDashboard.getNumber("OR: Flywheel setpoint", 0));
     runFlyWheelPower(SmartDashboard.getNumber("OR: Flywheel power", 0));
+  }
+
+  public void putSmartDashboard(){
+    SmartDashboard.putNumber("Flywheel velocity", getFlywheelVelocity());
+    SmartDashboard.putNumber("OR: Flywheel setpoint", getFlywheelSetpoint());
+    SmartDashboard.putBoolean("OR: Lock Activated", getShooterLock());
+    SmartDashboard.putBoolean("Hood Up", getHood());
   }
 }

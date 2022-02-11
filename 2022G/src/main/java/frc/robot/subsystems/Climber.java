@@ -42,8 +42,8 @@ public class Climber extends SubsystemBase {
   public void armSet(boolean on){
     arm.set(on);
   }
-  public void getArm(){
-    arm.get();
+  public boolean getArm(){
+    return arm.get();
   }
 
   public void retract() {
@@ -52,6 +52,7 @@ public class Climber extends SubsystemBase {
 
   @Override
   public void periodic() {
+    putValuesSmartDashboard();
   }
 
   public void putSmartDashboardOverrides(){
@@ -60,5 +61,10 @@ public class Climber extends SubsystemBase {
 
   public void updateFromDashboard(){
     armSet(SmartDashboard.getBoolean("OR: Climber Extend", false));
+  }
+
+  public void putValuesSmartDashboard(){
+    SmartDashboard.putBoolean("Climber Extend", getArm());
+
   }
 }
