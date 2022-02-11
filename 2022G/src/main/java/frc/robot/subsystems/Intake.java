@@ -32,43 +32,64 @@ public class Intake extends SubsystemBase {
     updateLogs.updateIntakeLogData();
   }
 
-  public static Intake getInstance(){
-    if (intake == null){
+  public static Intake getInstance() {
+    if (intake == null) {
       intake = new Intake();
     }
 
     return intake;
   }
 
-  public void runIntake(double speed, boolean solenoidState){
-    intakeMotor.set(speed);
+  public void setIntakeSpeed(double intakeSpeed) {
+    intakeMotor.set(intakeSpeed);
+  }
+
+  public double getIntakeSpeed() {
+    return (intakeMotor.get());
+  }
+
+  public void setIntakeSolenoid(boolean solenoidState) {
     intakeSolenoid.set(solenoidState);
   }
 
-  public void stopIntake(){
-    runIntake(0, false);
+  public boolean getIntakeSolenoid() {
+    return intakeSolenoid.get();
   }
 
-  public void reverseIntake(double speed){
-    runIntake(-speed, true);
+  public void runIntake(double speed) {
+    intakeMotor.set(speed);
+    intakeSolenoid.set(true);
   }
 
-  public boolean isIntaking() {
-     return (intakeMotor.get() > 0.0);
-  }
-
-  public void putSmartDashboardOverrides() {
-    SmartDashboard.putNumber("OR: Intake speed", getIntakeVelocity());
-    SmartDashboard.putBoolean("OR: Intake solenoid", getSolenoidState());
+  public void stopIntake() {
+    intakeMotor.set(0);
+    intakeSolenoid.set(false);
   }
 
   //Getters
-
   public boolean getSolenoidState() {
     return intakeSolenoid.get();
   }
 
   public double getIntakeVelocity() {
     return(intakeMotor.get());
+  }
+  public void reverseIntake(double speed) {
+    runIntake(-speed);
+    intakeSolenoid.set(true);
+  }
+
+  public boolean isIntaking() {
+    return (intakeMotor.get() > 0.0);
+  }
+
+  public void putSmartDashboardOverrides() {
+    SmartDashboard.putNumber("OR: Intake speed", getIntakeSpeed());
+    SmartDashboard.putBoolean("OR: Intake solenoid", getIntakeSolenoid());
+  }
+
+  public void updateIntakeFromDashboard() {
+    setIntakeSpeed(SmartDashboard.getNumber("OR: Intake speed", getIntakeSpeed()));
+    setIntakeSolenoid(SmartDashboard.getBoolean("OR: Intake solenoid", getIntakeSolenoid()));
   }
 }

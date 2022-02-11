@@ -18,42 +18,46 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
 import frc.robot.OI;
 
-
 /**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
+ * This class is where the bulk of the robot should be declared. Since
+ * Command-based is a
+ * "declarative" paradigm, very little robot logic should actually be handled in
+ * the {@link Robot}
+ * periodic methods (other than the scheduler calls). Instead, the structure of
+ * the robot (including
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  public final OI m_oi;
+  public final OI oi;
   private final Drivetrain drivetrain;
-  private final Autonomous m_autonomous;
-  // private final Intake intake;
-  // private final Hopper hopper;
-  // private final Flywheel flywheel;
+  private final Autonomous autonomous;
+  private final Intake intake;
+  private final Hopper hopper;
+  private final Flywheel flywheel;
   // private final Climber climber;
   // private final Limelight limelight;
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  /**
+   * The container for the robot. Contains subsystems, OI devices, and commands.
+   */
   public RobotContainer() {
-    
+
     drivetrain = Drivetrain.getInstance();
-    m_autonomous = Autonomous.getInstance();
-    //intake = Intake.getInstance();
-    //hopper = Hopper.getInstance();
-    //flywheel = Flywheel.getInstance();
-    //climber = Climber.getInstance();
-    //limelight  = Limelight.getInstance();
-    m_oi = OI.getInstance();
-    
+    autonomous = Autonomous.getInstance();
+    intake = Intake.getInstance();
+    hopper = Hopper.getInstance();
+    flywheel = Flywheel.getInstance();
+    // climber = Climber.getInstance();
+    // limelight = Limelight.getInstance();
+    oi = OI.getInstance();
+
     drivetrain.setDefaultCommand(new Drive());
-    //intake.register();
-    //hopper.register();
-    //flywheel.register();
-    //climber.register();
-    //limelight.register();
-    
+    intake.register();
+    hopper.register();
+    flywheel.register();
+    // climber.register();
+    // limelight.register();
+
   }
 
   /**
@@ -64,49 +68,52 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     drivetrain.resetPose(new Pose2d(0.0, 0.0, new Rotation2d(0.0)), new Rotation2d(0.0));
     // needs to be merged/fixed from autonomous work in 2022Preseason repo
-    return m_autonomous.returnAutonomousCommand();
+    return autonomous.returnAutonomousCommand();
   }
 
   public void setupSmartDashboard() {
     drivetrain.putSmartDashboardOverrides();
     SmartDashboard.putBoolean("sensor0", false);
-    // intake.putSmartDashboardOverrides();
-    // hopper.putSmartDashboardOverrides();
+    intake.putSmartDashboardOverrides();
+    hopper.putSmartDashboardOverrides();
     // limelight.putSmartDashboardOverrides();
     // climber.putSmartDashboardOverrides();
-    // flywheel.putSmartDashboardOverrides();
+    flywheel.putSmartDashboardOverrides();
   }
 
   // Overrides for interfacing with robot hardware
-  // The SmartDashboard fields for all of these should be configured with the putSmartDashboardOverrides method
+  // The SmartDashboard fields for all of these should be configured with the
+  // putSmartDashboardOverrides method
   // in each respective subsystem.
+
   public void testAllSystems() {
     // Drivetrain
-    // Be exceptionally careful driving the robot via dashboard. Usually done on blocks.
-    drivetrain.arcadeDrive(SmartDashboard.getNumber("OR: Drivetrain speed", 0), SmartDashboard.getNumber("OR: Drivetrain turn", 0));
-    
-    // // Intake
-    // intake.runIntake(SmartDashboard.getNumber("OR: Intake speed", 0), SmartDashboard.getBoolean("Intake state", false));
+    // Be exceptionally careful driving the robot via dashboard. Usually done on
+    // blocks.
+    drivetrain.arcadeDrive(SmartDashboard.getNumber("OR: Drivetrain speed", 0),
+        SmartDashboard.getNumber("OR: Drivetrain turn", 0));
 
-    // // Hopper
-    // hopper.runHopper(SmartDashboard.getNumber("OR: Hopper speed", 0));
+    // Intake
+    intake.updateIntakeFromDashboard();
 
-    // // Flywheel
-    // flywheel.setHood(SmartDashboard.getBoolean("OR: Hood up", false));
-    // flywheel.runFlywheelSetPoint(SmartDashboard.getNumber("OR: Flywheel setpoint", 0));
+    // Hopper
+    hopper.updateSpeedFromDashboard();
 
-    // // Climber
+    // Flywheel
+    flywheel.updateFlywheelFromDashboard();
+
+
+    // Climber
     // climber.setClimberSpeed(SmartDashboard.getNumber("OR: Climber speed", 0));
     // climber.setClimberTilt(SmartDashboard.getBoolean("OR: Climber tilt", false));
     // climber.setClimberHook(SmartDashboard.getBoolean("OR: Climber hook", false));
-
 
     // Limelight - currently none
 
     SmartDashboard.putBoolean("sensor0", drivetrain.isSensor());
   }
 
-  public void setDrivetrainToCoastMode(){
+  public void setDrivetrainToCoastMode() {
     drivetrain.setCoast();
   }
 
@@ -121,6 +128,5 @@ public class RobotContainer {
   public void setDrivetrainToBrakeMode() {
     drivetrain.setBrake();
   }
-
 
 }

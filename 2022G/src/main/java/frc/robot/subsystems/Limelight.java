@@ -14,7 +14,7 @@ public class Limelight extends SubsystemBase {
   /**
    * Creates a new Limelight.
    */
-  
+
   private static Limelight limelight;
   double[] thorInputs = {};// make sure to go in increasing order, so from 1->100 vs 100->1
   double[] velocityOutputs = {};
@@ -31,17 +31,17 @@ public class Limelight extends SubsystemBase {
     
   public Limelight() {
   }
-   
+
   public static Limelight getInstance() {
     if (limelight == null) {
       limelight = new Limelight();
     }
-  return limelight;
+    return limelight;
 
   }
 
   @Override
-  public void periodic(){
+  public void periodic() {
     SmartDashboard.putNumber("Limelight vertical error", getTy());
     SmartDashboard.putNumber("Limelight horizontal error", getTx());
     updateLogs.updateLimelightLogData();
@@ -52,41 +52,44 @@ public class Limelight extends SubsystemBase {
     return (int)(tv.getDouble(0.0));
   }
 
-  //Tvert is the vertical sidelength of the rough bounding box (0 - 320 pixels)
-  public double getTvert(){
+  // Tvert is the vertical sidelength of the rough bounding box (0 - 320 pixels)
+  public double getTvert() {
     return tvert.getDouble(0.0);
   }
 
-  //Thor is the horizontal sidelength of the rough bounding box (0 - 320 pixels)
-  public double getThor(){
+  // Thor is the horizontal sidelength of the rough bounding box (0 - 320 pixels)
+  public double getThor() {
     return thor.getDouble(0.0);
   }
-  
-  //Tx is the Horizontal Offset From Crosshair To Target
-  public double getTx(){
+
+  // Tx is the Horizontal Offset From Crosshair To Target
+  public double getTx() {
     return tx.getDouble(0.0);
   }
-  
-  //Ty is the Vertical Offset From Crosshair To Target
-  public double getTy(){
+
+  // Ty is the Vertical Offset From Crosshair To Target
+  public double getTy() {
     return ty.getDouble(0.0);
   }
-  
-  public double getTa(){
+
+  public double getTa() {
     return ta.getDouble(0.0);
   }
-  
-  /*public double getDistance(){
-    if(ty.getDouble(0.0)==0) return 0;
-    else return (98.25-24)/(Math.tan(Math.toRadians(25+ty.getDouble(0.0))));
-  }*/
-  
-  public boolean hasTarget(){
-    if (limes.getEntry("tv").getDouble(0.0)==1){
+
+  /*
+   * public double getDistance(){
+   * if(ty.getDouble(0.0)==0) return 0;
+   * else return (98.25-24)/(Math.tan(Math.toRadians(25+ty.getDouble(0.0))));
+   * }
+   */
+
+  public boolean hasTarget() {
+    if (limes.getEntry("tv").getDouble(0.0) == 1) {
       return true;
-    }else return false;
+    } else
+      return false;
   }
-  
-  public void putSmartDashboardOverrides(){
+
+  public void putSmartDashboardOverrides() {
   }
 }

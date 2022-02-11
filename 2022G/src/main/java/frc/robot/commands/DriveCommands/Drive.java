@@ -42,11 +42,13 @@ public class Drive extends CommandBase {
         double speedInput = 0.0;
         double turnInput = 0.0;
 
-        if (Constants.OI_CONFIG == OIConfig.COMPETITION) { // both joystick and xbox, but joysticks are the drivers and xbox is the operator
-            //for now this is just the same stuff as joysticks, so it needs to change to something
+        if (Constants.OI_CONFIG == OIConfig.COMPETITION) { // both joystick and xbox, but joysticks are the drivers and
+                                                           // xbox is the operator
+            // for now this is just the same stuff as joysticks, so it needs to change to
+            // something
             speedInput = oi2.getSpeed();
             turnInput = oi2.getTurn();
-            reverse = oi2.getInverseMode(); 
+            reverse = oi2.getInverseMode();
 
         } else if (Constants.OI_CONFIG == OIConfig.XBOX_TEST) { // xbox
 
@@ -62,9 +64,9 @@ public class Drive extends CommandBase {
 
         }
         // if (!reverse) {
-        //     drivetrain.arcadeDrive(speedInput, turnInput);
+        // drivetrain.arcadeDrive(speedInput, turnInput);
         // } else {
-        //     drivetrain.arcadeDrive(-speedInput, turnInput);
+        // drivetrain.arcadeDrive(-speedInput, turnInput);
         // }
         if (!reverse) {
             drivetrain.curvatureDrive(speedInput, turnInput);

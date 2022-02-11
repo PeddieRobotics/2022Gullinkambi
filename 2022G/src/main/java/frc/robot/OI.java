@@ -25,6 +25,7 @@ public class OI {
   private JoystickOI m_JoystickOI;
 
   private Joystick leftJoystick, rightJoystick;
+
   public OI() {
 
     m_driveTrain = Drivetrain.getInstance();

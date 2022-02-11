@@ -19,7 +19,7 @@ public class ShootFar extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    flywheel.setHood(true); //turn hood on for shoot far with high speed
+    flywheel.setHood(true); // turn hood on for shoot far with high speed
     flywheel.setShooterLock(true);
 
     flywheel.runFlywheelSetPoint(Constants.FLYWHEEL_RPM_FAR);
@@ -29,10 +29,9 @@ public class ShootFar extends CommandBase {
   @Override
   public void execute() {
     // Check whether the speed of flywheel is good enough to shoot
-    if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_FAR)){
+    if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_FAR)) {
       hopper.runHopper(Constants.HOPPER_SPEED);
-    }
-    else {
+    } else {
       hopper.runHopper(0.0);
     }
 
@@ -53,4 +52,3 @@ public class ShootFar extends CommandBase {
     return false;
   }
 }
-
