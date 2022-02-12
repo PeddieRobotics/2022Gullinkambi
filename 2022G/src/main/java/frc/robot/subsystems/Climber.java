@@ -45,8 +45,8 @@ public class Climber extends SubsystemBase {
 
   public void retract() {
     setBrake();
-    if(!armSensor.get()){
-      armPrimary.set(-0.5);
+    if(!armSensor.get()){ // check snesor true and false
+      armPrimary.set(-0.5); // check speed positive or negative
     }
     else armPrimary.set(0);
   }
