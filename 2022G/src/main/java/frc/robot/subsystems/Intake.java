@@ -40,7 +40,9 @@ public class Intake extends SubsystemBase {
   }
 
   public void setIntakeSpeed(double intakeSpeed) {
-    intakeMotor.set(intakeSpeed);
+    if (getIntakeSolenoid()) {
+      intakeMotor.set(intakeSpeed);
+    }
   }
 
   public double getIntakeSpeed() {
@@ -55,21 +57,13 @@ public class Intake extends SubsystemBase {
     return intakeSolenoid.get();
   }
 
-  public void runIntake(double speed) {
-    setIntakeSolenoid(true);;
-    if(getIntakeSolenoid()){
-    setIntakeSpeed(speed);
-    }
-    else setIntakeSpeed(0);
-  }
-
   public void stopIntake() {
     intakeMotor.set(0);
     intakeSolenoid.set(false);
   }
 
   public void reverseIntake(double speed) {
-    runIntake(-speed);
+    setIntakeSpeed(-speed);
   }
 
   public boolean isIntaking() {
@@ -86,7 +80,7 @@ public class Intake extends SubsystemBase {
     setIntakeSolenoid(SmartDashboard.getBoolean("OR: Intake solenoid", false));
   }
 
-  public void putValuesSmartDashboard(){
+  public void putValuesSmartDashboard() {
     SmartDashboard.putNumber("Intake speed", getIntakeSpeed());
     SmartDashboard.putBoolean("Intake solenoid", getIntakeSolenoid());
   }

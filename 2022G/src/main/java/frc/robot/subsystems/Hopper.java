@@ -44,7 +44,7 @@ public class Hopper extends SubsystemBase {
     }
 
     public void runHopper(double speed) {
-        hopperSystem.set(speed); // the speed input needs a multiplier
+        hopperSystem.set(-speed); // the speed input needs a multiplier
     }
 
     public void stopHopper() {

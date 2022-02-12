@@ -27,6 +27,7 @@ public class Robot extends TimedRobot {
 
   private RobotContainer robotContainer;
   private Lights lights;
+
   /**
    * This function is run when the robot is first started up and should be used
    * for any
@@ -41,7 +42,7 @@ public class Robot extends TimedRobot {
     robotContainer.setDrivetrainToCoastMode();
     robotContainer.calibrateGyro();
     robotContainer.setupSmartDashboard();
-
+   
     lights = Lights.getInstance();
   }
 
@@ -118,7 +119,9 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    robotContainer.testAllSystems();
+    if (SmartDashboard.getBoolean("Allow overrides", false)) {
+      robotContainer.testAllSystems();
+    }
   }
 
   @Override

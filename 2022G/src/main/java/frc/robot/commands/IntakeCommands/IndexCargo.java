@@ -28,7 +28,7 @@ public class IndexCargo extends CommandBase {
 
   @Override
   public void execute() {
-
+    /*
     if (!intake.isIntaking()) {
       hopper.stopHopper();
     } else {
@@ -39,9 +39,10 @@ public class IndexCargo extends CommandBase {
       } else {
         hopper.stopHopper();
       }
-    }
+    }*/
+    hopper.runHopper(Constants.HOPPER_SPEED);
   }
-
+  
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {

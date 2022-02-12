@@ -66,6 +66,8 @@ public class XboxOI {
 
             new Button(() -> driverXboxController.getRawAxis(2) > 0.5).whenPressed(new StartIntake()); // XBOX_LT
 
+            //new JoystickButton(driverXboxController, ControllerMap.XBOX_Y).whenPressed(new StartIntake());
+
             new JoystickButton(driverXboxController, ControllerMap.XBOX_LB).whenPressed(new StopIntake()); // XBOX_LB
 
             new JoystickButton(driverXboxController, ControllerMap.XBOX_RB).whenPressed(new IndexCargo()); // XBOX_RB
@@ -76,7 +78,7 @@ public class XboxOI {
 
             new JoystickButton(driverXboxController, ControllerMap.XBOX_A).whileHeld(new ShootLow()); // XBOX_A
 
-            new JoystickButton(driverXboxController, ControllerMap.XBOX_Y).whileHeld(new UnjamIntake()); // XBOX_Y
+             new JoystickButton(driverXboxController, ControllerMap.XBOX_Y).whileHeld(new UnjamIntake()); // XBOX_Y
         }
     }
 

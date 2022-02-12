@@ -94,6 +94,7 @@ public class RobotContainer {
     //limelight.putSmartDashboardOverrides();
     // climber.putSmartDashboardOverrides();
     flywheel.putSmartDashboardOverrides();
+    SmartDashboard.putBoolean("Allow overrides", false);
   }
 
   // Overrides for interfacing with robot hardware
