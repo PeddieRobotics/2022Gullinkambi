@@ -69,14 +69,6 @@ public class Intake extends SubsystemBase {
     intakeSolenoid.set(false);
   }
 
-  //Getters
-  public boolean getSolenoidState() {
-    return intakeSolenoid.get();
-  }
-
-  public double getIntakeVelocity() {
-    return(intakeMotor.get());
-  }
   public void reverseIntake(double speed) {
     runIntake(-speed);
     intakeSolenoid.set(true);
@@ -94,5 +86,22 @@ public class Intake extends SubsystemBase {
   public void updateIntakeFromDashboard() {
     setIntakeSpeed(SmartDashboard.getNumber("OR: Intake speed", getIntakeSpeed()));
     setIntakeSolenoid(SmartDashboard.getBoolean("OR: Intake solenoid", getIntakeSolenoid()));
+  }
+
+  //Getters
+  public boolean getSolenoidState() {
+    return intakeSolenoid.get();
+  }
+
+  public double getIntakeVelocity() {
+    return intakeMotor.get();
+  }
+
+  public double getIntakeCurrent(){
+    return intakeMotor.getOutputCurrent();
+  }
+
+  public double getIntakeMotorTemperature(){
+    return intakeMotor.getMotorTemperature();
   }
 }

@@ -64,7 +64,6 @@ public class UpdateLogs {
         Logger.getInstance().recordOutput("Drivetrain/RightFollowerVelocity", m_drivetrain.getRightFollowerVelocity());
         Logger.getInstance().recordOutput("Drivetrain/RightFollower2Velocity", m_drivetrain.getRightFollower2Velocity());
 
-        
         Logger.getInstance().recordOutput("Drivetrain/LeftMasterCurrent", m_drivetrain.getLeftMasterCurrent());
         Logger.getInstance().recordOutput("Drivetrain/LeftFollowerCurrent", m_drivetrain.getLeftFollowerCurrent());
         Logger.getInstance().recordOutput("Drivetrain/LeftFollower2Current", m_drivetrain.getLeftFollower2Current());
@@ -78,11 +77,23 @@ public class UpdateLogs {
         Logger.getInstance().recordOutput("Drivetrain/RightMasterTemperature", m_drivetrain.getRightMasterMotorTemperature());
         Logger.getInstance().recordOutput("Drivetrain/RightFollowerTemperature", m_drivetrain.getRightFollowerMotorTemperature());
         Logger.getInstance().recordOutput("Drivetrain/RightFollower2Temperature", m_drivetrain.getRightFollower2MotorTemperature());
+
+        Logger.getInstance().recordOutput("Drivetrain/HeadingValue", m_drivetrain.getHeading());
     }
 
     public void updateClimberLogData(){
         Logger.getInstance().recordOutput("Climber/LeftSolenoidOn", m_climber.getArmState());
         Logger.getInstance().recordOutput("CompressorPressure", m_climber.getCompressorPressure());
+
+        //Winch Motor Data
+        Logger.getInstance().recordOutput("Climber/PrimaryArmWinchVelocity", m_climber.getPrimaryArmVelocity());
+        Logger.getInstance().recordOutput("Climber/SecondaryArmWinchVelocity", m_climber.getSecondaryArmVelocity());
+
+        Logger.getInstance().recordOutput("Climber/PrimaryArmWinchCurrent", m_climber.getPrimaryArmCurrent());
+        Logger.getInstance().recordOutput("Climber/SecondaryArmWinchCurrent", m_climber.getSecondaryArmCurrent());
+        
+        Logger.getInstance().recordOutput("Climber/PrimaryArmWinchTemperature", m_climber.getPrimaryArmMotorTemperature());
+        Logger.getInstance().recordOutput("Climber/SecondaryArmWinchTemperature", m_climber.getSecondaryArmMotorTemperature());
     }
 
     public void updateFlywheelLogData(){
@@ -110,12 +121,14 @@ public class UpdateLogs {
         Logger.getInstance().recordOutput("Hopper/HopperMotorVelocity", m_hopper.getHopperVelocity());
 
         Logger.getInstance().recordOutput("Hopper/BottomSensorValue", m_hopper.sensesBallBottom());
-        Logger.getInstance().recordOutput("Hopper/BottomSensorValue", m_hopper.sensesBallTop());
+        Logger.getInstance().recordOutput("Hopper/TopSensorValue", m_hopper.sensesBallTop());
     }
 
     public void updateIntakeLogData(){
         Logger.getInstance().recordOutput("Intake/IntakeSolenoidOn", m_intake.getSolenoidState());
         Logger.getInstance().recordOutput("Intake/IntakeMotorVelocity", m_intake.getIntakeVelocity());
+        Logger.getInstance().recordOutput("Intake/IntakeMotorCurrent", m_intake.getIntakeCurrent());
+        Logger.getInstance().recordOutput("Intake/IntakeMotorTemperature", m_intake.getIntakeMotorTemperature());
     }
 
     public void updateLimelightLogData(){

@@ -71,6 +71,14 @@ public class Hopper extends SubsystemBase {
         return hopperSystem.get();
     }
 
+    public double getHopperCurrent(){
+    return hopperSystem.getOutputCurrent();
+    }
+
+    public double getHopperMotorTemperature(){
+    return hopperSystem.getMotorTemperature();
+    }
+
     public boolean sensesBallBottom() {
         return bottomSensor.get();
     }

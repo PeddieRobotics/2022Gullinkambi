@@ -60,4 +60,28 @@ public class Climber extends SubsystemBase{
   public double getCompressorPressure(){
     return compressor.getPressure();
   }
+
+  public double getPrimaryArmVelocity(){
+    return armPrimary.get();
+  }
+  
+  public double getSecondaryArmVelocity(){
+    return armSecondary.get();
+  }
+
+  public double getPrimaryArmCurrent(){
+    return armPrimary.getOutputCurrent();
+  }
+  
+  public double getSecondaryArmCurrent(){
+    return armSecondary.getOutputCurrent();
+  }
+
+  public double getPrimaryArmMotorTemperature(){
+    return armPrimary.getMotorTemperature();
+  }
+  
+  public double getSecondaryArmMotorTemperature(){
+    return armSecondary.getMotorTemperature();
+  }
 }
