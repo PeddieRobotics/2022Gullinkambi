@@ -27,8 +27,7 @@ import frc.robot.commands.SplitFFRamseteCommand;
 import frc.robot.commands.DriveCommands.Drive;
 import frc.robot.utils.Constants;
 
-
-public class Autonomous extends SubsystemBase{
+public class Autonomous extends SubsystemBase {
 
     private final Drivetrain m_drivetrain;
     private static Autonomous autonomous;
@@ -41,49 +40,47 @@ public class Autonomous extends SubsystemBase{
         m_drivetrain = Drivetrain.getInstance();
         m_drivetrain.setDefaultCommand(new Drive());
 
-        autoVoltageConstraint =
-        new DifferentialDriveVoltageConstraint(
-            new SimpleMotorFeedforward(
-                Constants.ksVolts,
-                Constants.kvVoltSecondsPerMeter,
-                Constants.kaVoltSecondsSquaredPerMeter),
+        autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
+                new SimpleMotorFeedforward(
+                        Constants.ksVolts,
+                        Constants.kvVoltSecondsPerMeter,
+                        Constants.kaVoltSecondsSquaredPerMeter),
                 Constants.kDriveKinematics,
-            10);
+                10);
 
-    
-        configForward = 
-            new TrajectoryConfig(
+        configForward = new TrajectoryConfig(
                 Constants.kMaxSpeedMetersPerSecond,
                 Constants.kMaxAccelerationMetersPerSecondSquared)
-            // Add kinematics to ensure max speed is actually obeyed
-            .setKinematics(Constants.kDriveKinematics)
-            // Apply the voltage constraint
-            .addConstraint(autoVoltageConstraint);
-    
-        configBackwards = 
-            new TrajectoryConfig(
+                        // Add kinematics to ensure max speed is actually obeyed
+                        .setKinematics(Constants.kDriveKinematics)
+                        // Apply the voltage constraint
+                        .addConstraint(autoVoltageConstraint);
+
+        configBackwards = new TrajectoryConfig(
                 Constants.kMaxSpeedMetersPerSecond,
                 Constants.kMaxAccelerationMetersPerSecondSquared)
-            // Add kinematics to ensure max speed is actually obeyed
-            .setKinematics(Constants.kDriveKinematics)
-            // Apply the voltage constraint
-            .addConstraint(autoVoltageConstraint)
-            // Reverse the motors
-            .setReversed(true);
-        
+                        // Add kinematics to ensure max speed is actually obeyed
+                        .setKinematics(Constants.kDriveKinematics)
+                        // Apply the voltage constraint
+                        .addConstraint(autoVoltageConstraint)
+                        // Reverse the motors
+                        .setReversed(true);
+
         defineAutoPaths();
     }
 
-    public static Autonomous getInstance(){
-        if(autonomous == null){
+    public static Autonomous getInstance() {
+        if (autonomous == null) {
             autonomous = new Autonomous();
         }
         return autonomous;
     }
 
-    public void setupAutoSelector(){}
+    public void setupAutoSelector() {
+    }
 
-    public void setupAutoRoutines(){}
+    public void setupAutoRoutines() {
+    }
 
     public Command returnAutonomousCommand() {
         
@@ -154,12 +151,13 @@ public class Autonomous extends SubsystemBase{
         // Transform2d transform = new Pose2d(0,0, Rotation2d.fromDegrees(0)).minus(t.getInitialPose());
         // Trajectory transformed = t.transformBy(transform);
         return transformed;
-      }
+    }
 
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
     }
+
     @Override
     public void simulationPeriodic() {
         // This method will be called once per scheduler run during simulation

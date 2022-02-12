@@ -29,10 +29,9 @@ public class ShootLow extends CommandBase {
   @Override
   public void execute() {
     // Check whether the speed of flywheel is good enough to shoot
-    if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_FAR)){
-      hopper.runHopper(0.8);
-    }
-    else {
+    if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_FAR)) {
+      hopper.runHopper(Constants.HOPPER_SPEED);
+    } else {
       hopper.runHopper(0.0);
     }
 
@@ -43,6 +42,7 @@ public class ShootLow extends CommandBase {
   public void end(boolean interrupted) {
     hopper.stopHopper();
     flywheel.stopFlywheel();
+    flywheel.setShooterLock(true);
   }
 
   // Returns true when the command should end.
@@ -51,4 +51,3 @@ public class ShootLow extends CommandBase {
     return false;
   }
 }
-
