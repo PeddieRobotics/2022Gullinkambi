@@ -1,35 +1,35 @@
-package frc.robot.commands.ClimbCommands;
+package frc.robot.commands.LightCommands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Lights;
 
 /** An example command that uses an example subsystem. */
-public class ExtendArm extends CommandBase {
-  private Climber climber;
-
-  public ExtendArm() {
-    climber = Climber.getInstance();
+public class TurnOn extends CommandBase {
+  private Lights light;
+  public TurnOn() {
+    light = light.getInstance();
   }
 
-//   // Called when the command is initially scheduled.
-//   @Override
-//   public void initialize() {
-//   }
+  // Called when the command is initially scheduled.
+  @Override
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climber.extend();
-  }
-
+    light.on();
+    }
+  
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-  }
+    }
+  
 
   // Returns true when the command should end.
-  // runs everytime execute runs
+  //runs everytime execute runs
   @Override
   public boolean isFinished() {
     return true;

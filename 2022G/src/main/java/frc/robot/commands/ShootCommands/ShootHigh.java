@@ -29,11 +29,10 @@ public class ShootHigh extends CommandBase {
   @Override
   public void execute() {
     // Check whether the speed of flywheel is good enough to shoot
-    if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_FAR)){
-      hopper.runHopper(0.8);
-    }
-    else {
-      hopper.runHopper(0.0);
+    if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_FAR)) {
+      hopper.runHopper(Constants.HOPPER_SPEED);
+    } else {
+      hopper.stopHopper();
     }
 
   }
@@ -43,6 +42,8 @@ public class ShootHigh extends CommandBase {
   public void end(boolean interrupted) {
     hopper.stopHopper();
     flywheel.stopFlywheel();
+    flywheel.setShooterLock(true);
+    flywheel.setHood(false);
   }
 
   // Returns true when the command should end.
@@ -51,4 +52,3 @@ public class ShootHigh extends CommandBase {
     return false;
   }
 }
-
