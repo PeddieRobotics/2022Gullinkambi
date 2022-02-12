@@ -29,6 +29,7 @@ public class Drivetrain extends SubsystemBase {
   private static Drivetrain drivetrain;
 
   private final CANSparkMax leftMaster, rightMaster, leftFollower1, rightFollower1;
+  private CANSparkMax rightFollower2,leftFollower2;
   private final MotorControllerGroup leftMotors, rightMotors;
 
   private final DifferentialDrive drive;
@@ -46,7 +47,6 @@ public class Drivetrain extends SubsystemBase {
   NetworkTableEntry m_yEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("Y");
 
   public Drivetrain() {
-    CANSparkMax rightFollower2,leftFollower2;
     if(Constants.IS_GULLINKAMBI){
       leftMaster = new CANSparkMax(RobotMapGullinkambi.MOTOR_DRIVE_LEFT_MASTER, MotorType.kBrushless);
       rightMaster = new CANSparkMax(RobotMapGullinkambi.MOTOR_DRIVE_RIGHT_MASTER, MotorType.kBrushless);
@@ -181,8 +181,10 @@ public class Drivetrain extends SubsystemBase {
     rightFollower1.setIdleMode(IdleMode.kBrake);
 
     // With Gullinkambi
-    // leftFollower2.setIdleMode(IdleMode.kBrake);
-    // rightFollower2.setIdleMode(IdleMode.kBrake);
+    if(Constants.IS_GULLINKAMBI){
+      leftFollower2.setIdleMode(IdleMode.kBrake);
+      rightFollower2.setIdleMode(IdleMode.kBrake);
+    }
   }
 
   public void setCoast() {
@@ -193,9 +195,10 @@ public class Drivetrain extends SubsystemBase {
     rightFollower1.setIdleMode(IdleMode.kCoast);
 
     // With Gullinkambi
-    // leftFollower2.setIdleMode(IdleMode.kCoast);
-    // rightFollower2.setIdleMode(IdleMode.kCoast);
-
+    if(Constants.IS_GULLINKAMBI){
+      leftFollower2.setIdleMode(IdleMode.kCoast);
+      rightFollower2.setIdleMode(IdleMode.kCoast);
+    }
   }
 
   public void resetEncoders() {

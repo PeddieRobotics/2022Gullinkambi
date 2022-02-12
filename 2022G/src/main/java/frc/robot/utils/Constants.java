@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public final class Constants {
   // Is Gullinkambi
-  public static final boolean IS_GULLINKAMBI = false;
+  public static final boolean IS_GULLINKAMBI = true;
 
   // Drivetrain constants
   public static final boolean DRIVE_USE_NORMALIZED_INPUTS = false;
