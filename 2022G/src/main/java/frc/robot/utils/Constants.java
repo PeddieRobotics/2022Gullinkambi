@@ -5,6 +5,7 @@
 package frc.robot.utils;
 
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -23,7 +24,7 @@ public final class Constants {
   public static final boolean DRIVE_USE_NORMALIZED_INPUTS = false;
   public static final boolean DRIVE_USE_SQUARED_INPUTS = false;
 
-  public static final double DRIVING_DEADBANDS = 0.05;
+  public static final double DRIVING_DEADBANDS = 0.1;
   public static final double SPEED_MULTIPLIER = 1;
   public static final double TURN_MULTIPLIER = 1;
 
@@ -75,29 +76,29 @@ public final class Constants {
   public static final OIConfig OI_CONFIG = OIConfig.XBOX_TEST;
   // public static final OIConfig OI_CONFIG = OIConfig.JOYSTICK_TEST;
 
-  // The Robot Characterization Toolsuite provides a convenient tool for obtaining
-  // these
-  // values for your robot.
-  public static final double ksVolts = 0.13563;
-  public static final double kvVoltSecondsPerMeter = 2.3576;
-  public static final double kaVoltSecondsSquaredPerMeter = 0.21274;
+    // The Robot Characterization Toolsuite provides a convenient tool for obtaining these
+    // values for your robot.
+    public static final double ksVolts = 0.13563;
+    public static final double kvVoltSecondsPerMeter = 2.3576;
+    public static final double kaVoltSecondsSquaredPerMeter = 0.21274;
 
-  // These are example values only - DO NOT USE THESE FOR YOUR OWN ROBOT!
-  // These characterization values MUST be determined either experimentally or
-  // theoretically
-  // for *your* robot's drive.
-  // Example value only - as above, this must be tuned for your drive!
-  public static final double kPDriveVel = 0.00034928;
-  // public static final double kPDriveVel = 0.015732;
 
-  public static final double kTrackwidthMeters = 0.5842;
-  public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeters);
+      // These are example values only - DO NOT USE THESE FOR YOUR OWN ROBOT!
+    // These characterization values MUST be determined either experimentally or theoretically
+    // for *your* robot's drive.
+    // Example value only - as above, this must be tuned for your drive!
+    // public static final double kPDriveVel = 0.00034928;
+    //public static final double kPDriveVel = SmartDashboard.getNumber("KPDriveVel", 0);
+    public static final double kPDriveVel = 0.00034928;
 
-  public static final double kMaxSpeedMetersPerSecond = 1.7;
-  public static final double kMaxAccelerationMetersPerSecondSquared = 1.7;
+    public static final double kTrackwidthMeters = 0.5842;
+    public static final DifferentialDriveKinematics kDriveKinematics =
+        new DifferentialDriveKinematics(kTrackwidthMeters);
 
-  // Reasonable baseline values for a RAMSET0E follower in units of meters and
-  // seconds
-  public static final double kRamseteB = 2;
-  public static final double kRamseteZeta = .7;
+    public static final double kMaxSpeedMetersPerSecond = 1.2;
+    public static final double kMaxAccelerationMetersPerSecondSquared = 1.2;
+
+    // Reasonable baseline values for a RAMSET0E follower in units of meters and seconds
+    public static final double kRamseteB = 2;
+    public static final double kRamseteZeta = .7;
 }
