@@ -107,13 +107,14 @@ public class RobotContainer {
 
 
     // Climber
+    //climber.updateFromDashboard();
     // climber.setClimberSpeed(SmartDashboard.getNumber("OR: Climber speed", 0));
     // climber.setClimberTilt(SmartDashboard.getBoolean("OR: Climber tilt", false));
     // climber.setClimberHook(SmartDashboard.getBoolean("OR: Climber hook", false));
 
     // Limelight - currently none
 
-    //SmartDashboard.putBoolean("sensor0", drivetrain.isSensor());
+    // SmartDashboard.putBoolean("sensor0", drivetrain.isSensor());
   }
 
   public void setDrivetrainToCoastMode() {
