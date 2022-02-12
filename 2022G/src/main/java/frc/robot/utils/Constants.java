@@ -45,6 +45,14 @@ public final class Constants {
 
   public static final double FLYWHEEL_MAX_POWER = 0.5;
   public static final double FLYWHEEL_MAX_RPM = 4000;
+
+  public static final double LL_P = -0.0033;
+  public static final double LL_I = 0.0000001;
+  public static final double LL_D = 0;
+  public static final double LL_ANGLE = 20;
+  public static final double LL_HEIGHT = 0;
+  public static final double LL_PANNING = 0;
+  public static final double TARGET_HEIGHT = 104;
   
   public static final double [] LL_DIST = new double[]{100,150,200};
   public static final double [] RPMS = new double[]{2800,3000,3200};
@@ -75,8 +83,8 @@ public final class Constants {
 
 //uncommment whichever one you want to use & comment the rest
   //public static final OIConfig OI_CONFIG = OIConfig.COMPETITION; 
-  public static final OIConfig OI_CONFIG = OIConfig.XBOX_TEST;
-  // public static final OIConfig OI_CONFIG = OIConfig.JOYSTICK_TEST;
+  // public static final OIConfig OI_CONFIG = OIConfig.XBOX_TEST;
+  public static final OIConfig OI_CONFIG = OIConfig.JOYSTICK_TEST;
 
     // The Robot Characterization Toolsuite provides a convenient tool for obtaining these
     // values for your robot.

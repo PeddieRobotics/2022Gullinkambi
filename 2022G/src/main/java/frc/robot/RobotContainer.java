@@ -30,10 +30,10 @@ public class RobotContainer {
   private final Drivetrain drivetrain;
   private final Autonomous m_autonomous;
   // private final Intake intake;
-  // private final Hopper hopper;
-  // private final Flywheel flywheel;
+  private final Hopper hopper;
+  private final Flywheel flywheel;
   // private final Climber climber;
-  // private final Limelight limelight;
+  private final Limelight limelight;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -41,18 +41,18 @@ public class RobotContainer {
     drivetrain = Drivetrain.getInstance();
     m_autonomous = Autonomous.getInstance();
     //intake = Intake.getInstance();
-    //hopper = Hopper.getInstance();
-    //flywheel = Flywheel.getInstance();
+    hopper = Hopper.getInstance();
+    flywheel = Flywheel.getInstance();
     //climber = Climber.getInstance();
-    //limelight  = Limelight.getInstance();
+    limelight  = Limelight.getInstance();
     m_oi = OI.getInstance();
     
     drivetrain.setDefaultCommand(new Drive());
     //intake.register();
-    //hopper.register();
-    //flywheel.register();
+    hopper.register();
+    flywheel.register();
     //climber.register();
-    //limelight.register();
+    limelight.register();
     
   }
 

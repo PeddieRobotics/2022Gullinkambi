@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.utils.Constants;
 import frc.robot.utils.RollingAverage;
 
 public class Limelight extends SubsystemBase {
@@ -81,7 +82,8 @@ public class Limelight extends SubsystemBase {
     if(ty.getDouble(0.0)==0){
       return 0;
     }
-     else return (104-24)/(Math.tan(Math.toRadians(36+ty.getDouble(0.0))));
+     else return (Constants.TARGET_HEIGHT-Constants.LL_HEIGHT)/
+     (Math.tan(Math.toRadians(Constants.LL_ANGLE+Constants.LL_PANNING+ty.getDouble(0.0))));
   }
   
   public boolean hasTarget(){

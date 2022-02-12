@@ -37,7 +37,7 @@ public class ShootFar extends CommandBase {
       hopper.runHopper(Constants.HOPPER_SPEED);
     }
     else {
-      hopper.runHopper(0.0);
+      hopper.stopHopper();
     }
 
   }
