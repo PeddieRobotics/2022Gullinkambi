@@ -11,11 +11,14 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.utils.Constants;
 import frc.robot.utils.ControllerMap;
 import frc.robot.utils.Constants.OIConfig;
+import frc.robot.commands.IntakeCommands.IndexCargo;
 import frc.robot.commands.IntakeCommands.StartIntake;
 import frc.robot.commands.IntakeCommands.StopIntake;
 import frc.robot.commands.LightCommands.TurnOn;
-//import frc.robot.commands.IntakeCommands.UnjamIntake;
+import frc.robot.commands.IntakeCommands.UnjamIntake;
 import frc.robot.commands.ShootCommands.ShootFar;
+import frc.robot.commands.ShootCommands.ShootHigh;
+import frc.robot.commands.ShootCommands.ShootLow;
 
 public class XboxOI {
 
@@ -50,27 +53,30 @@ public class XboxOI {
              * - operator buttons to switch the driver from drive mode to climb mode?
              */
 
-            // new JoystickButton(driverXboxController,
-            // ControllerMap.XBOX_X).toggleWhenActive(new UnjamIntake()); // XBOX_X
+            new JoystickButton(driverXboxController,
+            ControllerMap.XBOX_X).toggleWhenActive(new UnjamIntake()); // XBOX_X
 
-            // new JoystickButton(driverXboxController,
-            // ControllerMap.XBOX_Y).toggleWhenActive(new SetFlywheelHood()); //XBOX_Y
+            //new JoystickButton(driverXboxController, ControllerMap.XBOX_Y).toggleWhenActive(new SetFlywheelHood()); //XBOX_Y
 
         } else if (Constants.OI_CONFIG == OIConfig.XBOX_TEST) {
             driverXboxController = new Joystick(ControllerMap.XBOX_DRIVER_PORT);
             // Driver xbox controller binds
 
-            // new Button(() -> driverXboxController.getRawAxis(3) > 0.5).whenPressed(new
-            // IndexCommand()); // XBOX_RT
+            // new Button(() -> driverXboxController.getRawAxis(3) > 0.5).whenPressed(new IndexCargo()); // XBOX_RT
 
-            // new Button(() -> driverXboxController.getRawAxis(2) > 0.5).whenPressed(new
-            // StartIntake()); // XBOX_LT
+            new Button(() -> driverXboxController.getRawAxis(2) > 0.5).whenPressed(new StartIntake()); // XBOX_LT
 
-            // new JoystickButton(driverXboxController, ControllerMap.XBOX_X).whileHeld(new
-            // ShootFar()); // XBOX_X
+            new JoystickButton(driverXboxController, ControllerMap.XBOX_LB).whenPressed(new StopIntake()); // XBOX_LB
 
-            // new JoystickButton(driverXboxController,
-            // ControllerMap.XBOX_LB).whenPressed(new StopIntake()); // XBOX_LB
+            new JoystickButton(driverXboxController, ControllerMap.XBOX_RB).whenPressed(new IndexCargo()); // XBOX_RB
+
+            new JoystickButton(driverXboxController, ControllerMap.XBOX_X).whileHeld(new ShootFar()); // XBOX_X
+
+            new JoystickButton(driverXboxController, ControllerMap.XBOX_B).whileHeld(new ShootHigh()); // XBOX_B
+
+            new JoystickButton(driverXboxController, ControllerMap.XBOX_A).whileHeld(new ShootLow()); // XBOX_A
+
+            new JoystickButton(driverXboxController, ControllerMap.XBOX_Y).whileHeld(new UnjamIntake()); // XBOX_Y
         }
     }
 
@@ -81,7 +87,6 @@ public class XboxOI {
     public double getTurn() {
         return driverXboxController.getRawAxis(ControllerMap.XBOX_RIGHT_STICK_X);
     }
-
 
     public void setControllerRumble(boolean driver, boolean operator) {
         if (driver == true) {
