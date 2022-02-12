@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.IntakeCommands.StartIntake;
 import frc.robot.commands.IntakeCommands.StopIntake;
+import frc.robot.commands.IntakeCommands.UnjamIntake;
 import frc.robot.commands.ShootCommands.ShootFar;
 import frc.robot.commands.ShootCommands.ShootHigh;
 import frc.robot.commands.ShootCommands.ShootLow;
@@ -73,12 +74,13 @@ public class JoystickOI {
   public void configureJoysticks() {
 
     // Driver joystick binds (dual joystick)
+    leftButton2.whenPressed(new UnjamIntake());
     leftButton3.whenPressed(new StartIntake());
     leftButton4.whenPressed(new StopIntake());
-
+    
+    rightButton2.whileHeld(new ShootHigh());
     rightButton3.whileHeld(new ShootFar()); //far is high, but far
     rightButton4.whileHeld(new ShootLow());
-    rightButton2.whileHeld(new ShootHigh());
 
   }
 
