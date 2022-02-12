@@ -223,8 +223,9 @@ public class Autonomous extends SubsystemBase{
       }
     
     public Trajectory getTransformedTrajectory(Trajectory t){
-        Transform2d transform = new Pose2d(0,0, Rotation2d.fromDegrees(0)).minus(t.getInitialPose());
-        Trajectory transformed = t.transformBy(transform);
+        
+        Pose2d newOrigin = t.getInitialPose();
+        Trajectory transformed = t.relativeTo(newOrigin);
         return transformed;
       }
 
