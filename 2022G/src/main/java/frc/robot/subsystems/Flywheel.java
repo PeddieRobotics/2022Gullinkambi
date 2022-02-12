@@ -45,7 +45,7 @@ public class Flywheel extends SubsystemBase {
     flywheelPrimary = new CANSparkMax(RobotMap.MOTOR_FLYWHEEL_PRIMARY, MotorType.kBrushless);
     flywheelSecondary = new CANSparkMax(RobotMap.MOTOR_FLYWHEEL_SECONDARY, MotorType.kBrushless);
 
-    flywheelSecondary.follow(flywheelPrimary, true);
+    flywheelSecondary.follow(flywheelPrimary, false);
 
     flywheelPIDController = flywheelPrimary.getPIDController();
     flywheelEncoder = flywheelPrimary.getEncoder();
@@ -59,9 +59,9 @@ public class Flywheel extends SubsystemBase {
     flywheelPIDController.setOutputRange(0, 1);
 
     // Set up pneumatics
-    hoodSolenoid = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.SOLENOID_HOOD);
-    shooterLockSolenoid = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.SOLENOID_SHOOTER_LOCK);
-    setShooterLock(true);
+    hoodSolenoid = new Solenoid(RobotMap.PNEUMATICS_HUB, PneumaticsModuleType.REVPH, RobotMap.SOLENOID_HOOD);
+    shooterLockSolenoid = new Solenoid(RobotMap.PNEUMATICS_HUB, PneumaticsModuleType.REVPH, RobotMap.SOLENOID_SHOOTER_LOCK);
+    setShooterLock(false);
   }
 
   @Override
@@ -128,7 +128,7 @@ public class Flywheel extends SubsystemBase {
     SmartDashboard.putNumber("OR: Flywheel power", 0);
     SmartDashboard.putNumber("OR: Flywheel setpoint", 0);
     SmartDashboard.putBoolean("OR: Hood up", false);
-    SmartDashboard.putBoolean("OR: Lock Activated", true);
+    SmartDashboard.putBoolean("OR: Flywheel Lock", false);
 
     // Smart dashboard controls for flywheel PID gain tuning
     SmartDashboard.putNumber("OR: P gain", kP);
@@ -203,7 +203,7 @@ public class Flywheel extends SubsystemBase {
     flywheelPIDController.setIZone(SmartDashboard.getNumber("OR: I zone", kIz));
     flywheelPIDController.setFF(SmartDashboard.getNumber("OR: Feed forward", kFF));
 
-    setShooterLock(SmartDashboard.getBoolean("OR: Lock Activated", true));
+    setShooterLock(SmartDashboard.getBoolean("OR: Flywheel Lock", false));
     setHood(SmartDashboard.getBoolean("OR: Hood up", false));
     runFlywheelSetPoint(SmartDashboard.getNumber("OR: Flywheel setpoint", 0));
     runFlyWheelPower(SmartDashboard.getNumber("OR: Flywheel power", 0));
