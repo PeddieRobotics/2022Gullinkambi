@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.ClimbCommands.ExtendArm;
+import frc.robot.commands.ClimbCommands.RetractArm;
 import frc.robot.commands.IntakeCommands.StartIntake;
 import frc.robot.commands.IntakeCommands.StopIntake;
 import frc.robot.commands.ShootCommands.ShootFar;
@@ -77,18 +79,10 @@ public class JoystickOI {
   public void configureJoysticks() {
 
     // Driver joystick binds (dual joystick)
-    // leftButton3.whenPressed(new StartIntake());
-    // leftButton4.whenPressed(new StopIntake());
+    leftButton3.whenPressed(new ExtendArm());
+    leftButton4.whenPressed(new RetractArm());
 
-    rightButton2.whileHeld(new ShootLow()); //far is high, but far
-    rightButton3.whileHeld(new ShootHigh());
-    rightButton4.whileHeld(new ShootFar());
-    leftButton2.whileHeld(new Target());
-    leftButton4.whileHeld(new ParallelCommandGroup(new Target(), new ShootFar()));
-    
-
-    // rightButton2.whileHeld(new ShootLow());
-
+  
   }
 
   public double getSpeed() {
