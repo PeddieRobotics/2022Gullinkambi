@@ -5,7 +5,6 @@ import java.util.Hashtable;
 import java.util.List;
 
 import com.pathplanner.lib.PathPlanner;
-import com.pathplanner.lib.PathPlannerTrajectory;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.RamseteController;
@@ -18,6 +17,7 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -34,7 +34,7 @@ public class Autonomous extends SubsystemBase {
     private final TrajectoryConfig configForward;
     private final TrajectoryConfig configBackwards;
     private final DifferentialDriveVoltageConstraint autoVoltageConstraint;
-    private Trajectory moveForwards, sPathForward, turnInPlace, shoot2High_Layup_B;
+    private Trajectory test;
 
     public Autonomous() {
         m_drivetrain = Drivetrain.getInstance();
@@ -83,76 +83,73 @@ public class Autonomous extends SubsystemBase {
     }
 
     public Command returnAutonomousCommand() {
-        // return createCommandFromTrajectory(moveForwards);
-        // return createCommandFromTrajectory(sPathForward);
-        // return createCommandFromTrajectory(turnInPlace);
-        return createCommandFromTrajectory(shoot2High_Layup_B);
+        
+        return createCommandFromTrajectory(test);
     }
 
-    private void defineAutoPaths() {
-        moveForwards = TrajectoryGenerator.generateTrajectory(
-                // Start at the origin facing the +X direction
-                new Pose2d(0, 0, new Rotation2d(0)),
-                List.of(new Translation2d(0.5, 0)),
-                // End meters straight ahead of where we started, facing forward
-                new Pose2d(1, 0, new Rotation2d(Math.toRadians(0))),
-                // Pass config
-                configForward);
-
-        sPathForward = TrajectoryGenerator.generateTrajectory(
-                // Start at the origin facing the +X direction
-                new Pose2d(0, 0, new Rotation2d(0)),
-                // Pass through these two interior waypoints, making an 's' curve path
-                List.of(
-                        new Translation2d(1, 1),
-                        new Translation2d(1.5, 0),
-                        new Translation2d(2, -1),
-                        new Translation2d(3, 0)),
-                // End 3 meters straight ahead of where we started, facing forward
-                new Pose2d(3.5, 0, new Rotation2d(0)),
-                // Pass config
-                configForward);
-
-        turnInPlace = TrajectoryGenerator.generateTrajectory(
-                // Start at the origin facing the +X direction
-                new Pose2d(0, 0, new Rotation2d(0)),
-                // Pass through these two interior waypoints, making an 's' curve path
-                List.of(new Translation2d(.75, 0)),
-                // End 3 meters straight ahead of where we started, facing forward
-                new Pose2d(1, 0, new Rotation2d(90)),
-                // Pass config
-                configForward);
-
-        shoot2High_Layup_B = getTransformedTrajectory(PathPlanner.loadPath("Shoot2High-Layup-B",
-                Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared));
+    private void defineAutoPaths(){
+        test = 
+        TrajectoryGenerator.generateTrajectory(
+            new Pose2d(1, 1, new Rotation2d(Math.toRadians(90))),
+            List.of(new Translation2d(-1.5, 2.5)),
+            new Pose2d(1, 4, new Rotation2d(Math.toRadians(90))),
+            // Pass config12
+            configForward
+        );
+        test = getTransformedTrajectory(test);
+        System.out.println(test);
     }
 
-    public SplitFFRamseteCommand createCommandFromTrajectory(Trajectory trajectory) {
-        SplitFFRamseteCommand autoCommand = new SplitFFRamseteCommand(
-                trajectory,
-                m_drivetrain::getPose,
-                new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
-                new SimpleMotorFeedforward(
-                        Constants.ksVolts,
-                        Constants.kvVoltSecondsPerMeter,
-                        Constants.kaVoltSecondsSquaredPerMeter),
-                new SimpleMotorFeedforward(
-                        Constants.ksVolts,
-                        Constants.kvVoltSecondsPerMeter,
-                        Constants.kaVoltSecondsSquaredPerMeter),
-                Constants.kDriveKinematics,
-                m_drivetrain::getWheelSpeeds,
-                new PIDController(Constants.kPDriveVel, 0, 0),
-                new PIDController(Constants.kPDriveVel, 0, 0),
-                // RamseteCommand passes volts to the callback
-                m_drivetrain::tankDriveVolts,
-                m_drivetrain);
+    public SplitFFRamseteCommand createCommandFromTrajectory(Trajectory trajectory){
+        RamseteController m_ramseteController = new RamseteController();
+        // m_ramseteController.setEnabled(false);
+        var leftController = new PIDController(Constants.kPDriveVel, 0, 0);
+        var rightController = new PIDController(Constants.kPDriveVel, 0, 0);
+        var table = NetworkTableInstance.getDefault().getTable("troubleshooting");
+        var leftReference = table.getEntry("left_reference");
+        var leftMeasurement = table.getEntry("left_measurement");
+        var rightReference = table.getEntry("right_reference");
+        var rightMeasurement = table.getEntry("right_measurement");
+
+        SplitFFRamseteCommand autoCommand  =
+          new SplitFFRamseteCommand(
+              trajectory,
+              m_drivetrain::getPose,
+            //   new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
+                m_ramseteController, //NEED TO CHANGE BACK TO: new RamseteController(),
+              new SimpleMotorFeedforward(
+                Constants.ksVolts,
+                Constants.kvVoltSecondsPerMeter,
+                Constants.kaVoltSecondsSquaredPerMeter),
+            new SimpleMotorFeedforward(
+                Constants.ksVolts,
+                Constants.kvVoltSecondsPerMeter,
+                Constants.kaVoltSecondsSquaredPerMeter),
+              Constants.kDriveKinematics,
+              m_drivetrain::getWheelSpeeds,
+            //   new PIDController(SmartDashboard.getNumber("KPDriveVel", 0), 0, 0),
+            //   new PIDController(SmartDashboard.getNumber("KPDriveVel", 0), 0, 0),
+            leftController,
+            rightController,
+              // RamseteCommand passes volts to the callback
+              //m_drivetrain::tankDriveVolts,
+              (leftVolts, rightVolts) -> {
+                  m_drivetrain.tankDriveVolts(leftVolts, rightVolts);
+                  leftMeasurement.setNumber(m_drivetrain.getWheelSpeeds().leftMetersPerSecond);
+                  leftReference.setNumber(leftController.getSetpoint());
+
+                  rightMeasurement.setNumber(-m_drivetrain.getWheelSpeeds().rightMetersPerSecond); //PUT A NEGATIVE HERE, REMINDER TO FIX 2/7
+                  rightReference.setNumber(rightController.getSetpoint());
+              },
+              m_drivetrain);
         return autoCommand;
-    }
-
-    public Trajectory getTransformedTrajectory(Trajectory t) {
-        Transform2d transform = new Pose2d(0, 0, Rotation2d.fromDegrees(0)).minus(t.getInitialPose());
-        Trajectory transformed = t.transformBy(transform);
+      }
+    
+    public Trajectory getTransformedTrajectory(Trajectory t){
+        Pose2d newOrigin = t.getInitialPose();
+        Trajectory transformed = t.relativeTo(newOrigin);
+        // Transform2d transform = new Pose2d(0,0, Rotation2d.fromDegrees(0)).minus(t.getInitialPose());
+        // Trajectory transformed = t.transformBy(transform);
         return transformed;
     }
 
