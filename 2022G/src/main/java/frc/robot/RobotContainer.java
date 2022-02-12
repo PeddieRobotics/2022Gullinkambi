@@ -33,10 +33,10 @@ public class RobotContainer {
   public final OI oi;
   private final Drivetrain drivetrain;
   private final Autonomous autonomous;
-  private final Intake intake;
+  // private final Intake intake;
   private final Lights lights;
-  private final Hopper hopper;
-  private final Flywheel flywheel;
+  // private final Hopper hopper;
+  // private final Flywheel flywheel;
   // private final Climber climber;
   // private final Limelight limelight;
 
@@ -47,9 +47,9 @@ public class RobotContainer {
 
     drivetrain = Drivetrain.getInstance();
     autonomous = Autonomous.getInstance();
-    intake = Intake.getInstance();
-    hopper = Hopper.getInstance();
-    flywheel = Flywheel.getInstance();
+    // intake = Intake.getInstance();
+    // hopper = Hopper.getInstance();
+    // flywheel = Flywheel.getInstance();
     // climber = Climber.getInstance();
     // limelight = Limelight.getInstance();
     oi = OI.getInstance();
@@ -62,11 +62,6 @@ public class RobotContainer {
     //climber.register();
     //limelight.register();
     setupSmartDashboard();
-    intake.register();
-    hopper.register();
-    flywheel.register();
-    // climber.register();
-    // limelight.register();
 
   }
 
@@ -89,11 +84,11 @@ public class RobotContainer {
     // hopper.putSmartDashboardOverrides();
     // limelight.putSmartDashboardOverrides();
     //SmartDashboard.putBoolean("sensor0", false);
-    intake.putSmartDashboardOverrides();
-    hopper.putSmartDashboardOverrides();
+    // intake.putSmartDashboardOverrides();
+    // hopper.putSmartDashboardOverrides();
     //limelight.putSmartDashboardOverrides();
     // climber.putSmartDashboardOverrides();
-    flywheel.putSmartDashboardOverrides();
+    // flywheel.putSmartDashboardOverrides();
   }
 
   // Overrides for interfacing with robot hardware
@@ -109,13 +104,13 @@ public class RobotContainer {
         SmartDashboard.getNumber("OR: Drivetrain turn", 0));
 
     // Intake
-    intake.updateIntakeFromDashboard();
+    // intake.updateIntakeFromDashboard();
 
     // Hopper
-    hopper.updateSpeedFromDashboard();
+    // hopper.updateSpeedFromDashboard();
 
     // Flywheel
-    flywheel.updateFlywheelFromDashboard();
+    // flywheel.updateFlywheelFromDashboard();
 
 
     // Climber

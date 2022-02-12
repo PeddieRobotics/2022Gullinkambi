@@ -20,6 +20,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+  // Is Gullinkambi
+  public static final boolean IS_GULLINKAMBI = false;
+
   // Drivetrain constants
   public static final boolean DRIVE_USE_NORMALIZED_INPUTS = false;
   public static final boolean DRIVE_USE_SQUARED_INPUTS = false;
