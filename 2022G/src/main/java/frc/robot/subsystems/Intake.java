@@ -55,8 +55,10 @@ public class Intake extends SubsystemBase {
   }
 
   public void runIntake(double speed) {
+    if(getIntakeSolenoid()){
     intakeMotor.set(speed);
-    intakeSolenoid.set(true);
+    }
+    else intakeMotor.set(0);
   }
 
   public void stopIntake() {
