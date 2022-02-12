@@ -28,6 +28,7 @@ public class Intake extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    putValuesSmartDashboard();
   }
 
   public static Intake getInstance() {
@@ -55,8 +56,11 @@ public class Intake extends SubsystemBase {
   }
 
   public void runIntake(double speed) {
-    intakeMotor.set(speed);
-    intakeSolenoid.set(true);
+    setIntakeSolenoid(true);;
+    if(getIntakeSolenoid()){
+    setIntakeSpeed(speed);
+    }
+    else setIntakeSpeed(0);
   }
 
   public void stopIntake() {
@@ -66,7 +70,6 @@ public class Intake extends SubsystemBase {
 
   public void reverseIntake(double speed) {
     runIntake(-speed);
-    intakeSolenoid.set(true);
   }
 
   public boolean isIntaking() {
@@ -74,12 +77,17 @@ public class Intake extends SubsystemBase {
   }
 
   public void putSmartDashboardOverrides() {
-    SmartDashboard.putNumber("OR: Intake speed", getIntakeSpeed());
-    SmartDashboard.putBoolean("OR: Intake solenoid", getIntakeSolenoid());
+    SmartDashboard.putNumber("OR: Intake speed", 0);
+    SmartDashboard.putBoolean("OR: Intake solenoid", false);
   }
 
   public void updateIntakeFromDashboard() {
-    setIntakeSpeed(SmartDashboard.getNumber("OR: Intake speed", getIntakeSpeed()));
-    setIntakeSolenoid(SmartDashboard.getBoolean("OR: Intake solenoid", getIntakeSolenoid()));
+    setIntakeSpeed(SmartDashboard.getNumber("OR: Intake speed", 0));
+    setIntakeSolenoid(SmartDashboard.getBoolean("OR: Intake solenoid", false));
+  }
+
+  public void putValuesSmartDashboard(){
+    SmartDashboard.putNumber("Intake speed", getIntakeSpeed());
+    SmartDashboard.putBoolean("Intake solenoid", getIntakeSolenoid());
   }
 }

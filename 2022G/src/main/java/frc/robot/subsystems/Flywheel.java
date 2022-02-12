@@ -1,3 +1,4 @@
+
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
@@ -7,6 +8,7 @@ package frc.robot.subsystems;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.RelativeEncoder;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -41,7 +43,11 @@ public class Flywheel extends SubsystemBase {
     flywheelPrimary = new CANSparkMax(RobotMap.MOTOR_FLYWHEEL_PRIMARY, MotorType.kBrushless);
     flywheelSecondary = new CANSparkMax(RobotMap.MOTOR_FLYWHEEL_SECONDARY, MotorType.kBrushless);
 
-    flywheelSecondary.follow(flywheelPrimary, false);
+    flywheelPrimary.setInverted(true);
+    flywheelSecondary.follow(flywheelPrimary, true);
+
+    flywheelPrimary.setSmartCurrentLimit(30);
+    flywheelSecondary.setSmartCurrentLimit(30);
 
     flywheelPIDController = flywheelPrimary.getPIDController();
     flywheelEncoder = flywheelPrimary.getEncoder();
@@ -57,12 +63,12 @@ public class Flywheel extends SubsystemBase {
     // Set up pneumatics
     hoodSolenoid = new Solenoid(RobotMap.PNEUMATICS_HUB, PneumaticsModuleType.REVPH, RobotMap.SOLENOID_HOOD);
     shooterLockSolenoid = new Solenoid(RobotMap.PNEUMATICS_HUB, PneumaticsModuleType.REVPH, RobotMap.SOLENOID_SHOOTER_LOCK);
-    setShooterLock(false);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    putSmartDashboard();
   }
 
   public static Flywheel getInstance() {
@@ -106,12 +112,12 @@ public class Flywheel extends SubsystemBase {
     shooterLockSolenoid.set(isActivated);
   }
 
-  public void getHood() {
-    hoodSolenoid.get();
+  public boolean getHood() {
+    return hoodSolenoid.get();
   }
 
-  public void getShooterLock() {
-    shooterLockSolenoid.get();
+  public boolean getShooterLock() {
+    return shooterLockSolenoid.get();
   }
 
   public void stopFlywheel() {
@@ -135,8 +141,9 @@ public class Flywheel extends SubsystemBase {
   public void putSmartDashboardOverrides() {
     SmartDashboard.putNumber("OR: Flywheel power", 0);
     SmartDashboard.putNumber("OR: Flywheel setpoint", 0);
+    SmartDashboard.putBoolean("OR: Flywheel lock", false);
     SmartDashboard.putBoolean("OR: Hood up", false);
-    SmartDashboard.putBoolean("OR: Flywheel Lock", false);
+
 
     // Smart dashboard controls for flywheel PID gain tuning
     SmartDashboard.putNumber("OR: P gain", kP);
@@ -153,10 +160,16 @@ public class Flywheel extends SubsystemBase {
     flywheelPIDController.setIZone(SmartDashboard.getNumber("OR: I zone", kIz));
     flywheelPIDController.setFF(SmartDashboard.getNumber("OR: Feed forward", kFF));
 
-    setShooterLock(SmartDashboard.getBoolean("OR: Flywheel Lock", false));
+    setShooterLock(SmartDashboard.getBoolean("OR: Flywheel lock", false));
     setHood(SmartDashboard.getBoolean("OR: Hood up", false));
     runFlywheelSetPoint(SmartDashboard.getNumber("OR: Flywheel setpoint", 0));
     runFlyWheelPower(SmartDashboard.getNumber("OR: Flywheel power", 0));
   }
 
+  public void putSmartDashboard(){
+    SmartDashboard.putNumber("Flywheel velocity", getFlywheelVelocity());
+    SmartDashboard.putNumber("Flywheel setpoint", getFlywheelSetpoint());
+    SmartDashboard.putBoolean("Lock Activated", getShooterLock());
+    SmartDashboard.putBoolean("Hood Up", getHood());
+  }
 }
