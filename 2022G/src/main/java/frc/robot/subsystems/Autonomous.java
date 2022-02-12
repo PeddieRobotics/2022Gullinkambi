@@ -35,7 +35,7 @@ public class Autonomous extends SubsystemBase{
     private final TrajectoryConfig configForward;
     private final TrajectoryConfig configBackwards;
     private final DifferentialDriveVoltageConstraint autoVoltageConstraint;
-    private Trajectory test2, straightPathTestHandwritten, straightPathTest, moveForwards, sPathForward, turnInPlace, shoot2High_Layup_B, moveBackwards, test;
+    private Trajectory test;
 
     public Autonomous() {
         m_drivetrain = Drivetrain.getInstance();
@@ -86,98 +86,21 @@ public class Autonomous extends SubsystemBase{
     public void setupAutoRoutines(){}
 
     public Command returnAutonomousCommand() {
-         //return createCommandFromTrajectory(moveForwards);
-        //return createCommandFromTrajectory(sPathForward);
-        return createCommandFromTrajectory(straightPathTestHandwritten);
-        // return createCommandFromTrajectory(turnInPlace);
-        // return createCommandFromTrajectory(shoot2High_Layup_B);
-        // return createCommandFromTrajectory(moveBackwards);
-        //System.out.println(test.toString());
-        // return createCommandFromTrajectory(test);
-        // return createCommandFromTrajectory(straightPathTest);
-        //return createCommandFromTrajectory(moveBackwards);
-        //return createCommandFromTrajectory(Test);
-        //return createCommandFromTrajectory(straightPathTest);
+        
+        return createCommandFromTrajectory(test);
     }
 
     private void defineAutoPaths(){
-
         test = 
         TrajectoryGenerator.generateTrajectory(
-            new Pose2d(0, 0, new Rotation2d(Math.toRadians(0))),
-            List.of(new Translation2d(1.5, 0.5)),
-            new Pose2d(3, 0, new Rotation2d(Math.toRadians(90))),
+            new Pose2d(1, 1, new Rotation2d(Math.toRadians(90))),
+            List.of(new Translation2d(-1.5, 2.5)),
+            new Pose2d(1, 4, new Rotation2d(Math.toRadians(90))),
             // Pass config12
             configForward
         );
-        // test = getTransformedTrajectory(test);
-
-        moveForwards = 
-            TrajectoryGenerator.generateTrajectory(
-            // Start at the origin facing the +X direction
-            new Pose2d(0, 0, new Rotation2d(0)),
-            List.of(new Translation2d(0.5, 0)),
-            // End  meters straight ahead of where we started, facing forward
-            new Pose2d(1, 0, new Rotation2d(Math.toRadians(0))),
-            // Pass config
-            configForward);
-
-        moveBackwards = 
-            TrajectoryGenerator.generateTrajectory(
-            // Start at the origin facing the +X direction
-            new Pose2d(0, 0, new Rotation2d(0)),
-            List.of(new Translation2d(-0.5, 0)),
-            // End  meters straight ahead of where we started, facing forward
-            new Pose2d(-1, 0, new Rotation2d(Math.toRadians(0))),
-            // Pass config
-            configBackwards);
-        
-        sPathForward = 
-            TrajectoryGenerator.generateTrajectory(
-              // Start at the origin facing the +X direction
-              new Pose2d(0, 0, new Rotation2d(0)),
-              // Pass through these two interior waypoints, making an 's' curve path
-              List.of(
-                  new Translation2d(1, 1),
-                  new Translation2d(1.5, 0),
-                  new Translation2d(2, -1)
-              ),
-              // End 3 meters straight ahead of where we started, facing forward
-              new Pose2d(3, 0, new Rotation2d(0)),
-              // Pass config
-              configForward
-          );
-
-
-          straightPathTestHandwritten = 
-            TrajectoryGenerator.generateTrajectory(
-                new Pose2d(0,0, new Rotation2d(0)), 
-                List.of(
-                    new Translation2d(1.5, 0.5)
-                ), 
-                new Pose2d(3, 0, new Rotation2d(0)), 
-                
-                configForward);
-
-        turnInPlace = 
-          TrajectoryGenerator.generateTrajectory(
-              // Start at the origin facing the +X direction
-              new Pose2d(0, 0, new Rotation2d(0)),
-              // Pass through these two interior waypoints, making an 's' curve path
-              List.of(new Translation2d(.75, 0)),
-              // End 3 meters straight ahead of where we started, facing forward
-              new Pose2d(1, 0, new Rotation2d(90)),
-              // Pass config
-              configForward
-          );
-        
-       
-        
-        shoot2High_Layup_B = getTransformedTrajectory(PathPlanner.loadPath("Shoot2High-Layup-B", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared));
-
-        
-
-        straightPathTest = getTransformedTrajectory(PathPlanner.loadPath("StraightPathTest", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared));
+        test = getTransformedTrajectory(test);
+        System.out.println(test);
     }
 
     public SplitFFRamseteCommand createCommandFromTrajectory(Trajectory trajectory){
@@ -226,7 +149,7 @@ public class Autonomous extends SubsystemBase{
       }
     
     public Trajectory getTransformedTrajectory(Trajectory t){
-        Pose2d newOrigin = new Pose2d(0, 0, Rotation2d.fromDegrees(30));
+        Pose2d newOrigin = t.getInitialPose();
         Trajectory transformed = t.relativeTo(newOrigin);
         // Transform2d transform = new Pose2d(0,0, Rotation2d.fromDegrees(0)).minus(t.getInitialPose());
         // Trajectory transformed = t.transformBy(transform);
