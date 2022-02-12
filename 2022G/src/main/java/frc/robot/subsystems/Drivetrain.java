@@ -136,8 +136,8 @@ public class Drivetrain extends SubsystemBase {
     return -rightEncoder.getVelocity();
   }
 
-  public double getAverageEncoderVelocity(){
-    return (Math.abs(getLeftEncoderVelocity())+Math.abs(getRightEncoderVelocity()))/2;
+  public double getAverageEncoderVelocity() {
+    return (Math.abs(getLeftEncoderVelocity()) + Math.abs(getRightEncoderVelocity())) / 2;
   }
 
   public double getAverageEncoderDistance() {
@@ -169,7 +169,7 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("Left Encoder Velocity", getLeftEncoderVelocity());
     SmartDashboard.putNumber("Right Encoder Velocity", getRightEncoderVelocity());
     SmartDashboard.putNumber("Target Velocity", 1.1);
-    SmartDashboard.putNumber("Set Off", 1.1-getAverageEncoderVelocity());
+    SmartDashboard.putNumber("Set Off", 1.1 - getAverageEncoderVelocity());
   }
 
   public void setBrake() {
@@ -266,6 +266,6 @@ public class Drivetrain extends SubsystemBase {
   }
 
   // public boolean isSensor() {
-  //   return sensor0.get();
+  // return sensor0.get();
   // }
 }
