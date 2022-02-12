@@ -19,14 +19,12 @@ public class JoystickOI {
 
   private static JoystickOI oi2;
   private final Drivetrain m_driveTrain;
-  //private final Tower m_tower;
+  // private final Tower m_tower;
   // private final Hopper m_hopper;
   // private final Flywheel m_flywheel;
   // private final Intake m_intake;
   // private final Climber m_climber;
   // private final Limelight m_limelight;
-
-
 
   private Joystick leftJoystick, rightJoystick;
 
@@ -39,9 +37,9 @@ public class JoystickOI {
 
   // private XboxTrigger driverLeftTrigger, driverRightTrigger;
 
-  public JoystickOI(Drivetrain d, Hopper h, Flywheel f, Intake i, Climber c) {  //add Tower t when needed
+  public JoystickOI(Drivetrain d, Hopper h, Flywheel f, Intake i, Climber c) { // add Tower t when needed
     m_driveTrain = d;
-    //m_tower = t;
+    // m_tower = t;
     // m_hopper = h;
     // m_flywheel = f;
     // m_intake = i;
@@ -74,12 +72,12 @@ public class JoystickOI {
   public void configureJoysticks() {
 
     // Driver joystick binds (dual joystick)
-    //leftButton3.whenPressed(new StartIntake());
-    //leftButton4.whenPressed(new StopIntake());
-    
-    //rightButton3.whileHeld(new ShootFar()); //far is high, but far
-    //rightButton4.whileHeld(new ShootHigh());
-    //rightButton2.whileHeld(new ShootLow());
+    // leftButton3.whenPressed(new StartIntake());
+    // leftButton4.whenPressed(new StopIntake());
+
+    // rightButton3.whileHeld(new ShootFar()); //far is high, but far
+    // rightButton4.whileHeld(new ShootHigh());
+    // rightButton2.whileHeld(new ShootLow());
 
   }
 
@@ -106,9 +104,11 @@ public class JoystickOI {
   public static JoystickOI getInstance() {
     if (oi2 == null) {
       oi2 = new JoystickOI(Drivetrain.getInstance(), null, null, null, null);
-          
-      // oi2 = new JoystickOI(Drivetrain.getInstance(), Hopper.getInstance(), Flywheel.getInstance(), // add Tower.getInstance() later when we actually make the code
-      //     Intake.getInstance(), Climber.getInstance());
+
+      // oi2 = new JoystickOI(Drivetrain.getInstance(), Hopper.getInstance(),
+      // Flywheel.getInstance(), // add Tower.getInstance() later when we actually
+      // make the code
+      // Intake.getInstance(), Climber.getInstance());
     }
     return oi2;
   }
