@@ -57,26 +57,26 @@ public class UpdateLogs {
         Logger.getInstance().recordOutput("Drivetrain/TurnSetpoint", m_drivetrain.getTurnSetpoint());
 
         //Drive Motor Data
-        Logger.getInstance().recordOutput("Drivetrain/LeftMasterVelocity", m_drivetrain.getLeftMasterVelocity());
-        Logger.getInstance().recordOutput("Drivetrain/LeftFollowerVelocity", m_drivetrain.getLeftFollowerVelocity());
-        Logger.getInstance().recordOutput("Drivetrain/LeftFollower2Velocity", m_drivetrain.getLeftFollower2Velocity());
-        Logger.getInstance().recordOutput("Drivetrain/RightMasterVelocity", m_drivetrain.getRightMasterVelocity());
-        Logger.getInstance().recordOutput("Drivetrain/RightFollowerVelocity", m_drivetrain.getRightFollowerVelocity());
-        Logger.getInstance().recordOutput("Drivetrain/RightFollower2Velocity", m_drivetrain.getRightFollower2Velocity());
+        Logger.getInstance().recordOutput("Drivetrain/MotorVelocities/LeftMasterVelocity", m_drivetrain.getLeftMasterVelocity());
+        Logger.getInstance().recordOutput("Drivetrain/MotorVelocities/LeftFollowerVelocity", m_drivetrain.getLeftFollowerVelocity());
+        Logger.getInstance().recordOutput("Drivetrain/MotorVelocities/LeftFollower2Velocity", m_drivetrain.getLeftFollower2Velocity());
+        Logger.getInstance().recordOutput("Drivetrain/MotorVelocities/RightMasterVelocity", m_drivetrain.getRightMasterVelocity());
+        Logger.getInstance().recordOutput("Drivetrain/MotorVelocities/RightFollowerVelocity", m_drivetrain.getRightFollowerVelocity());
+        Logger.getInstance().recordOutput("Drivetrain/MotorVelocities/RightFollower2Velocity", m_drivetrain.getRightFollower2Velocity());
 
-        Logger.getInstance().recordOutput("Drivetrain/LeftMasterCurrent", m_drivetrain.getLeftMasterCurrent());
-        Logger.getInstance().recordOutput("Drivetrain/LeftFollowerCurrent", m_drivetrain.getLeftFollowerCurrent());
-        Logger.getInstance().recordOutput("Drivetrain/LeftFollower2Current", m_drivetrain.getLeftFollower2Current());
-        Logger.getInstance().recordOutput("Drivetrain/RightMasterCurrent", m_drivetrain.getRightMasterCurrent());
-        Logger.getInstance().recordOutput("Drivetrain/RightFollowerCurrent", m_drivetrain.getRightFollowerCurrent());
-        Logger.getInstance().recordOutput("Drivetrain/RightFollower2Current", m_drivetrain.getRightFollower2Current());
+        Logger.getInstance().recordOutput("Drivetrain/MotorCurrents/LeftMasterCurrent", m_drivetrain.getLeftMasterCurrent());
+        Logger.getInstance().recordOutput("Drivetrain/MotorCurrents/LeftFollowerCurrent", m_drivetrain.getLeftFollowerCurrent());
+        Logger.getInstance().recordOutput("Drivetrain/MotorCurrents/LeftFollower2Current", m_drivetrain.getLeftFollower2Current());
+        Logger.getInstance().recordOutput("Drivetrain/MotorCurrents/RightMasterCurrent", m_drivetrain.getRightMasterCurrent());
+        Logger.getInstance().recordOutput("Drivetrain/MotorCurrents/RightFollowerCurrent", m_drivetrain.getRightFollowerCurrent());
+        Logger.getInstance().recordOutput("Drivetrain/MotorCurrents/RightFollower2Current", m_drivetrain.getRightFollower2Current());
         
-        Logger.getInstance().recordOutput("Drivetrain/LeftMasterTemperature", m_drivetrain.getLeftMasterMotorTemperature());
-        Logger.getInstance().recordOutput("Drivetrain/LeftFollowerTemperature", m_drivetrain.getLeftFollowerMotorTemperature());
-        Logger.getInstance().recordOutput("Drivetrain/LeftFollower2Temperature", m_drivetrain.getLeftFollower2MotorTemperature());
-        Logger.getInstance().recordOutput("Drivetrain/RightMasterTemperature", m_drivetrain.getRightMasterMotorTemperature());
-        Logger.getInstance().recordOutput("Drivetrain/RightFollowerTemperature", m_drivetrain.getRightFollowerMotorTemperature());
-        Logger.getInstance().recordOutput("Drivetrain/RightFollower2Temperature", m_drivetrain.getRightFollower2MotorTemperature());
+        Logger.getInstance().recordOutput("Drivetrain/MotorTemperatures/LeftMasterTemperature", m_drivetrain.getLeftMasterMotorTemperature());
+        Logger.getInstance().recordOutput("Drivetrain/MotorTemperatures/LeftFollowerTemperature", m_drivetrain.getLeftFollowerMotorTemperature());
+        Logger.getInstance().recordOutput("Drivetrain/MotorTemperatures/LeftFollower2Temperature", m_drivetrain.getLeftFollower2MotorTemperature());
+        Logger.getInstance().recordOutput("Drivetrain/MotorTemperatures/RightMasterTemperature", m_drivetrain.getRightMasterMotorTemperature());
+        Logger.getInstance().recordOutput("Drivetrain/MotorTemperatures/RightFollowerTemperature", m_drivetrain.getRightFollowerMotorTemperature());
+        Logger.getInstance().recordOutput("Drivetrain/MotorTemperatures/RightFollower2Temperature", m_drivetrain.getRightFollower2MotorTemperature());
 
         Logger.getInstance().recordOutput("Drivetrain/HeadingValue", m_drivetrain.getHeading());
     }
@@ -118,14 +118,19 @@ public class UpdateLogs {
     }
 
     public void updateHopperLogData(){
-        Logger.getInstance().recordOutput("Hopper/HopperMotorVelocity", m_hopper.getHopperVelocity());
-
         Logger.getInstance().recordOutput("Hopper/BottomSensorValue", m_hopper.sensesBallBottom());
         Logger.getInstance().recordOutput("Hopper/TopSensorValue", m_hopper.sensesBallTop());
+
+        //Hopper Motor Data
+        Logger.getInstance().recordOutput("Hopper/HopperMotorVelocity", m_hopper.getHopperVelocity());
+        Logger.getInstance().recordOutput("Hopper/HopperMotorCurrent", m_hopper.getHopperCurrent());
+        Logger.getInstance().recordOutput("Hopper/HopperMotorTemperature", m_hopper.getHopperMotorTemperature());
     }
 
     public void updateIntakeLogData(){
         Logger.getInstance().recordOutput("Intake/IntakeSolenoidOn", m_intake.getSolenoidState());
+
+        //Intake Motor Data
         Logger.getInstance().recordOutput("Intake/IntakeMotorVelocity", m_intake.getIntakeVelocity());
         Logger.getInstance().recordOutput("Intake/IntakeMotorCurrent", m_intake.getIntakeCurrent());
         Logger.getInstance().recordOutput("Intake/IntakeMotorTemperature", m_intake.getIntakeMotorTemperature());
