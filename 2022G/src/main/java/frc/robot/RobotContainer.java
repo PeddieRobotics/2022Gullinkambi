@@ -85,9 +85,6 @@ public class RobotContainer {
     drivetrain.putSmartDashboardOverrides();
     SmartDashboard.putNumber("KPDriveVel", Constants.kPDriveVel);
     SmartDashboard.putBoolean("sensor0", false);
-    // intake.putSmartDashboardOverrides();
-    // hopper.putSmartDashboardOverrides();
-    // limelight.putSmartDashboardOverrides();
     //SmartDashboard.putBoolean("sensor0", false);
     intake.putSmartDashboardOverrides();
     hopper.putSmartDashboardOverrides();
