@@ -12,6 +12,7 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Limelight;
 //import frc.robot.subsystems.Tower;
 import frc.robot.utils.ControllerMap;
 
@@ -20,11 +21,11 @@ public class JoystickOI {
   private static JoystickOI oi2;
   private final Drivetrain m_driveTrain;
   // private final Tower m_tower;
-  // private final Hopper m_hopper;
-  // private final Flywheel m_flywheel;
-  // private final Intake m_intake;
-  // private final Climber m_climber;
-  // private final Limelight m_limelight;
+  private final Hopper m_hopper;
+  private final Flywheel m_flywheel;
+  private final Intake m_intake;
+  private final Climber m_climber;
+  private final Limelight m_limelight;
 
   private Joystick leftJoystick, rightJoystick;
 
@@ -37,14 +38,14 @@ public class JoystickOI {
 
   // private XboxTrigger driverLeftTrigger, driverRightTrigger;
 
-  public JoystickOI(Drivetrain d, Hopper h, Flywheel f, Intake i, Climber c) { // add Tower t when needed
+  public JoystickOI(Drivetrain d, Hopper h, Flywheel f, Intake i, Climber c, Limelight l) { // add Tower t when needed
     m_driveTrain = d;
     // m_tower = t;
-    // m_hopper = h;
-    // m_flywheel = f;
-    // m_intake = i;
-    // m_climber = c;
-    // m_limelight = l;
+     m_hopper = h;
+     m_flywheel = f;
+     m_intake = i;
+     m_climber = c;
+     m_limelight = l;
 
     initializeJoysticks();
     configureJoysticks();
@@ -103,12 +104,8 @@ public class JoystickOI {
 
   public static JoystickOI getInstance() {
     if (oi2 == null) {
-      oi2 = new JoystickOI(Drivetrain.getInstance(), null, null, null, null);
-
-      // oi2 = new JoystickOI(Drivetrain.getInstance(), Hopper.getInstance(),
-      // Flywheel.getInstance(), // add Tower.getInstance() later when we actually
-      // make the code
-      // Intake.getInstance(), Climber.getInstance());
+      oi2 = new JoystickOI(Drivetrain.getInstance(), Hopper.getInstance(),Flywheel.getInstance(), 
+      Intake.getInstance(), Climber.getInstance(), Limelight.getInstance());
     }
     return oi2;
   }

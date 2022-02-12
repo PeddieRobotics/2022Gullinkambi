@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.DriveCommands.Drive;
 import frc.robot.subsystems.Autonomous;
-// import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hopper;
@@ -37,7 +37,7 @@ public class RobotContainer {
   private final Lights lights;
   private final Hopper hopper;
   private final Flywheel flywheel;
-  // private final Climber climber;
+  private final Climber climber;
   private final Limelight limelight;
 
   /**
@@ -47,19 +47,19 @@ public class RobotContainer {
 
     drivetrain = Drivetrain.getInstance();
     autonomous = Autonomous.getInstance();
-    //intake = Intake.getInstance();
+    intake = Intake.getInstance();
     hopper = Hopper.getInstance();
     flywheel = Flywheel.getInstance();
-    // climber = Climber.getInstance();
+    climber = Climber.getInstance();
     limelight = Limelight.getInstance();
     oi = OI.getInstance();
     lights = Lights.getInstance();
 
     drivetrain.setDefaultCommand(new Drive());
-    //intake.register();
+    intake.register();
     hopper.register();
     flywheel.register();
-    //climber.register();
+    climber.register();
     limelight.register();
     setupSmartDashboard();
 
@@ -84,7 +84,7 @@ public class RobotContainer {
     // hopper.putSmartDashboardOverrides();
     // limelight.putSmartDashboardOverrides();
     //SmartDashboard.putBoolean("sensor0", false);
-    intake.putSmartDashboardOverrides();
+    //intake.putSmartDashboardOverrides();
     hopper.putSmartDashboardOverrides();
     //limelight.putSmartDashboardOverrides();
     // climber.putSmartDashboardOverrides();
@@ -104,7 +104,7 @@ public class RobotContainer {
         SmartDashboard.getNumber("OR: Drivetrain turn", 0));
 
     // Intake
-    intake.updateIntakeFromDashboard();
+    //intake.updateIntakeFromDashboard();
 
     // Hopper
     hopper.updateSpeedFromDashboard();

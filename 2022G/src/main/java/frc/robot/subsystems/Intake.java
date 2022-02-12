@@ -48,10 +48,6 @@ public class Intake extends SubsystemBase {
 
   public void setIntakeSolenoid(boolean solenoidState) {
     intakeSolenoid.set(solenoidState);
-    if(getSolenoidState()){
-    intakeMotor.set(speed);
-    }
-    else intakeMotor.set(0);
   }
 
   public boolean getIntakeSolenoid() {
