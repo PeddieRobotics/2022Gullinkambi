@@ -43,10 +43,11 @@ public class Climber extends SubsystemBase {
   }
 
   public void armSet(boolean on){
-    arm.set(on);
+    // arm.set(on);
   }
   public boolean getArm(){
-    return arm.get();
+    // return arm.get()
+    return false;
   }
 
   public void retract() {
