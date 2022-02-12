@@ -10,12 +10,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.DriveCommands.Drive;
 import frc.robot.subsystems.Autonomous;
-import frc.robot.subsystems.Climber;
+// import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.Lights;
 import frc.robot.OI;
 
 /**
@@ -32,6 +33,7 @@ public class RobotContainer {
   private final Drivetrain drivetrain;
   private final Autonomous autonomous;
   private final Intake intake;
+  private final Lights lights;
   private final Hopper hopper;
   private final Flywheel flywheel;
   // private final Climber climber;
@@ -50,6 +52,7 @@ public class RobotContainer {
     // climber = Climber.getInstance();
     // limelight = Limelight.getInstance();
     oi = OI.getInstance();
+    lights = Lights.getInstance();
 
     drivetrain.setDefaultCommand(new Drive());
     intake.register();
@@ -73,10 +76,10 @@ public class RobotContainer {
 
   public void setupSmartDashboard() {
     drivetrain.putSmartDashboardOverrides();
-    SmartDashboard.putBoolean("sensor0", false);
+    //SmartDashboard.putBoolean("sensor0", false);
     intake.putSmartDashboardOverrides();
     hopper.putSmartDashboardOverrides();
-    // limelight.putSmartDashboardOverrides();
+    //limelight.putSmartDashboardOverrides();
     // climber.putSmartDashboardOverrides();
     flywheel.putSmartDashboardOverrides();
   }

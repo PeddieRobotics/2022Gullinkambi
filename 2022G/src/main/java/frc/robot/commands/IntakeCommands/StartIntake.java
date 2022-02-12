@@ -18,7 +18,7 @@ public class StartIntake extends CommandBase {
 
   /** Creates a new StartIntake. */
   public StartIntake() {
-    intake = intake.getInstance();
+    intake = Intake.getInstance();
   }
 
   // Called when the command is initially scheduled.

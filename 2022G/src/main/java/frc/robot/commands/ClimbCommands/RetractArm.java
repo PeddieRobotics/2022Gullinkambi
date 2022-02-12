@@ -11,7 +11,6 @@ public class RetractArm extends CommandBase {
   public RetractArm() {
     climber = Climber.getInstance();
   }
-
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {

@@ -69,10 +69,10 @@ public class Drivetrain extends SubsystemBase {
     rightFollower1.follow(rightMaster);
     rightFollower2.follow(rightMaster);
 
-    sensor0 = new DigitalInput(0);
+    //sensor0 = new DigitalInput(0);
 
     gyro = new ADIS16470_IMU();
-    // calibrateGyro();
+    calibrateGyro();
     gyro.reset();
 
     odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
@@ -234,7 +234,7 @@ public class Drivetrain extends SubsystemBase {
     drive.feed();
   }
 
-  public boolean isSensor() {
-    return sensor0.get();
-  }
+  // public boolean isSensor() {
+  //   return sensor0.get();
+  // }
 }

@@ -4,9 +4,11 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.RobotMap;
@@ -16,12 +18,11 @@ public class Intake extends SubsystemBase {
   private static Intake intake;
 
   private Solenoid intakeSolenoid;
-  private VictorSP intakeMotor;
+  private CANSparkMax intakeMotor;
 
   public Intake() {
-    intakeSolenoid = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.SOLENOID_INTAKE);
-    intakeMotor = new VictorSP(RobotMap.MOTOR_INTAKE);
-
+    intakeSolenoid = new Solenoid(RobotMap.PNEUMATICS_HUB, PneumaticsModuleType.REVPH, RobotMap.SOLENOID_INTAKE);
+    intakeMotor = new CANSparkMax(RobotMap.MOTOR_INTAKE, MotorType.kBrushed);
   }
 
   @Override
