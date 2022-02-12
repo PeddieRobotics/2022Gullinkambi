@@ -94,7 +94,7 @@ public class Autonomous extends SubsystemBase {
             autoRoutineSelector.addOption(autoRoutineName, autoRoutines.get(autoRoutineName));
         };
 
-        SmartDashboard.putData("Auto Routine", autoRoutineSelector);
+        SmartDashboard.putData("Auto Routines", autoRoutineSelector);
     }
 
     public void setupAutoRoutines() {
