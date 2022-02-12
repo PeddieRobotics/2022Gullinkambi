@@ -9,10 +9,13 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 
+import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
@@ -25,8 +28,6 @@ import frc.robot.utils.RobotMap;
 import frc.robot.utils.UpdateLogs;
 import frc.robot.utils.Constants;
 import frc.robot.utils.RobotMap;
-
-import com.kauailabs.navx.frc.AHRS;
 
 public class Drivetrain extends SubsystemBase {
   private static Drivetrain drivetrain;
@@ -45,11 +46,13 @@ public class Drivetrain extends SubsystemBase {
   private final RelativeEncoder leftEncoder, rightEncoder;
   private Joystick leftJoystick, rightJoystick;
 
+  NetworkTableEntry m_xEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("X");
+  NetworkTableEntry m_yEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("Y");
+
   //Logging
   private static UpdateLogs updateLogs = UpdateLogs.getInstance();
 
   private double speedSetpoint, turnSetpoint;
-
 
   public Drivetrain() {
     leftMaster = new CANSparkMax(RobotMap.MOTOR_DRIVE_LEFT_MASTER, MotorType.kBrushless);
@@ -63,8 +66,11 @@ public class Drivetrain extends SubsystemBase {
     rightEncoder = rightMaster.getEncoder();
     resetEncoders();
 
+    // With MiniG Robot
     // leftMotors = new MotorControllerGroup(leftMaster, leftFollower1);
     // rightMotors = new MotorControllerGroup(rightMaster, rightFollower1);
+    
+    //With Gullinkambi
     leftMotors = new MotorControllerGroup(leftMaster, leftFollower1, leftFollower2);
     rightMotors = new MotorControllerGroup(rightMaster, rightFollower1, rightFollower2);
 
@@ -98,6 +104,9 @@ public class Drivetrain extends SubsystemBase {
     putSmartDashboard();
 
     updateLogs.updateDrivetrainLogData();
+    var translation = odometry.getPoseMeters().getTranslation();
+    m_xEntry.setNumber(translation.getX());
+    m_yEntry.setNumber(translation.getY());
   }
 
   @Override
@@ -138,6 +147,11 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("Unbounded Heading", getUnboundedHeading());
     SmartDashboard.putNumber("Odometry X", odometry.getPoseMeters().getTranslation().getX());
     SmartDashboard.putNumber("Odometry Y", odometry.getPoseMeters().getTranslation().getY());
+    SmartDashboard.putNumber("Average Velocity", getAverageEncoderVelocity());
+    SmartDashboard.putNumber("Left Encoder Velocity", getLeftEncoderVelocity());
+    SmartDashboard.putNumber("Right Encoder Velocity", getRightEncoderVelocity());
+    SmartDashboard.putNumber("Target Velocity", 1.1);
+    SmartDashboard.putNumber("Set Off", 1.1-getAverageEncoderVelocity());
   }
 
   public void setBrake() {
@@ -148,8 +162,9 @@ public class Drivetrain extends SubsystemBase {
     leftFollower1.setIdleMode(IdleMode.kBrake);
     rightFollower1.setIdleMode(IdleMode.kBrake);
 
-    leftFollower2.setIdleMode(IdleMode.kBrake);
-    rightFollower2.setIdleMode(IdleMode.kBrake);
+    // With Gullinkambi
+    // leftFollower2.setIdleMode(IdleMode.kBrake);
+    // rightFollower2.setIdleMode(IdleMode.kBrake);
   }
 
   public void setCoast() {
@@ -159,8 +174,9 @@ public class Drivetrain extends SubsystemBase {
     leftFollower1.setIdleMode(IdleMode.kCoast);
     rightFollower1.setIdleMode(IdleMode.kCoast);
 
-    leftFollower2.setIdleMode(IdleMode.kCoast);
-    rightFollower2.setIdleMode(IdleMode.kCoast);
+    // With Gullinkambi
+    // leftFollower2.setIdleMode(IdleMode.kCoast);
+    // rightFollower2.setIdleMode(IdleMode.kCoast);
 
   }
 
@@ -170,12 +186,12 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void arcadeDrive(double speed, double turn) {
-    drive.arcadeDrive(-speed * Constants.SPEED_MULTIPLIER, -turn * Constants.TURN_MULTIPLIER,
+    drive.arcadeDrive(speed * Constants.SPEED_MULTIPLIER, turn * Constants.TURN_MULTIPLIER,
         Constants.DRIVE_USE_SQUARED_INPUTS);
   }
 
   public void curvatureDrive(double speed, double turn) {
-    drive.curvatureDrive(-speed * Constants.SPEED_MULTIPLIER, -turn * Constants.TURN_MULTIPLIER,
+    drive.curvatureDrive(speed * Constants.SPEED_MULTIPLIER, turn * Constants.TURN_MULTIPLIER,
         true);
   }
 
@@ -247,6 +263,10 @@ public class Drivetrain extends SubsystemBase {
 
   public double getAverageEncoderDistance(){
     return (leftEncoder.getPosition() + rightEncoder.getPosition())/2.0;
+  }
+
+  public double getAverageEncoderVelocity(){
+    return (leftEncoder.getVelocity() + rightEncoder.getVelocity())/2.0;
   }
 
 
