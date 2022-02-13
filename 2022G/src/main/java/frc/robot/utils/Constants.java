@@ -36,6 +36,8 @@ public final class Constants {
   public static final int MAX_HOPPER_ROLLER_CURRENT = 15; // amps
 
   // Flywheel constants
+  public static final int MAX_FLYWHEEL_CURRENT = 30; // amps
+
   public static final double FLYWHEEL_P = 0.00015;
   public static final double FLYWHEEL_I = 0.0000002;
   public static final double FLYWHEEL_D = 0.0;

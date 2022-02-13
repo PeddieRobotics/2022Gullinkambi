@@ -13,9 +13,6 @@ import frc.robot.utils.Constants;
 public class Hopper extends SubsystemBase {
     private static Hopper hopper;
 
-    // NOTE: Possibly all 3 components below will be driven by a single motor.
-    // Currently implemented this way!!!
-    // Two mecanums + belts driven by a CANSparkMax
     private CANSparkMax hopperSystem;
 
     // Define sensors for the hopper to count cargo
@@ -71,11 +68,13 @@ public class Hopper extends SubsystemBase {
         SmartDashboard.putNumber("OR: Hopper speed", 0);
     }
 
-    public void updateSpeedFromDashboard() {
+    public void updateHopperFromDashboard() {
         runHopper(SmartDashboard.getNumber("OR: Hopper speed", 0));
     }
 
     public void putValuesSmartDashboard(){
         SmartDashboard.putNumber("Hopper Speed", getHopperSpeed());
+        SmartDashboard.putBoolean("Lower sensor", sensesBallBottom());
+        SmartDashboard.putBoolean("Upper sensor", sensesBallTop());
     }
 }

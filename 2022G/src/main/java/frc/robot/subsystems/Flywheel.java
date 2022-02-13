@@ -36,7 +36,6 @@ public class Flywheel extends SubsystemBase {
   private Solenoid hoodSolenoid, shooterLockSolenoid;
 
   private double flywheelSetpoint = 0;
-  private double flywheelPower = 0;
 
   public Flywheel() {
     // Set up flywheel motors
@@ -46,8 +45,8 @@ public class Flywheel extends SubsystemBase {
     flywheelPrimary.setInverted(true);
     flywheelSecondary.follow(flywheelPrimary, true);
 
-    flywheelPrimary.setSmartCurrentLimit(30);
-    flywheelSecondary.setSmartCurrentLimit(30);
+    flywheelPrimary.setSmartCurrentLimit(Constants.MAX_FLYWHEEL_CURRENT);
+    flywheelSecondary.setSmartCurrentLimit(Constants.MAX_FLYWHEEL_CURRENT);
 
     flywheelPIDController = flywheelPrimary.getPIDController();
     flywheelEncoder = flywheelPrimary.getEncoder();
@@ -169,7 +168,7 @@ public class Flywheel extends SubsystemBase {
   public void putSmartDashboard(){
     SmartDashboard.putNumber("Flywheel velocity", getFlywheelVelocity());
     SmartDashboard.putNumber("Flywheel setpoint", getFlywheelSetpoint());
-    SmartDashboard.putBoolean("Lock Activated", getShooterLock());
-    SmartDashboard.putBoolean("Hood Up", getHood());
+    SmartDashboard.putBoolean("Lock activated", getShooterLock());
+    SmartDashboard.putBoolean("Hood up", getHood());
   }
 }
