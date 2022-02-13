@@ -73,7 +73,7 @@ public class Hopper extends SubsystemBase {
     }
 
     public void putValuesSmartDashboard(){
-        SmartDashboard.putNumber("Hopper Speed", getHopperSpeed());
+        SmartDashboard.putNumber("Hopper speed", getHopperSpeed());
         SmartDashboard.putBoolean("Lower sensor", sensesBallBottom());
         SmartDashboard.putBoolean("Upper sensor", sensesBallTop());
     }
