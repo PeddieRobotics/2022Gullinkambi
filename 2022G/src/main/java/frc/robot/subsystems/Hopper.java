@@ -23,8 +23,8 @@ public class Hopper extends SubsystemBase {
         hopperSystem.setIdleMode(IdleMode.kBrake);
         hopperSystem.setSmartCurrentLimit(Constants.MAX_HOPPER_BELT_CURRENT);
 
-        bottomSensor = new DigitalInput(0);
-        topSensor = new DigitalInput(1);
+        bottomSensor = new DigitalInput(1);
+        topSensor = new DigitalInput(0);
     }
 
     public void periodic() {
@@ -57,11 +57,11 @@ public class Hopper extends SubsystemBase {
     }
 
     public boolean sensesBallBottom() {
-        return bottomSensor.get();
+        return !bottomSensor.get();
     }
 
     public boolean sensesBallTop() {
-        return topSensor.get();
+        return !topSensor.get();
     }
 
     public void putSmartDashboardOverrides() {

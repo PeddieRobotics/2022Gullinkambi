@@ -1,3 +1,4 @@
+
 package frc.robot.oi;
 
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
@@ -43,15 +44,6 @@ public class XboxOI {
     public void configureXboxControllers() {
         if (Constants.OI_CONFIG == OIConfig.COMPETITION) {
             driverXboxController = new Joystick(ControllerMap.XBOX_OPERATOR_PORT);
-            // Operator Xbox controller binds
-            /*
-             * What we want it to do:
-             * - increase flywheel speed?
-             * - unjam hopper
-             * - intake override
-             * - hood override
-             * - operator buttons to switch the driver from drive mode to climb mode?
-             */
 
             new JoystickButton(driverXboxController,
             ControllerMap.XBOX_X).toggleWhenActive(new UnjamIntake()); // XBOX_X
@@ -66,19 +58,15 @@ public class XboxOI {
 
             new Button(() -> driverXboxController.getRawAxis(2) > 0.5).whenPressed(new StartIntake()); // XBOX_LT
 
-            //new JoystickButton(driverXboxController, ControllerMap.XBOX_Y).whenPressed(new StartIntake());
-
             new JoystickButton(driverXboxController, ControllerMap.XBOX_LB).whenPressed(new StopIntake()); // XBOX_LB
 
-            new JoystickButton(driverXboxController, ControllerMap.XBOX_RB).whenPressed(new IndexCargo()); // XBOX_RB
+            new JoystickButton(driverXboxController, ControllerMap.XBOX_X).whenHeld(new ShootFar()); // XBOX_X
 
-            new JoystickButton(driverXboxController, ControllerMap.XBOX_X).whileHeld(new ShootFar()); // XBOX_X
+            new JoystickButton(driverXboxController, ControllerMap.XBOX_B).whenHeld(new ShootHigh()); // XBOX_B
 
-            new JoystickButton(driverXboxController, ControllerMap.XBOX_B).whileHeld(new ShootHigh()); // XBOX_B
+            new JoystickButton(driverXboxController, ControllerMap.XBOX_A).whenHeld(new ShootLow()); // XBOX_A
 
-            new JoystickButton(driverXboxController, ControllerMap.XBOX_A).whileHeld(new ShootLow()); // XBOX_A
-
-             new JoystickButton(driverXboxController, ControllerMap.XBOX_Y).whileHeld(new UnjamIntake()); // XBOX_Y
+             new JoystickButton(driverXboxController, ControllerMap.XBOX_Y).whenHeld(new UnjamIntake()); // XBOX_Y
         }
     }
 

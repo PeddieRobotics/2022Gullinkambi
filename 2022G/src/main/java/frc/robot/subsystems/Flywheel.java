@@ -78,7 +78,7 @@ public class Flywheel extends SubsystemBase {
     return flywheel;
   }
 
-  public void runFlywheelSetPoint(double rpm) {
+  public void runFlywheelSetpoint(double rpm) {
     flywheelSetpoint = rpm;
     // bounds may need to be changed based on desired limits
     if (flywheelSetpoint > Constants.FLYWHEEL_MAX_RPM) {
@@ -87,7 +87,7 @@ public class Flywheel extends SubsystemBase {
     flywheelPIDController.setReference(flywheelSetpoint, ControlType.kVelocity);
   }
 
-  public void runFlyWheelPower(double power) {
+  public void runFlywheelPower(double power) {
     if (power > 0 && power < Constants.FLYWHEEL_MAX_POWER) {
       flywheelPrimary.set(power);
     } else {
@@ -122,7 +122,8 @@ public class Flywheel extends SubsystemBase {
   public void stopFlywheel() {
     setHood(false);
     setShooterLock(false);
-    flywheelPIDController.setReference(0, ControlType.kVelocity);
+    flywheelSetpoint = 0;
+    flywheelPIDController.setReference(flywheelSetpoint, ControlType.kVelocity);
   }
 
   public double getFlywheelSetpoint() {
@@ -130,7 +131,7 @@ public class Flywheel extends SubsystemBase {
   }
 
   public double getFlywheelVelocity() {
-    return flywheelPrimary.getEncoder().getVelocity();
+    return flywheelEncoder.getVelocity();
   }
 
   public boolean isHoodUp() {
@@ -161,8 +162,14 @@ public class Flywheel extends SubsystemBase {
 
     setShooterLock(SmartDashboard.getBoolean("OR: Flywheel lock", false));
     setHood(SmartDashboard.getBoolean("OR: Hood up", false));
-    runFlywheelSetPoint(SmartDashboard.getNumber("OR: Flywheel setpoint", 0));
-    runFlyWheelPower(SmartDashboard.getNumber("OR: Flywheel power", 0));
+    if(SmartDashboard.getNumber("OR: Flywheel power", 0) > 0){
+      runFlywheelPower(SmartDashboard.getNumber("OR: Flywheel power", 0));
+    }
+    else{
+      runFlywheelSetpoint(SmartDashboard.getNumber("OR: Flywheel setpoint", 0));
+    }
+
+    putSmartDashboard();
   }
 
   public void putSmartDashboard(){
