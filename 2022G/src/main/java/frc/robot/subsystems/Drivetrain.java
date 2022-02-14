@@ -80,13 +80,6 @@ public class Drivetrain extends SubsystemBase {
     rightEncoder = rightMaster.getEncoder();
     resetEncoders();
 
-    // With MiniG Robot
-    // leftMotors = new MotorControllerGroup(leftMaster, leftFollower1);
-    // rightMotors = new MotorControllerGroup(rightMaster, rightFollower1);
-    
-    //With Gullinkambi
-    leftMotors = new MotorControllerGroup(leftMaster, leftFollower1, leftFollower2);
-    rightMotors = new MotorControllerGroup(rightMaster, rightFollower1, rightFollower2);
 
     drive = new DifferentialDrive(leftMotors, rightMotors);
     drive.setDeadband(Constants.DRIVING_DEADBANDS);

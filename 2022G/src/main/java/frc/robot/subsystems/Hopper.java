@@ -33,11 +33,6 @@ public class Hopper extends SubsystemBase {
         topSensor = new DigitalInput(0);
     }
 
-    public void periodic() {
-        // This method will be called once per scheduler run
-        putValuesSmartDashboard();
-      }
-
     public static Hopper getInstance() {
         if (hopper == null) {
             hopper = new Hopper();
@@ -49,6 +44,7 @@ public class Hopper extends SubsystemBase {
     @Override
     public void periodic() {
         updateLogs.updateHopperLogData();
+        putValuesSmartDashboard();
     }
 
     public void runHopper(double speed){
@@ -62,11 +58,6 @@ public class Hopper extends SubsystemBase {
     public void reverseHopper(double speed) {
         runHopper(-speed);
     }
-
-    public void putSmartDashboardOverrides(){
-        SmartDashboard.putNumber("OR: Hopper speed", getHopperVelocity());
-    }
-
 
     //Getters
     public double getHopperVelocity(){
@@ -98,7 +89,7 @@ public class Hopper extends SubsystemBase {
     }
 
     public void putValuesSmartDashboard(){
-        SmartDashboard.putNumber("Hopper speed", getHopperSpeed());
+        SmartDashboard.putNumber("Hopper speed", getHopperVelocity());
         SmartDashboard.putBoolean("Lower sensor", sensesBallBottom());
         SmartDashboard.putBoolean("Upper sensor", sensesBallTop());
     }

@@ -105,14 +105,14 @@ public class UpdateLogs {
         Logger.getInstance().recordOutput("Flywheel/RPMSetpoint", m_flywheel.getFlywheelSetpoint());
 
         //Motor Data
-        Logger.getInstance().recordOutput("Flywheel/PrimaryFlywheelVelocity", m_flywheel.getPrimaryflywheelVelocity());
-        Logger.getInstance().recordOutput("Flywheel/SecondaryFlywheelVelocity", m_flywheel.getSecondaryflywheelVelocity());
+        Logger.getInstance().recordOutput("Flywheel/PrimaryFlywheelVelocity", m_flywheel.getPrimaryFlywheelVelocity());
+        Logger.getInstance().recordOutput("Flywheel/SecondaryFlywheelVelocity", m_flywheel.getSecondaryFlywheelVelocity());
         
-        Logger.getInstance().recordOutput("Flywheel/PrimaryFlywheelCurrent", m_flywheel.getPrimaryflywheelCurrent());
-        Logger.getInstance().recordOutput("Flywheel/SecondaryFlywheel2Current", m_flywheel.getSecondaryflywheelCurrent());
+        Logger.getInstance().recordOutput("Flywheel/PrimaryFlywheelCurrent", m_flywheel.getPrimaryFlywheelCurrent());
+        Logger.getInstance().recordOutput("Flywheel/SecondaryFlywheel2Current", m_flywheel.getSecondaryFlywheelCurrent());
         
-        Logger.getInstance().recordOutput("Flywheel/PrimaryFlywheelTemperature", m_flywheel.getPrimaryflywheelMotorTemperature());
-        Logger.getInstance().recordOutput("Flywheel/SecondaryFlywheel2Temperature", m_flywheel.getSecondaryflywheelMotorTemperature());
+        Logger.getInstance().recordOutput("Flywheel/PrimaryFlywheelTemperature", m_flywheel.getPrimaryFlywheelMotorTemperature());
+        Logger.getInstance().recordOutput("Flywheel/SecondaryFlywheel2Temperature", m_flywheel.getSecondaryFlywheelMotorTemperature());
         
         Logger.getInstance().recordOutput("Flywheel/HoodUp", m_flywheel.isHoodUp());
     }

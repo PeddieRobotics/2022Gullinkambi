@@ -160,29 +160,29 @@ public class Flywheel extends SubsystemBase {
     return flywheelSetpoint;
   }
 
-  public double getPrimaryflywheelVelocity(){
+  public double getPrimaryFlywheelVelocity(){
     return flywheelPrimary.get();
   }
 
-  public double getSecondaryflywheelVelocity(){
+  public double getSecondaryFlywheelVelocity(){
     return flywheelSecondary.get();
   }
 
   //Current Getters
-  public double getPrimaryflywheelCurrent(){
+  public double getPrimaryFlywheelCurrent(){
     return flywheelPrimary.getOutputCurrent();
   }
 
-  public double getSecondaryflywheelCurrent(){
+  public double getSecondaryFlywheelCurrent(){
     return flywheelSecondary.getOutputCurrent();
   }
 
   //Motor Temperature Getters
-  public double getPrimaryflywheelMotorTemperature(){
+  public double getPrimaryFlywheelMotorTemperature(){
     return flywheelPrimary.getMotorTemperature();
   }
 
-  public double getSecondaryflywheelMotorTemperature(){
+  public double getSecondaryFlywheelMotorTemperature(){
     return flywheelSecondary.getMotorTemperature();
   }
 
@@ -223,7 +223,7 @@ public class Flywheel extends SubsystemBase {
   }
 
   public void putSmartDashboard(){
-    SmartDashboard.putNumber("Flywheel velocity", getFlywheelVelocity());
+    SmartDashboard.putNumber("Flywheel velocity", getPrimaryFlywheelVelocity());
     SmartDashboard.putNumber("Flywheel setpoint", getFlywheelSetpoint());
     SmartDashboard.putBoolean("Lock activated", getShooterLock());
     SmartDashboard.putBoolean("Hood up", getHood());
