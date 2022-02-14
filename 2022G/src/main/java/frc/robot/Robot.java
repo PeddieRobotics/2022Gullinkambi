@@ -14,6 +14,8 @@ import org.littletonrobotics.junction.io.LogSocketServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.Lights;
@@ -30,6 +32,7 @@ import frc.robot.subsystems.Lights;
 public class Robot extends LoggedRobot {
   private RobotContainer robotContainer;
   private Lights lights;
+
   /**
    * This function is run when the robot is first started up and should be used
    * for any
@@ -51,7 +54,7 @@ public class Robot extends LoggedRobot {
     robotContainer.setDrivetrainToCoastMode();
     robotContainer.calibrateGyro();
     robotContainer.setupSmartDashboard();
-
+   
     lights = Lights.getInstance();
   }
 
@@ -76,6 +79,7 @@ public class Robot extends LoggedRobot {
     // robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    SmartDashboard.putNumber("Remaining Match Time", Timer.getMatchTime());
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -83,6 +87,7 @@ public class Robot extends LoggedRobot {
   public void disabledInit() {
     robotContainer.resetGyro();
     robotContainer.setDrivetrainToCoastMode();
+    robotContainer.stopAllSystems();
   }
 
   @Override
@@ -120,7 +125,9 @@ public class Robot extends LoggedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    robotContainer.testAllSystems();
+    if (SmartDashboard.getBoolean("Allow overrides", false)) {
+      robotContainer.testAllSystems();
+    }
   }
 
   @Override

@@ -9,6 +9,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.DriveCommands.Drive;
+import frc.robot.commands.IntakeCommands.IndexCargo;
 import frc.robot.subsystems.Autonomous;
 // import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
@@ -56,17 +57,12 @@ public class RobotContainer {
     lights = Lights.getInstance();
 
     drivetrain.setDefaultCommand(new Drive());
-    //intake.register();
-    //hopper.register();
-    //flywheel.register();
+    intake.register();
+    hopper.setDefaultCommand(new IndexCargo());
+    flywheel.register();
     //climber.register();
     //limelight.register();
     setupSmartDashboard();
-    intake.register();
-    hopper.register();
-    flywheel.register();
-    // climber.register();
-    // limelight.register();
 
   }
 
@@ -83,17 +79,12 @@ public class RobotContainer {
 
   public void setupSmartDashboard() {
     drivetrain.putSmartDashboardOverrides();
-    SmartDashboard.putNumber("KPDriveVel", Constants.kPDriveVel);
-    SmartDashboard.putBoolean("sensor0", false);
-    // intake.putSmartDashboardOverrides();
-    // hopper.putSmartDashboardOverrides();
-    // limelight.putSmartDashboardOverrides();
-    //SmartDashboard.putBoolean("sensor0", false);
     intake.putSmartDashboardOverrides();
     hopper.putSmartDashboardOverrides();
     //limelight.putSmartDashboardOverrides();
     // climber.putSmartDashboardOverrides();
     flywheel.putSmartDashboardOverrides();
+    SmartDashboard.putBoolean("Allow overrides", false);
   }
 
   // Overrides for interfacing with robot hardware
@@ -112,20 +103,15 @@ public class RobotContainer {
     intake.updateIntakeFromDashboard();
 
     // Hopper
-    hopper.updateSpeedFromDashboard();
+    hopper.updateHopperFromDashboard();
 
     // Flywheel
     flywheel.updateFlywheelFromDashboard();
 
-
     // Climber
-    // climber.setClimberSpeed(SmartDashboard.getNumber("OR: Climber speed", 0));
-    // climber.setClimberTilt(SmartDashboard.getBoolean("OR: Climber tilt", false));
-    // climber.setClimberHook(SmartDashboard.getBoolean("OR: Climber hook", false));
+    //climber.updateClimberFromDashboard();
 
     // Limelight - currently none
-
-    //SmartDashboard.putBoolean("sensor0", drivetrain.isSensor());
   }
 
   public void setDrivetrainToCoastMode() {
@@ -142,6 +128,12 @@ public class RobotContainer {
 
   public void setDrivetrainToBrakeMode() {
     drivetrain.setBrake();
+  }
+
+  public void stopAllSystems(){
+    intake.stopIntake();
+    hopper.stopHopper();
+    flywheel.stopFlywheel();
   }
 
 }

@@ -51,6 +51,14 @@ public class Climber extends SubsystemBase {
     //arm.set(true);
   }
 
+  public void armSet(boolean on){
+    // arm.set(on);
+  }
+  public boolean getArm(){
+    // return arm.get()
+    return false;
+  }
+
   public void retract() {
     //arm.set(false);
   }
@@ -90,5 +98,18 @@ public class Climber extends SubsystemBase {
   
   public double getSecondaryArmMotorTemperature(){
     return armSecondary.getMotorTemperature();
+    putValuesSmartDashboard();
+  }
+
+  public void putSmartDashboardOverrides(){
+    SmartDashboard.putBoolean("OR: Climber Extend", false);
+  }
+
+  public void updateFromDashboard(){
+    armSet(SmartDashboard.getBoolean("OR: Climber Extend", false));
+  }
+
+  public void putValuesSmartDashboard(){
+    SmartDashboard.putBoolean("Climber Extend", getArm());
   }
 }

@@ -5,7 +5,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.IntakeCommands.StartIntake;
 import frc.robot.commands.IntakeCommands.StopIntake;
+import frc.robot.commands.IntakeCommands.UnjamIntake;
 import frc.robot.commands.ShootCommands.ShootFar;
+import frc.robot.commands.ShootCommands.ShootHigh;
+import frc.robot.commands.ShootCommands.ShootLow;
 //import frc.robot.commands.ShootCommands.ShootLayup;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
@@ -30,8 +33,7 @@ public class JoystickOI {
 
   private JoystickButton leftTrigger, leftButton2, leftButton3, leftButton4;
   private JoystickButton rightTrigger, rightButton2, rightButton3, rightButton4;
-  private JoystickButton opTrigger, opButton2, opButton3, opButton4, opButton5, opButton6, opButton7, opButton8,
-      opButton9, opButton10, opButton11, opButton12;
+  private JoystickButton opTrigger, opButton2, opButton3, opButton4, opButton5, opButton6, opButton7, opButton8, opButton9, opButton10, opButton11, opButton12;
   private JoystickButton driverButtonA, driverButtonB, driverButtonX, driverButtonY, driverButtonLeftBumper,
       driverButtonRightBumper, driverButtonBack, driverButtonStart, driverButtonLeftStick, driverButtonRightStick;
 
@@ -72,12 +74,13 @@ public class JoystickOI {
   public void configureJoysticks() {
 
     // Driver joystick binds (dual joystick)
-    // leftButton3.whenPressed(new StartIntake());
-    // leftButton4.whenPressed(new StopIntake());
-
-    // rightButton3.whileHeld(new ShootFar()); //far is high, but far
-    // rightButton4.whileHeld(new ShootHigh());
-    // rightButton2.whileHeld(new ShootLow());
+    leftButton2.whenPressed(new UnjamIntake());
+    leftButton3.whenPressed(new StartIntake());
+    leftButton4.whenPressed(new StopIntake());
+    
+    rightButton2.whileHeld(new ShootHigh());
+    rightButton3.whileHeld(new ShootFar()); //far is high, but far
+    rightButton4.whileHeld(new ShootLow());
 
   }
 

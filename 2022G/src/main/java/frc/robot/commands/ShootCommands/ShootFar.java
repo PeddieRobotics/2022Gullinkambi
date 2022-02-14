@@ -22,7 +22,7 @@ public class ShootFar extends CommandBase {
     flywheel.setHood(true); // turn hood on for shoot far with high speed
     flywheel.setShooterLock(true);
 
-    flywheel.runFlywheelSetPoint(Constants.FLYWHEEL_RPM_FAR);
+    flywheel.runFlywheelSetpoint(Constants.FLYWHEEL_RPM_FAR);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -40,10 +40,11 @@ public class ShootFar extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    System.out.println("SHOOT FAR INTERRUPTED");
     hopper.stopHopper();
     flywheel.stopFlywheel();
     flywheel.setHood(false);
-    flywheel.setShooterLock(true);
+    flywheel.setShooterLock(false);
   }
 
   // Returns true when the command should end.

@@ -19,17 +19,17 @@ public class ShootHigh extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    flywheel.setHood(true); // hood for high shot
+    flywheel.setHood(false); // no hood for high shot
     flywheel.setShooterLock(true);
 
-    flywheel.runFlywheelSetPoint(Constants.FLYWHEEL_RPM_HIGH);
+    flywheel.runFlywheelSetpoint(Constants.FLYWHEEL_RPM_HIGH);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     // Check whether the speed of flywheel is good enough to shoot
-    if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_FAR)) {
+    if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_HIGH)) {
       hopper.runHopper(Constants.HOPPER_SPEED);
     } else {
       hopper.stopHopper();
@@ -42,8 +42,7 @@ public class ShootHigh extends CommandBase {
   public void end(boolean interrupted) {
     hopper.stopHopper();
     flywheel.stopFlywheel();
-    flywheel.setShooterLock(true);
-    flywheel.setHood(false);
+    flywheel.setShooterLock(false);
   }
 
   // Returns true when the command should end.

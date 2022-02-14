@@ -22,14 +22,14 @@ public class ShootLow extends CommandBase {
     flywheel.setHood(false); // no hood for low shot
     flywheel.setShooterLock(true);
 
-    flywheel.runFlywheelSetPoint(Constants.FLYWHEEL_RPM_LOW);
+    flywheel.runFlywheelSetpoint(Constants.FLYWHEEL_RPM_LOW);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     // Check whether the speed of flywheel is good enough to shoot
-    if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_FAR)) {
+    if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_LOW)) {
       hopper.runHopper(Constants.HOPPER_SPEED);
     } else {
       hopper.runHopper(0.0);
@@ -42,7 +42,7 @@ public class ShootLow extends CommandBase {
   public void end(boolean interrupted) {
     hopper.stopHopper();
     flywheel.stopFlywheel();
-    flywheel.setShooterLock(true);
+    flywheel.setShooterLock(false);
   }
 
   // Returns true when the command should end.
