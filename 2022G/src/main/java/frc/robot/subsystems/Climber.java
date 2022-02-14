@@ -98,7 +98,6 @@ public class Climber extends SubsystemBase {
   
   public double getSecondaryArmMotorTemperature(){
     return armSecondary.getMotorTemperature();
-    putValuesSmartDashboard();
   }
 
   public void putSmartDashboardOverrides(){
