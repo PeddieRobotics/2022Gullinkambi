@@ -56,17 +56,12 @@ public class RobotContainer {
     lights = Lights.getInstance();
 
     drivetrain.setDefaultCommand(new Drive());
-    //intake.register();
-    //hopper.register();
-    //flywheel.register();
-    //climber.register();
-    //limelight.register();
-    setupSmartDashboard();
     intake.register();
     hopper.register();
     flywheel.register();
-    // climber.register();
-    // limelight.register();
+    //climber.register();
+    //limelight.register();
+    setupSmartDashboard();
 
   }
 
@@ -85,13 +80,13 @@ public class RobotContainer {
     drivetrain.putSmartDashboardOverrides();
     SmartDashboard.putNumber("KPDriveVel", Constants.kPDriveVel);
     SmartDashboard.putBoolean("sensor0", false);
+    // limelight.putSmartDashboardOverrides();
     //SmartDashboard.putBoolean("sensor0", false);
     intake.putSmartDashboardOverrides();
     hopper.putSmartDashboardOverrides();
     //limelight.putSmartDashboardOverrides();
     // climber.putSmartDashboardOverrides();
     flywheel.putSmartDashboardOverrides();
-    SmartDashboard.putBoolean("Allow overrides", false);
   }
 
   // Overrides for interfacing with robot hardware
@@ -110,21 +105,20 @@ public class RobotContainer {
     intake.updateIntakeFromDashboard();
 
     // Hopper
-    hopper.updateSpeedFromDashboard();
+    hopper.updateHopperFromDashboard();
 
     // Flywheel
     flywheel.updateFlywheelFromDashboard();
 
 
     // Climber
-    //climber.updateFromDashboard();
     // climber.setClimberSpeed(SmartDashboard.getNumber("OR: Climber speed", 0));
     // climber.setClimberTilt(SmartDashboard.getBoolean("OR: Climber tilt", false));
     // climber.setClimberHook(SmartDashboard.getBoolean("OR: Climber hook", false));
 
     // Limelight - currently none
 
-    // SmartDashboard.putBoolean("sensor0", drivetrain.isSensor());
+    //SmartDashboard.putBoolean("sensor0", drivetrain.isSensor());
   }
 
   public void setDrivetrainToCoastMode() {

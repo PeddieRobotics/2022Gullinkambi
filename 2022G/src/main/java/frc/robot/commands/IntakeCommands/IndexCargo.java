@@ -28,19 +28,16 @@ public class IndexCargo extends CommandBase {
 
   @Override
   public void execute() {
-    /*
     if (!intake.isIntaking()) {
       hopper.stopHopper();
     } else {
       // if there are 0 or 1 balls in the hopper, run the hopper
-      if ((!hopper.sensesBallTop() && !hopper.sensesBallBottom())
-          || (hopper.sensesBallTop() && !hopper.sensesBallBottom())) {
+      if (!hopper.sensesBallTop() || !hopper.sensesBallBottom()) {
         hopper.runHopper(Constants.HOPPER_SPEED);
       } else {
         hopper.stopHopper();
       }
-    }*/
-    hopper.runHopper(Constants.HOPPER_SPEED);
+    }
   }
   
   // Called once the command ends or is interrupted.

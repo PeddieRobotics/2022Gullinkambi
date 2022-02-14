@@ -23,13 +23,13 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.Constants;
-import frc.robot.utils.RobotMap;
+import frc.robot.utils.*;
 
 public class Drivetrain extends SubsystemBase {
   private static Drivetrain drivetrain;
 
-  private final CANSparkMax leftMaster, rightMaster, leftFollower1, rightFollower1, leftFollower2, rightFollower2;
+  private final CANSparkMax leftMaster, rightMaster, leftFollower1, rightFollower1;
+  private CANSparkMax rightFollower2,leftFollower2;
   private final MotorControllerGroup leftMotors, rightMotors;
 
   private final DifferentialDrive drive;
@@ -47,24 +47,33 @@ public class Drivetrain extends SubsystemBase {
   NetworkTableEntry m_yEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("Y");
 
   public Drivetrain() {
-    leftMaster = new CANSparkMax(RobotMap.MOTOR_DRIVE_LEFT_MASTER, MotorType.kBrushless);
-    rightMaster = new CANSparkMax(RobotMap.MOTOR_DRIVE_RIGHT_MASTER, MotorType.kBrushless);
-    leftFollower1 = new CANSparkMax(RobotMap.MOTOR_DRIVE_LEFT_FOLLOWER1, MotorType.kBrushless);
-    rightFollower1 = new CANSparkMax(RobotMap.MOTOR_DRIVE_RIGHT_FOLLOWER1, MotorType.kBrushless);
-    leftFollower2 = new CANSparkMax(RobotMap.MOTOR_DRIVE_LEFT_FOLLOWER2, MotorType.kBrushless);
-    rightFollower2 = new CANSparkMax(RobotMap.MOTOR_DRIVE_RIGHT_FOLLOWER2, MotorType.kBrushless);
+    if(Constants.IS_GULLINKAMBI){
+      leftMaster = new CANSparkMax(RobotMapGullinkambi.MOTOR_DRIVE_LEFT_MASTER, MotorType.kBrushless);
+      rightMaster = new CANSparkMax(RobotMapGullinkambi.MOTOR_DRIVE_RIGHT_MASTER, MotorType.kBrushless);
+      leftFollower1 = new CANSparkMax(RobotMapGullinkambi.MOTOR_DRIVE_LEFT_FOLLOWER1, MotorType.kBrushless);
+      rightFollower1 = new CANSparkMax(RobotMapGullinkambi.MOTOR_DRIVE_RIGHT_FOLLOWER1, MotorType.kBrushless);
+      leftFollower2 = new CANSparkMax(RobotMapGullinkambi.MOTOR_DRIVE_LEFT_FOLLOWER2, MotorType.kBrushless);
+      rightFollower2 = new CANSparkMax(RobotMapGullinkambi.MOTOR_DRIVE_RIGHT_FOLLOWER2, MotorType.kBrushless);
+      leftMotors = new MotorControllerGroup(leftMaster, leftFollower1, leftFollower2);
+      rightMotors = new MotorControllerGroup(rightMaster, rightFollower1, rightFollower2);
+      leftFollower1.follow(leftMaster);
+      leftFollower2.follow(leftMaster);
+      rightFollower1.follow(rightMaster);
+      rightFollower2.follow(rightMaster);
+    } else {
+      leftMaster = new CANSparkMax(RobotMapMini.MOTOR_DRIVE_LEFT_MASTER, MotorType.kBrushless);
+      rightMaster = new CANSparkMax(RobotMapMini.MOTOR_DRIVE_RIGHT_MASTER, MotorType.kBrushless);
+      leftFollower1 = new CANSparkMax(RobotMapMini.MOTOR_DRIVE_LEFT_FOLLOWER1, MotorType.kBrushless);
+      rightFollower1 = new CANSparkMax(RobotMapMini.MOTOR_DRIVE_RIGHT_FOLLOWER1, MotorType.kBrushless);
+      leftMotors = new MotorControllerGroup(leftMaster, leftFollower1);
+      rightMotors = new MotorControllerGroup(rightMaster, rightFollower1);
+      leftFollower1.follow(leftMaster);
+      rightFollower1.follow(rightMaster);
+    }
 
     leftEncoder = leftMaster.getEncoder();
     rightEncoder = rightMaster.getEncoder();
     resetEncoders();
-
-    // // With MiniG Robot
-    // leftMotors = new MotorControllerGroup(leftMaster, leftFollower1);
-    // rightMotors = new MotorControllerGroup(rightMaster, rightFollower1);
-
-    // With Gullinkambi
-    leftMotors = new MotorControllerGroup(leftMaster, leftFollower1, leftFollower2);
-    rightMotors = new MotorControllerGroup(rightMaster, rightFollower1, rightFollower2);
 
     drive = new DifferentialDrive(leftMotors, rightMotors);
     drive.setDeadband(Constants.DRIVING_DEADBANDS);
@@ -73,12 +82,7 @@ public class Drivetrain extends SubsystemBase {
     leftMaster.setInverted(true);
     rightMaster.setInverted(false);
 
-    leftFollower1.follow(leftMaster);
-    leftFollower2.follow(leftMaster);
-    rightFollower1.follow(rightMaster);
-    rightFollower2.follow(rightMaster);
-
-    // sensor0 = new DigitalInput(0);
+    //sensor0 = new DigitalInput(0);
 
     gyro = new ADIS16470_IMU();
     calibrateGyro();
@@ -177,8 +181,10 @@ public class Drivetrain extends SubsystemBase {
     rightFollower1.setIdleMode(IdleMode.kBrake);
 
     // With Gullinkambi
-    leftFollower2.setIdleMode(IdleMode.kBrake);
-    rightFollower2.setIdleMode(IdleMode.kBrake);
+    if(Constants.IS_GULLINKAMBI){
+      leftFollower2.setIdleMode(IdleMode.kBrake);
+      rightFollower2.setIdleMode(IdleMode.kBrake);
+    }
   }
 
   public void setCoast() {
@@ -189,9 +195,10 @@ public class Drivetrain extends SubsystemBase {
     rightFollower1.setIdleMode(IdleMode.kCoast);
 
     // With Gullinkambi
-    leftFollower2.setIdleMode(IdleMode.kCoast);
-    rightFollower2.setIdleMode(IdleMode.kCoast);
-
+    if(Constants.IS_GULLINKAMBI){
+      leftFollower2.setIdleMode(IdleMode.kCoast);
+      rightFollower2.setIdleMode(IdleMode.kCoast);
+    }
   }
 
   public void resetEncoders() {

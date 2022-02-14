@@ -16,7 +16,7 @@ public class UnjamIntake extends CommandBase {
 
     @Override
     public void initialize() {
-
+        m_intake.setIntakeSolenoid(true);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class UnjamIntake extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         m_hopper.stopHopper();
-        m_intake.stopIntake();
+        m_intake.setIntakeSpeed(Constants.INTAKE_SPEED);
     }
 
     // Returns true when the command should end.
