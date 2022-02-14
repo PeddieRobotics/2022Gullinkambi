@@ -75,8 +75,7 @@ public class Robot extends TimedRobot {
   public void disabledInit() {
     robotContainer.resetGyro();
     robotContainer.setDrivetrainToCoastMode();
-    robotContainer.stopAllSystems();
-  }
+    }
 
   @Override
   public void disabledPeriodic() {

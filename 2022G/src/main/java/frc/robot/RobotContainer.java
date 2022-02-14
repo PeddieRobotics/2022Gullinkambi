@@ -9,6 +9,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.DriveCommands.Drive;
+import frc.robot.commands.IntakeCommands.IndexCargo;
 import frc.robot.subsystems.Autonomous;
 // import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
@@ -57,7 +58,7 @@ public class RobotContainer {
 
     drivetrain.setDefaultCommand(new Drive());
     intake.register();
-    hopper.register();
+    hopper.setDefaultCommand(new IndexCargo());
     flywheel.register();
     //climber.register();
     //limelight.register();
