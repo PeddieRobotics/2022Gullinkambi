@@ -3,6 +3,7 @@ package frc.robot.commands.ClimbCommands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
+import frc.robot.utils.Constants;
 
 /** An example command that uses an example subsystem. */
 public class ExtendArm extends CommandBase {
@@ -21,6 +22,7 @@ public class ExtendArm extends CommandBase {
   @Override
   public void execute() {
     climber.extend();
+    climber.moveToPosition(Constants.CLIMBER_MAX_ENCODERS);
   }
 
   // Called once the command ends or is interrupted.

@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.OI;
 import frc.robot.commands.ClimbCommands.*;
-import frc.robot.utils.RobotMap;
+import frc.robot.utils.*;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -24,6 +24,17 @@ public class Climber extends SubsystemBase {
   private static Climber climber;
   private CANSparkMax armPrimary, armSecondary;
   private DigitalInput armSensor;
+
+  private double climberSetpoint;
+
+  private SparkMaxPIDController climberPIDController;
+
+  private double kP = Constants.CLIMBER_P;
+  private double kI = Constants.CLIMBER_I;
+  private double kD = Constants.CLIMBER_D;
+  private double kIz = Constants.CLIMBER_IZONE;
+  private double kFF = Constants.CLIMBER_FF;
+
   public Climber() {
     armPrimary = new CANSparkMax(RobotMap.MOTOR_CLIMBER_PRIMARY, MotorType.kBrushless);
     armSecondary = new CANSparkMax(RobotMap.MOTOR_CLIMBER_SECONDARY, MotorType.kBrushless);
@@ -31,6 +42,14 @@ public class Climber extends SubsystemBase {
     armPrimary.setIdleMode(IdleMode.kBrake);
     armSecondary.setIdleMode(IdleMode.kBrake);
     armSensor = new DigitalInput(2);
+    climberPIDController = armPrimary.getPIDController();
+
+    climberPIDController.setP(kP);
+    climberPIDController.setI(kI);
+    climberPIDController.setD(kD);
+    climberPIDController.setIZone(kIz);
+    climberPIDController.setFF(kFF);
+    climberPIDController.setOutputRange(0, 1);
   }
 
   public static Climber getInstance() {
@@ -45,17 +64,25 @@ public class Climber extends SubsystemBase {
     return armSensor.get();
   }
 
+  public void moveToPosition(double encoderPosition){
+    climberSetpoint = encoderPosition;
+    // bounds may need to be changed based on desired limits
+    if (climberSetpoint > Constants.CLIMBER_MAX_ENCODERS) {
+      climberSetpoint = 0;
+    }
+    climberPIDController.setReference(climberSetpoint, ControlType.kPosition);
+  }
+
   public void run(double speed) {
-  if(speed<0){
-    armPrimary.set(speed);
-  }
-  else{
-    if(armSensor.get()){
-    armPrimary.set(speed);
-  }
-  else armPrimary.set(0);
-}
-  
+    if(speed<0){
+      armPrimary.set(speed);
+    }
+    else{
+      if(armSensor.get()){
+      armPrimary.set(speed);
+    }
+    else armPrimary.set(0);
+    }
   }
 
   public double getEncoderPosition(){
@@ -97,5 +124,13 @@ public class Climber extends SubsystemBase {
 
   @Override
   public void periodic() {
+  }
+
+  public void updateFlywheelFromDashboard() {
+    climberPIDController.setP(SmartDashboard.getNumber("OR: P gain", kP));
+    climberPIDController.setI(SmartDashboard.getNumber("OR: I gain", kI));
+    climberPIDController.setD(SmartDashboard.getNumber("OR: D gain", kD));
+    climberPIDController.setIZone(SmartDashboard.getNumber("OR: I zone", kIz));
+    climberPIDController.setFF(SmartDashboard.getNumber("OR: Feed forward", kFF));
   }
 }
