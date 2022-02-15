@@ -24,7 +24,6 @@ public class Climber extends SubsystemBase {
   private static Climber climber;
   private CANSparkMax armPrimary, armSecondary;
   private DigitalInput armSensor;
-  private PIDController climberArm;
   public Climber() {
     armPrimary = new CANSparkMax(RobotMap.MOTOR_CLIMBER_PRIMARY, MotorType.kBrushless);
     armSecondary = new CANSparkMax(RobotMap.MOTOR_CLIMBER_SECONDARY, MotorType.kBrushless);

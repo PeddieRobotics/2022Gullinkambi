@@ -49,7 +49,7 @@ public class Drivetrain extends SubsystemBase {
   public Drivetrain() {
     if(Constants.IS_GULLINKAMBI){
       leftMaster = new CANSparkMax(RobotMapGullinkambi.MOTOR_DRIVE_LEFT_MASTER, MotorType.kBrushless);
-      rightMaster = new CANSparkMax(RobotMapGullinkambi.MOTOR_DRIVE_RIGHT_MASTER, MotorType.kBrushless);
+      rightMaster = new CANSparkMax(RobotMapGullinkambi.MOOR_DRIVE_RIGHT_MASTER, MotorType.kBrushless);
       leftFollower1 = new CANSparkMax(RobotMapGullinkambi.MOTOR_DRIVE_LEFT_FOLLOWER1, MotorType.kBrushless);
       rightFollower1 = new CANSparkMax(RobotMapGullinkambi.MOTOR_DRIVE_RIGHT_FOLLOWER1, MotorType.kBrushless);
       leftFollower2 = new CANSparkMax(RobotMapGullinkambi.MOTOR_DRIVE_LEFT_FOLLOWER2, MotorType.kBrushless);
