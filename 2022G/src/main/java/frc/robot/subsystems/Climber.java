@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.OI;
 import frc.robot.commands.ClimbCommands.*;
 import frc.robot.utils.RobotMap;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -23,7 +24,7 @@ public class Climber extends SubsystemBase {
   private static Climber climber;
   private CANSparkMax armPrimary, armSecondary;
   private DigitalInput armSensor;
-
+  private PIDController climberArm;
   public Climber() {
     armPrimary = new CANSparkMax(RobotMap.MOTOR_CLIMBER_PRIMARY, MotorType.kBrushless);
     armSecondary = new CANSparkMax(RobotMap.MOTOR_CLIMBER_SECONDARY, MotorType.kBrushless);
@@ -58,20 +59,16 @@ public class Climber extends SubsystemBase {
   
   }
 
-  public double motorEncoder(){
+  public double getEncoderPosition(){
     return armPrimary.getEncoder().getPosition();
+  }
+
+  public void setEncoderPosition(double position){
+    armPrimary.getEncoder().setPosition(position);
   }
 
   public void extend() {
     setCoast();
-  }
-
-  public void armSet(boolean on){
-    // arm.set(on);
-  }
-  public boolean getArm(){
-    // return arm.get()
-    return false;
   }
 
   public void retract() {
@@ -101,19 +98,5 @@ public class Climber extends SubsystemBase {
 
   @Override
   public void periodic() {
-    putValuesSmartDashboard();
-  }
-
-  public void putSmartDashboardOverrides(){
-    SmartDashboard.putBoolean("OR: Climber Extend", false);
-  }
-
-  public void updateFromDashboard(){
-    armSet(SmartDashboard.getBoolean("OR: Climber Extend", false));
-  }
-
-  public void putValuesSmartDashboard(){
-    SmartDashboard.putBoolean("Climber Extend", getArm());
-
   }
 }
