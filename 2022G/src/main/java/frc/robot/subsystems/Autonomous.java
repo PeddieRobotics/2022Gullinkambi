@@ -31,12 +31,20 @@ public class Autonomous extends SubsystemBase {
 
     private final Drivetrain m_drivetrain;
     private static Autonomous autonomous;
+
     private final TrajectoryConfig configForward;
     private final TrajectoryConfig configBackwards;
+
     private final DifferentialDriveVoltageConstraint autoVoltageConstraint;
+    private SendableChooser<Command> autoRoutineSelector;
+    private Hashtable<String,Command> autoRoutines;
+
     private Trajectory test;
 
     public Autonomous() {
+        autoRoutines = new Hashtable<String,Command>();
+        autoRoutineSelector = new SendableChooser<Command>();
+
         m_drivetrain = Drivetrain.getInstance();
         m_drivetrain.setDefaultCommand(new Drive());
 
@@ -67,6 +75,8 @@ public class Autonomous extends SubsystemBase {
                         .setReversed(true);
 
         defineAutoPaths();
+        setupAutoRoutines();
+        setupAutoSelector();
     }
 
     public static Autonomous getInstance() {
@@ -77,14 +87,22 @@ public class Autonomous extends SubsystemBase {
     }
 
     public void setupAutoSelector() {
+        Enumeration<String> e = autoRoutines.keys();
+
+        while(e.hasMoreElements()){
+            String autoRoutineName = e.nextElement();
+            autoRoutineSelector.addOption(autoRoutineName, autoRoutines.get(autoRoutineName));
+        };
+
+        SmartDashboard.putData("Auto Routines", autoRoutineSelector);
     }
 
     public void setupAutoRoutines() {
+        autoRoutines.put("Test Path", createCommandFromTrajectory(test));
     }
 
     public Command returnAutonomousCommand() {
-        
-        return createCommandFromTrajectory(test);
+        return autoRoutineSelector.getSelected();
     }
 
     private void defineAutoPaths(){
@@ -97,7 +115,6 @@ public class Autonomous extends SubsystemBase {
             configForward
         );
         test = getTransformedTrajectory(test);
-        System.out.println(test);
     }
 
     public SplitFFRamseteCommand createCommandFromTrajectory(Trajectory trajectory){

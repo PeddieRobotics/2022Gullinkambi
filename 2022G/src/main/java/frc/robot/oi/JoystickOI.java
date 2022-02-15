@@ -8,6 +8,7 @@ import frc.robot.commands.ClimbCommands.ExtendArm;
 import frc.robot.commands.ClimbCommands.RetractArm;
 import frc.robot.commands.IntakeCommands.StartIntake;
 import frc.robot.commands.IntakeCommands.StopIntake;
+import frc.robot.commands.IntakeCommands.UnjamIntake;
 import frc.robot.commands.ShootCommands.ShootFar;
 import frc.robot.commands.ShootCommands.ShootHigh;
 import frc.robot.commands.ShootCommands.ShootLow;
@@ -37,8 +38,7 @@ public class JoystickOI {
 
   private JoystickButton leftTrigger, leftButton2, leftButton3, leftButton4;
   private JoystickButton rightTrigger, rightButton2, rightButton3, rightButton4;
-  private JoystickButton opTrigger, opButton2, opButton3, opButton4, opButton5, opButton6, opButton7, opButton8,
-      opButton9, opButton10, opButton11, opButton12;
+  private JoystickButton opTrigger, opButton2, opButton3, opButton4, opButton5, opButton6, opButton7, opButton8, opButton9, opButton10, opButton11, opButton12;
   private JoystickButton driverButtonA, driverButtonB, driverButtonX, driverButtonY, driverButtonLeftBumper,
       driverButtonRightBumper, driverButtonBack, driverButtonStart, driverButtonLeftStick, driverButtonRightStick;
 

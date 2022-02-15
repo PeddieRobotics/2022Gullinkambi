@@ -13,9 +13,6 @@ import frc.robot.utils.Constants;
 public class Hopper extends SubsystemBase {
     private static Hopper hopper;
 
-    // NOTE: Possibly all 3 components below will be driven by a single motor.
-    // Currently implemented this way!!!
-    // Two mecanums + belts driven by a CANSparkMax
     private CANSparkMax hopperSystem;
 
     // Define sensors for the hopper to count cargo
@@ -26,9 +23,14 @@ public class Hopper extends SubsystemBase {
         hopperSystem.setIdleMode(IdleMode.kBrake);
         hopperSystem.setSmartCurrentLimit(Constants.MAX_HOPPER_BELT_CURRENT);
 
-        bottomSensor = new DigitalInput(0);
-        topSensor = new DigitalInput(1);
+        bottomSensor = new DigitalInput(1);
+        topSensor = new DigitalInput(0);
     }
+
+    public void periodic() {
+        // This method will be called once per scheduler run
+        putValuesSmartDashboard();
+      }
 
     public static Hopper getInstance() {
         if (hopper == null) {
@@ -39,7 +41,7 @@ public class Hopper extends SubsystemBase {
     }
 
     public void runHopper(double speed) {
-        hopperSystem.set(speed); // the speed input needs a multiplier
+        hopperSystem.set(-speed); // the speed input needs a multiplier
     }
 
     public void stopHopper() {
@@ -55,18 +57,24 @@ public class Hopper extends SubsystemBase {
     }
 
     public boolean sensesBallBottom() {
-        return bottomSensor.get();
+        return !bottomSensor.get();
     }
 
     public boolean sensesBallTop() {
-        return topSensor.get();
+        return !topSensor.get();
     }
 
     public void putSmartDashboardOverrides() {
-        SmartDashboard.putNumber("OR: Hopper speed", getHopperSpeed());
+        SmartDashboard.putNumber("OR: Hopper speed", 0);
     }
 
-    public void updateSpeedFromDashboard() {
-        runHopper(SmartDashboard.getNumber("OR: Hopper speed", getHopperSpeed()));
+    public void updateHopperFromDashboard() {
+        runHopper(SmartDashboard.getNumber("OR: Hopper speed", 0));
+    }
+
+    public void putValuesSmartDashboard(){
+        SmartDashboard.putNumber("Hopper speed", getHopperSpeed());
+        SmartDashboard.putBoolean("Lower sensor", sensesBallBottom());
+        SmartDashboard.putBoolean("Upper sensor", sensesBallTop());
     }
 }

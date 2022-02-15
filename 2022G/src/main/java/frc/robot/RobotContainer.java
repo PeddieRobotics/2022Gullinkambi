@@ -107,7 +107,7 @@ public class RobotContainer {
 
     climber.run(SmartDashboard.getNumber("Climber Power",0));
     climber.setCoastMode(SmartDashboard.getBoolean("Climber Coast", false));
-    SmartDashboard.putNumber("Climber Encoder", climber.motorEncoder());
+    //SmartDashboard.putNumber("Climber Encoder", climber.motorEncoder());
     SmartDashboard.putBoolean("Climber Sensor State", climber.armSensorState());
     // Intake
     //intake.updateIntakeFromDashboard();

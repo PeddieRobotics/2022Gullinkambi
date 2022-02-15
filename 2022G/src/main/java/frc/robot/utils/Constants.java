@@ -20,6 +20,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+  // Is Gullinkambi
+  public static final boolean IS_GULLINKAMBI = true;
+
+  // uncommment whichever one you want to use & comment the rest
   // Drivetrain constants
   public static final boolean DRIVE_USE_NORMALIZED_INPUTS = false;
   public static final boolean DRIVE_USE_SQUARED_INPUTS = false;
@@ -33,21 +37,23 @@ public final class Constants {
   public static final int MAX_HOPPER_ROLLER_CURRENT = 15; // amps
 
   // Flywheel constants
-  public static final double FLYWHEEL_P = 0.00015;
-  public static final double FLYWHEEL_I = 0.0000002;
+  public static final int MAX_FLYWHEEL_CURRENT = 30; // amps
+
+  public static final double FLYWHEEL_P = 0.0001;
+  public static final double FLYWHEEL_I = 0.0;
   public static final double FLYWHEEL_D = 0.0;
   public static final double FLYWHEEL_FF = 0.0002;
-  public static final double FLYWHEEL_IZONE = 300;
+  public static final double FLYWHEEL_IZONE = 200;
 
-  public static final double FLYWHEEL_RPM_FAR = 3500;
+  public static final double FLYWHEEL_RPM_FAR = 3000;
   public static final double FLYWHEEL_RPM_HIGH = 2500;
   public static final double FLYWHEEL_RPM_LOW = 2000;
 
-  public static final double FLYWHEEL_THRESHOLD_HIGH = 50;
-  public static final double FLYWHEEL_THRESHOLD_LOW = 50;
-  public static final double FLYWHEEL_THRESHOLD_FAR = 50;
+  public static final double FLYWHEEL_THRESHOLD_HIGH = 100;
+  public static final double FLYWHEEL_THRESHOLD_LOW = 100;
+  public static final double FLYWHEEL_THRESHOLD_FAR = 100;
 
-  public static final double FLYWHEEL_MAX_POWER = 0.5;
+  public static final double FLYWHEEL_MAX_POWER = 1;
   public static final double FLYWHEEL_MAX_RPM = 4000;
 
   public static final double LL_P = -0.0033;
@@ -62,9 +68,8 @@ public final class Constants {
   public static final double [] RPMS = new double[]{2800,3000,3200};
   public static LookupTable DIST_TO_RPM = new LookupTable(LL_DIST, RPMS);
 
-  public static final double INTAKE_SPEED = 0.2;
-
-  public static final double HOPPER_SPEED = 0.8;
+  public static final double INTAKE_SPEED = 0.5;
+  public static final double HOPPER_SPEED = 0.5;
 
   // OI constants
   public static final int XBOX_TRIGGER_SENSITIVITY = 0;
@@ -86,7 +91,7 @@ public final class Constants {
 //uncommment whichever one you want to use & comment the rest
   //public static final OIConfig OI_CONFIG = OIConfig.COMPETITION; 
   // public static final OIConfig OI_CONFIG = OIConfig.XBOX_TEST;
-  public static final OIConfig OI_CONFIG = OIConfig.JOYSTICK_TEST;
+   public static final OIConfig OI_CONFIG = OIConfig.JOYSTICK_TEST;
 
     // The Robot Characterization Toolsuite provides a convenient tool for obtaining these
     // values for your robot.

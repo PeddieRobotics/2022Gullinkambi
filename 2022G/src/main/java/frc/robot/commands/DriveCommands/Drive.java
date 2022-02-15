@@ -53,7 +53,7 @@ public class Drive extends CommandBase {
         } else if (Constants.OI_CONFIG == OIConfig.XBOX_TEST) { // xbox
 
             speedInput = oi.getSpeed();
-            turnInput = oi.getTurn();
+            turnInput = -oi.getTurn();
             reverse = oi.getInverseMode();
 
         } else if (Constants.OI_CONFIG == OIConfig.JOYSTICK_TEST) { // joystick

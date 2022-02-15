@@ -24,8 +24,7 @@ public class StartIntake extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    intake.runIntake(Constants.INTAKE_SPEED);
-    // HelixEvents.getInstance().addEvent("INTAKE", "Initialized: StartIntake");
+    intake.setIntakeSolenoid(true);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -36,12 +35,12 @@ public class StartIntake extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    // HelixEvents.getInstance().addEvent("INTAKE", "Ended: StopIntake");
+    intake.setIntakeSpeed(Constants.INTAKE_SPEED);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true; // End immediately
+    return intake.getIntakeSolenoid(); // End immediately
   }
 }
