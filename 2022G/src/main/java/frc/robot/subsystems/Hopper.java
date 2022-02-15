@@ -65,11 +65,11 @@ public class Hopper extends SubsystemBase {
     }
 
     public void putSmartDashboardOverrides() {
-        SmartDashboard.putNumber("OR: Hopper speed", 0);
+        SmartDashboard.putNumber("OR: Hopper speed", Constants.HOPPER_SPEED);
     }
 
     public void updateHopperFromDashboard() {
-        runHopper(SmartDashboard.getNumber("OR: Hopper speed", 0));
+        runHopper(SmartDashboard.getNumber("OR: Hopper speed", Constants.HOPPER_SPEED));
     }
 
     public void putValuesSmartDashboard(){

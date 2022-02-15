@@ -110,7 +110,6 @@ public class RobotContainer {
     // Flywheel
     flywheel.updateFlywheelFromDashboard();
 
-
     // Climber
     // climber.setClimberSpeed(SmartDashboard.getNumber("OR: Climber speed", 0));
     // climber.setClimberTilt(SmartDashboard.getBoolean("OR: Climber tilt", false));
