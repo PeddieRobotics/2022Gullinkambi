@@ -31,16 +31,21 @@ public class OI {
     m_driveTrain = Drivetrain.getInstance();
 
     if (Constants.OI_CONFIG == OIConfig.COMPETITION) {
+
       m_XboxOI = XboxOI.getInstance();
       m_XboxOI.configureXboxControllers();
       m_JoystickOI = JoystickOI.getInstance();
       m_JoystickOI.initializeJoysticks();
       m_JoystickOI.configureJoysticks();
       m_driveTrain.setJoysticks(leftJoystick, rightJoystick);
+
     } else if (Constants.OI_CONFIG == OIConfig.XBOX_TEST) {
+
       m_XboxOI = XboxOI.getInstance();
       m_XboxOI.configureXboxControllers();
+
     } else if (Constants.OI_CONFIG == OIConfig.JOYSTICK_TEST) {
+
       m_JoystickOI = JoystickOI.getInstance();
       m_JoystickOI.initializeJoysticks();
       m_JoystickOI.configureJoysticks();

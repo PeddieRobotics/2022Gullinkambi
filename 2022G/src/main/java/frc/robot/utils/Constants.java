@@ -23,7 +23,7 @@ public final class Constants {
   // Is Gullinkambi
   public static final boolean IS_GULLINKAMBI = true;
 
-  // uncommment whichever one you want to use & comment the rest
+
   // Drivetrain constants
   public static final boolean DRIVE_USE_NORMALIZED_INPUTS = false;
   public static final boolean DRIVE_USE_SQUARED_INPUTS = false;
