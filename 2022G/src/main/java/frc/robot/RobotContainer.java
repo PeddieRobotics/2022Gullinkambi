@@ -9,7 +9,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.DriveCommands.Drive;
-import frc.robot.commands.IntakeCommands.IndexCargo;
 import frc.robot.subsystems.Autonomous;
 // import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
@@ -58,7 +57,7 @@ public class RobotContainer {
 
     drivetrain.setDefaultCommand(new Drive());
     intake.register();
-    hopper.setDefaultCommand(new IndexCargo());
+    hopper.register();
     flywheel.register();
     //climber.register();
     //limelight.register();
@@ -79,12 +78,15 @@ public class RobotContainer {
 
   public void setupSmartDashboard() {
     drivetrain.putSmartDashboardOverrides();
+    SmartDashboard.putNumber("KPDriveVel", Constants.kPDriveVel);
+    SmartDashboard.putBoolean("sensor0", false);
+    // limelight.putSmartDashboardOverrides();
+    //SmartDashboard.putBoolean("sensor0", false);
     intake.putSmartDashboardOverrides();
     hopper.putSmartDashboardOverrides();
     //limelight.putSmartDashboardOverrides();
     // climber.putSmartDashboardOverrides();
     flywheel.putSmartDashboardOverrides();
-    SmartDashboard.putBoolean("Allow overrides", false);
   }
 
   // Overrides for interfacing with robot hardware
@@ -108,10 +110,15 @@ public class RobotContainer {
     // Flywheel
     flywheel.updateFlywheelFromDashboard();
 
+
     // Climber
-    //climber.updateClimberFromDashboard();
+    // climber.setClimberSpeed(SmartDashboard.getNumber("OR: Climber speed", 0));
+    // climber.setClimberTilt(SmartDashboard.getBoolean("OR: Climber tilt", false));
+    // climber.setClimberHook(SmartDashboard.getBoolean("OR: Climber hook", false));
 
     // Limelight - currently none
+
+    //SmartDashboard.putBoolean("sensor0", drivetrain.isSensor());
   }
 
   public void setDrivetrainToCoastMode() {
@@ -128,12 +135,6 @@ public class RobotContainer {
 
   public void setDrivetrainToBrakeMode() {
     drivetrain.setBrake();
-  }
-
-  public void stopAllSystems(){
-    intake.stopIntake();
-    hopper.stopHopper();
-    flywheel.stopFlywheel();
   }
 
 }

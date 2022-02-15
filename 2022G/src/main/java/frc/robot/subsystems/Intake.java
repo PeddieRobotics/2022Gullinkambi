@@ -6,7 +6,6 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -81,7 +80,7 @@ public class Intake extends SubsystemBase {
   }
 
   public void updateIntakeFromDashboard() {
-    setIntakeSpeed(SmartDashboard.getNumber("OR: Intake speed", 0));
+      setIntakeSpeed(SmartDashboard.getNumber("OR: Intake speed", 0));
     setIntakeSolenoid(SmartDashboard.getBoolean("OR: Intake solenoid", false));
   }
 

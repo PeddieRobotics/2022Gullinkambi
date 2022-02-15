@@ -87,7 +87,7 @@ public class Robot extends LoggedRobot {
   public void disabledInit() {
     robotContainer.resetGyro();
     robotContainer.setDrivetrainToCoastMode();
-    robotContainer.stopAllSystems();
+    //robotContainer.stopAllSystems();
   }
 
   @Override
