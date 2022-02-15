@@ -77,18 +77,20 @@ public class RobotContainer {
   }
 
   public void setupSmartDashboard() {
-    drivetrain.putSmartDashboardOverrides();
-    SmartDashboard.putNumber("KPDriveVel", Constants.kPDriveVel);
-    SmartDashboard.putBoolean("sensor0", false);
+    //drivetrain.putSmartDashboardOverrides();
+    SmartDashboard.putNumber("Climber Power", 0);
+    SmartDashboard.putBoolean("Climber Coast", false);
+    //SmartDashboard.putNumber("KPDriveVel", Constants.kPDriveVel);
+    //SmartDashboard.putBoolean("sensor0", false);
     // intake.putSmartDashboardOverrides();
     // hopper.putSmartDashboardOverrides();
     // limelight.putSmartDashboardOverrides();
     //SmartDashboard.putBoolean("sensor0", false);
     //intake.putSmartDashboardOverrides();
-    hopper.putSmartDashboardOverrides();
+   // hopper.putSmartDashboardOverrides();
     //limelight.putSmartDashboardOverrides();
     // climber.putSmartDashboardOverrides();
-    flywheel.putSmartDashboardOverrides();
+    //flywheel.putSmartDashboardOverrides();
   }
 
   // Overrides for interfacing with robot hardware
@@ -100,17 +102,21 @@ public class RobotContainer {
     // Drivetrain
     // Be exceptionally careful driving the robot via dashboard. Usually done on
     // blocks.
-    drivetrain.arcadeDrive(SmartDashboard.getNumber("OR: Drivetrain speed", 0),
-        SmartDashboard.getNumber("OR: Drivetrain turn", 0));
+    //drivetrain.arcadeDrive(SmartDashboard.getNumber("OR: Drivetrain speed", 0),
+      //  SmartDashboard.getNumber("OR: Drivetrain turn", 0));
 
+    climber.run(SmartDashboard.getNumber("Climber Power",0));
+    climber.setCoastMode(SmartDashboard.getBoolean("Climber Coast", false));
+    SmartDashboard.putNumber("Climber Encoder", climber.motorEncoder());
+    SmartDashboard.putBoolean("Climber Sensor State", climber.armSensorState());
     // Intake
     //intake.updateIntakeFromDashboard();
 
     // Hopper
-    hopper.updateSpeedFromDashboard();
+    //hopper.updateSpeedFromDashboard();
 
     // Flywheel
-    flywheel.updateFlywheelFromDashboard();
+    //flywheel.updateFlywheelFromDashboard();
 
 
     // Climber

@@ -28,7 +28,9 @@ public class Climber extends SubsystemBase {
     armPrimary = new CANSparkMax(RobotMap.MOTOR_CLIMBER_PRIMARY, MotorType.kBrushless);
     armSecondary = new CANSparkMax(RobotMap.MOTOR_CLIMBER_SECONDARY, MotorType.kBrushless);
     armSecondary.follow(armPrimary);
-    armSensor = new DigitalInput(0);
+    armPrimary.setIdleMode(IdleMode.kBrake);
+    armSecondary.setIdleMode(IdleMode.kBrake);
+    armSensor = new DigitalInput(2);
   }
 
   public static Climber getInstance() {
@@ -37,6 +39,27 @@ public class Climber extends SubsystemBase {
       climber.register();
     }
     return climber;
+  }
+
+  public boolean armSensorState(){
+    return armSensor.get();
+  }
+
+  public void run(double speed) {
+  if(speed<0){
+    armPrimary.set(speed);
+  }
+  else{
+    if(armSensor.get()){
+    armPrimary.set(speed);
+  }
+  else armPrimary.set(0);
+}
+  
+  }
+
+  public double motorEncoder(){
+    return armPrimary.getEncoder().getPosition();
   }
 
   public void extend() {
@@ -50,6 +73,14 @@ public class Climber extends SubsystemBase {
     }
     else armPrimary.set(0);
   }
+
+  public void setCoastMode(boolean mode){
+    if(mode){
+      setCoast();
+    }
+    else setBrake();
+  }
+
   public void setBrake() {
     armPrimary.setIdleMode(IdleMode.kBrake);
     armSecondary.setIdleMode(IdleMode.kBrake);
