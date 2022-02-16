@@ -106,6 +106,8 @@ public class Climber extends SubsystemBase {
     SmartDashboard.putNumber("OR: D climber", 0);
     SmartDashboard.putNumber("OR: I zone climber", 0);
     SmartDashboard.putNumber("OR: FF climber", 0);
+
+    SmartDashboard.putNumber("OR: Climber setpoint", climber.getEncoderPosition());
   }
 
   public void updateClimberFromDashboard() {
@@ -122,5 +124,7 @@ public class Climber extends SubsystemBase {
     climberPIDController.setD(SmartDashboard.getNumber("OR: D climber", kD));
     climberPIDController.setIZone(SmartDashboard.getNumber("OR: I zone climber", kIz));
     climberPIDController.setFF(SmartDashboard.getNumber("OR: FF climber", kFF));
+
+    moveToPosition(SmartDashboard.getNumber("OR: Climber setpoint", 0.0));
   }
 }
