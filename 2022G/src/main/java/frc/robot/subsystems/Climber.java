@@ -42,7 +42,10 @@ public class Climber extends SubsystemBase {
   }
 
   public boolean armSensorState(){
-    return armSensor.get();
+    if(armSensor.get()){
+      return false;
+    }
+    else return true;  
   }
 
   public void run(double speed) {
