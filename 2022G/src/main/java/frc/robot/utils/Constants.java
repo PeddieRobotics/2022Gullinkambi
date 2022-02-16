@@ -22,6 +22,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public final class Constants {
   // Is Gullinkambi
   public static final boolean IS_GULLINKAMBI = true;
+  
+//uncommment whichever one you want to use & comment the rest
+  //public static final OIConfig OI_CONFIG = OIConfig.COMPETITION; 
+  public static final OIConfig OI_CONFIG = OIConfig.XBOX_TEST;
+  //public static final OIConfig OI_CONFIG = OIConfig.JOYSTICK_TEST;
+
 
   // Drivetrain constants
   public static final int DRIVETRAIN_MAX_CURRENT = 40;
@@ -39,6 +45,7 @@ public final class Constants {
   // Hopper constants
   public static final int HOPPER_MAX_CURRENT = 30; // amps
   public static final double HOPPER_SPEED = 0.5;
+  public static final double LOWER_SENSOR_INPUT_THRESHOLD = 0.99;
 
   // Flywheel constants
   public static final int FLYWHEEL_MAX_CURRENT = 40; // amps
@@ -98,11 +105,6 @@ public final class Constants {
       * Math.PI
       * Constants.DRIVE_WHEEL_DIAMETER; // Encoder position conversion factor (native rotations ->
   // meters)
-
-//uncommment whichever one you want to use & comment the rest
-  //public static final OIConfig OI_CONFIG = OIConfig.COMPETITION; 
-  // public static final OIConfig OI_CONFIG = OIConfig.XBOX_TEST;
-   public static final OIConfig OI_CONFIG = OIConfig.JOYSTICK_TEST;
 
     // The Robot Characterization Toolsuite provides a convenient tool for obtaining these
     // values for your robot.

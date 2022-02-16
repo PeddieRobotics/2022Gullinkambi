@@ -65,10 +65,10 @@ public class Hopper extends SubsystemBase {
         boolean filteredInput = false;
         if(!bottomSensor.get()){
             double x = filter.calculate(1);
-            filteredInput = x > SmartDashboard.getNumber("lower sensor input threshold", 0.99);
+            filteredInput = x > Constants.LOWER_SENSOR_INPUT_THRESHOLD;
         } else {
             double x = filter.calculate(0);
-            filteredInput = x > SmartDashboard.getNumber("lower sensor input threshold", 0.99);
+            filteredInput = x > Constants.LOWER_SENSOR_INPUT_THRESHOLD;
         }
         SmartDashboard.putBoolean("filteredInput", filteredInput);
         return filteredInput;
