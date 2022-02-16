@@ -57,10 +57,7 @@ public class Climber extends SubsystemBase {
   }
 
   public boolean armSensorState(){
-    if(armSensor.get()){
-      return false;
-    }
-    else return true;  
+    return !armSensor.get();  
   }
 
   public void moveToPosition(double encoderPosition){
@@ -73,7 +70,7 @@ public class Climber extends SubsystemBase {
       armPrimary.set(speed);
     }
     else{
-      if(!armSensor.get()){
+      if(!armSensorState()){
         armPrimary.set(speed);
       }
       else armPrimary.set(0);
@@ -100,11 +97,12 @@ public class Climber extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putBoolean("Climber sensor state", climber.armSensorState());
-    SmartDashboard.putNumber("Climber encoder", climber.getEncoderPosition());
+    //SmartDashboard.putBoolean("Climber sensor state", climber.armSensorState());
+    //SmartDashboard.putNumber("Climber encoder", climber.getEncoderPosition());
   }
 
   public void putSmartDashboardOverrides(){
+    
     SmartDashboard.putNumber("OR: Climber power", 0);
     SmartDashboard.putNumber("OR: Climber coast", 0);
 
@@ -119,6 +117,9 @@ public class Climber extends SubsystemBase {
   }
 
   public void updateClimberFromDashboard() {
+    SmartDashboard.putBoolean("Climber sensor state", climber.armSensorState());
+    SmartDashboard.putNumber("Climber encoder", climber.getEncoderPosition());
+    
     climber.run(SmartDashboard.getNumber("OR: Climber power",0));
     if(SmartDashboard.getBoolean("OR: Climber coast", false)){
       climber.setCoast();
@@ -133,9 +134,9 @@ public class Climber extends SubsystemBase {
     climberPIDController.setIZone(SmartDashboard.getNumber("OR: I zone climber", kIz));
     climberPIDController.setFF(SmartDashboard.getNumber("OR: FF climber", kFF));
     
-    if(climber.getEncoderPosition()>SmartDashboard.getNumber("OR: Minimum Climber Encoder Limit", 0)){
+    /*if(climber.getEncoderPosition()>SmartDashboard.getNumber("OR: Minimum Climber Encoder Limit", 0)){
        moveToPosition(SmartDashboard.getNumber("OR: Climber setpoint", 0.0));
-    }
-    
+    }*/
+
   }
 }

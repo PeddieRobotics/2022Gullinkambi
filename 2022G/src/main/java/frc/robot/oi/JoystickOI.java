@@ -61,9 +61,9 @@ public class JoystickOI {
     leftButton3.whenPressed(new StartIntake());
     leftButton4.whenPressed(new StopIntake());
     
-    rightButton2.whileHeld(new ShootWithLL());
-    rightButton3.whileHeld(new ShootLow()); //far is high, but far
-    rightButton4.whileHeld(new ShootLayup());
+    rightButton2.whenHeld(new ShootWithLL());
+    rightButton3.whenHeld(new ShootLow()); //far is high, but far
+    rightButton4.whenHeld(new ShootLayup());
 
   }
 
