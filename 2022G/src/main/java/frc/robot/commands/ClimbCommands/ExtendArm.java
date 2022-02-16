@@ -11,18 +11,18 @@ public class ExtendArm extends CommandBase {
 
   public ExtendArm() {
     climber = Climber.getInstance();
+    addRequirements(climber);
   }
 
-//   // Called when the command is initially scheduled.
-//   @Override
-//   public void initialize() {
-//   }
+   // Called when the command is initially scheduled.
+  @Override
+  public void initialize() {
+    climber.moveToPosition(Constants.CLIMBER_MAX_ENCODER_POSITION);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climber.extend();
-    climber.moveToPosition(Constants.CLIMBER_MAX_ENCODERS);
   }
 
   // Called once the command ends or is interrupted.
@@ -31,9 +31,8 @@ public class ExtendArm extends CommandBase {
   }
 
   // Returns true when the command should end.
-  // runs everytime execute runs
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

@@ -23,8 +23,9 @@ public final class Constants {
   // Is Gullinkambi
   public static final boolean IS_GULLINKAMBI = true;
 
-
   // Drivetrain constants
+  public static final int DRIVETRAIN_MAX_CURRENT = 40;
+
   public static final boolean DRIVE_USE_NORMALIZED_INPUTS = false;
   public static final boolean DRIVE_USE_SQUARED_INPUTS = false;
 
@@ -32,12 +33,15 @@ public final class Constants {
   public static final double SPEED_MULTIPLIER = 1;
   public static final double TURN_MULTIPLIER = 1;
 
+  // Intake constants
+  public static final double INTAKE_SPEED = 0.5;
+
   // Hopper constants
-  public static final int MAX_HOPPER_BELT_CURRENT = 15; // amps
-  public static final int MAX_HOPPER_ROLLER_CURRENT = 15; // amps
+  public static final int HOPPER_MAX_CURRENT = 30; // amps
+  public static final double HOPPER_SPEED = 0.5;
 
   // Flywheel constants
-  public static final int MAX_FLYWHEEL_CURRENT = 30; // amps
+  public static final int FLYWHEEL_MAX_CURRENT = 40; // amps
 
   public static final double FLYWHEEL_P = 0.0001;
   public static final double FLYWHEEL_I = 0.0;
@@ -57,14 +61,14 @@ public final class Constants {
   public static final double FLYWHEEL_MAX_RPM = 4000;
 
   // Climber constants
-  public static final double CLIMBER_MAX_ENCODERS = 0; //encoders???????????
+  public static final double CLIMBER_MAX_ENCODER_POSITION = 0;
   public static final double CLIMBER_P = 0.0001;
   public static final double CLIMBER_I = 0.0;
   public static final double CLIMBER_D = 0.0;
   public static final double CLIMBER_FF = 0.0002;
   public static final double CLIMBER_IZONE = 200;
 
-
+  public static final int CLIMBER_MAX_CURRENT = 60;
 
   public static final double LL_P = -0.0033;
   public static final double LL_I = 0.0000001;
@@ -77,9 +81,6 @@ public final class Constants {
   public static final double [] LL_DIST = new double[]{100,150,200};
   public static final double [] RPMS = new double[]{2800,3000,3200};
   public static LookupTable DIST_TO_RPM = new LookupTable(LL_DIST, RPMS);
-
-  public static final double INTAKE_SPEED = 0.5;
-  public static final double HOPPER_SPEED = 0.5;
 
   // OI constants
   public static final int XBOX_TRIGGER_SENSITIVITY = 0;

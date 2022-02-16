@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.RobotMap;
+import frc.robot.utils.RobotMapGullinkambi;
 
 public class Intake extends SubsystemBase {
 
@@ -20,14 +20,16 @@ public class Intake extends SubsystemBase {
   private CANSparkMax intakeMotor;
 
   public Intake() {
-    intakeSolenoid = new Solenoid(RobotMap.PNEUMATICS_HUB, PneumaticsModuleType.REVPH, RobotMap.SOLENOID_INTAKE);
-    intakeMotor = new CANSparkMax(RobotMap.MOTOR_INTAKE, MotorType.kBrushed);
+    intakeSolenoid = new Solenoid(RobotMapGullinkambi.PNEUMATICS_HUB, PneumaticsModuleType.REVPH, RobotMapGullinkambi.SOLENOID_INTAKE);
+    intakeMotor = new CANSparkMax(RobotMapGullinkambi.MOTOR_INTAKE, MotorType.kBrushed);
+
+    intakeMotor.setSmartCurrentLimit(30);
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    putValuesSmartDashboard();
+    SmartDashboard.putNumber("Intake speed", getIntakeSpeed());
+    SmartDashboard.putBoolean("Intake solenoid", getIntakeSolenoid());
   }
 
   public static Intake getInstance() {
@@ -79,8 +81,4 @@ public class Intake extends SubsystemBase {
     setIntakeSolenoid(SmartDashboard.getBoolean("OR: Intake solenoid", false));
   }
 
-  public void putValuesSmartDashboard() {
-    SmartDashboard.putNumber("Intake speed", getIntakeSpeed());
-    SmartDashboard.putBoolean("Intake solenoid", getIntakeSolenoid());
-  }
 }

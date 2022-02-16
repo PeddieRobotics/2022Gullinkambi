@@ -16,6 +16,8 @@ public class ControllerMap {
 	public static final int XBOX_X = 3;
 	public static final int XBOX_LB = 5;
 	public static final int XBOX_RB = 6;
+	public static final int XBOX_BACK = 7;
+	public static final int XBOX_START = 8;
 	public static final int XBOX_Y = 4;
 	public static final int XBOX_B = 2;
 	public static final int XBOX_A = 1;

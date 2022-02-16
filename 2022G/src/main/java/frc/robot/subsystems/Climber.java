@@ -1,24 +1,16 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.OI;
-import frc.robot.commands.ClimbCommands.*;
-import frc.robot.utils.*;
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Timer;
-
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.SparkMaxPIDController;
+
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.utils.Constants;
+import frc.robot.utils.RobotMapGullinkambi;
 
 public class Climber extends SubsystemBase {
   private static Climber climber;
@@ -36,19 +28,19 @@ public class Climber extends SubsystemBase {
   private double kFF = Constants.CLIMBER_FF;
 
   public Climber() {
-    armPrimary = new CANSparkMax(RobotMap.MOTOR_CLIMBER_PRIMARY, MotorType.kBrushless);
-    armSecondary = new CANSparkMax(RobotMap.MOTOR_CLIMBER_SECONDARY, MotorType.kBrushless);
+    armPrimary = new CANSparkMax(RobotMapGullinkambi.MOTOR_CLIMBER_PRIMARY, MotorType.kBrushless);
+    armSecondary = new CANSparkMax(RobotMapGullinkambi.MOTOR_CLIMBER_SECONDARY, MotorType.kBrushless);
     armSecondary.follow(armPrimary);
     armPrimary.setIdleMode(IdleMode.kBrake);
     armSecondary.setIdleMode(IdleMode.kBrake);
     armSensor = new DigitalInput(2);
     climberPIDController = armPrimary.getPIDController();
 
-    climberPIDController.setP(kP);
-    climberPIDController.setI(kI);
-    climberPIDController.setD(kD);
-    climberPIDController.setIZone(kIz);
-    climberPIDController.setFF(kFF);
+    climberPIDController.setP(Constants.CLIMBER_P);
+    climberPIDController.setI(Constants.CLIMBER_I);
+    climberPIDController.setD(Constants.CLIMBER_D);
+    climberPIDController.setIZone(Constants.CLIMBER_IZONE);
+    climberPIDController.setFF(Constants.CLIMBER_FF);
     climberPIDController.setOutputRange(0, 1);
   }
 
@@ -66,15 +58,11 @@ public class Climber extends SubsystemBase {
 
   public void moveToPosition(double encoderPosition){
     climberSetpoint = encoderPosition;
-    // bounds may need to be changed based on desired limits
-    if (climberSetpoint > Constants.CLIMBER_MAX_ENCODERS) {
-      climberSetpoint = 0;
-    }
     climberPIDController.setReference(climberSetpoint, ControlType.kPosition);
   }
 
   public void run(double speed) {
-    if(speed<0){
+    if(speed < 0){
       armPrimary.set(speed);
     }
     else{
@@ -93,25 +81,6 @@ public class Climber extends SubsystemBase {
     armPrimary.getEncoder().setPosition(position);
   }
 
-  public void extend() {
-    setCoast();
-  }
-
-  public void retract() {
-    setBrake();
-    if(!armSensor.get()){ // check snesor true and false
-      armPrimary.set(-0.5); // check speed positive or negative
-    }
-    else armPrimary.set(0);
-  }
-
-  public void setCoastMode(boolean mode){
-    if(mode){
-      setCoast();
-    }
-    else setBrake();
-  }
-
   public void setBrake() {
     armPrimary.setIdleMode(IdleMode.kBrake);
     armSecondary.setIdleMode(IdleMode.kBrake);
@@ -124,13 +93,34 @@ public class Climber extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.putBoolean("Climber sensor state", climber.armSensorState());
+    SmartDashboard.putNumber("Climber encoder", climber.getEncoderPosition());
   }
 
-  public void updateFlywheelFromDashboard() {
-    climberPIDController.setP(SmartDashboard.getNumber("OR: P gain", kP));
-    climberPIDController.setI(SmartDashboard.getNumber("OR: I gain", kI));
-    climberPIDController.setD(SmartDashboard.getNumber("OR: D gain", kD));
-    climberPIDController.setIZone(SmartDashboard.getNumber("OR: I zone", kIz));
-    climberPIDController.setFF(SmartDashboard.getNumber("OR: Feed forward", kFF));
+  public void putSmartDashboardOverrides(){
+    SmartDashboard.putNumber("OR: Climber power", 0);
+    SmartDashboard.putNumber("OR: Climber coast", 0);
+
+    SmartDashboard.putNumber("OR: P climber", 0);
+    SmartDashboard.putNumber("OR: I climber", 0);
+    SmartDashboard.putNumber("OR: D climber", 0);
+    SmartDashboard.putNumber("OR: I zone climber", 0);
+    SmartDashboard.putNumber("OR: FF climber", 0);
+  }
+
+  public void updateClimberFromDashboard() {
+    climber.run(SmartDashboard.getNumber("OR: Climber power",0));
+    if(SmartDashboard.getBoolean("OR: Climber coast", false)){
+      climber.setCoast();
+    }
+    else{
+      climber.setBrake();
+    }
+    
+    climberPIDController.setP(SmartDashboard.getNumber("OR: P climber", kP));
+    climberPIDController.setI(SmartDashboard.getNumber("OR: I climber", kI));
+    climberPIDController.setD(SmartDashboard.getNumber("OR: D climber", kD));
+    climberPIDController.setIZone(SmartDashboard.getNumber("OR: I zone climber", kIz));
+    climberPIDController.setFF(SmartDashboard.getNumber("OR: FF climber", kFF));
   }
 }
