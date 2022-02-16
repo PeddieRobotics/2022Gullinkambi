@@ -31,11 +31,15 @@ public class Climber extends SubsystemBase {
     armPrimary = new CANSparkMax(RobotMapGullinkambi.MOTOR_CLIMBER_PRIMARY, MotorType.kBrushless);
     armSecondary = new CANSparkMax(RobotMapGullinkambi.MOTOR_CLIMBER_SECONDARY, MotorType.kBrushless);
     armSecondary.follow(armPrimary);
+
     armPrimary.setIdleMode(IdleMode.kBrake);
     armSecondary.setIdleMode(IdleMode.kBrake);
-    armSensor = new DigitalInput(2);
-    climberPIDController = armPrimary.getPIDController();
+    armPrimary.setSmartCurrentLimit(Constants.CLIMBER_MAX_CURRENT);
+    armSecondary.setSmartCurrentLimit(Constants.CLIMBER_MAX_CURRENT);
 
+    armSensor = new DigitalInput(2);
+
+    climberPIDController = armPrimary.getPIDController();
     climberPIDController.setP(Constants.CLIMBER_P);
     climberPIDController.setI(Constants.CLIMBER_I);
     climberPIDController.setD(Constants.CLIMBER_D);
