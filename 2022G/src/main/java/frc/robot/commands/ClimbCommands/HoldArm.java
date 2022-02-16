@@ -4,10 +4,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
 
 /** An example command that uses an example subsystem. */
-public class RetractArm extends CommandBase {
+public class HoldArm extends CommandBase {
   private Climber climber;
 
-  public RetractArm() {
+  public HoldArm() {
     climber = Climber.getInstance();
     addRequirements(climber);
 
@@ -33,6 +33,6 @@ public class RetractArm extends CommandBase {
   // runs everytime execute runs
   @Override
   public boolean isFinished() {
-    return climber.armSensorState();
+    return false;
   }
 }

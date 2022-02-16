@@ -6,14 +6,14 @@ import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Limelight;
 import frc.robot.utils.Constants;
 
-public class ShootFar extends CommandBase {
+public class ShootWithLL extends CommandBase {
 
   private Flywheel flywheel;
   private Hopper hopper;
   private Limelight limelight;
   private double RPM;
 
-  public ShootFar() {
+  public ShootWithLL() {
     flywheel = Flywheel.getInstance();
     hopper = Hopper.getInstance();
     limelight = Limelight.getInstance();

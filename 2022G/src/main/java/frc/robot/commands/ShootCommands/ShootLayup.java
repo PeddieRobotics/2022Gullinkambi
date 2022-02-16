@@ -5,12 +5,12 @@ import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hopper;
 import frc.robot.utils.Constants;
 
-public class ShootHigh extends CommandBase {
+public class ShootLayup extends CommandBase {
 
   private Flywheel flywheel;
   private Hopper hopper;
 
-  public ShootHigh() {
+  public ShootLayup() {
     flywheel = Flywheel.getInstance();
     hopper = Hopper.getInstance();
     addRequirements(flywheel, hopper);

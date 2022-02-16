@@ -69,10 +69,10 @@ public class Climber extends SubsystemBase {
       armPrimary.set(speed);
     }
     else{
-      if(armSensor.get()){
-      armPrimary.set(speed);
-    }
-    else armPrimary.set(0);
+      if(!armSensor.get()){
+        armPrimary.set(speed);
+      }
+      else armPrimary.set(0);
     }
   }
 

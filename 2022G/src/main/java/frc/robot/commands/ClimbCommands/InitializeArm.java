@@ -30,12 +30,12 @@ public class InitializeArm extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     climber.setEncoderPosition(0.0); // Call this retracted position the new "zero"
-    climber.setDefaultCommand(new RetractArm()); // Once the climber arm is fully retracted, keep it retracted
+    climber.setDefaultCommand(new HoldArm()); // Once the climber arm is fully retracted, keep it retracted
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return !climber.armSensorState();
+    return climber.armSensorState();
   }
 }
