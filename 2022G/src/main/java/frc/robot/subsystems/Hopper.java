@@ -8,8 +8,9 @@ import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.RobotMap;
 import frc.robot.utils.Constants;
+
+import frc.robot.utils.RobotMapGullinkambi;
 
 public class Hopper extends SubsystemBase {
     private static Hopper hopper;
@@ -21,9 +22,9 @@ public class Hopper extends SubsystemBase {
     private DigitalInput bottomSensor, topSensor;
 
     public Hopper() {
-        hopperSystem = new CANSparkMax(RobotMap.MOTOR_HOPPER, MotorType.kBrushless);
+        hopperSystem = new CANSparkMax(RobotMapGullinkambi.MOTOR_HOPPER, MotorType.kBrushless);
         hopperSystem.setIdleMode(IdleMode.kBrake);
-        hopperSystem.setSmartCurrentLimit(Constants.MAX_HOPPER_BELT_CURRENT);
+        hopperSystem.setSmartCurrentLimit(Constants.HOPPER_MAX_CURRENT);
         filter = LinearFilter.singlePoleIIR(0.2, 0.02);
 
         bottomSensor = new DigitalInput(1);
@@ -31,8 +32,9 @@ public class Hopper extends SubsystemBase {
     }
 
     public void periodic() {
-        // This method will be called once per scheduler run
-        putValuesSmartDashboard();
+        SmartDashboard.putNumber("Hopper speed", getHopperSpeed());
+        SmartDashboard.putBoolean("Lower sensor", sensesBallBottom());
+        SmartDashboard.putBoolean("Upper sensor", sensesBallTop());
       }
 
     public static Hopper getInstance() {
@@ -44,7 +46,7 @@ public class Hopper extends SubsystemBase {
     }
 
     public void runHopper(double speed) {
-        hopperSystem.set(-speed); // the speed input needs a multiplier
+        hopperSystem.set(-speed);
     }
 
     public void stopHopper() {
@@ -63,12 +65,10 @@ public class Hopper extends SubsystemBase {
         boolean filteredInput = false;
         if(!bottomSensor.get()){
             double x = filter.calculate(1);
-            SmartDashboard.putNumber("x", x);
-            filteredInput = x > SmartDashboard.getNumber("lower sensor input threshold", 0.99);
+            filteredInput = x > Constants.LOWER_SENSOR_INPUT_THRESHOLD;
         } else {
             double x = filter.calculate(0);
-            SmartDashboard.putNumber("x", x);
-            filteredInput = x > SmartDashboard.getNumber("lower sensor input threshold", 0.99);
+            filteredInput = x > Constants.LOWER_SENSOR_INPUT_THRESHOLD;
         }
         SmartDashboard.putBoolean("filteredInput", filteredInput);
         return filteredInput;
@@ -84,11 +84,5 @@ public class Hopper extends SubsystemBase {
 
     public void updateHopperFromDashboard() {
         runHopper(SmartDashboard.getNumber("OR: Hopper speed", 0));
-    }
-
-    public void putValuesSmartDashboard(){
-        SmartDashboard.putNumber("Hopper speed", getHopperSpeed());
-        SmartDashboard.putBoolean("Lower sensor", sensesBallBottom());
-        SmartDashboard.putBoolean("Upper sensor", sensesBallTop());
     }
 }

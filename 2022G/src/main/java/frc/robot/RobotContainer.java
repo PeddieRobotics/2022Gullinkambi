@@ -8,6 +8,9 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.commands.ClimbCommands.InitializeArm;
+import frc.robot.commands.ClimbCommands.RetractArm;
 import frc.robot.commands.DriveCommands.Drive;
 import frc.robot.commands.IntakeCommands.IndexCargo;
 import frc.robot.subsystems.Autonomous;
@@ -62,6 +65,11 @@ public class RobotContainer {
     flywheel.register();
     climber.register();
     limelight.register();
+
+    // Make sure the arm starts in the fully retracted position
+    CommandBase initializeArmCommand = new InitializeArm();
+    initializeArmCommand.schedule();
+
     setupSmartDashboard();
 
   }
@@ -81,17 +89,12 @@ public class RobotContainer {
     //drivetrain.putSmartDashboardOverrides();
     SmartDashboard.putNumber("Climber Power", 0);
     SmartDashboard.putBoolean("Climber Coast", false);
-    //SmartDashboard.putNumber("KPDriveVel", Constants.kPDriveVel);
-    //SmartDashboard.putBoolean("sensor0", false);
-    // intake.putSmartDashboardOverrides();
-    // hopper.putSmartDashboardOverrides();
-    // limelight.putSmartDashboardOverrides();
-    //SmartDashboard.putBoolean("sensor0", false);
-    //intake.putSmartDashboardOverrides();
-   // hopper.putSmartDashboardOverrides();
-    //limelight.putSmartDashboardOverrides();
-    // climber.putSmartDashboardOverrides();
-    //flywheel.putSmartDashboardOverrides();
+    
+    intake.putSmartDashboardOverrides();
+    hopper.putSmartDashboardOverrides();
+    limelight.putSmartDashboardOverrides();
+    climber.putSmartDashboardOverrides();
+    flywheel.putSmartDashboardOverrides();
   }
 
   // Overrides for interfacing with robot hardware
@@ -100,34 +103,18 @@ public class RobotContainer {
   // in each respective subsystem.
 
   public void testAllSystems() {
-    // Drivetrain
-    // Be exceptionally careful driving the robot via dashboard. Usually done on
-    // blocks.
-    //drivetrain.arcadeDrive(SmartDashboard.getNumber("OR: Drivetrain speed", 0),
-      //  SmartDashboard.getNumber("OR: Drivetrain turn", 0));
-
-    climber.run(SmartDashboard.getNumber("Climber Power",0));
-    climber.setCoastMode(SmartDashboard.getBoolean("Climber Coast", false));
-    //SmartDashboard.putNumber("Climber Encoder", climber.motorEncoder());
-    SmartDashboard.putBoolean("Climber Sensor State", climber.armSensorState());
     // Intake
-    //intake.updateIntakeFromDashboard();
+    intake.updateIntakeFromDashboard();
 
     // Hopper
-    //hopper.updateSpeedFromDashboard();
+    hopper.updateHopperFromDashboard();
 
     // Flywheel
-    //flywheel.updateFlywheelFromDashboard();
-
+    flywheel.updateFlywheelFromDashboard();
 
     // Climber
-    // climber.setClimberSpeed(SmartDashboard.getNumber("OR: Climber speed", 0));
-    // climber.setClimberTilt(SmartDashboard.getBoolean("OR: Climber tilt", false));
-    // climber.setClimberHook(SmartDashboard.getBoolean("OR: Climber hook", false));
+    climber.updateClimberFromDashboard();
 
-    // Limelight - currently none
-
-    //SmartDashboard.putBoolean("sensor0", drivetrain.isSensor());
   }
 
   public void setDrivetrainToCoastMode() {

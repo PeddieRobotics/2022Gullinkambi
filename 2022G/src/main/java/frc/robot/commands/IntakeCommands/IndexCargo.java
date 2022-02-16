@@ -8,7 +8,6 @@ import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Intake;
 import frc.robot.utils.Constants;
-import frc.robot.utils.RobotMap;
 
 public class IndexCargo extends CommandBase {
   private Hopper hopper;
