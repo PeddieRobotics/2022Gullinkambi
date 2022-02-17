@@ -29,8 +29,6 @@ public class Intake extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Intake speed", getIntakeSpeed());
-    SmartDashboard.putBoolean("Intake solenoid", getIntakeSolenoid());
   }
 
   public static Intake getInstance() {
@@ -73,15 +71,20 @@ public class Intake extends SubsystemBase {
   }
 
   public void putSmartDashboardOverrides() {
-    SmartDashboard.putNumber("OR: Intake speed", Constants.INTAKE_SPEED);
+    SmartDashboard.putNumber("OR: Intake speed", 0.0);
     SmartDashboard.putBoolean("OR: Intake solenoid", false);
+  }
+
+  public void updateIntakeInfoOnDashboard(){
+    SmartDashboard.putNumber("Intake speed", getIntakeSpeed());
+    SmartDashboard.putBoolean("Intake solenoid", getIntakeSolenoid());
   }
 
   public void updateIntakeFromDashboard() {
     if (getIntakeSolenoid()){
-    setIntakeSpeed(SmartDashboard.getNumber("OR: Intake speed", Constants.INTAKE_SPEED));
+    setIntakeSpeed(SmartDashboard.getNumber("OR: Intake speed", 0.0));
     } else {
-      setIntakeSpeed(0);
+      stopIntake();
     }
     
     setIntakeSolenoid(SmartDashboard.getBoolean("OR: Intake solenoid", false));

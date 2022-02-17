@@ -32,10 +32,7 @@ public class Hopper extends SubsystemBase {
     }
 
     public void periodic() {
-        SmartDashboard.putNumber("Hopper speed", getHopperSpeed());
-        SmartDashboard.putBoolean("Lower sensor", sensesBallBottom());
-        SmartDashboard.putBoolean("Upper sensor", sensesBallTop());
-      }
+    }
 
     public static Hopper getInstance() {
         if (hopper == null) {
@@ -79,7 +76,13 @@ public class Hopper extends SubsystemBase {
     }
 
     public void putSmartDashboardOverrides() {
-        SmartDashboard.putNumber("OR: Hopper speed", Constants.HOPPER_SPEED);
+        SmartDashboard.putNumber("OR: Hopper speed", 0.0);
+    }
+
+    public void updateHopperInfoOnDashboard(){
+        SmartDashboard.putNumber("Hopper speed", getHopperSpeed());
+        SmartDashboard.putBoolean("Lower sensor", sensesBallBottom());
+        SmartDashboard.putBoolean("Upper sensor", sensesBallTop());
     }
 
     public void updateHopperFromDashboard() {

@@ -3,10 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.Constants;
 import frc.robot.utils.RollingAverage;
@@ -41,9 +38,6 @@ public class Limelight extends SubsystemBase {
   @Override
   
   public void periodic() {
-    SmartDashboard.putNumber("Limelight vertical error", getTy());
-    SmartDashboard.putNumber("Limelight horizontal error", getTx());
-    SmartDashboard.putNumber("Limelight distance", getDistance());
     updateRollingAverages();
   }
 
@@ -99,6 +93,12 @@ public class Limelight extends SubsystemBase {
       txAverage.add(getTx());
       tyAverage.add(getTy());
     }
+  }
+
+  public void updateLimelightInfoOnDashboard(){
+    SmartDashboard.putNumber("Limelight vertical error", getTy());
+    SmartDashboard.putNumber("Limelight horizontal error", getTx());
+    SmartDashboard.putNumber("Limelight distance", getDistance());
   }
 
   public void putSmartDashboardOverrides(){

@@ -6,9 +6,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.IntakeCommands.StartIntake;
 import frc.robot.commands.IntakeCommands.StopIntake;
 import frc.robot.commands.IntakeCommands.UnjamIntake;
+import frc.robot.commands.ShootCommands.ShootWithLL;
 import frc.robot.commands.ShootCommands.ShootLayup;
 import frc.robot.commands.ShootCommands.ShootLow;
-import frc.robot.commands.ShootCommands.ShootWithLL;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Flywheel;
@@ -61,15 +61,9 @@ public class JoystickOI {
     leftButton3.whenPressed(new StartIntake());
     leftButton4.whenPressed(new StopIntake());
     
-<<<<<<< HEAD
-    rightButton2.whenHeld(new ShootWithLL());
-    rightButton3.whenHeld(new ShootLow()); //far is high, but far
-    rightButton4.whenHeld(new ShootLayup());
-=======
-    rightButton2.whenHeld(new ShootHigh());
-    rightButton3.whenHeld(new ShootFar()); //far is high, but far
+    rightButton2.whenHeld(new ShootLayup());
+    rightButton3.whenHeld(new ShootWithLL()); //far is high, but far
     rightButton4.whenHeld(new ShootLow());
->>>>>>> dev
 
   }
 

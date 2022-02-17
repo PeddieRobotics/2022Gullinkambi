@@ -60,10 +60,6 @@ public class Flywheel extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Flywheel velocity", getFlywheelVelocity());
-    SmartDashboard.putNumber("Flywheel setpoint", getFlywheelSetpoint());
-    SmartDashboard.putBoolean("Lock activated", getShooterLock());
-    SmartDashboard.putBoolean("Hood up", getHood());
   }
 
   public static Flywheel getInstance() {
@@ -145,8 +141,15 @@ public class Flywheel extends SubsystemBase {
     SmartDashboard.putNumber("OR: P flywheel", Constants.FLYWHEEL_P);
     SmartDashboard.putNumber("OR: I flywheel", Constants.FLYWHEEL_I);
     SmartDashboard.putNumber("OR: D flywheel", Constants.FLYWHEEL_D);
-    SmartDashboard.putNumber("OR: I flywheel", Constants.FLYWHEEL_IZONE);
+    SmartDashboard.putNumber("OR: I zone flywheel", Constants.FLYWHEEL_IZONE);
     SmartDashboard.putNumber("OR: FF flywheel", Constants.FLYWHEEL_FF);
+  }
+
+  public void updateFlywheelInfoOnDashboard(){
+    SmartDashboard.putNumber("Flywheel velocity", getFlywheelVelocity());
+    SmartDashboard.putNumber("Flywheel setpoint", getFlywheelSetpoint());
+    SmartDashboard.putBoolean("Lock activated", getShooterLock());
+    SmartDashboard.putBoolean("Hood up", getHood());
   }
 
   public void updateFlywheelFromDashboard() {

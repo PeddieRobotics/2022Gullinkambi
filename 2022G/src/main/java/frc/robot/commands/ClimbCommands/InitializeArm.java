@@ -28,6 +28,7 @@ public class InitializeArm extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     climber.setEncoderPosition(0.0); // Call this retracted position the new "zero"
+    climber.run(0.0);
     //climber.setDefaultCommand(new HoldArm()); // Once the climber arm is fully retracted, keep it retracted
   }
 

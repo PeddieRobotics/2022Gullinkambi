@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.ClimbCommands.InitializeArm;
 import frc.robot.subsystems.Lights;
 
 /**
@@ -67,15 +68,16 @@ public class Robot extends TimedRobot {
     // robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    SmartDashboard.putNumber("Remaining Match Time", Timer.getMatchTime());
+    robotContainer.updateInfoOnDashboard();
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
+    CommandScheduler.getInstance().cancelAll();
     robotContainer.resetGyro();
     robotContainer.setDrivetrainToCoastMode();
-    //robotContainer.stopAllSystems();
+    robotContainer.setupSmartDashboard();
   }
 
   @Override
@@ -115,6 +117,7 @@ public class Robot extends TimedRobot {
       autonomousCommand.cancel();
     }
     lights.on();
+    CommandScheduler.getInstance().schedule(new InitializeArm());
   }
 
   /** This function is called periodically during operator control. */
@@ -128,8 +131,7 @@ public class Robot extends TimedRobot {
   @Override
   public void testInit() {
     // Cancels all running commands at the start of test mode.
-    //CommandScheduler.getInstance().cancelAll();
-    robotContainer.testCommand();
+    CommandScheduler.getInstance().cancelAll();
   }
 
   /** This function is called periodically during test mode. */

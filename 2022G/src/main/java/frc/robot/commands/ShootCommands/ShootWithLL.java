@@ -33,7 +33,7 @@ public class ShootWithLL extends CommandBase {
   @Override
   public void execute() {
     // Check whether the speed of flywheel is good enough to shoot
-    if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_FAR)) {
+    if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_SHOOTLL)) {
       hopper.runHopper(Constants.HOPPER_SPEED);
     }
     else {

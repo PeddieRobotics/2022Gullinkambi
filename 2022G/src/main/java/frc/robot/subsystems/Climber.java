@@ -102,7 +102,8 @@ public class Climber extends SubsystemBase {
   }
 
   public void putSmartDashboardOverrides(){
-    
+    //SmartDashboard.putNumber("Climber encoder", climber.getEncoderPosition());
+  
     SmartDashboard.putNumber("OR: Climber power", 0);
     SmartDashboard.putNumber("OR: Climber coast", 0);
 
@@ -116,10 +117,13 @@ public class Climber extends SubsystemBase {
     SmartDashboard.putNumber("OR: Minimum Climber Encoder Limit", 0);
   }
 
-  public void updateClimberFromDashboard() {
+  public void updateClimberInfoOnDashboard(){
     SmartDashboard.putBoolean("Climber sensor state", climber.armSensorState());
     SmartDashboard.putNumber("Climber encoder", climber.getEncoderPosition());
     
+  }
+
+  public void updateClimberFromDashboard() {
     climber.run(SmartDashboard.getNumber("OR: Climber power",0));
     if(SmartDashboard.getBoolean("OR: Climber coast", false)){
       climber.setCoast();
@@ -134,7 +138,7 @@ public class Climber extends SubsystemBase {
     climberPIDController.setIZone(SmartDashboard.getNumber("OR: I zone climber", kIz));
     climberPIDController.setFF(SmartDashboard.getNumber("OR: FF climber", kFF));
     
-    /*if(climber.getEncoderPosition()>SmartDashboard.getNumber("OR: Minimum Climber Encoder Limit", 0)){
+    /*if(climber.getEncoderPosition()<SmartDashboard.getNumber("OR: Minimum Climber Encoder Limit", 0)){
        moveToPosition(SmartDashboard.getNumber("OR: Climber setpoint", 0.0));
     }*/
 

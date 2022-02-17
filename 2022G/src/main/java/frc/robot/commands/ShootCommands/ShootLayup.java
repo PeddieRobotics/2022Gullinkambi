@@ -22,14 +22,14 @@ public class ShootLayup extends CommandBase {
     flywheel.setHood(false); // no hood for high shot
     flywheel.setShooterLock(true);
 
-    flywheel.runFlywheelSetpoint(Constants.FLYWHEEL_RPM_HIGH);
+    flywheel.runFlywheelSetpoint(Constants.FLYWHEEL_RPM_LAYUP);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     // Check whether the speed of flywheel is good enough to shoot
-    if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_HIGH)){
+    if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_LAYUP)){
       hopper.runHopper(Constants.HOPPER_SPEED);
     } else {
       hopper.stopHopper();

@@ -95,8 +95,8 @@ public class Drivetrain extends SubsystemBase {
     rightMaster.setInverted(false);
 
     gyro = new ADIS16470_IMU();
-    calibrateGyro();
-    gyro.reset();
+    //calibrateGyro();
+    //gyro.reset();
 
     odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
 
@@ -106,7 +106,6 @@ public class Drivetrain extends SubsystemBase {
   @Override
   public void periodic() {
     odometry.update(getHeadingAsRotation2d(), leftEncoder.getPosition(), rightEncoder.getPosition());
-    putSmartDashboard();
 
     var translation = odometry.getPoseMeters().getTranslation();
     m_xEntry.setNumber(translation.getX());
@@ -161,7 +160,7 @@ public class Drivetrain extends SubsystemBase {
     return new DifferentialDriveWheelSpeeds(getLeftEncoderVelocity(), getRightEncoderVelocity());
   }
 
-  public void putSmartDashboard() {
+  public void updateDrivetrainInfoOnDashboard() {
     SmartDashboard.putNumber("L enc pos", getLeftEncoderPosition());
     SmartDashboard.putNumber("R enc pos", getRightEncoderPosition());
     SmartDashboard.putNumber("L enc vel", getLeftEncoderVelocity());

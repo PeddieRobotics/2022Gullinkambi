@@ -13,7 +13,7 @@ public class ShootLow extends CommandBase {
   public ShootLow() {
     flywheel = Flywheel.getInstance();
     hopper = Hopper.getInstance();
-    addRequirements(flywheel);
+    addRequirements(flywheel, hopper);
   }
 
   // Called when the command is initially scheduled.

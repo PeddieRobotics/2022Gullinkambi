@@ -6,9 +6,11 @@ package frc.robot;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.ClimbCommands.InitializeArm;
 import frc.robot.commands.ClimbCommands.RetractArm;
 import frc.robot.commands.DriveCommands.Drive;
@@ -70,11 +72,6 @@ public class RobotContainer {
 
   }
 
-  public void testCommand(){
-    CommandBase initializeArmCommand = new InitializeArm();
-    initializeArmCommand.schedule();
-  }
-
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -87,15 +84,16 @@ public class RobotContainer {
   }
 
   public void setupSmartDashboard() {
+    // Leave drivetrain overrides disabled by default, they can be dangerous and are not needed in normal operation
     //drivetrain.putSmartDashboardOverrides();
-    SmartDashboard.putNumber("Climber Power", 0);
-    SmartDashboard.putBoolean("Climber Coast", false);
-    
     intake.putSmartDashboardOverrides();
     hopper.putSmartDashboardOverrides();
     limelight.putSmartDashboardOverrides();
     climber.putSmartDashboardOverrides();
     flywheel.putSmartDashboardOverrides();
+
+    SmartDashboard.putData(CommandScheduler.getInstance());
+
   }
 
   // Overrides for interfacing with robot hardware
@@ -104,18 +102,22 @@ public class RobotContainer {
   // in each respective subsystem.
 
   public void testAllSystems() {
-    // Intake
     intake.updateIntakeFromDashboard();
-
-    // Hopper
     hopper.updateHopperFromDashboard();
-
-    // Flywheel
     flywheel.updateFlywheelFromDashboard();
-
-    // Climber
     climber.updateClimberFromDashboard();
 
+  }
+
+  public void updateInfoOnDashboard(){
+    SmartDashboard.putNumber("Remaining Match Time", Timer.getMatchTime());
+
+    drivetrain.updateDrivetrainInfoOnDashboard();
+    intake.updateIntakeInfoOnDashboard();
+    hopper.updateHopperInfoOnDashboard();
+    flywheel.updateFlywheelInfoOnDashboard();
+    climber.updateClimberInfoOnDashboard();
+    limelight.updateLimelightInfoOnDashboard();
   }
 
   public void setDrivetrainToCoastMode() {
