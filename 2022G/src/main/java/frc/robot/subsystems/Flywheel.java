@@ -137,8 +137,8 @@ public class Flywheel extends SubsystemBase {
   public void putSmartDashboardOverrides() {
     SmartDashboard.putNumber("OR: Flywheel power", 0);
     SmartDashboard.putNumber("OR: Flywheel setpoint", 0);
-    SmartDashboard.putBoolean("OR: Flywheel lock", false);
-    SmartDashboard.putBoolean("OR: Hood up", false);
+    SmartDashboard.putBoolean("OR: Flywheel lock", getShooterLock());
+    SmartDashboard.putBoolean("OR: Hood up", isHoodUp());
 
 
     // Smart dashboard controls for flywheel PID gain tuning
@@ -156,8 +156,8 @@ public class Flywheel extends SubsystemBase {
     flywheelPIDController.setIZone(SmartDashboard.getNumber("OR: I zone flywheel", Constants.FLYWHEEL_IZONE));
     flywheelPIDController.setFF(SmartDashboard.getNumber("OR: FF flywheel", Constants.FLYWHEEL_FF));
 
-    setShooterLock(SmartDashboard.getBoolean("OR: Flywheel lock", false));
-    setHood(SmartDashboard.getBoolean("OR: Hood up", false));
+    setShooterLock(SmartDashboard.getBoolean("OR: Flywheel lock", getShooterLock()));
+    setHood(SmartDashboard.getBoolean("OR: Hood up", isHoodUp()));
     if(SmartDashboard.getNumber("OR: Flywheel power", 0) > 0){
       runFlywheelPower(SmartDashboard.getNumber("OR: Flywheel power", 0));
     }

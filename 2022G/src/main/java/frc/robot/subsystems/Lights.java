@@ -19,7 +19,7 @@ public class Lights extends SubsystemBase{
         }
         return lights;
       }
-
+  
     public void on(){
         strip.set(true);
     }  
@@ -28,7 +28,14 @@ public class Lights extends SubsystemBase{
         strip.set(false);
     }  
 
+    public void timeCheck(){
+      if (SmartDashboard.getNumber("Remaining Match Time", Timer.getMatchTime()) <= 15 && SmartDashboard.getNumber("Remaining Match Time", Timer.getMatchTime()) > 10){
+        on();
+        off();
+      }
+    }
     @Override
     public void periodic() {
+      timeCheck();
      }
 }

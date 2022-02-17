@@ -12,6 +12,7 @@ public class UnjamIntake extends CommandBase {
     public UnjamIntake() {
         m_intake = Intake.getInstance();
         m_hopper = Hopper.getInstance();
+        addRequirements(m_intake, m_hopper);
     }
 
     @Override

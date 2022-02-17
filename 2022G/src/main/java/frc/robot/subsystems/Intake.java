@@ -10,7 +10,10 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+<<<<<<< HEAD
 import frc.robot.utils.RobotMapGullinkambi;
+=======
+>>>>>>> origin/OverrideFix
 
 public class Intake extends SubsystemBase {
 
