@@ -26,19 +26,23 @@ public class ShootWithLL extends CommandBase {
   public void initialize() {
     flywheel.setHood(true); // turn hood on for shoot far with high speed
     flywheel.setShooterLock(true);
-    // RPM = Constants.DIST_TO_RPM.get(limelight.getDistance());
-    // flywheel.runFlywheelSetpoint(RPM);
-    flywheel.runFlywheelSetpoint(SmartDashboard.getNumber("Teleop: Flywheel shoot LL threshold", Constants.FLYWHEEL_THRESHOLD_SHOOTLL));
+    RPM = Constants.DIST_TO_RPM.get(limelight.getDistance());
+
+    if (SmartDashboard.getNumber("Teleop: Flywheel shootLL RPM", 0) == 0) {
+      flywheel.runFlywheelSetpoint(SmartDashboard.getNumber("Teleop: Flywheel shootLL RPM", 0));
+    } else {
+      flywheel.runFlywheelSetpoint(RPM);
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     // Check whether the speed of flywheel is good enough to shoot
-    if (flywheel.isAtRPM(SmartDashboard.getNumber("Teleop: Flywheel shootLL RPM", Constants.FLYWHEEL_RPM_SHOOTLL))) {
+    if (flywheel.isAtRPM(
+        SmartDashboard.getNumber("Teleop: Flywheel shoot LL threshold", Constants.FLYWHEEL_THRESHOLD_SHOOTLL))) {
       hopper.runHopper(SmartDashboard.getNumber("Teleop: Hopper speed", Constants.HOPPER_SPEED));
-    }
-    else {
+    } else {
       hopper.stopHopper();
     }
 
