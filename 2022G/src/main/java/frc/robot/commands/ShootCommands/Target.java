@@ -17,7 +17,7 @@ public class Target extends CommandBase {
   private double Kp = Constants.LL_P;
   private double Ki = Constants.LL_I;
   private double Kd = Constants.LL_D;
-  private double min_command = 0.35;
+  private double min_command = 0.2;
   private double angle_bound = 1;
   private PIDController LL;
 
@@ -37,10 +37,10 @@ public class Target extends CommandBase {
         error = limelight.getTx();
         average_error = limelight.getTxAverage();
         if (error> angle_bound){
-          steering_adjust = LL.calculate(average_error) + min_command;
+          steering_adjust = LL.calculate(average_error) - min_command;
         }
         else if (error < -angle_bound){
-          steering_adjust = LL.calculate(average_error) - min_command;
+          steering_adjust = LL.calculate(average_error) + min_command;
         }
         else{
           steering_adjust = 0;

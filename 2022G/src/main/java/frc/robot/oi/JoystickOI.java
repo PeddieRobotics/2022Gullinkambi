@@ -9,6 +9,7 @@ import frc.robot.commands.IntakeCommands.UnjamIntake;
 import frc.robot.commands.ShootCommands.ShootWithLL;
 import frc.robot.commands.ShootCommands.ShootLayup;
 import frc.robot.commands.ShootCommands.ShootLow;
+import frc.robot.commands.ShootCommands.Target;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Flywheel;
@@ -55,7 +56,6 @@ public class JoystickOI {
   }
 
   public void configureJoysticks() {
-
     // Driver joystick binds (dual joystick)
     leftButton2.whenPressed(new UnjamIntake());
     leftButton3.whenPressed(new StartIntake());
@@ -63,8 +63,8 @@ public class JoystickOI {
     
     rightButton2.whenHeld(new ShootLayup());
     rightButton3.whenHeld(new ShootWithLL()); //far is high, but far
-    rightButton4.whenHeld(new ShootLow());
-
+    //rightButton4.whenHeld(new ShootLow());
+    rightButton4.whenHeld(new Target());
   }
 
   public double getSpeed() {
