@@ -82,7 +82,6 @@ public class UpdateLogs {
     }
 
     public void updateClimberLogData(){
-        Logger.getInstance().recordOutput("Climber/LeftSolenoidOn", m_climber.getArmState());
         Logger.getInstance().recordOutput("CompressorPressure", m_climber.getCompressorPressure());
 
         //Winch Motor Data
@@ -137,7 +136,6 @@ public class UpdateLogs {
     }
 
     public void updateLimelightLogData(){
-        Logger.getInstance().recordOutput("Limelight/HasTarget", m_limelight.getTv());
         Logger.getInstance().recordOutput("Limelight/TargetHeightPixels", m_limelight.getTvert());
         Logger.getInstance().recordOutput("Limelight/TargetWidthPixels", m_limelight.getThor());
         Logger.getInstance().recordOutput("Limelight/HorizonalOffsetDegrees", m_limelight.getTx());
