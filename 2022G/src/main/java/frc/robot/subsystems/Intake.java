@@ -10,12 +10,8 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-<<<<<<< HEAD
-import frc.robot.utils.RobotMapGullinkambi;
-=======
 import frc.robot.utils.Constants;
-import frc.robot.utils.RobotMap;
->>>>>>> origin/OverrideFix
+import frc.robot.utils.RobotMapGullinkambi;
 
 public class Intake extends SubsystemBase {
 
@@ -78,7 +74,7 @@ public class Intake extends SubsystemBase {
 
   public void putSmartDashboardOverrides() {
     SmartDashboard.putNumber("OR: Intake speed", Constants.INTAKE_SPEED);
-    // SmartDashboard.putBoolean("OR: Intake solenoid", false);
+    SmartDashboard.putBoolean("OR: Intake solenoid", false);
   }
 
   public void updateIntakeFromDashboard() {
@@ -87,7 +83,8 @@ public class Intake extends SubsystemBase {
     } else {
       setIntakeSpeed(0);
     }
-    // setIntakeSolenoid(SmartDashboard.getBoolean("OR: Intake solenoid", false));
+    
+    setIntakeSolenoid(SmartDashboard.getBoolean("OR: Intake solenoid", false));
   }
 
 }
