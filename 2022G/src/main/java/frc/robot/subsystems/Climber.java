@@ -6,7 +6,6 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxPIDController;
 
-import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -14,11 +13,11 @@ import frc.robot.utils.*;
 
 public class Climber extends SubsystemBase {
   private static Climber climber;
-  private Compressor compressor;
+  
 
   private static UpdateLogs updateLogs = UpdateLogs.getInstance();
 
-  private CANSparkMax armPrimary, armSecondary;
+  private CANSparkMax armMotor1, armMotor2;
   private DigitalInput armSensor;
 
   private double climberSetpoint;
@@ -32,18 +31,18 @@ public class Climber extends SubsystemBase {
   private double kFF = Constants.CLIMBER_FF;
 
   public Climber() {
-    armPrimary = new CANSparkMax(RobotMapGullinkambi.MOTOR_CLIMBER_PRIMARY, MotorType.kBrushless);
-    armSecondary = new CANSparkMax(RobotMapGullinkambi.MOTOR_CLIMBER_SECONDARY, MotorType.kBrushless);
-    armSecondary.follow(armPrimary);
+    armMotor1 = new CANSparkMax(RobotMapGullinkambi.MOTOR_CLIMBER_PRIMARY, MotorType.kBrushless);
+    armMotor2 = new CANSparkMax(RobotMapGullinkambi.MOTOR_CLIMBER_SECONDARY, MotorType.kBrushless);
+    armMotor2.follow(armMotor1);
 
-    armPrimary.setIdleMode(IdleMode.kBrake);
-    armSecondary.setIdleMode(IdleMode.kBrake);
-    armPrimary.setSmartCurrentLimit(Constants.CLIMBER_MAX_CURRENT);
-    armSecondary.setSmartCurrentLimit(Constants.CLIMBER_MAX_CURRENT);
+    armMotor1.setIdleMode(IdleMode.kBrake);
+    armMotor2.setIdleMode(IdleMode.kBrake);
+    armMotor1.setSmartCurrentLimit(Constants.CLIMBER_MAX_CURRENT);
+    armMotor2.setSmartCurrentLimit(Constants.CLIMBER_MAX_CURRENT);
 
     armSensor = new DigitalInput(2);
 
-    climberPIDController = armPrimary.getPIDController();
+    climberPIDController = armMotor1.getPIDController();
     climberPIDController.setP(Constants.CLIMBER_P);
     climberPIDController.setI(Constants.CLIMBER_I);
     climberPIDController.setD(Constants.CLIMBER_D);
@@ -71,32 +70,32 @@ public class Climber extends SubsystemBase {
 
   public void run(double speed) {
     if(speed < 0){
-      armPrimary.set(speed);
+      armMotor1.set(speed);
     }
     else{
       if(!armSensorState()){
-        armPrimary.set(speed);
+        armMotor1.set(speed);
       }
-      else armPrimary.set(0);
+      else armMotor1.set(0);
     }
   }
 
   public double getEncoderPosition(){
-    return armPrimary.getEncoder().getPosition();
+    return armMotor1.getEncoder().getPosition();
   }
 
   public void setEncoderPosition(double position){
-    armPrimary.getEncoder().setPosition(position);
+    armMotor1.getEncoder().setPosition(position);
   }
 
   public void setBrake() {
-    armPrimary.setIdleMode(IdleMode.kBrake);
-    armSecondary.setIdleMode(IdleMode.kBrake);
+    armMotor1.setIdleMode(IdleMode.kBrake);
+    armMotor2.setIdleMode(IdleMode.kBrake);
   }
 
   public void setCoast() {
-    armPrimary.setIdleMode(IdleMode.kCoast);
-    armSecondary.setIdleMode(IdleMode.kCoast);
+    armMotor1.setIdleMode(IdleMode.kCoast);
+    armMotor2.setIdleMode(IdleMode.kCoast);
   }
 
   @Override
@@ -104,32 +103,40 @@ public class Climber extends SubsystemBase {
     updateLogs.updateClimberLogData();
   }
 
-  public double getCompressorPressure(){
-    return compressor.getPressure();
-  }
-
-  public double getPrimaryArmVelocity(){
-    return armPrimary.get();
+  public double getarmMotor1Velocity(){
+    return armMotor1.get();
   }
   
-  public double getSecondaryArmVelocity(){
-    return armSecondary.get();
+  public double getarmMotor2Velocity(){
+    return armMotor2.get();
   }
 
-  public double getPrimaryArmCurrent(){
-    return armPrimary.getOutputCurrent();
+  public double getarmMotor1Current(){
+    return armMotor1.getOutputCurrent();
   }
   
-  public double getSecondaryArmCurrent(){
-    return armSecondary.getOutputCurrent();
+  public double getarmMotor2Current(){
+    return armMotor2.getOutputCurrent();
   }
 
-  public double getPrimaryArmMotorTemperature(){
-    return armPrimary.getMotorTemperature();
+  public double getarmMotor1Temperature(){
+    return armMotor1.getMotorTemperature();
   }
   
-  public double getSecondaryArmMotorTemperature(){
-    return armSecondary.getMotorTemperature();
+  public double getarmMotor2Temperature(){
+    return armMotor2.getMotorTemperature();
+  }
+
+  public double getarmMotor1EncoderVelocity(){
+    return armMotor1.getEncoder().getVelocity();
+  }
+
+  public double getarmMotor1EncoderPosition(){
+    return armMotor1.getEncoder().getPosition();
+  }
+
+  public boolean sensesArm(){
+    return armSensor.get();
   }
 
   public void putSmartDashboardOverrides(){

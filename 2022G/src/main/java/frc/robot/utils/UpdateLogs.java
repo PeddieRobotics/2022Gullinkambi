@@ -50,7 +50,7 @@ public class UpdateLogs {
         pose[0] = m_drivetrain.getPose().getTranslation().getX();
         pose[1] = m_drivetrain.getPose().getTranslation().getY();
         pose[2] = Rotation2d.fromDegrees(m_drivetrain.getHeading()).getRadians();
-        Logger.getInstance().recordOutput("Odometry/PoseArray", pose);
+        Logger.getInstance().recordOutput("OdometryArray", pose);
 
         //Drive Setpoints
         Logger.getInstance().recordOutput("Drivetrain/SpeedSetpoint", m_drivetrain.getSpeedSetpoint());
@@ -82,17 +82,21 @@ public class UpdateLogs {
     }
 
     public void updateClimberLogData(){
-        Logger.getInstance().recordOutput("CompressorPressure", m_climber.getCompressorPressure());
+        Logger.getInstance().recordOutput("Climber/ClimberArmSensorValue", m_climber.sensesArm());
 
-        //Winch Motor Data
-        Logger.getInstance().recordOutput("Climber/PrimaryArmWinchVelocity", m_climber.getPrimaryArmVelocity());
-        Logger.getInstance().recordOutput("Climber/SecondaryArmWinchVelocity", m_climber.getSecondaryArmVelocity());
-
-        Logger.getInstance().recordOutput("Climber/PrimaryArmWinchCurrent", m_climber.getPrimaryArmCurrent());
-        Logger.getInstance().recordOutput("Climber/SecondaryArmWinchCurrent", m_climber.getSecondaryArmCurrent());
+        //Encoder Data
+        Logger.getInstance().recordOutput("Climber/WinchMotor1EncoderVelocity", m_climber.getarmMotor1EncoderVelocity());
+        Logger.getInstance().recordOutput("Climber/WinchMotor1EncoderPosition", m_climber.getarmMotor1EncoderPosition());
         
-        Logger.getInstance().recordOutput("Climber/PrimaryArmWinchTemperature", m_climber.getPrimaryArmMotorTemperature());
-        Logger.getInstance().recordOutput("Climber/SecondaryArmWinchTemperature", m_climber.getSecondaryArmMotorTemperature());
+        //Winch Motor Data
+        Logger.getInstance().recordOutput("Climber/WinchMotor1Velocity", m_climber.getarmMotor1Velocity());
+        Logger.getInstance().recordOutput("Climber/WinchMotor2Velocity", m_climber.getarmMotor2Velocity());
+
+        Logger.getInstance().recordOutput("Climber/WinchMotor1Current", m_climber.getarmMotor1Current());
+        Logger.getInstance().recordOutput("Climber/WinchMotor2Current", m_climber.getarmMotor2Current());
+        
+        Logger.getInstance().recordOutput("Climber/WinchMotor1Temperature", m_climber.getarmMotor1Temperature());
+        Logger.getInstance().recordOutput("Climber/WinchMotor2Temperature", m_climber.getarmMotor2Temperature());
     }
 
     public void updateFlywheelLogData(){
@@ -114,11 +118,16 @@ public class UpdateLogs {
         Logger.getInstance().recordOutput("Flywheel/SecondaryFlywheel2Temperature", m_flywheel.getSecondaryFlywheelMotorTemperature());
         
         Logger.getInstance().recordOutput("Flywheel/HoodUp", m_flywheel.isHoodUp());
+        Logger.getInstance().recordOutput("Flywheel/ShooterLock", m_flywheel.getShooterLock());
     }
 
     public void updateHopperLogData(){
         Logger.getInstance().recordOutput("Hopper/BottomSensorValue", m_hopper.sensesBallBottom());
         Logger.getInstance().recordOutput("Hopper/TopSensorValue", m_hopper.sensesBallTop());
+
+        //EncoderData
+        Logger.getInstance().recordOutput("Hopper/HopperMotorEncoderVelocity", m_hopper.getHopperEncoderVelocity());
+        Logger.getInstance().recordOutput("Hopper/HopperMotorEncoderCurrent", m_hopper.getHopperEncoderPosition());
 
         //Hopper Motor Data
         Logger.getInstance().recordOutput("Hopper/HopperMotorVelocity", m_hopper.getHopperVelocity());
@@ -127,7 +136,12 @@ public class UpdateLogs {
     }
 
     public void updateIntakeLogData(){
+        Logger.getInstance().recordOutput("CompressorPressure", m_intake.getCompressorPressure());
         Logger.getInstance().recordOutput("Intake/IntakeSolenoidOn", m_intake.getSolenoidState());
+
+        //EncoderData
+        Logger.getInstance().recordOutput("Intake/IntakeMotorEncoderVelocity", m_intake.getIntakeEncoderVelocity());
+        Logger.getInstance().recordOutput("Intake/IntakeMotorEncoderCurrent", m_intake.getIntakeEncoderPosition());
 
         //Intake Motor Data
         Logger.getInstance().recordOutput("Intake/IntakeMotorVelocity", m_intake.getIntakeVelocity());
