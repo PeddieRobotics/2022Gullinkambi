@@ -1,9 +1,7 @@
 package frc.robot.commands.ClimbCommands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
-import frc.robot.utils.Constants;
 
 /** An example command that uses an example subsystem. */
 public class InitializeArm extends CommandBase {

@@ -50,19 +50,19 @@ public final class Constants {
   // Flywheel constants
   public static final int FLYWHEEL_MAX_CURRENT = 40; // amps
 
-  public static final double FLYWHEEL_P = 0.0001;
-  public static final double FLYWHEEL_I = 0.0;
-  public static final double FLYWHEEL_D = 0.0;
-  public static final double FLYWHEEL_FF = 0.0002;
-  public static final double FLYWHEEL_IZONE = 200;
+  public static final double FLYWHEEL_P = 0.0002;
+  public static final double FLYWHEEL_I = 0.000001;
+  public static final double FLYWHEEL_D = 0.0001;
+  public static final double FLYWHEEL_FF = 0.000186;
+  public static final double FLYWHEEL_IZONE = 100;
 
-  public static final double FLYWHEEL_RPM_FAR = 3000;
-  public static final double FLYWHEEL_RPM_HIGH = 2500;
+  public static final double FLYWHEEL_RPM_SHOOTLL = 2800;
+  public static final double FLYWHEEL_RPM_LAYUP = 2500;
   public static final double FLYWHEEL_RPM_LOW = 2000;
 
-  public static final double FLYWHEEL_THRESHOLD_HIGH = 100;
+  public static final double FLYWHEEL_THRESHOLD_LAYUP = 100;
   public static final double FLYWHEEL_THRESHOLD_LOW = 100;
-  public static final double FLYWHEEL_THRESHOLD_FAR = 100;
+  public static final double FLYWHEEL_THRESHOLD_SHOOTLL = 100;
 
   public static final double FLYWHEEL_MAX_POWER = 1;
   public static final double FLYWHEEL_MAX_RPM = 4000;

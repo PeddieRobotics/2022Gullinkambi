@@ -66,10 +66,6 @@ public class RobotContainer {
     climber.register();
     limelight.register();
 
-    // Make sure the arm starts in the fully retracted position
-    //CommandBase initializeArmCommand = new InitializeArm();
-    //initializeArmCommand.schedule();
-
     setupSmartDashboard();
 
   }
