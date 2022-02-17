@@ -135,6 +135,12 @@ public class Flywheel extends SubsystemBase {
     SmartDashboard.putNumber("OR: Flywheel setpoint", 0);
     SmartDashboard.putBoolean("OR: Flywheel lock", getShooterLock());
     SmartDashboard.putBoolean("OR: Hood up", isHoodUp());
+    SmartDashboard.putNumber("Teleop: Flywheel shootLL RPM", Constants.FLYWHEEL_RPM_SHOOTLL);
+    SmartDashboard.putNumber("Teleop: Flywheel shoot low RPM", Constants.FLYWHEEL_RPM_LOW);
+    SmartDashboard.putNumber("Teleop: Flywheel shoot layup RPM", Constants.FLYWHEEL_RPM_LAYUP);
+    SmartDashboard.putNumber("Teleop: Flywheel shoot LL threshold", Constants.FLYWHEEL_THRESHOLD_SHOOTLL);
+    SmartDashboard.putNumber("Teleop: Flywheel shoot low threshold", Constants.FLYWHEEL_THRESHOLD_LOW);
+    SmartDashboard.putNumber("Teleop: Flywheel shoot layup threshold", Constants.FLYWHEEL_THRESHOLD_LAYUP);
 
 
     // Smart dashboard controls for flywheel PID gain tuning
