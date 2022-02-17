@@ -67,12 +67,12 @@ public class RobotContainer {
     limelight.register();
 
     // Make sure the arm starts in the fully retracted position
- 
+    //CommandBase initializeArmCommand = new InitializeArm();
+    //initializeArmCommand.schedule();
 
     setupSmartDashboard();
 
   }
-
 
   public void testCommand(){
     CommandBase initializeArmCommand = new InitializeArm();
@@ -118,7 +118,7 @@ public class RobotContainer {
     flywheel.updateFlywheelFromDashboard();
 
     // Climber
-    //climber.updateClimberFromDashboard();
+    climber.updateClimberFromDashboard();
 
   }
 
