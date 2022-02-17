@@ -26,8 +26,9 @@ public class ShootWithLL extends CommandBase {
   public void initialize() {
     flywheel.setHood(true); // turn hood on for shoot far with high speed
     flywheel.setShooterLock(true);
-    RPM = Constants.DIST_TO_RPM.get(limelight.getDistance());
-    flywheel.runFlywheelSetpoint(RPM);
+    // RPM = Constants.DIST_TO_RPM.get(limelight.getDistance());
+    // flywheel.runFlywheelSetpoint(RPM);
+    flywheel.runFlywheelSetpoint(SmartDashboard.getNumber("Teleop: Flywheel shoot LL threshold", Constants.FLYWHEEL_THRESHOLD_SHOOTLL));
   }
 
   // Called every time the scheduler runs while the command is scheduled.
