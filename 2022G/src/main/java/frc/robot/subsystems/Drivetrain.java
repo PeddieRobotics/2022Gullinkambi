@@ -9,7 +9,6 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 
-import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
@@ -17,8 +16,6 @@ import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -36,12 +33,9 @@ public class Drivetrain extends SubsystemBase {
   private final DifferentialDriveOdometry odometry;
   private final ADIS16470_IMU gyro;
 
-  private DigitalInput sensor0;
-
   private double headingValue;
 
   private final RelativeEncoder leftEncoder, rightEncoder;
-  private Joystick leftJoystick, rightJoystick;
 
   NetworkTableEntry m_xEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("X");
   NetworkTableEntry m_yEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("Y");
@@ -59,21 +53,37 @@ public class Drivetrain extends SubsystemBase {
       rightFollower1 = new CANSparkMax(RobotMapGullinkambi.MOTOR_DRIVE_RIGHT_FOLLOWER1, MotorType.kBrushless);
       leftFollower2 = new CANSparkMax(RobotMapGullinkambi.MOTOR_DRIVE_LEFT_FOLLOWER2, MotorType.kBrushless);
       rightFollower2 = new CANSparkMax(RobotMapGullinkambi.MOTOR_DRIVE_RIGHT_FOLLOWER2, MotorType.kBrushless);
+
       leftMotors = new MotorControllerGroup(leftMaster, leftFollower1, leftFollower2);
       rightMotors = new MotorControllerGroup(rightMaster, rightFollower1, rightFollower2);
+
       leftFollower1.follow(leftMaster);
       leftFollower2.follow(leftMaster);
       rightFollower1.follow(rightMaster);
       rightFollower2.follow(rightMaster);
+
+      leftMaster.setSmartCurrentLimit(Constants.DRIVETRAIN_MAX_CURRENT);
+      rightMaster.setSmartCurrentLimit(Constants.DRIVETRAIN_MAX_CURRENT);
+      leftFollower1.setSmartCurrentLimit(Constants.DRIVETRAIN_MAX_CURRENT);
+      rightFollower1.setSmartCurrentLimit(Constants.DRIVETRAIN_MAX_CURRENT);
+      leftFollower2.setSmartCurrentLimit(Constants.DRIVETRAIN_MAX_CURRENT);
+      rightFollower2.setSmartCurrentLimit(Constants.DRIVETRAIN_MAX_CURRENT);
     } else {
       leftMaster = new CANSparkMax(RobotMapMini.MOTOR_DRIVE_LEFT_MASTER, MotorType.kBrushless);
       rightMaster = new CANSparkMax(RobotMapMini.MOTOR_DRIVE_RIGHT_MASTER, MotorType.kBrushless);
       leftFollower1 = new CANSparkMax(RobotMapMini.MOTOR_DRIVE_LEFT_FOLLOWER1, MotorType.kBrushless);
       rightFollower1 = new CANSparkMax(RobotMapMini.MOTOR_DRIVE_RIGHT_FOLLOWER1, MotorType.kBrushless);
+
       leftMotors = new MotorControllerGroup(leftMaster, leftFollower1);
       rightMotors = new MotorControllerGroup(rightMaster, rightFollower1);
+      
       leftFollower1.follow(leftMaster);
       rightFollower1.follow(rightMaster);
+
+      leftMaster.setSmartCurrentLimit(Constants.DRIVETRAIN_MAX_CURRENT);
+      rightMaster.setSmartCurrentLimit(Constants.DRIVETRAIN_MAX_CURRENT);
+      leftFollower1.setSmartCurrentLimit(Constants.DRIVETRAIN_MAX_CURRENT);
+      rightFollower1.setSmartCurrentLimit(Constants.DRIVETRAIN_MAX_CURRENT);
     }
 
     leftEncoder = leftMaster.getEncoder();
@@ -88,17 +98,9 @@ public class Drivetrain extends SubsystemBase {
     leftMaster.setInverted(true);
     rightMaster.setInverted(false);
 
-    leftFollower1.follow(leftMaster);
-    leftFollower2.follow(leftMaster);
-    
-    rightFollower1.follow(rightMaster);
-    rightFollower2.follow(rightMaster);
-
-    //sensor0 = new DigitalInput(0);
-
     gyro = new ADIS16470_IMU();
-    calibrateGyro();
-    gyro.reset();
+    //calibrateGyro();
+    //gyro.reset();
 
     odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
 
@@ -108,7 +110,6 @@ public class Drivetrain extends SubsystemBase {
   @Override
   public void periodic() {
     odometry.update(getHeadingAsRotation2d(), leftEncoder.getPosition(), rightEncoder.getPosition());
-    putSmartDashboard();
 
     updateLogs.updateDrivetrainLogData();
     var translation = odometry.getPoseMeters().getTranslation();
@@ -128,11 +129,6 @@ public class Drivetrain extends SubsystemBase {
     return drivetrain;
   }
 
-  public void setJoysticks(Joystick left, Joystick right) {
-    leftJoystick = left;
-    rightJoystick = right;
-  }
-
   private void setConversionFactors() {
     leftEncoder.setPositionConversionFactor(Constants.DRIVE_ENC_ROT_TO_DIST);
     rightEncoder.setPositionConversionFactor(Constants.DRIVE_ENC_ROT_TO_DIST);
@@ -145,7 +141,7 @@ public class Drivetrain extends SubsystemBase {
     return new DifferentialDriveWheelSpeeds(getLeftEncoderVelocity(), getRightEncoderVelocity());
   }
 
-  public void putSmartDashboard() {
+  public void updateDrivetrainInfoOnDashboard() {
     SmartDashboard.putNumber("L enc pos", getLeftEncoderPosition());
     SmartDashboard.putNumber("R enc pos", getRightEncoderPosition());
     SmartDashboard.putNumber("L enc vel", getLeftEncoderVelocity());
@@ -157,8 +153,7 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("Average Velocity", getAverageEncoderVelocity());
     SmartDashboard.putNumber("Left Encoder Velocity", getLeftEncoderVelocity());
     SmartDashboard.putNumber("Right Encoder Velocity", getRightEncoderVelocity());
-    SmartDashboard.putNumber("Target Velocity", 1.1);
-    SmartDashboard.putNumber("Set Off", 1.1 - getAverageEncoderVelocity());
+
   }
 
   public void setBrake() {
@@ -362,9 +357,5 @@ public class Drivetrain extends SubsystemBase {
 
   public double getRightFollower2MotorTemperature(){
     return rightFollower2.getMotorTemperature();
-  }
-
-  public boolean isSensor(){
-    return sensor0.get();
   }
 }

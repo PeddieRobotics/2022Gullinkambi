@@ -13,7 +13,7 @@ public class ShootLow extends CommandBase {
   public ShootLow() {
     flywheel = Flywheel.getInstance();
     hopper = Hopper.getInstance();
-    addRequirements(flywheel);
+    addRequirements(flywheel, hopper);
   }
 
   // Called when the command is initially scheduled.
@@ -29,10 +29,11 @@ public class ShootLow extends CommandBase {
   @Override
   public void execute() {
     // Check whether the speed of flywheel is good enough to shoot
-    if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_LOW)) {
+    if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_LOW)){
       hopper.runHopper(Constants.HOPPER_SPEED);
-    } else {
-      hopper.runHopper(0.0);
+    }
+    else {
+      hopper.stopHopper();
     }
 
   }

@@ -9,6 +9,8 @@ public class StopIntake extends CommandBase {
 
   public StopIntake() {
     mIntake = Intake.getInstance();
+    addRequirements(mIntake);
+
   }
 
   // Called when the command is initially scheduled.

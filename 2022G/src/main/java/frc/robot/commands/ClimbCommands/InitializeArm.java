@@ -4,34 +4,35 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
 
 /** An example command that uses an example subsystem. */
-public class RetractArm extends CommandBase {
+public class InitializeArm extends CommandBase {
   private Climber climber;
 
-  public RetractArm() {
+  public InitializeArm() {
     climber = Climber.getInstance();
     addRequirements(climber);
 
   }
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    climber.moveToPosition(0.0); // Hold at encoder position 0
+      climber.run(0.1);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    
+    climber.setEncoderPosition(0.0); // Call this retracted position the new "zero"
+    climber.run(0.0);
+    //climber.setDefaultCommand(new HoldArm()); // Once the climber arm is fully retracted, keep it retracted
   }
 
   // Returns true when the command should end.
-  // runs everytime execute runs
   @Override
   public boolean isFinished() {
     return climber.armSensorState();

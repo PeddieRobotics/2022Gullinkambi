@@ -3,17 +3,21 @@ package frc.robot.commands.ShootCommands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hopper;
+import frc.robot.subsystems.Limelight;
 import frc.robot.utils.Constants;
 
-public class ShootFar extends CommandBase {
+public class ShootWithLL extends CommandBase {
 
   private Flywheel flywheel;
   private Hopper hopper;
+  private Limelight limelight;
+  private double RPM;
 
-  public ShootFar() {
+  public ShootWithLL() {
     flywheel = Flywheel.getInstance();
     hopper = Hopper.getInstance();
-    addRequirements(flywheel);
+    limelight = Limelight.getInstance();
+    addRequirements(flywheel, hopper);
   }
 
   // Called when the command is initially scheduled.
@@ -21,18 +25,19 @@ public class ShootFar extends CommandBase {
   public void initialize() {
     flywheel.setHood(true); // turn hood on for shoot far with high speed
     flywheel.setShooterLock(true);
-
-    flywheel.runFlywheelSetpoint(Constants.FLYWHEEL_RPM_FAR);
+    RPM = Constants.DIST_TO_RPM.get(limelight.getDistance());
+    flywheel.runFlywheelSetpoint(RPM);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     // Check whether the speed of flywheel is good enough to shoot
-    if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_FAR)) {
+    if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_SHOOTLL)) {
       hopper.runHopper(Constants.HOPPER_SPEED);
-    } else {
-      hopper.runHopper(0.0);
+    }
+    else {
+      hopper.stopHopper();
     }
 
   }

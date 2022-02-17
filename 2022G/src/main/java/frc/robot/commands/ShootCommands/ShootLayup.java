@@ -5,15 +5,15 @@ import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hopper;
 import frc.robot.utils.Constants;
 
-public class ShootHigh extends CommandBase {
+public class ShootLayup extends CommandBase {
 
   private Flywheel flywheel;
   private Hopper hopper;
 
-  public ShootHigh() {
+  public ShootLayup() {
     flywheel = Flywheel.getInstance();
     hopper = Hopper.getInstance();
-    addRequirements(flywheel);
+    addRequirements(flywheel, hopper);
   }
 
   // Called when the command is initially scheduled.
@@ -22,14 +22,14 @@ public class ShootHigh extends CommandBase {
     flywheel.setHood(false); // no hood for high shot
     flywheel.setShooterLock(true);
 
-    flywheel.runFlywheelSetpoint(Constants.FLYWHEEL_RPM_HIGH);
+    flywheel.runFlywheelSetpoint(Constants.FLYWHEEL_RPM_LAYUP);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     // Check whether the speed of flywheel is good enough to shoot
-    if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_HIGH)) {
+    if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_LAYUP)){
       hopper.runHopper(Constants.HOPPER_SPEED);
     } else {
       hopper.stopHopper();

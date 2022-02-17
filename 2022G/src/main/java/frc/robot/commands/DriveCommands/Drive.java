@@ -43,11 +43,11 @@ public class Drive extends CommandBase {
         double turnInput = 0.0;
 
         if (Constants.OI_CONFIG == OIConfig.COMPETITION) { // both joystick and xbox, but joysticks are the drivers and
-                                                           // xbox is the operator
+            // xbox is the operator
             // for now this is just the same stuff as joysticks, so it needs to change to
             // something
             speedInput = oi2.getSpeed();
-            turnInput = oi2.getTurn();
+            turnInput = -oi2.getTurn();
             reverse = oi2.getInverseMode();
 
         } else if (Constants.OI_CONFIG == OIConfig.XBOX_TEST) { // xbox
@@ -59,7 +59,7 @@ public class Drive extends CommandBase {
         } else if (Constants.OI_CONFIG == OIConfig.JOYSTICK_TEST) { // joystick
 
             speedInput = oi2.getSpeed();
-            turnInput = oi2.getTurn();
+            turnInput = -oi2.getTurn();
             reverse = oi2.getInverseMode();
 
         }

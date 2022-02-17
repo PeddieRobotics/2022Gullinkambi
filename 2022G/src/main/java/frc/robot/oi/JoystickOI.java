@@ -6,28 +6,19 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.IntakeCommands.StartIntake;
 import frc.robot.commands.IntakeCommands.StopIntake;
 import frc.robot.commands.IntakeCommands.UnjamIntake;
-import frc.robot.commands.ShootCommands.ShootFar;
-import frc.robot.commands.ShootCommands.ShootHigh;
+import frc.robot.commands.ShootCommands.ShootWithLL;
+import frc.robot.commands.ShootCommands.ShootLayup;
 import frc.robot.commands.ShootCommands.ShootLow;
-//import frc.robot.commands.ShootCommands.ShootLayup;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Intake;
-//import frc.robot.subsystems.Tower;
 import frc.robot.utils.ControllerMap;
 
 public class JoystickOI {
 
-  private static JoystickOI oi2;
-  private final Drivetrain m_driveTrain;
-  // private final Tower m_tower;
-  // private final Hopper m_hopper;
-  // private final Flywheel m_flywheel;
-  // private final Intake m_intake;
-  // private final Climber m_climber;
-  // private final Limelight m_limelight;
+  private static JoystickOI oi;
 
   private Joystick leftJoystick, rightJoystick;
 
@@ -39,18 +30,10 @@ public class JoystickOI {
 
   // private XboxTrigger driverLeftTrigger, driverRightTrigger;
 
-  public JoystickOI(Drivetrain d, Hopper h, Flywheel f, Intake i, Climber c) { // add Tower t when needed
-    m_driveTrain = d;
-    // m_tower = t;
-    // m_hopper = h;
-    // m_flywheel = f;
-    // m_intake = i;
-    // m_climber = c;
-    // m_limelight = l;
+  public JoystickOI() {
 
     initializeJoysticks();
     configureJoysticks();
-    m_driveTrain.setJoysticks(leftJoystick, rightJoystick);
 
   }
 
@@ -78,9 +61,9 @@ public class JoystickOI {
     leftButton3.whenPressed(new StartIntake());
     leftButton4.whenPressed(new StopIntake());
     
-    rightButton2.whileHeld(new ShootHigh());
-    rightButton3.whileHeld(new ShootFar()); //far is high, but far
-    rightButton4.whileHeld(new ShootLow());
+    rightButton2.whenHeld(new ShootLayup());
+    rightButton3.whenHeld(new ShootWithLL()); //far is high, but far
+    rightButton4.whenHeld(new ShootLow());
 
   }
 
@@ -105,14 +88,9 @@ public class JoystickOI {
   }
 
   public static JoystickOI getInstance() {
-    if (oi2 == null) {
-      oi2 = new JoystickOI(Drivetrain.getInstance(), null, null, null, null);
-
-      // oi2 = new JoystickOI(Drivetrain.getInstance(), Hopper.getInstance(),
-      // Flywheel.getInstance(), // add Tower.getInstance() later when we actually
-      // make the code
-      // Intake.getInstance(), Climber.getInstance());
+    if (oi == null) {
+      oi = new JoystickOI();
     }
-    return oi2;
+    return oi;
   }
 }
