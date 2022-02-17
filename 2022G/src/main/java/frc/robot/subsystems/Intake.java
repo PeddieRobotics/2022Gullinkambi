@@ -73,6 +73,7 @@ public class Intake extends SubsystemBase {
   public void putSmartDashboardOverrides() {
     SmartDashboard.putNumber("OR: Intake speed", 0.0);
     SmartDashboard.putBoolean("OR: Intake solenoid", false);
+    SmartDashboard.putNumber("Teleop: Intake speed", Constants.INTAKE_SPEED);
   }
 
   public void updateIntakeInfoOnDashboard(){

@@ -1,5 +1,6 @@
 package frc.robot.commands.ShootCommands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hopper;
@@ -30,9 +31,8 @@ public class ShootLow extends CommandBase {
   public void execute() {
     // Check whether the speed of flywheel is good enough to shoot
     if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_LOW)){
-      hopper.runHopper(Constants.HOPPER_SPEED);
-    }
-    else {
+      hopper.runHopper(SmartDashboard.getNumber("Teleop: Hopper speed", Constants.HOPPER_SPEED));
+    } else {
       hopper.stopHopper();
     }
 
