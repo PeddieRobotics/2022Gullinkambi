@@ -96,10 +96,11 @@ public class RobotContainer {
     SmartDashboard.putData(CommandScheduler.getInstance());
 
     
-    SmartDashboard.putNumber("LL KP", 0);
-    SmartDashboard.putNumber("LL KI", 0);
-    SmartDashboard.putNumber("LL KD", 0);
-
+    SmartDashboard.putNumber("LL KP", Constants.LL_P);
+    SmartDashboard.putNumber("LL KI", Constants.LL_I);
+    SmartDashboard.putNumber("LL KD", Constants.LL_D);
+    SmartDashboard.putNumber("LL FF", Constants.LL_FF);
+    SmartDashboard.putNumber("LL ANGLE BOUND", Constants.LL_ANGLE_BOUND);
   }
 
   // Overrides for interfacing with robot hardware

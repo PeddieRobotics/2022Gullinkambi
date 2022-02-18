@@ -17,8 +17,8 @@ public class Target extends CommandBase {
   private double Kp = Constants.LL_P;
   private double Ki = Constants.LL_I;
   private double Kd = Constants.LL_D;
-  private double min_command = 0.2;
-  private double angle_bound = 1;
+  private double FF = Constants.LL_FF;
+  private double angle_bound = Constants.LL_ANGLE_BOUND;
   private PIDController LL;
 
   public Target() {
@@ -32,27 +32,28 @@ public class Target extends CommandBase {
   @Override
   public void execute() {
      
-     Kp = SmartDashboard.getNumber("LL KP", 0);
-     Ki = SmartDashboard.getNumber("LL KI", 0);
-     Kd = SmartDashboard.getNumber("LL KD", 0);
-     
+     Kp = SmartDashboard.getNumber("LL KP", Constants.LL_P);
+     Ki = SmartDashboard.getNumber("LL KI", Constants.LL_I);
+     Kd = SmartDashboard.getNumber("LL KD", Constants.LL_D);
+     FF = SmartDashboard.getNumber("LL FF", Constants.LL_FF);
+     angle_bound = SmartDashboard.getNumber("LL ANGLE BOUND", Constants.LL_ANGLE_BOUND);
      LL = new PIDController(Kp, Ki, Kd);
 
      if (limelight.hasTarget()){
         error = limelight.getTx();
         average_error = limelight.getTxAverage();
         if (error> angle_bound){
-          steering_adjust = LL.calculate(average_error) - min_command;
+          steering_adjust = LL.calculate(average_error) + FF;
         }
         else if (error < -angle_bound){
-          steering_adjust = LL.calculate(average_error) + min_command;
+          steering_adjust = LL.calculate(average_error) - FF;
         }
         else{
           steering_adjust = 0;
         }  
       } 
      else{
-       steering_adjust=0;
+       steering_adjust = 0;
      }  
       drivetrain.arcadeDrive(0, steering_adjust);
   }
@@ -64,9 +65,10 @@ public class Target extends CommandBase {
 
   @Override
   public boolean isFinished() { 
-    if(error>-angle_bound && error<angle_bound){
+    /*if(error>-angle_bound && error<angle_bound){
       return true;
     }
-    else return false;
+    else return false;*/
+    return false;
 }
 }
