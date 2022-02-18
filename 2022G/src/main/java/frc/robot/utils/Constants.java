@@ -75,7 +75,7 @@ public final class Constants {
   public static final double CLIMBER_FF = 0.0002;
   public static final double CLIMBER_IZONE = 200;
 
-  public static final int CLIMBER_MAX_CURRENT = 60;
+  public static final int CLIMBER_MAX_CURRENT = 30;
 
   public static final double LL_P = -0.0033;
   public static final double LL_I = 0.0000001;
