@@ -29,9 +29,9 @@ public class ShootWithLL extends CommandBase {
     RPM = Constants.DIST_TO_RPM.get(limelight.getDistance());
 
     if (SmartDashboard.getNumber("Teleop: Flywheel shootLL RPM", 0) == 0) {
-      flywheel.runFlywheelSetpoint(SmartDashboard.getNumber("Teleop: Flywheel shootLL RPM", 0));
-    } else {
       flywheel.runFlywheelSetpoint(RPM);
+    } else {
+      flywheel.runFlywheelSetpoint(SmartDashboard.getNumber("Teleop: Flywheel shootLL RPM", 0));
     }
   }
 
