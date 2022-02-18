@@ -117,7 +117,6 @@ public class Robot extends TimedRobot {
       autonomousCommand.cancel();
     }
     lights.on();
-    CommandScheduler.getInstance().schedule(new InitializeArm());
   }
 
   /** This function is called periodically during operator control. */

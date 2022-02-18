@@ -31,8 +31,13 @@ public class Target extends CommandBase {
 
   @Override
   public void execute() {
+     
+     Kp = SmartDashboard.getNumber("LL KP", 0);
+     Ki = SmartDashboard.getNumber("LL KI", 0);
+     Kd = SmartDashboard.getNumber("LL KD", 0);
+     
      LL = new PIDController(Kp, Ki, Kd);
-     System.out.println(limelight.getTx());
+
      if (limelight.hasTarget()){
         error = limelight.getTx();
         average_error = limelight.getTxAverage();

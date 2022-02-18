@@ -95,6 +95,11 @@ public class RobotContainer {
 
     SmartDashboard.putData(CommandScheduler.getInstance());
 
+    
+    SmartDashboard.putNumber("LL KP", 0);
+    SmartDashboard.putNumber("LL KI", 0);
+    SmartDashboard.putNumber("LL KD", 0);
+
   }
 
   // Overrides for interfacing with robot hardware
