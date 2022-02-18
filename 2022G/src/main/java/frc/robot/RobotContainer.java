@@ -15,6 +15,7 @@ import frc.robot.commands.ClimbCommands.InitializeArm;
 import frc.robot.commands.ClimbCommands.RetractArm;
 import frc.robot.commands.DriveCommands.Drive;
 import frc.robot.commands.IntakeCommands.IndexCargo;
+import frc.robot.commands.ShootCommands.RevUpFlywheel;
 import frc.robot.subsystems.Autonomous;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
@@ -64,6 +65,7 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(new Drive());
     intake.register();
     hopper.setDefaultCommand(new IndexCargo());
+    flywheel.setDefaultCommand(new RevUpFlywheel());
     flywheel.register();
     climber.register();
     limelight.register();
