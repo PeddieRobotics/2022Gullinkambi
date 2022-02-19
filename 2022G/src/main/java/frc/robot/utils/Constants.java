@@ -69,10 +69,10 @@ public final class Constants {
 
   // Climber constants
   public static final double CLIMBER_MAX_ENCODER_POSITION = 0;
-  public static final double CLIMBER_P = 0.0001;
+  public static final double CLIMBER_P = 0.0;
   public static final double CLIMBER_I = 0.0;
   public static final double CLIMBER_D = 0.0;
-  public static final double CLIMBER_FF = 0.0002;
+  public static final double CLIMBER_FF = 0.0;
   public static final double CLIMBER_IZONE = 200;
 
   public static final int CLIMBER_MAX_CURRENT = 30;
@@ -97,7 +97,7 @@ public final class Constants {
     XBOX_TEST, JOYSTICK_TEST, COMPETITION
   }
 
-  public static final double DRIVE_GEAR_RATIO = 6.0;
+  public static final double DRIVE_GEAR_RATIO = 7.3688888;
   public static final double CONVERT_INCHES_TO_METERS = 0.0254;
   public static final double DRIVE_WHEEL_DIAMETER = 4.0 * Constants.CONVERT_INCHES_TO_METERS;
 

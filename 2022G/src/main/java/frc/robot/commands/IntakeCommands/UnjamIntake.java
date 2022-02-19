@@ -1,5 +1,6 @@
 package frc.robot.commands.IntakeCommands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Intake;
@@ -22,15 +23,15 @@ public class UnjamIntake extends CommandBase {
 
     @Override
     public void execute() {
-        m_intake.reverseIntake(Constants.INTAKE_SPEED);
-        m_hopper.reverseHopper(Constants.HOPPER_SPEED);
+        m_intake.reverseIntake(SmartDashboard.getNumber("Teleop: Intake speed", Constants.INTAKE_SPEED));
+        m_hopper.reverseHopper(SmartDashboard.getNumber("Teleop: Hopper speed", Constants.HOPPER_SPEED));
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
         m_hopper.stopHopper();
-        m_intake.setIntakeSpeed(Constants.INTAKE_SPEED);
+        m_intake.setIntakeSpeed(SmartDashboard.getNumber("Teleop: Intake speed", Constants.INTAKE_SPEED));
     }
 
     // Returns true when the command should end.

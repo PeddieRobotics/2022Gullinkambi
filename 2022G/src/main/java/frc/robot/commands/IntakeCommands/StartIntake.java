@@ -7,6 +7,7 @@
 
 package frc.robot.commands.IntakeCommands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // import com.team2363.logger.HelixEvents;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Intake;
@@ -37,7 +38,7 @@ public class StartIntake extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intake.setIntakeSpeed(Constants.INTAKE_SPEED);
+    intake.setIntakeSpeed(SmartDashboard.getNumber("Teleop: Intake speed", Constants.INTAKE_SPEED));
   }
 
   // Returns true when the command should end.

@@ -1,5 +1,6 @@
 package frc.robot.commands.ShootCommands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hopper;
@@ -22,15 +23,15 @@ public class ShootLayup extends CommandBase {
     flywheel.setHood(false); // no hood for high shot
     flywheel.setShooterLock(true);
 
-    flywheel.runFlywheelSetpoint(Constants.FLYWHEEL_RPM_LAYUP);
+    flywheel.runFlywheelSetpoint(SmartDashboard.getNumber("Teleop: Flywheel shoot layup RPM", Constants.FLYWHEEL_RPM_LAYUP));
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     // Check whether the speed of flywheel is good enough to shoot
-    if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_LAYUP)){
-      hopper.runHopper(Constants.HOPPER_SPEED);
+    if (flywheel.isAtRPM(SmartDashboard.getNumber("Teleop: Flywheel shoot low threshold", Constants.FLYWHEEL_THRESHOLD_LOW))){
+      hopper.runHopper(SmartDashboard.getNumber("Teleop: Hopper speed", Constants.HOPPER_SPEED));
     } else {
       hopper.stopHopper();
     }
