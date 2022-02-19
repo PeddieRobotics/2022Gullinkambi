@@ -75,6 +75,7 @@ public class JoystickOI {
     return rightJoystick.getRawAxis(0);
   }
 
+  
   public boolean getInverseMode() {
     // checks if left trigger is pressed (left trigger id is 1)
     SmartDashboard.putBoolean("isLeftTriggerPressed", leftJoystick.getRawButton(1));
