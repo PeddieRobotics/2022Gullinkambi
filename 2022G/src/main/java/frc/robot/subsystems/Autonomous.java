@@ -126,6 +126,7 @@ public class Autonomous extends SubsystemBase {
             // Pass config
             configForward
         );
+        System.out.println(test2);
         // test = getTransformedTrajectory(test);
     }
 

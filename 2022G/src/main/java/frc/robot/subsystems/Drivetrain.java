@@ -172,6 +172,8 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("Average Velocity", getAverageEncoderVelocity());
     SmartDashboard.putNumber("Left Encoder Velocity", getLeftEncoderVelocity());
     SmartDashboard.putNumber("Right Encoder Velocity", getRightEncoderVelocity());
+    SmartDashboard.putNumber("Left wheel speeds", getWheelSpeeds().leftMetersPerSecond);
+    SmartDashboard.putNumber("Right wheel speeds", getWheelSpeeds().rightMetersPerSecond);
 
   }
 
