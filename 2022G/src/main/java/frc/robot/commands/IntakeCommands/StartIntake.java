@@ -36,7 +36,7 @@ public class StartIntake extends CommandBase {
     if (intake.getIntakeSolenoid()){
     intake.setIntakeSpeed(SmartDashboard.getNumber("Teleop: Intake speed", Constants.INTAKE_SPEED));
     } else {
-      intake.setIntakeSpeed(0.0);;
+      intake.setIntakeSpeed(0.0);
     }
   }
 
