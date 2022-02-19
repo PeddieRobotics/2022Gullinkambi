@@ -19,7 +19,7 @@ public class RevUpFlywheel extends CommandBase {
         flywheel = Flywheel.getInstance();
         hopper = Hopper.getInstance();
 
-        addRequirements(intake, flywheel, hopper);
+        addRequirements(intake, flywheel);
     }
 
     //Called when the command is initially scheduled

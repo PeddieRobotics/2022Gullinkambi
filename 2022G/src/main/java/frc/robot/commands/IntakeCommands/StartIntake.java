@@ -33,17 +33,21 @@ public class StartIntake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if (intake.getIntakeSolenoid()){
+    intake.setIntakeSpeed(SmartDashboard.getNumber("Teleop: Intake speed", Constants.INTAKE_SPEED));
+    } else {
+      intake.setIntakeSpeed(0.0);;
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intake.setIntakeSpeed(SmartDashboard.getNumber("Teleop: Intake speed", Constants.INTAKE_SPEED));
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return intake.getIntakeSolenoid(); // End immediately
+    return false; // End immediately
   }
 }
