@@ -57,7 +57,7 @@ public class JoystickOI {
   public void configureJoysticks() {
 
     // Driver joystick binds (dual joystick)
-    leftButton2.whenPressed(new UnjamIntake());
+    leftButton2.whenHeld(new UnjamIntake());
     leftButton3.whenPressed(new StartIntake());
     leftButton4.whenPressed(new StopIntake());
     

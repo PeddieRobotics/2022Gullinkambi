@@ -65,8 +65,7 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(new Drive());
     intake.register();
     hopper.setDefaultCommand(new IndexCargo());
-    flywheel.setDefaultCommand(new RevUpFlywheel());
-    flywheel.register();
+    //flywheel.setDefaultCommand(new RevUpFlywheel());
     climber.register();
     limelight.register();
 

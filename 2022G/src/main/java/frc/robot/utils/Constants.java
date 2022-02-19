@@ -25,8 +25,8 @@ public final class Constants {
   
 //uncommment whichever one you want to use & comment the rest
   //public static final OIConfig OI_CONFIG = OIConfig.COMPETITION; 
-  public static final OIConfig OI_CONFIG = OIConfig.XBOX_TEST;
-  //public static final OIConfig OI_CONFIG = OIConfig.JOYSTICK_TEST;
+  //public static final OIConfig OI_CONFIG = OIConfig.XBOX_TEST;
+  public static final OIConfig OI_CONFIG = OIConfig.JOYSTICK_TEST;
 
 
   // Drivetrain constants
@@ -70,11 +70,11 @@ public final class Constants {
 
   // Climber constants
   public static final double CLIMBER_MAX_ENCODER_POSITION = 0;
-  public static final double CLIMBER_P = 0.0;
-  public static final double CLIMBER_I = 0.0;
+  public static final double CLIMBER_P = 0.3;
+  public static final double CLIMBER_I = 0.00001;
   public static final double CLIMBER_D = 0.0;
   public static final double CLIMBER_FF = 0.0;
-  public static final double CLIMBER_IZONE = 200;
+  public static final double CLIMBER_IZONE = 10;
 
   public static final int CLIMBER_MAX_CURRENT = 30;
 
