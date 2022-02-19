@@ -45,7 +45,6 @@ public class ShootWithLL extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    System.out.println("SHOOT FAR INTERRUPTED");
     hopper.stopHopper();
     flywheel.stopFlywheel();
     flywheel.setHood(false);

@@ -60,11 +60,11 @@ public class JoystickOI {
     leftButton2.whenPressed(new UnjamIntake());
     leftButton3.whenPressed(new StartIntake());
     leftButton4.whenPressed(new StopIntake());
-    
-    rightButton2.whenHeld(new ShootLayup());
-    rightButton3.whenHeld(new ShootWithLL()); //far is high, but far
-    //rightButton4.whenHeld(new ShootLow());
-    rightButton4.whenHeld(new Target());
+
+    //rightButton2.whenHeld(new ParallelCommandGroup(new Target(), new ShootWithLL());
+    rightButton3.whenHeld(new ShootLayup());
+    rightButton4.whenHeld(new ShootLow());
+    rightButton2.whenHeld(new Target());
   }
 
   public double getSpeed() {

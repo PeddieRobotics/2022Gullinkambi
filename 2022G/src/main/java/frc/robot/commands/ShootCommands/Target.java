@@ -25,27 +25,27 @@ public class Target extends CommandBase {
     limelight = Limelight.getInstance();
     drivetrain = Drivetrain.getInstance();
     addRequirements(drivetrain);
+    //LL = new PIDController(Kp, Ki, Kd);
   }
   @Override
   public void initialize() {}
 
   @Override
   public void execute() {
-     
      Kp = SmartDashboard.getNumber("LL KP", Constants.LL_P);
      Ki = SmartDashboard.getNumber("LL KI", Constants.LL_I);
      Kd = SmartDashboard.getNumber("LL KD", Constants.LL_D);
      FF = SmartDashboard.getNumber("LL FF", Constants.LL_FF);
      angle_bound = SmartDashboard.getNumber("LL ANGLE BOUND", Constants.LL_ANGLE_BOUND);
-     LL = new PIDController(Kp, Ki, Kd);
 
+     LL = new PIDController(Kp, Ki, Kd);
      if (limelight.hasTarget()){
         error = limelight.getTx();
         average_error = limelight.getTxAverage();
-        if (error> angle_bound){
+        if (error<- angle_bound){
           steering_adjust = LL.calculate(average_error) + FF;
         }
-        else if (error < -angle_bound){
+        else if (error > angle_bound){
           steering_adjust = LL.calculate(average_error) - FF;
         }
         else{
