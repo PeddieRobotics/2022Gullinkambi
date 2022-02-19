@@ -85,14 +85,14 @@ public class RobotContainer {
 
   public void setupSmartDashboard() {
     // Leave drivetrain overrides disabled by default, they can be dangerous and are not needed in normal operation
-    //drivetrain.putSmartDashboardOverrides();
-    //intake.putSmartDashboardOverrides();
-    //hopper.putSmartDashboardOverrides();
-   // limelight.putSmartDashboardOverrides();
-    //climber.putSmartDashboardOverrides();
-    //flywheel.putSmartDashboardOverrides();
-    //SmartDashboard.putString("Mode", Constants.OI_CONFIG.toString());
-    //SmartDashboard.putData(CommandScheduler.getInstance());
+    drivetrain.putSmartDashboardOverrides();
+    intake.putSmartDashboardOverrides();
+    hopper.putSmartDashboardOverrides();
+    limelight.putSmartDashboardOverrides();
+    climber.putSmartDashboardOverrides();
+    flywheel.putSmartDashboardOverrides();
+    SmartDashboard.putString("Mode", Constants.OI_CONFIG.toString());
+    SmartDashboard.putData(CommandScheduler.getInstance());
 
     SmartDashboard.putNumber("LL KP", Constants.LL_P);
     SmartDashboard.putNumber("LL KI", Constants.LL_I);
