@@ -13,6 +13,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.ClimbCommands.InitializeArm;
 import frc.robot.subsystems.Lights;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -29,6 +32,8 @@ public class Robot extends TimedRobot {
   private RobotContainer robotContainer;
   private Lights lights;
 
+  private UsbCamera driverCamera;
+
   /**
    * This function is run when the robot is first started up and should be used
    * for any
@@ -43,8 +48,13 @@ public class Robot extends TimedRobot {
     robotContainer.setDrivetrainToCoastMode();
     robotContainer.calibrateGyro();
     robotContainer.setupSmartDashboard();
-
     lights = Lights.getInstance();
+
+    //Camera
+    driverCamera = CameraServer.startAutomaticCapture("USBCamera", 0);
+    driverCamera.setExposureAuto();
+    driverCamera.setFPS(10);
+    driverCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
   }
 
   /**
