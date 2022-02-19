@@ -35,7 +35,7 @@ public class Autonomous extends SubsystemBase {
     private SendableChooser<Command> autoRoutineSelector;
     private Hashtable<String,Command> autoRoutines;
 
-    private Trajectory test;
+    private Trajectory test, test2;
 
     public Autonomous() {
         autoRoutines = new Hashtable<String,Command>();
@@ -95,6 +95,7 @@ public class Autonomous extends SubsystemBase {
 
     public void setupAutoRoutines() {
         autoRoutines.put("Test Path", createCommandFromTrajectory(test));
+        autoRoutines.put("Test Path 2", createCommandFromTrajectory(test2));
     }
 
     public Command returnAutonomousCommand() {
@@ -104,13 +105,28 @@ public class Autonomous extends SubsystemBase {
     private void defineAutoPaths(){
         test = 
         TrajectoryGenerator.generateTrajectory(
-            new Pose2d(1, 1, new Rotation2d(Math.toRadians(90))),
-            List.of(new Translation2d(-1.5, 2.5)),
-            new Pose2d(1, 4, new Rotation2d(Math.toRadians(90))),
+            new Pose2d(0, 0, new Rotation2d(Math.toRadians(0))),
+            List.of(new Translation2d(1, 0)),
+            new Pose2d(2, 0, new Rotation2d(Math.toRadians(0))),
             // Pass config12
             configForward
         );
-        test = getTransformedTrajectory(test);
+        // test = getTransformedTrajectory(test);
+
+        test2 = 
+        TrajectoryGenerator.generateTrajectory(
+            new Pose2d(0, 0, new Rotation2d(0)),
+            // Pass through these two interior waypoints, making an 's' curve path
+            List.of(
+                new Translation2d(1, 1),
+                new Translation2d(2, -1)
+            ),
+            // End 3 meters straight ahead of where we started, facing forward
+            new Pose2d(3, 0, new Rotation2d(0)),
+            // Pass config
+            configForward
+        );
+        // test = getTransformedTrajectory(test);
     }
 
     public SplitFFRamseteCommand createCommandFromTrajectory(Trajectory trajectory){

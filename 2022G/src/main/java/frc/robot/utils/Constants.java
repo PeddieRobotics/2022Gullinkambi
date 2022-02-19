@@ -24,8 +24,8 @@ public final class Constants {
   public static final boolean IS_GULLINKAMBI = true;
   
 //uncommment whichever one you want to use & comment the rest
-  //public static final OIConfig OI_CONFIG = OIConfig.COMPETITION; 
-  public static final OIConfig OI_CONFIG = OIConfig.XBOX_TEST;
+  public static final OIConfig OI_CONFIG = OIConfig.COMPETITION; 
+  // public static final OIConfig OI_CONFIG = OIConfig.XBOX_TEST;
   //public static final OIConfig OI_CONFIG = OIConfig.JOYSTICK_TEST;
 
 
@@ -97,7 +97,7 @@ public final class Constants {
     XBOX_TEST, JOYSTICK_TEST, COMPETITION
   }
 
-  public static final double DRIVE_GEAR_RATIO = 7.3688888;
+  public static final double DRIVE_GEAR_RATIO = 7.6388888;
   public static final double CONVERT_INCHES_TO_METERS = 0.0254;
   public static final double DRIVE_WHEEL_DIAMETER = 4.0 * Constants.CONVERT_INCHES_TO_METERS;
 
@@ -108,9 +108,9 @@ public final class Constants {
 
     // The Robot Characterization Toolsuite provides a convenient tool for obtaining these
     // values for your robot.
-    public static final double ksVolts = 0.13563;
-    public static final double kvVoltSecondsPerMeter = 2.3576;
-    public static final double kaVoltSecondsSquaredPerMeter = 0.21274;
+    public static final double ksVolts = 0.13795;
+    public static final double kvVoltSecondsPerMeter = 3.1157;
+    public static final double kaVoltSecondsSquaredPerMeter = 0.60098;
 
 
       // These are example values only - DO NOT USE THESE FOR YOUR OWN ROBOT!
@@ -119,9 +119,9 @@ public final class Constants {
     // Example value only - as above, this must be tuned for your drive!
     // public static final double kPDriveVel = 0.00034928;
     //public static final double kPDriveVel = SmartDashboard.getNumber("KPDriveVel", 0);
-    public static final double kPDriveVel = 0.00034928;
+    public static final double kPDriveVel = 0.00062218;
 
-    public static final double kTrackwidthMeters = 0.5842;
+    public static final double kTrackwidthMeters = 0.635;
     public static final DifferentialDriveKinematics kDriveKinematics =
         new DifferentialDriveKinematics(kTrackwidthMeters);
 
