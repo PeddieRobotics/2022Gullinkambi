@@ -97,13 +97,9 @@ public class Climber extends SubsystemBase {
 
   @Override
   public void periodic() {
-    //SmartDashboard.putBoolean("Climber sensor state", climber.armSensorState());
-    //SmartDashboard.putNumber("Climber encoder", climber.getEncoderPosition());
   }
 
-  public void putSmartDashboardOverrides(){
-    //SmartDashboard.putNumber("Climber encoder", climber.getEncoderPosition());
-  
+  public void putSmartDashboardOverrides(){  
     SmartDashboard.putNumber("OR: Climber power", 0);
     SmartDashboard.putNumber("OR: Climber coast", 0);
 
@@ -123,7 +119,6 @@ public class Climber extends SubsystemBase {
   }
 
   public void updateClimberFromDashboard() {
-    climber.run(SmartDashboard.getNumber("OR: Climber power",0));
     if(SmartDashboard.getBoolean("OR: Climber coast", false)){
       climber.setCoast();
     }
@@ -140,7 +135,9 @@ public class Climber extends SubsystemBase {
     if(armSensorState()){
       setEncoderPosition(0);
     }
-    moveToPosition(SmartDashboard.getNumber("OR: Climber setpoint", 0.0));
+    climber.run(SmartDashboard.getNumber("OR: Climber power",0));
+
+    // moveToPosition(SmartDashboard.getNumber("OR: Climber setpoint", 0.0));
 
   }
 }
