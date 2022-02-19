@@ -43,7 +43,7 @@ public class Robot extends TimedRobot {
     robotContainer.setDrivetrainToCoastMode();
     robotContainer.calibrateGyro();
     robotContainer.setupSmartDashboard();
-   
+
     lights = Lights.getInstance();
   }
 
@@ -123,9 +123,6 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    if (SmartDashboard.getBoolean("Allow overrides", false)) {
-      robotContainer.testAllSystems();
-    }
   }
 
   @Override
