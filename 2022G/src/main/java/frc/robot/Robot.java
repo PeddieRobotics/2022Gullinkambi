@@ -87,6 +87,7 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().cancelAll();
     robotContainer.resetGyro();
     robotContainer.setDrivetrainToCoastMode();
+    robotContainer.stopAllSystems();
     robotContainer.setupSmartDashboard();
   }
 

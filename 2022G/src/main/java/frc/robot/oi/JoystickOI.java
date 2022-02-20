@@ -3,7 +3,7 @@ package frc.robot.oi;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.IntakeCommands.StartIntake;
+import frc.robot.commands.IntakeCommands.RunIntake;
 import frc.robot.commands.IntakeCommands.StopIntake;
 import frc.robot.commands.IntakeCommands.UnjamIntake;
 import frc.robot.commands.ShootCommands.ShootWithLL;
@@ -57,8 +57,8 @@ public class JoystickOI {
   public void configureJoysticks() {
 
     // Driver joystick binds (dual joystick)
-    leftButton2.whenHeld(new UnjamIntake());
-    leftButton3.whenPressed(new StartIntake());
+    leftButton2.whenHeld(new UnjamIntake()).whenReleased(new RunIntake());
+    leftButton3.whenPressed(new RunIntake());
     leftButton4.whenPressed(new StopIntake());
     
     rightButton2.whenHeld(new ShootLayup());

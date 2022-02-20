@@ -40,12 +40,24 @@ public class Climber extends SubsystemBase {
     armSensor = new DigitalInput(2);
 
     climberPIDController = armPrimary.getPIDController();
+    climberPIDController.setOutputRange(-1, 1);
+    enablePIDController();
+  }
+
+  public void enablePIDController(){
     climberPIDController.setP(Constants.CLIMBER_P);
     climberPIDController.setI(Constants.CLIMBER_I);
     climberPIDController.setD(Constants.CLIMBER_D);
     climberPIDController.setIZone(Constants.CLIMBER_IZONE);
     climberPIDController.setFF(Constants.CLIMBER_FF);
-    climberPIDController.setOutputRange(-1, 1);
+  }
+
+  public void disablePIDController(){
+    climberPIDController.setP(0);
+    climberPIDController.setI(0);
+    climberPIDController.setD(0);
+    climberPIDController.setIZone(0);
+    climberPIDController.setFF(0);
   }
 
   public static Climber getInstance() {

@@ -24,7 +24,7 @@ public class Intake extends SubsystemBase {
     intakeSolenoid = new Solenoid(RobotMapGullinkambi.PNEUMATICS_HUB, PneumaticsModuleType.REVPH, RobotMapGullinkambi.SOLENOID_INTAKE);
     intakeMotor = new CANSparkMax(RobotMapGullinkambi.MOTOR_INTAKE, MotorType.kBrushed);
 
-    intakeMotor.setSmartCurrentLimit(30);
+    intakeMotor.setSmartCurrentLimit(Constants.INTAKE_MAX_CURRENT);
   }
 
   @Override

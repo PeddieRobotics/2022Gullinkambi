@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.ClimbCommands.ExtendArm;
 import frc.robot.commands.ClimbCommands.InitializeArm;
 import frc.robot.commands.ClimbCommands.RetractArm;
 import frc.robot.commands.DriveCommands.Drive;
@@ -94,6 +95,10 @@ public class RobotContainer {
     flywheel.putSmartDashboardOverrides();
     SmartDashboard.putData(CommandScheduler.getInstance());
 
+    SmartDashboard.putData("Reset climber", new InitializeArm());
+    SmartDashboard.putData("Extend climber", new ExtendArm());
+    SmartDashboard.putData("Retract climber", new RetractArm());
+
   }
 
   // Overrides for interfacing with robot hardware
@@ -118,6 +123,12 @@ public class RobotContainer {
     flywheel.updateFlywheelInfoOnDashboard();
     climber.updateClimberInfoOnDashboard();
     limelight.updateLimelightInfoOnDashboard();
+  }
+
+  public void stopAllSystems(){
+    intake.stopIntake();
+    hopper.stopHopper();
+    flywheel.stopFlywheel();
   }
 
   public void setDrivetrainToCoastMode() {
