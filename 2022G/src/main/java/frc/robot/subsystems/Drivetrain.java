@@ -39,9 +39,6 @@ public class Drivetrain extends SubsystemBase {
 
   private final RelativeEncoder leftEncoder, rightEncoder;
 
-  NetworkTableEntry m_xEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("X");
-  NetworkTableEntry m_yEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("Y");
-
   public Drivetrain() {
     if(Constants.IS_GULLINKAMBI){
       leftMaster = new CANSparkMax(RobotMapGullinkambi.MOTOR_DRIVE_LEFT_MASTER, MotorType.kBrushless);
@@ -95,8 +92,6 @@ public class Drivetrain extends SubsystemBase {
     rightMaster.setInverted(false);
 
     gyro = new ADIS16470_IMU();
-    //calibrateGyro();
-    //gyro.reset();
 
     odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
 
@@ -106,10 +101,6 @@ public class Drivetrain extends SubsystemBase {
   @Override
   public void periodic() {
     odometry.update(getHeadingAsRotation2d(), leftEncoder.getPosition(), rightEncoder.getPosition());
-
-    var translation = odometry.getPoseMeters().getTranslation();
-    m_xEntry.setNumber(translation.getX());
-    m_yEntry.setNumber(translation.getY());
   }
 
   @Override
@@ -129,7 +120,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public double getRightEncoderPosition() {
-    return -rightEncoder.getPosition();
+    return rightEncoder.getPosition();
   }
 
   public double getLeftEncoderVelocity() {
@@ -137,7 +128,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public double getRightEncoderVelocity() {
-    return -rightEncoder.getVelocity();
+    return rightEncoder.getVelocity();
   }
 
   public double getAverageEncoderVelocity() {
@@ -161,19 +152,21 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void updateDrivetrainInfoOnDashboard() {
-    SmartDashboard.putNumber("L enc pos", getLeftEncoderPosition());
-    SmartDashboard.putNumber("R enc pos", getRightEncoderPosition());
-    SmartDashboard.putNumber("L enc vel", getLeftEncoderVelocity());
-    SmartDashboard.putNumber("R enc vel", getRightEncoderVelocity());
+    SmartDashboard.putNumber("LDrive enc pos", getLeftEncoderPosition());
+    SmartDashboard.putNumber("RDrive enc pos", getRightEncoderPosition());
+    SmartDashboard.putNumber("LDrive enc vel", getLeftEncoderVelocity());
+    SmartDashboard.putNumber("RDrive enc vel", getRightEncoderVelocity());
     SmartDashboard.putNumber("Heading", getHeading());
     SmartDashboard.putNumber("Unbounded Heading", getUnboundedHeading());
     SmartDashboard.putNumber("Odometry X", odometry.getPoseMeters().getTranslation().getX());
     SmartDashboard.putNumber("Odometry Y", odometry.getPoseMeters().getTranslation().getY());
     SmartDashboard.putNumber("Average Velocity", getAverageEncoderVelocity());
-    SmartDashboard.putNumber("Left Encoder Velocity", getLeftEncoderVelocity());
-    SmartDashboard.putNumber("Right Encoder Velocity", getRightEncoderVelocity());
     SmartDashboard.putNumber("Left wheel speeds", getWheelSpeeds().leftMetersPerSecond);
     SmartDashboard.putNumber("Right wheel speeds", getWheelSpeeds().rightMetersPerSecond);
+    SmartDashboard.putNumber("LDrive master AMPS", leftMaster.getOutputCurrent());
+    SmartDashboard.putNumber("RDrive master AMPS", rightMaster.getOutputCurrent());
+    SmartDashboard.putNumber("LDrive power", leftMaster.get());
+    SmartDashboard.putNumber("RDrive power", rightMaster.get());
 
   }
 

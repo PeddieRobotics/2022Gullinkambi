@@ -42,7 +42,6 @@ public class Autonomous extends SubsystemBase {
         autoRoutineSelector = new SendableChooser<Command>();
 
         m_drivetrain = Drivetrain.getInstance();
-        m_drivetrain.setDefaultCommand(new Drive());
 
         autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
                 new SimpleMotorFeedforward(
@@ -106,9 +105,8 @@ public class Autonomous extends SubsystemBase {
         test = 
         TrajectoryGenerator.generateTrajectory(
             new Pose2d(0, 0, new Rotation2d(Math.toRadians(0))),
-            List.of(new Translation2d(1, 0)),
-            new Pose2d(2, 0, new Rotation2d(Math.toRadians(0))),
-            // Pass config12
+            List.of(new Translation2d(1, 0), new Translation2d(3, 0)),
+            new Pose2d(4, 0, new Rotation2d(Math.toRadians(0))),
             configForward
         );
         // test = getTransformedTrajectory(test);
@@ -123,16 +121,15 @@ public class Autonomous extends SubsystemBase {
             ),
             // End 3 meters straight ahead of where we started, facing forward
             new Pose2d(3, 0, new Rotation2d(0)),
-            // Pass config
             configForward
         );
         System.out.println(test2);
         // test = getTransformedTrajectory(test);
     }
-
+ 
     public SplitFFRamseteCommand createCommandFromTrajectory(Trajectory trajectory){
-        RamseteController m_ramseteController = new RamseteController();
-        // m_ramseteController.setEnabled(false);
+        var ramseteController = new RamseteController();
+        //ramseteController.setEnabled(false);
         var leftController = new PIDController(Constants.kPDriveVel, 0, 0);
         var rightController = new PIDController(Constants.kPDriveVel, 0, 0);
         var table = NetworkTableInstance.getDefault().getTable("troubleshooting");
@@ -145,8 +142,7 @@ public class Autonomous extends SubsystemBase {
           new SplitFFRamseteCommand(
               trajectory,
               m_drivetrain::getPose,
-            //   new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
-                m_ramseteController, //NEED TO CHANGE BACK TO: new RamseteController(),
+              ramseteController,
               new SimpleMotorFeedforward(
                 Constants.ksVolts,
                 Constants.kvVoltSecondsPerMeter,
@@ -157,18 +153,15 @@ public class Autonomous extends SubsystemBase {
                 Constants.kaVoltSecondsSquaredPerMeter),
               Constants.kDriveKinematics,
               m_drivetrain::getWheelSpeeds,
-            //   new PIDController(SmartDashboard.getNumber("KPDriveVel", 0), 0, 0),
-            //   new PIDController(SmartDashboard.getNumber("KPDriveVel", 0), 0, 0),
             leftController,
             rightController,
               // RamseteCommand passes volts to the callback
-              //m_drivetrain::tankDriveVolts,
               (leftVolts, rightVolts) -> {
                   m_drivetrain.tankDriveVolts(leftVolts, rightVolts);
                   leftMeasurement.setNumber(m_drivetrain.getWheelSpeeds().leftMetersPerSecond);
                   leftReference.setNumber(leftController.getSetpoint());
 
-                  rightMeasurement.setNumber(-m_drivetrain.getWheelSpeeds().rightMetersPerSecond); //PUT A NEGATIVE HERE, REMINDER TO FIX 2/7
+                  rightMeasurement.setNumber(m_drivetrain.getWheelSpeeds().rightMetersPerSecond);
                   rightReference.setNumber(rightController.getSetpoint());
               },
               m_drivetrain);
