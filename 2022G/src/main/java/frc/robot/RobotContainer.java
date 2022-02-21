@@ -81,7 +81,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     drivetrain.resetPose(new Pose2d(0.0, 0.0, new Rotation2d(0.0)), new Rotation2d(0.0));
-    // needs to be merged/fixed from autonomous work in 2022Preseason repo
     return autonomous.returnAutonomousCommand();
   }
 
