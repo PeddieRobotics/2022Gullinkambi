@@ -136,15 +136,9 @@ public class UpdateLogs {
     }
 
     public void updateIntakeLogData(){
-        Logger.getInstance().recordOutput("CompressorPressure", m_intake.getCompressorPressure());
         Logger.getInstance().recordOutput("Intake/IntakeSolenoidOn", m_intake.getSolenoidState());
 
-        //EncoderData
-        Logger.getInstance().recordOutput("Intake/IntakeMotorEncoderVelocity", m_intake.getIntakeEncoderVelocity());
-        Logger.getInstance().recordOutput("Intake/IntakeMotorEncoderCurrent", m_intake.getIntakeEncoderPosition());
-
         //Intake Motor Data
-        Logger.getInstance().recordOutput("Intake/IntakeMotorVelocity", m_intake.getIntakeVelocity());
         Logger.getInstance().recordOutput("Intake/IntakeMotorCurrent", m_intake.getIntakeCurrent());
         Logger.getInstance().recordOutput("Intake/IntakeMotorTemperature", m_intake.getIntakeMotorTemperature());
     }

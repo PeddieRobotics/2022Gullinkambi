@@ -18,7 +18,6 @@ public class Intake extends SubsystemBase {
 
   private static Intake intake;
 
-  private Compressor compressor;
   private Solenoid intakeSolenoid;
   private CANSparkMax intakeMotor;
 
@@ -105,26 +104,11 @@ public class Intake extends SubsystemBase {
     return intakeSolenoid.get();
   }
 
-  public double getIntakeVelocity() {
-    return intakeMotor.get();
-  }
-
   public double getIntakeCurrent(){
     return intakeMotor.getOutputCurrent();
   }
 
   public double getIntakeMotorTemperature(){
     return intakeMotor.getMotorTemperature();
-  }
-  public double getIntakeEncoderVelocity(){
-        return intakeMotor.getEncoder().getVelocity();
-  }
-
-  public double getIntakeEncoderPosition(){
-      return intakeMotor.getEncoder().getPosition();
-  }
-  
-  public double getCompressorPressure(){
-    return compressor.getPressure();
   }
 }
