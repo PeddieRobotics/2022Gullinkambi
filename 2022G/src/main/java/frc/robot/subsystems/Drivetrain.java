@@ -120,7 +120,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public double getRightEncoderPosition() {
-    return rightEncoder.getPosition();
+    return -rightEncoder.getPosition();
   }
 
   public double getLeftEncoderVelocity() {
@@ -128,7 +128,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public double getRightEncoderVelocity() {
-    return rightEncoder.getVelocity();
+    return -rightEncoder.getVelocity();
   }
 
   public double getAverageEncoderVelocity() {
@@ -258,8 +258,8 @@ public class Drivetrain extends SubsystemBase {
    * @param rightVolts the commanded right output
    */
   public void tankDriveVolts(double leftVolts, double rightVolts) {
-    leftMotors.setVoltage(leftVolts);
-    rightMotors.setVoltage(rightVolts);
+    leftMotors.setVoltage(rightVolts);
+    rightMotors.setVoltage(leftVolts);
     drive.feed();
   }
 

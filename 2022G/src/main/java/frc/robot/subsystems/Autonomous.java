@@ -35,7 +35,7 @@ public class Autonomous extends SubsystemBase {
     private SendableChooser<Command> autoRoutineSelector;
     private Hashtable<String,Command> autoRoutines;
 
-    private Trajectory test, test2;
+    private Trajectory test, test2, test3;
 
     public Autonomous() {
         autoRoutines = new Hashtable<String,Command>();
@@ -95,6 +95,7 @@ public class Autonomous extends SubsystemBase {
     public void setupAutoRoutines() {
         autoRoutines.put("Test Path", createCommandFromTrajectory(test));
         autoRoutines.put("Test Path 2", createCommandFromTrajectory(test2));
+        autoRoutines.put("Test Path 3", createCommandFromTrajectory(test3));
     }
 
     public Command returnAutonomousCommand() {
@@ -105,8 +106,8 @@ public class Autonomous extends SubsystemBase {
         test = 
         TrajectoryGenerator.generateTrajectory(
             new Pose2d(0, 0, new Rotation2d(Math.toRadians(0))),
-            List.of(new Translation2d(1, 0), new Translation2d(3, 0)),
-            new Pose2d(4, 0, new Rotation2d(Math.toRadians(0))),
+            List.of(new Translation2d(1, 0)),
+            new Pose2d(2, 0, new Rotation2d(Math.toRadians(0))),
             configForward
         );
         // test = getTransformedTrajectory(test);
@@ -116,14 +117,29 @@ public class Autonomous extends SubsystemBase {
             new Pose2d(0, 0, new Rotation2d(0)),
             // Pass through these two interior waypoints, making an 's' curve path
             List.of(
-                new Translation2d(1, 1),
-                new Translation2d(2, -1)
+                new Translation2d(1, -1),
+                new Translation2d(2, 1),
+                new Translation2d(3, 0)
             ),
             // End 3 meters straight ahead of where we started, facing forward
-            new Pose2d(3, 0, new Rotation2d(0)),
+            new Pose2d(4, 0, new Rotation2d(0)),
             configForward
         );
-        System.out.println(test2);
+
+                test3 = 
+        TrajectoryGenerator.generateTrajectory(
+            new Pose2d(0, 0, new Rotation2d(0)),
+            // Pass through these two interior waypoints, making an 's' curve path
+            List.of(
+                new Translation2d(-1, 0.5),
+                new Translation2d(-1.5, 1),
+                new Translation2d(-2, 1.5),
+                new Translation2d(-3, 2)
+            ),
+            // End 3 meters straight ahead of where we started, facing forward
+            new Pose2d(-3,3, new Rotation2d(Math.toRadians(-90))),
+            configBackwards
+        );
         // test = getTransformedTrajectory(test);
     }
  
