@@ -11,10 +11,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.ClimbCommands.ExtendArm;
 import frc.robot.commands.ClimbCommands.InitializeArm;
 import frc.robot.commands.ClimbCommands.RetractArm;
 import frc.robot.commands.DriveCommands.Drive;
 import frc.robot.commands.IntakeCommands.IndexCargo;
+import frc.robot.commands.ShootCommands.RevUpFlywheel;
 import frc.robot.subsystems.Autonomous;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
@@ -64,7 +66,7 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(new Drive());
     intake.register();
     hopper.setDefaultCommand(new IndexCargo());
-    flywheel.register();
+    flywheel.setDefaultCommand(new RevUpFlywheel());
     climber.register();
     limelight.register();
 
@@ -79,7 +81,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     drivetrain.resetPose(new Pose2d(0.0, 0.0, new Rotation2d(0.0)), new Rotation2d(0.0));
-    // needs to be merged/fixed from autonomous work in 2022Preseason repo
     return autonomous.returnAutonomousCommand();
   }
 
@@ -92,6 +93,10 @@ public class RobotContainer {
     climber.putSmartDashboardOverrides();
     flywheel.putSmartDashboardOverrides();
     SmartDashboard.putData(CommandScheduler.getInstance());
+
+    SmartDashboard.putData("Reset climber", new InitializeArm());
+    SmartDashboard.putData("Extend climber", new ExtendArm());
+    SmartDashboard.putData("Retract climber", new RetractArm());
 
   }
 
@@ -117,6 +122,12 @@ public class RobotContainer {
     flywheel.updateFlywheelInfoOnDashboard();
     climber.updateClimberInfoOnDashboard();
     limelight.updateLimelightInfoOnDashboard();
+  }
+
+  public void stopAllSystems(){
+    intake.stopIntake();
+    hopper.stopHopper();
+    flywheel.stopFlywheel();
   }
 
   public void setDrivetrainToCoastMode() {

@@ -43,12 +43,24 @@ public class Climber extends SubsystemBase {
     armSensor = new DigitalInput(2);
 
     climberPIDController = armMotor1.getPIDController();
+    climberPIDController.setOutputRange(-1, 1);
+    enablePIDController();
+  }
+
+  public void enablePIDController(){
     climberPIDController.setP(Constants.CLIMBER_P);
     climberPIDController.setI(Constants.CLIMBER_I);
     climberPIDController.setD(Constants.CLIMBER_D);
     climberPIDController.setIZone(Constants.CLIMBER_IZONE);
     climberPIDController.setFF(Constants.CLIMBER_FF);
-    climberPIDController.setOutputRange(0, 1);
+  }
+
+  public void disablePIDController(){
+    climberPIDController.setP(0);
+    climberPIDController.setI(0);
+    climberPIDController.setD(0);
+    climberPIDController.setIZone(0);
+    climberPIDController.setFF(0);
   }
   
   public static Climber getInstance(){
@@ -136,6 +148,9 @@ public class Climber extends SubsystemBase {
   }
 
   public boolean sensesArm(){
+    if(armSensorState()){
+      setEncoderPosition(0);
+    }
     return armSensor.get();
   }
 
@@ -143,13 +158,18 @@ public class Climber extends SubsystemBase {
     SmartDashboard.putNumber("OR: Climber power", 0);
     SmartDashboard.putNumber("OR: Climber coast", 0);
 
-    SmartDashboard.putNumber("OR: P climber", 0);
-    SmartDashboard.putNumber("OR: I climber", 0);
-    SmartDashboard.putNumber("OR: D climber", 0);
-    SmartDashboard.putNumber("OR: I zone climber", 0);
-    SmartDashboard.putNumber("OR: FF climber", 0);
+    SmartDashboard.putNumber("OR: P climber", Constants.CLIMBER_P);
+    SmartDashboard.putNumber("OR: I climber", Constants.CLIMBER_I);
+    SmartDashboard.putNumber("OR: D climber", Constants.CLIMBER_D);
+    SmartDashboard.putNumber("OR: I zone climber", Constants.CLIMBER_IZONE);
+    SmartDashboard.putNumber("OR: FF climber", Constants.CLIMBER_FF);
 
-    SmartDashboard.putNumber("OR: Climber setpoint", climber.getEncoderPosition());
+    if(climber.getEncoderPosition() <= 0){
+      SmartDashboard.putNumber("OR: Climber setpoint", climber.getEncoderPosition());
+    }
+    else{
+      SmartDashboard.putNumber("OR: Climber setpoint", 0.0);
+    }
   }
 
   public void updateClimberInfoOnDashboard(){
@@ -175,9 +195,9 @@ public class Climber extends SubsystemBase {
     if(armSensorState()){
       setEncoderPosition(0);
     }
-    climber.run(SmartDashboard.getNumber("OR: Climber power",0));
+    //climber.run(SmartDashboard.getNumber("OR: Climber power",0));
 
-    // moveToPosition(SmartDashboard.getNumber("OR: Climber setpoint", 0.0));
+    moveToPosition(SmartDashboard.getNumber("OR: Climber setpoint", 0.0));
 
   }
 }

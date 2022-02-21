@@ -20,7 +20,7 @@ public class ShootLow extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    flywheel.setHood(false); // no hood for low shot
+    flywheel.setHood(true); // no hood for low shot
     flywheel.setShooterLock(true);
 
     flywheel.runFlywheelSetpoint(SmartDashboard.getNumber("Teleop: Flywheel shoot low RPM", Constants.FLYWHEEL_RPM_LOW));

@@ -3,7 +3,7 @@ package frc.robot.oi;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.IntakeCommands.StartIntake;
+import frc.robot.commands.IntakeCommands.RunIntake;
 import frc.robot.commands.IntakeCommands.StopIntake;
 import frc.robot.commands.IntakeCommands.UnjamIntake;
 import frc.robot.commands.ShootCommands.ShootWithLL;
@@ -57,8 +57,8 @@ public class JoystickOI {
   public void configureJoysticks() {
 
     // Driver joystick binds (dual joystick)
-    leftButton2.whenPressed(new UnjamIntake());
-    leftButton3.whenPressed(new StartIntake());
+    leftButton2.whenHeld(new UnjamIntake()).whenReleased(new RunIntake());
+    leftButton3.whenPressed(new RunIntake());
     leftButton4.whenPressed(new StopIntake());
     
     rightButton2.whenHeld(new ShootLayup());
@@ -75,6 +75,7 @@ public class JoystickOI {
     return rightJoystick.getRawAxis(0);
   }
 
+  
   public boolean getInverseMode() {
     // checks if left trigger is pressed (left trigger id is 1)
     SmartDashboard.putBoolean("isLeftTriggerPressed", leftJoystick.getRawButton(1));

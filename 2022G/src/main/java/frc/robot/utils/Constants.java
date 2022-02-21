@@ -24,8 +24,8 @@ public final class Constants {
   public static final boolean IS_GULLINKAMBI = true;
   
 //uncommment whichever one you want to use & comment the rest
-  //public static final OIConfig OI_CONFIG = OIConfig.COMPETITION; 
-  public static final OIConfig OI_CONFIG = OIConfig.XBOX_TEST;
+  public static final OIConfig OI_CONFIG = OIConfig.COMPETITION; 
+  // public static final OIConfig OI_CONFIG = OIConfig.XBOX_TEST;
   //public static final OIConfig OI_CONFIG = OIConfig.JOYSTICK_TEST;
 
 
@@ -40,6 +40,7 @@ public final class Constants {
   public static final double TURN_MULTIPLIER = 1;
 
   // Intake constants
+  public static final int INTAKE_MAX_CURRENT = 30; // amps
   public static final double INTAKE_SPEED = 0.5;
 
   // Hopper constants
@@ -56,9 +57,10 @@ public final class Constants {
   public static final double FLYWHEEL_FF = 0.000186;
   public static final double FLYWHEEL_IZONE = 100;
 
-  public static final double FLYWHEEL_RPM_SHOOTLL = 2800;
-  public static final double FLYWHEEL_RPM_LAYUP = 2500;
-  public static final double FLYWHEEL_RPM_LOW = 2000;
+  public static final double FLYWHEEL_RPM_SHOOTLL = 3100;
+  public static final double FLYWHEEL_RPM_LAYUP = 2600;
+  public static final double FLYWHEEL_RPM_LOW = 1500;
+  public static final double FLYWHEEL_RPM_REV_UP = 1500;
 
   public static final double FLYWHEEL_THRESHOLD_LAYUP = 100;
   public static final double FLYWHEEL_THRESHOLD_LOW = 100;
@@ -68,14 +70,14 @@ public final class Constants {
   public static final double FLYWHEEL_MAX_RPM = 4000;
 
   // Climber constants
-  public static final double CLIMBER_MAX_ENCODER_POSITION = 0;
-  public static final double CLIMBER_P = 0.0;
-  public static final double CLIMBER_I = 0.0;
+  public static final double CLIMBER_TOP_ENCODER_POSITION = -116;
+  public static final double CLIMBER_P = 0.3;
+  public static final double CLIMBER_I = 0.00001;
   public static final double CLIMBER_D = 0.0;
   public static final double CLIMBER_FF = 0.0;
-  public static final double CLIMBER_IZONE = 200;
+  public static final double CLIMBER_IZONE = 10;
 
-  public static final int CLIMBER_MAX_CURRENT = 30;
+  public static final int CLIMBER_MAX_CURRENT = 60;
 
   public static final double LL_P = -0.0033;
   public static final double LL_I = 0.0000001;
@@ -97,7 +99,7 @@ public final class Constants {
     XBOX_TEST, JOYSTICK_TEST, COMPETITION
   }
 
-  public static final double DRIVE_GEAR_RATIO = 7.3688888;
+  public static final double DRIVE_GEAR_RATIO = 7.6388888;
   public static final double CONVERT_INCHES_TO_METERS = 0.0254;
   public static final double DRIVE_WHEEL_DIAMETER = 4.0 * Constants.CONVERT_INCHES_TO_METERS;
 
@@ -108,27 +110,20 @@ public final class Constants {
 
     // The Robot Characterization Toolsuite provides a convenient tool for obtaining these
     // values for your robot.
-    public static final double ksVolts = 0.13563;
-    public static final double kvVoltSecondsPerMeter = 2.3576;
-    public static final double kaVoltSecondsSquaredPerMeter = 0.21274;
+    public static final double ksVolts = 0.15991;
+    public static final double kvVoltSecondsPerMeter = 2.9997;
+    public static final double kaVoltSecondsSquaredPerMeter = 0.23926;
 
+    public static final double kPDriveVel = 0.0005;
 
-      // These are example values only - DO NOT USE THESE FOR YOUR OWN ROBOT!
-    // These characterization values MUST be determined either experimentally or theoretically
-    // for *your* robot's drive.
-    // Example value only - as above, this must be tuned for your drive!
-    // public static final double kPDriveVel = 0.00034928;
-    //public static final double kPDriveVel = SmartDashboard.getNumber("KPDriveVel", 0);
-    public static final double kPDriveVel = 0.00034928;
-
-    public static final double kTrackwidthMeters = 0.5842;
+    public static final double kTrackwidthMeters = 0.597;
     public static final DifferentialDriveKinematics kDriveKinematics =
         new DifferentialDriveKinematics(kTrackwidthMeters);
 
-    public static final double kMaxSpeedMetersPerSecond = 1.2;
-    public static final double kMaxAccelerationMetersPerSecondSquared = 1.2;
+    public static final double kMaxSpeedMetersPerSecond = 1;
+    public static final double kMaxAccelerationMetersPerSecondSquared = 1;
 
-    // Reasonable baseline values for a RAMSET0E follower in units of meters and seconds
+    // Reasonable baseline values for a RAMSETE follower in units of meters and seconds
     public static final double kRamseteB = 2;
     public static final double kRamseteZeta = .7;
 }
