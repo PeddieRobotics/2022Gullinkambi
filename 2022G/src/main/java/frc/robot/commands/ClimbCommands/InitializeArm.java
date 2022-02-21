@@ -7,22 +7,31 @@ import frc.robot.subsystems.Climber;
 /** An example command that uses an example subsystem. */
 public class InitializeArm extends CommandBase {
   private Climber climber;
+  boolean firstMovementDownward;
 
   public InitializeArm() {
     climber = Climber.getInstance();
     addRequirements(climber);
+
+    firstMovementDownward = false;
 
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-      climber.run(0.25);
+    if(climber.armSensorState()){
+      climber.run(-0.25);
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if(!climber.armSensorState()){
+      climber.run(0.25);
+      firstMovementDownward = true;
+    }
   }
 
   // Called once the command ends or is interrupted.
@@ -36,6 +45,6 @@ public class InitializeArm extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return climber.armSensorState();
+    return (climber.armSensorState() && firstMovementDownward);
   }
 }
