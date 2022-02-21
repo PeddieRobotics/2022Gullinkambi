@@ -4,6 +4,8 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 
+import com.pathplanner.lib.PathPlanner;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
@@ -35,7 +37,7 @@ public class Autonomous extends SubsystemBase {
     private SendableChooser<Command> autoRoutineSelector;
     private Hashtable<String,Command> autoRoutines;
 
-    private Trajectory test, test2, test3;
+    private Trajectory test, test2, test3, sPathTest;
 
     public Autonomous() {
         autoRoutines = new Hashtable<String,Command>();
@@ -96,6 +98,7 @@ public class Autonomous extends SubsystemBase {
         autoRoutines.put("Test Path", createCommandFromTrajectory(test));
         autoRoutines.put("Test Path 2", createCommandFromTrajectory(test2));
         autoRoutines.put("Test Path 3", createCommandFromTrajectory(test3));
+        autoRoutines.put("Spath", createCommandFromTrajectory(sPathTest));
     }
 
     public Command returnAutonomousCommand() {
@@ -141,6 +144,8 @@ public class Autonomous extends SubsystemBase {
             configBackwards
         );
         // test = getTransformedTrajectory(test);
+
+        sPathTest = getTransformedTrajectory(PathPlanner.loadPath("SPathTest", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared));
     }
  
     public SplitFFRamseteCommand createCommandFromTrajectory(Trajectory trajectory){
