@@ -109,6 +109,9 @@ public class Climber extends SubsystemBase {
 
   @Override
   public void periodic() {
+    if(armSensorState()){
+      setEncoderPosition(0);
+    }
   }
 
   public void putSmartDashboardOverrides(){  

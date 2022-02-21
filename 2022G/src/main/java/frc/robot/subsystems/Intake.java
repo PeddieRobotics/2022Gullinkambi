@@ -40,9 +40,7 @@ public class Intake extends SubsystemBase {
   }
 
   public void setIntakeSpeed(double intakeSpeed) {
-    if (getIntakeSolenoid()) {
-      intakeMotor.set(intakeSpeed);
-    }
+    intakeMotor.set(intakeSpeed);
   }
 
   public double getIntakeSpeed() {

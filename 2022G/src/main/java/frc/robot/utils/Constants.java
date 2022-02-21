@@ -58,8 +58,8 @@ public final class Constants {
   public static final double FLYWHEEL_IZONE = 100;
 
   public static final double FLYWHEEL_RPM_SHOOTLL = 2800;
-  public static final double FLYWHEEL_RPM_LAYUP = 2500;
-  public static final double FLYWHEEL_RPM_LOW = 2000;
+  public static final double FLYWHEEL_RPM_LAYUP = 2400;
+  public static final double FLYWHEEL_RPM_LOW = 1500;
   public static final double FLYWHEEL_RPM_REV_UP = 1500;
 
   public static final double FLYWHEEL_THRESHOLD_LAYUP = 100;
@@ -70,7 +70,7 @@ public final class Constants {
   public static final double FLYWHEEL_MAX_RPM = 4000;
 
   // Climber constants
-  public static final double CLIMBER_TOP_ENCODER_POSITION = -105;
+  public static final double CLIMBER_TOP_ENCODER_POSITION = -116;
   public static final double CLIMBER_P = 0.3;
   public static final double CLIMBER_I = 0.00001;
   public static final double CLIMBER_D = 0.0;

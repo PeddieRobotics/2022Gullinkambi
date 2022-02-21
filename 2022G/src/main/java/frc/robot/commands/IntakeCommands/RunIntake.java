@@ -17,10 +17,10 @@ import frc.robot.utils.Constants;
 public class RunIntake extends CommandBase {
 
   private Intake intake;
-  private Hopper hopper;
   private Flywheel flywheel;
+  private Hopper hopper;
 
-  /** Creates a new StartIntake. */
+  /** Creates a new RunIntake. */
   public RunIntake() {
     intake = Intake.getInstance();
     hopper = Hopper.getInstance();
@@ -32,28 +32,27 @@ public class RunIntake extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    flywheel.stopFlywheel();
     intake.setIntakeSolenoid(true);
+    intake.setIntakeSpeed(SmartDashboard.getNumber("Teleop: Intake speed", Constants.INTAKE_SPEED));
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.setIntakeSpeed(SmartDashboard.getNumber("Teleop: Intake speed", Constants.INTAKE_SPEED));
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intake.stopIntake();
-    // Rev up the flywheel ONLY if this command is ending from a double sensor trigger
-    if((hopper.sensesBallBottom() && hopper.sensesBallTop())){
-      flywheel.runFlywheelSetpoint(Constants.FLYWHEEL_RPM_REV_UP);
-    }
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (hopper.sensesBallBottom() && hopper.sensesBallTop()); 
+    if (hopper.sensesBallBottom() && hopper.sensesBallTop()){
+      return false;
+    }
+    return true;
   }
 }
