@@ -41,11 +41,11 @@ public final class Constants {
 
   // Intake constants
   public static final int INTAKE_MAX_CURRENT = 30; // amps
-  public static final double INTAKE_SPEED = 0.5;
+  public static final double INTAKE_SPEED = 1.0;
 
   // Hopper constants
   public static final int HOPPER_MAX_CURRENT = 30; // amps
-  public static final double HOPPER_SPEED = 0.5;
+  public static final double HOPPER_SPEED = 0.8;
   public static final double LOWER_SENSOR_INPUT_THRESHOLD = 0.99;
 
   // Flywheel constants
@@ -57,8 +57,7 @@ public final class Constants {
   public static final double FLYWHEEL_FF = 0.000186;
   public static final double FLYWHEEL_IZONE = 100;
 
-  public static final double FLYWHEEL_RPM_SHOOTLL = 3100;
-  public static final double FLYWHEEL_RPM_LAYUP = 2600;
+  public static final double FLYWHEEL_RPM_LAYUP = 2350;
   public static final double FLYWHEEL_RPM_LOW = 1500;
   public static final double FLYWHEEL_RPM_REV_UP = 1500;
 
@@ -87,8 +86,8 @@ public final class Constants {
   public static final double LL_PANNING = 0;
   public static final double TARGET_HEIGHT = 104;
   
-  public static final double [] LL_DIST = new double[]{100,150,200};
-  public static final double [] RPMS = new double[]{2800,3000,3200};
+  public static final double [] LL_DIST = new double[]{100,125,150,175,200};
+  public static final double [] RPMS = new double[]{2200,2350,2500,2600,2800};
   public static LookupTable DIST_TO_RPM = new LookupTable(LL_DIST, RPMS);
 
   // OI constants

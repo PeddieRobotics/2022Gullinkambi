@@ -12,7 +12,7 @@ public class ShootWithLL extends CommandBase {
   private Flywheel flywheel;
   private Hopper hopper;
   private Limelight limelight;
-  private double RPM;
+  private double rpm;
 
   public ShootWithLL() {
     flywheel = Flywheel.getInstance();
@@ -25,25 +25,20 @@ public class ShootWithLL extends CommandBase {
   @Override
   public void initialize() {
     flywheel.setHood(true); // turn hood on for shoot far with high speed
-    flywheel.setShooterLock(true);
-    RPM = Constants.DIST_TO_RPM.get(limelight.getDistance());
+    flywheel.runFlywheelSetpoint(rpm + SmartDashboard.getNumber("Teleop: shootLL RPM delta", 0));
+    hopper.runHopper(SmartDashboard.getNumber("Teleop: Hopper speed", Constants.HOPPER_SPEED));
 
-    if (SmartDashboard.getNumber("Teleop: Flywheel shootLL RPM", 0) == 0) {
-      flywheel.runFlywheelSetpoint(RPM);
-    } else {
-      flywheel.runFlywheelSetpoint(SmartDashboard.getNumber("Teleop: Flywheel shootLL RPM", 0));
-    }
+    rpm = Constants.DIST_TO_RPM.get(limelight.getDistance());
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     // Check whether the speed of flywheel is good enough to shoot
-    if (flywheel.isAtRPM(
-        SmartDashboard.getNumber("Teleop: Flywheel shoot LL threshold", Constants.FLYWHEEL_THRESHOLD_SHOOTLL))) {
-      hopper.runHopper(SmartDashboard.getNumber("Teleop: Hopper speed", Constants.HOPPER_SPEED));
+    if (flywheel.isAtRPM(SmartDashboard.getNumber("Teleop: Flywheel shoot LL threshold", Constants.FLYWHEEL_THRESHOLD_SHOOTLL))) {
+      flywheel.setShooterLock(true);
     } else {
-      hopper.stopHopper();
+      flywheel.setShooterLock(false);
     }
 
   }
@@ -51,7 +46,6 @@ public class ShootWithLL extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    System.out.println("SHOOT FAR INTERRUPTED");
     hopper.stopHopper();
     flywheel.stopFlywheel();
     flywheel.setHood(false);
