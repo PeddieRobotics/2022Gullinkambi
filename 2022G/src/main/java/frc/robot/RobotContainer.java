@@ -85,8 +85,6 @@ public class RobotContainer {
   }
 
   public void setupSmartDashboard() {
-    // Leave drivetrain overrides disabled by default, they can be dangerous and are not needed in normal operation
-    //drivetrain.putSmartDashboardOverrides();
     intake.putSmartDashboardOverrides();
     hopper.putSmartDashboardOverrides();
     limelight.putSmartDashboardOverrides();

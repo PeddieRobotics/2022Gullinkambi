@@ -20,7 +20,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.SplitFFRamseteCommand;
-import frc.robot.commands.DriveCommands.Drive;
 import frc.robot.utils.Constants;
 
 public class Autonomous extends SubsystemBase {
@@ -110,7 +109,6 @@ public class Autonomous extends SubsystemBase {
             new Pose2d(2, 0, new Rotation2d(Math.toRadians(0))),
             configForward
         );
-        // test = getTransformedTrajectory(test);
 
         test2 = 
         TrajectoryGenerator.generateTrajectory(
@@ -126,7 +124,7 @@ public class Autonomous extends SubsystemBase {
             configForward
         );
 
-                test3 = 
+        test3 = 
         TrajectoryGenerator.generateTrajectory(
             new Pose2d(0, 0, new Rotation2d(0)),
             // Pass through these two interior waypoints, making an 's' curve path
@@ -140,12 +138,10 @@ public class Autonomous extends SubsystemBase {
             new Pose2d(-3,3, new Rotation2d(Math.toRadians(-90))),
             configBackwards
         );
-        // test = getTransformedTrajectory(test);
     }
  
     public SplitFFRamseteCommand createCommandFromTrajectory(Trajectory trajectory){
         var ramseteController = new RamseteController();
-        //ramseteController.setEnabled(false);
         var leftController = new PIDController(Constants.kPDriveVel, 0, 0);
         var rightController = new PIDController(Constants.kPDriveVel, 0, 0);
         var table = NetworkTableInstance.getDefault().getTable("troubleshooting");
@@ -187,8 +183,6 @@ public class Autonomous extends SubsystemBase {
     public Trajectory getTransformedTrajectory(Trajectory t){
         Pose2d newOrigin = t.getInitialPose();
         Trajectory transformed = t.relativeTo(newOrigin);
-        // Transform2d transform = new Pose2d(0,0, Rotation2d.fromDegrees(0)).minus(t.getInitialPose());
-        // Trajectory transformed = t.transformBy(transform);
         return transformed;
     }
 
