@@ -27,8 +27,6 @@ public class RetractArm extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    climber.run(0);
-    climber.enablePIDController();
     climber.moveToPosition(0); // Hold at encoder position 0
   }
 

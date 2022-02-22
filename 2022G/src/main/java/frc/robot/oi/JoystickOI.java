@@ -61,11 +61,10 @@ public class JoystickOI {
     // Driver joystick binds (dual joystick)
     leftTrigger.toggleWhenPressed(new ConditionalCommand(new StopIntake(), new RunIntake(), intake::getIntakeSolenoid));
     leftButton2.toggleWhenPressed(new ConditionalCommand(new InstantCommand(drivetrain::setToRegularMode, drivetrain), new InstantCommand(drivetrain::setToInverseMode, drivetrain), drivetrain::isInverseMode));
-
-    leftButton4.whenHeld(new ExtendArm()).whenReleased(new RetractArm());
     
     rightTrigger.whenHeld(new ShootLayup());
     rightButton2.whenHeld(new ParallelCommandGroup(new Target(), new ShootWithLL()));
+    rightButton3.whenHeld(new ExtendArm()).whenReleased(new RetractArm());
     rightButton4.whenHeld(new Target());
   }
 
