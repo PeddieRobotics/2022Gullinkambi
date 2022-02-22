@@ -90,6 +90,14 @@ public class RobotContainer {
     limelight.putSmartDashboardOverrides();
     climber.putSmartDashboardOverrides();
     flywheel.putSmartDashboardOverrides();
+    SmartDashboard.putString("Mode", Constants.OI_CONFIG.toString());
+    SmartDashboard.putData(CommandScheduler.getInstance());
+
+    SmartDashboard.putNumber("LL P", Constants.LL_P);
+    SmartDashboard.putNumber("LL I", Constants.LL_I);
+    SmartDashboard.putNumber("LL D", Constants.LL_D);
+    SmartDashboard.putNumber("LL FF", Constants.LL_FF);
+    SmartDashboard.putNumber("LL ANGLE BOUND", Constants.LL_ANGLE_BOUND);
     SmartDashboard.putData(CommandScheduler.getInstance());
   }
 
@@ -103,12 +111,10 @@ public class RobotContainer {
     hopper.updateHopperFromDashboard();
     flywheel.updateFlywheelFromDashboard();
     climber.updateClimberFromDashboard();
-
   }
 
   public void updateInfoOnDashboard(){
     SmartDashboard.putNumber("Remaining Match Time", Timer.getMatchTime());
-
     drivetrain.updateDrivetrainInfoOnDashboard();
     intake.updateIntakeInfoOnDashboard();
     hopper.updateHopperInfoOnDashboard();

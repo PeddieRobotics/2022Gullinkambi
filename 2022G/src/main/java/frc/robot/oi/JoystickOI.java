@@ -1,22 +1,18 @@
 package frc.robot.oi;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ClimbCommands.ExtendArm;
 import frc.robot.commands.ClimbCommands.RetractArm;
 import frc.robot.commands.IntakeCommands.RunIntake;
 import frc.robot.commands.IntakeCommands.StopIntake;
-import frc.robot.commands.IntakeCommands.UnjamIntake;
-import frc.robot.commands.ShootCommands.ShootWithLL;
 import frc.robot.commands.ShootCommands.ShootLayup;
-import frc.robot.commands.ShootCommands.ShootLow;
-import frc.robot.subsystems.Climber;
+import frc.robot.commands.ShootCommands.ShootWithLL;
+import frc.robot.commands.ShootCommands.Target;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Flywheel;
-import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Intake;
 import frc.robot.utils.ControllerMap;
 
@@ -62,7 +58,6 @@ public class JoystickOI {
   }
 
   public void configureJoysticks() {
-
     // Driver joystick binds (dual joystick)
     leftTrigger.toggleWhenPressed(new ConditionalCommand(new RunIntake(), new StopIntake(), intake::getIntakeSolenoid));
     leftButton2.toggleWhenPressed(new ConditionalCommand(new InstantCommand(drivetrain::setToInverseMode, drivetrain), new InstantCommand(drivetrain::setToRegularMode, drivetrain), drivetrain::isInverseMode));
@@ -70,8 +65,9 @@ public class JoystickOI {
     leftButton4.whenHeld(new ExtendArm()).whenReleased(new RetractArm());
     
     rightTrigger.whenHeld(new ShootLayup());
-    rightButton2.whenHeld(new ShootWithLL());
-
+    rightButton2.whenHeld(new ParallelCommandGroup(new Target(), new ShootWithLL()));
+    rightButton3.whenHeld(new ShootLayup());
+    rightButton4.whenHeld(new Target());
   }
 
   public double getSpeed() {
@@ -80,11 +76,6 @@ public class JoystickOI {
 
   public double getTurn() {
     return rightJoystick.getRawAxis(0);
-  }
-
-  public boolean getSlowMode() {
-    // checks if right trigger is pressed (right trigger id is 1)
-    return rightJoystick.getRawButton(1);
   }
 
   public static JoystickOI getInstance() {
