@@ -24,11 +24,10 @@ public class ShootWithLL extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    rpm = Constants.DIST_TO_RPM.get(limelight.getDistance());
     flywheel.setHood(true); // turn hood on for shoot far with high speed
     flywheel.runFlywheelSetpoint(rpm + SmartDashboard.getNumber("Teleop: shootLL RPM delta", 0));
     hopper.runHopper(SmartDashboard.getNumber("Teleop: Hopper speed", Constants.HOPPER_SPEED));
-
-    rpm = Constants.DIST_TO_RPM.get(limelight.getDistance());
   }
 
   // Called every time the scheduler runs while the command is scheduled.

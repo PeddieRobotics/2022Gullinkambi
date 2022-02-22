@@ -66,7 +66,7 @@ public final class Constants {
   public static final double LL_D = 0;
   public static final double LL_FF = 0.15;
   public static final double LL_ANGLE_BOUND = 2.0;
-  public static final double LL_ANGLE = 20; //45
+  public static final double LL_ANGLE = 45; 
   public static final double LL_HEIGHT = 24.5;
   public static final double LL_PANNING_ANGLE = 0; 
   public static final double TARGET_HEIGHT = 104;

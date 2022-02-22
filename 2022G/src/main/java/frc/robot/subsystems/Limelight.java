@@ -126,6 +126,11 @@ public class Limelight extends SubsystemBase {
   }
 
   public void putSmartDashboardOverrides(){
+    SmartDashboard.putNumber("LL P", Constants.LL_P);
+    SmartDashboard.putNumber("LL I", Constants.LL_I);
+    SmartDashboard.putNumber("LL D", Constants.LL_D);
+    SmartDashboard.putNumber("LL FF", Constants.LL_FF);
+    SmartDashboard.putNumber("LL ANGLE BOUND", Constants.LL_ANGLE_BOUND);
   }
 
   public void setFF(double feedforward){
