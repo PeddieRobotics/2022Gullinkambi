@@ -8,9 +8,9 @@ public final class Constants {
   public static final boolean IS_GULLINKAMBI = true;
   
   //uncommment whichever one you want to use & comment the rest
-  public static final OIConfig OI_CONFIG = OIConfig.COMPETITION; 
+  //public static final OIConfig OI_CONFIG = OIConfig.COMPETITION; 
   // public static final OIConfig OI_CONFIG = OIConfig.XBOX_TEST;
-  //public static final OIConfig OI_CONFIG = OIConfig.JOYSTICK_TEST;
+  public static final OIConfig OI_CONFIG = OIConfig.JOYSTICK_TEST;
 
   // Drivetrain constants
   public static final int DRIVETRAIN_MAX_CURRENT = 40;
@@ -61,18 +61,18 @@ public final class Constants {
 
   public static final int CLIMBER_MAX_CURRENT = 60;
 
-  public static final double LL_P = 0.005;
+  public static final double LL_P = 0.01;
   public static final double LL_I = 0;
   public static final double LL_D = 0;
   public static final double LL_FF = 0.15;
-  public static final double LL_ANGLE_BOUND = 2.0;
+  public static final double LL_ANGLE_BOUND = 1.0;
   public static final double LL_ANGLE = 45; 
   public static final double LL_HEIGHT = 24.5;
   public static final double LL_PANNING_ANGLE = 0; 
   public static final double TARGET_HEIGHT = 104;
   
   public static final double [] LL_DIST = new double[]{100,125,150,175,200};
-  public static final double [] RPMS = new double[]{2200,2350,2500,2600,2800};
+  public static final double [] RPMS = new double[]{2800,3000,3200,3400,3800};
   public static LookupTable DIST_TO_RPM = new LookupTable(LL_DIST, RPMS);
 
   // OI constants

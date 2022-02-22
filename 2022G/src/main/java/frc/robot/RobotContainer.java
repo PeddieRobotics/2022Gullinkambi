@@ -46,7 +46,7 @@ public class RobotContainer {
   private final Hopper hopper;
   private final Flywheel flywheel;
   private final Climber climber;
-  private final Limelight limelight;
+  public final Limelight limelight;  //SWITCH BACK TO PRIVATE AFTER TESTING PID
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -104,7 +104,6 @@ public class RobotContainer {
     hopper.updateHopperFromDashboard();
     flywheel.updateFlywheelFromDashboard();
     climber.updateClimberFromDashboard();
-    limelight.updateLimelightFromDashboard();
   }
 
   public void updateInfoOnDashboard(){
