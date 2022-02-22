@@ -18,7 +18,7 @@ public class Limelight extends SubsystemBase {
 
   private PIDController limelightPIDController;
 
-  private double limelightFF;
+  private double ff;
   
   private NetworkTable limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
   private NetworkTableEntry tx = limelightTable.getEntry("tx");
@@ -33,7 +33,7 @@ public class Limelight extends SubsystemBase {
     
   public Limelight() {
     limelightPIDController = new PIDController(Constants.LL_P, Constants.LL_I, Constants.LL_D);
-    limelightFF = Constants.LL_FF;
+    ff = Constants.LL_FF;
   }
 
   public static Limelight getInstance() {
@@ -48,6 +48,14 @@ public class Limelight extends SubsystemBase {
   
   public void periodic() {
     updateRollingAverages();
+  }
+
+  public PIDController getPIDController(){
+    return limelightPIDController;
+  }
+
+  public double getFF(){
+    return ff;
   }
 
   // Tvert is the vertical sidelength of the rough bounding box (0 - 320 pixels)
@@ -114,13 +122,13 @@ public class Limelight extends SubsystemBase {
     limelightPIDController.setP(SmartDashboard.getNumber("LL P", Constants.LL_P));
     limelightPIDController.setI(SmartDashboard.getNumber("LL I", Constants.LL_I));
     limelightPIDController.setD(SmartDashboard.getNumber("LL D", Constants.LL_D));
-    limelight.setPIDFeedforward(SmartDashboard.getNumber("LL FF", Constants.LL_FF));
+    limelight.setFF(SmartDashboard.getNumber("LL FF", Constants.LL_FF));
   }
 
   public void putSmartDashboardOverrides(){
   }
 
-  public void setPIDFeedforward(double ff){
-    limelightFF = ff;
+  public void setFF(double feedforward){
+    ff = feedforward;
   }
 }
