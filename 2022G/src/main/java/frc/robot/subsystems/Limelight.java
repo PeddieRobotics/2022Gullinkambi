@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -14,17 +15,25 @@ public class Limelight extends SubsystemBase {
    */
 
   private static Limelight limelight;
-  NetworkTable limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
-  NetworkTableEntry tx = limelightTable.getEntry("tx");
-  NetworkTableEntry ty = limelightTable.getEntry("ty");
-  NetworkTableEntry thor = limelightTable.getEntry("thor");
-  NetworkTableEntry tvert = limelightTable.getEntry("tvert");
-  NetworkTableEntry ta = limelightTable.getEntry("ta");
-  NetworkTableEntry tv = limelightTable.getEntry("tv");
+
+  private PIDController limelightPIDController;
+
+  private double limelightFF;
+  
+  private NetworkTable limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
+  private NetworkTableEntry tx = limelightTable.getEntry("tx");
+  private NetworkTableEntry ty = limelightTable.getEntry("ty");
+  private NetworkTableEntry thor = limelightTable.getEntry("thor");
+  private NetworkTableEntry tvert = limelightTable.getEntry("tvert");
+  private NetworkTableEntry ta = limelightTable.getEntry("ta");
+  private NetworkTableEntry tv = limelightTable.getEntry("tv");
+  
   private RollingAverage txAverage = new RollingAverage();
   private RollingAverage tyAverage = new RollingAverage();
     
   public Limelight() {
+    limelightPIDController = new PIDController(Constants.LL_P, Constants.LL_I, Constants.LL_D);
+    limelightFF = Constants.LL_FF;
   }
 
   public static Limelight getInstance() {
@@ -101,8 +110,17 @@ public class Limelight extends SubsystemBase {
     SmartDashboard.putNumber("Limelight distance", getDistance());
   }
 
+  public void updateLimelightFromDashboard(){
+    limelightPIDController.setP(SmartDashboard.getNumber("LL P", Constants.LL_P));
+    limelightPIDController.setI(SmartDashboard.getNumber("LL I", Constants.LL_I));
+    limelightPIDController.setD(SmartDashboard.getNumber("LL D", Constants.LL_D));
+    limelight.setPIDFeedforward(SmartDashboard.getNumber("LL FF", Constants.LL_FF));
+  }
+
   public void putSmartDashboardOverrides(){
   }
 
-  
+  public void setPIDFeedforward(double ff){
+    limelightFF = ff;
+  }
 }
