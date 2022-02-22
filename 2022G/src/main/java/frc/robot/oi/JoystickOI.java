@@ -66,7 +66,6 @@ public class JoystickOI {
     
     rightTrigger.whenHeld(new ShootLayup());
     rightButton2.whenHeld(new ParallelCommandGroup(new Target(), new ShootWithLL()));
-    rightButton3.whenHeld(new ShootLayup());
     rightButton4.whenHeld(new Target());
   }
 
