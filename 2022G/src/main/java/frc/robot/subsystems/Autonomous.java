@@ -22,7 +22,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.SplitFFRamseteCommand;
-import frc.robot.commands.DriveCommands.Drive;
 import frc.robot.utils.Constants;
 
 public class Autonomous extends SubsystemBase {
@@ -111,7 +110,6 @@ public class Autonomous extends SubsystemBase {
  
     public SplitFFRamseteCommand createCommandFromTrajectory(Trajectory trajectory){
         var ramseteController = new RamseteController();
-        //ramseteController.setEnabled(false);
         var leftController = new PIDController(Constants.kPDriveVel, 0, 0);
         var rightController = new PIDController(Constants.kPDriveVel, 0, 0);
         var table = NetworkTableInstance.getDefault().getTable("troubleshooting");
@@ -153,8 +151,6 @@ public class Autonomous extends SubsystemBase {
     public Trajectory getTransformedTrajectory(Trajectory t){
         Pose2d newOrigin = t.getInitialPose();
         Trajectory transformed = t.relativeTo(newOrigin);
-        // Transform2d transform = new Pose2d(0,0, Rotation2d.fromDegrees(0)).minus(t.getInitialPose());
-        // Trajectory transformed = t.transformBy(transform);
         return transformed;
     }
 

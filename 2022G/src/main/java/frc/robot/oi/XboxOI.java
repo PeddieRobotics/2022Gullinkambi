@@ -2,14 +2,19 @@
 package frc.robot.oi;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ClimbCommands.ExtendArm;
+import frc.robot.commands.ClimbCommands.InitializeArm;
 import frc.robot.commands.ClimbCommands.RetractArm;
 import frc.robot.commands.IntakeCommands.RunIntake;
 import frc.robot.commands.IntakeCommands.StopIntake;
 import frc.robot.commands.IntakeCommands.UnjamIntake;
 import frc.robot.commands.ShootCommands.ShootWithLL;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Intake;
 import frc.robot.commands.ShootCommands.ShootLayup;
 import frc.robot.commands.ShootCommands.ShootLow;
 import frc.robot.utils.Constants;
@@ -19,10 +24,15 @@ import frc.robot.utils.ControllerMap;
 public class XboxOI {
 
     private static XboxOI oi;
-    private Joystick driverXboxController;
+    private Joystick xboxController;
+    private Drivetrain drivetrain;
+    private Intake intake;
 
     public XboxOI() {
         configureXboxControllers();
+
+        drivetrain = Drivetrain.getInstance();
+        intake = Intake.getInstance();
     }
 
     public static XboxOI getInstance() {
@@ -35,42 +45,35 @@ public class XboxOI {
 
     public void configureXboxControllers() {
         if (Constants.OI_CONFIG == OIConfig.COMPETITION) {
-            driverXboxController = new Joystick(ControllerMap.XBOX_OPERATOR_PORT);
+            xboxController = new Joystick(ControllerMap.XBOX_OPERATOR_PORT);
+
+            new JoystickButton(xboxController, ControllerMap.XBOX_Y).whenHeld(new UnjamIntake()).whenReleased(new RunIntake()); // XBOX_Y
+            new JoystickButton(xboxController, ControllerMap.XBOX_A).whenHeld(new ShootLow()); // XBOX_A
+            new JoystickButton(xboxController, ControllerMap.XBOX_B).whenPressed(new InitializeArm()); // XBOX_B
 
         } else if (Constants.OI_CONFIG == OIConfig.XBOX_TEST) {
-            driverXboxController = new Joystick(ControllerMap.XBOX_DRIVER_PORT);
-            // Driver xbox controller binds
+            xboxController = new Joystick(ControllerMap.XBOX_DRIVER_PORT);
+            // Driver xbox controller binds    
+            new Button(() -> xboxController.getRawAxis(3) > 0.5).whenHeld(new ShootLayup()); // XBOX_RT
 
-            new Button(() -> driverXboxController.getRawAxis(3) > 0.5).whenHeld(new ShootLayup()); // XBOX_RT
+            new Button(() -> xboxController.getRawAxis(2) > 0.5).toggleWhenPressed(new ConditionalCommand(new RunIntake(), new StopIntake(), intake::getIntakeSolenoid)); // XBOX_LT
 
-            new Button(() -> driverXboxController.getRawAxis(2) > 0.5).whenPressed(new RunIntake()); // XBOX_LT
+            new JoystickButton(xboxController, ControllerMap.XBOX_LB).toggleWhenPressed(new ConditionalCommand(new InstantCommand(drivetrain::setToInverseMode, drivetrain), new InstantCommand(drivetrain::setToRegularMode, drivetrain), drivetrain::isInverseMode));
+            ; // XBOX_LB
 
-            new JoystickButton(driverXboxController, ControllerMap.XBOX_LB).whenPressed(new StopIntake()); // XBOX_LB
+            new JoystickButton(xboxController, ControllerMap.XBOX_A).whenHeld(new ShootWithLL()); // XBOX_A
 
-            new JoystickButton(driverXboxController, ControllerMap.XBOX_A).whenHeld(new ShootWithLL()); // XBOX_A
-
-            new JoystickButton(driverXboxController, ControllerMap.XBOX_B).whenHeld(new ShootLow()); // XBOX_B
-
-             new JoystickButton(driverXboxController, ControllerMap.XBOX_Y).whenHeld(new UnjamIntake()).whenReleased(new RunIntake()); // XBOX_Y
-
-             new JoystickButton(driverXboxController, ControllerMap.XBOX_X).whenPressed(new ExtendArm()); // XBOX_X
-
-             new JoystickButton(driverXboxController, ControllerMap.XBOX_START).whenPressed(new RetractArm()); // XBOX_START
-
+             new JoystickButton(xboxController, ControllerMap.XBOX_X).whenHeld(new ExtendArm()).whenReleased(new RetractArm()); // XBOX_X
 
         }
     }
 
     public double getSpeed() {
-        return -driverXboxController.getRawAxis(ControllerMap.XBOX_LEFT_STICK_Y);
+        return -xboxController.getRawAxis(ControllerMap.XBOX_LEFT_STICK_Y);
     }
 
     public double getTurn() {
-        return driverXboxController.getRawAxis(ControllerMap.XBOX_RIGHT_STICK_X);
-    }
-
-    public boolean getInverseMode() {
-        return driverXboxController.getRawButton(ControllerMap.XBOX_RB);
+        return xboxController.getRawAxis(ControllerMap.XBOX_RIGHT_STICK_X);
     }
 
 }

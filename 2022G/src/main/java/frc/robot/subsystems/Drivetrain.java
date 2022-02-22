@@ -37,6 +37,8 @@ public class Drivetrain extends SubsystemBase {
 
   private double headingValue;
 
+  private boolean inverseMode;
+
   private final RelativeEncoder leftEncoder, rightEncoder;
 
   public Drivetrain() {
@@ -96,6 +98,8 @@ public class Drivetrain extends SubsystemBase {
     odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
 
     setConversionFactors();
+
+    inverseMode = false;
   }
 
   @Override
@@ -157,7 +161,6 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("LDrive enc vel", getLeftEncoderVelocity());
     SmartDashboard.putNumber("RDrive enc vel", getRightEncoderVelocity());
     SmartDashboard.putNumber("Heading", getHeading());
-    SmartDashboard.putNumber("Unbounded Heading", getUnboundedHeading());
     SmartDashboard.putNumber("Odometry X", odometry.getPoseMeters().getTranslation().getX());
     SmartDashboard.putNumber("Odometry Y", odometry.getPoseMeters().getTranslation().getY());
     SmartDashboard.putNumber("Average Velocity", getAverageEncoderVelocity());
@@ -214,11 +217,6 @@ public class Drivetrain extends SubsystemBase {
         true);
   }
 
-  public void putSmartDashboardOverrides() {
-    SmartDashboard.putNumber("OR: Drivetrain speed", 0);
-    SmartDashboard.putNumber("OR: Drivetrain turn", 0);
-  }
-
   public double getHeading() {
     headingValue = gyro.getAngle();
     return Math.IEEEremainder(headingValue, 360);
@@ -261,6 +259,18 @@ public class Drivetrain extends SubsystemBase {
     leftMotors.setVoltage(leftVolts);
     rightMotors.setVoltage(rightVolts);
     drive.feed();
+  }
+
+  public void setToInverseMode(){
+    inverseMode = true;
+  }
+
+  public void setToRegularMode(){
+    inverseMode = false;
+  }
+
+  public boolean isInverseMode(){
+    return inverseMode;
   }
 
 }

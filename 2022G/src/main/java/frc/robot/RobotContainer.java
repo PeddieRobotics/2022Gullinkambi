@@ -85,19 +85,12 @@ public class RobotContainer {
   }
 
   public void setupSmartDashboard() {
-    // Leave drivetrain overrides disabled by default, they can be dangerous and are not needed in normal operation
-    //drivetrain.putSmartDashboardOverrides();
     intake.putSmartDashboardOverrides();
     hopper.putSmartDashboardOverrides();
     limelight.putSmartDashboardOverrides();
     climber.putSmartDashboardOverrides();
     flywheel.putSmartDashboardOverrides();
     SmartDashboard.putData(CommandScheduler.getInstance());
-
-    SmartDashboard.putData("Reset climber", new InitializeArm());
-    SmartDashboard.putData("Extend climber", new ExtendArm());
-    SmartDashboard.putData("Retract climber", new RetractArm());
-
   }
 
   // Overrides for interfacing with robot hardware
