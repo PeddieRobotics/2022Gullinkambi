@@ -139,12 +139,12 @@ public class Autonomous extends SubsystemBase {
             rightController,
               // RamseteCommand passes volts to the callback
               (leftVolts, rightVolts) -> {
-                  m_drivetrain.tankDriveVolts(leftVolts, rightVolts);
+                  m_drivetrain.tankDriveVolts(rightVolts, leftVolts);
                   leftMeasurement.setNumber(m_drivetrain.getWheelSpeeds().leftMetersPerSecond);
-                  leftReference.setNumber(leftController.getSetpoint());
+                  leftReference.setNumber(rightController.getSetpoint());
 
                   rightMeasurement.setNumber(m_drivetrain.getWheelSpeeds().rightMetersPerSecond);
-                  rightReference.setNumber(rightController.getSetpoint());
+                  rightReference.setNumber(leftController.getSetpoint());
               },
               m_drivetrain);
         return autoCommand;

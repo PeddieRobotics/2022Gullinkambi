@@ -27,6 +27,8 @@ public class Climber extends SubsystemBase {
   private double kIz = Constants.CLIMBER_IZONE;
   private double kFF = Constants.CLIMBER_FF;
 
+  private boolean reboundFromCurrentSpike;
+
   public Climber() {
     armPrimary = new CANSparkMax(RobotMapGullinkambi.MOTOR_CLIMBER_PRIMARY, MotorType.kBrushless);
     armSecondary = new CANSparkMax(RobotMapGullinkambi.MOTOR_CLIMBER_SECONDARY, MotorType.kBrushless);
@@ -42,6 +44,8 @@ public class Climber extends SubsystemBase {
     climberPIDController = armPrimary.getPIDController();
     climberPIDController.setOutputRange(-1, 1);
     enablePIDController();
+
+    reboundFromCurrentSpike = false;
   }
 
   public void enablePIDController(){
@@ -109,7 +113,13 @@ public class Climber extends SubsystemBase {
 
   @Override
   public void periodic() {
-    if(armSensorState()){
+    if (armPrimary.getOutputCurrent() > 30 && !reboundFromCurrentSpike){
+      setEncoderPosition(0);
+      moveToPosition(-15);
+      reboundFromCurrentSpike = true;
+    }
+    
+    if(armSensorState() && !reboundFromCurrentSpike){
       setEncoderPosition(0);
     }
   }

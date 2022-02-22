@@ -7,31 +7,21 @@ import frc.robot.subsystems.Climber;
 /** An example command that uses an example subsystem. */
 public class RetractArm extends CommandBase {
   private Climber climber;
-  boolean nearLimitSensor;
 
   public RetractArm() {
     climber = Climber.getInstance();
     addRequirements(climber);
 
-    nearLimitSensor = false;
   }
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    climber.moveToPosition(0); // Hold at encoder position 0
-    //climber.disablePIDController();
-    //climber.run(1);
+    climber.moveToPosition(15); // Attempt to go past the limit sensor to make sure we reach it
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(climber.getEncoderPosition() > -1 && !nearLimitSensor){
-      nearLimitSensor = true;
-      climber.disablePIDController();
-      climber.run(0.5);
-    }
-
   }
 
   // Called once the command ends or is interrupted.
