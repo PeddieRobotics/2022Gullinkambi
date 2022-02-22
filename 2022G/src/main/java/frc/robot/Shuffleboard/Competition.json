@@ -13,7 +13,7 @@
         "tiles": {
           "15,0": {
             "size": [
-              9,
+              10,
               6
             ],
             "content": {
@@ -26,11 +26,11 @@
               "Controls/Rotation": "NONE",
               "compression": -1.0,
               "fps": -1,
-              "imageWidth": -1,
-              "imageHeight": -1
+              "imageWidth": 0,
+              "imageHeight": 0
             }
           },
-          "6,1": {
+          "7,1": {
             "size": [
               5,
               5
@@ -45,8 +45,8 @@
               "Controls/Rotation": "NONE",
               "compression": -1.0,
               "fps": -1,
-              "imageWidth": -1,
-              "imageHeight": -1
+              "imageWidth": 0,
+              "imageHeight": 0
             }
           },
           "2,0": {
@@ -60,9 +60,9 @@
               "_title": "Flywheel velocity"
             }
           },
-          "3,5": {
+          "4,5": {
             "size": [
-              1,
+              2,
               1
             ],
             "content": {
@@ -82,7 +82,7 @@
               "_title": "Climber encoder"
             }
           },
-          "2,2": {
+          "3,1": {
             "size": [
               1,
               1
@@ -130,7 +130,7 @@
               "_title": "Intake speed"
             }
           },
-          "13,1": {
+          "13,2": {
             "size": [
               2,
               2
@@ -138,10 +138,10 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Remaining Match Time",
-              "_title": "SmartDashboard/Remaining Match Time"
+              "_title": "Remaining Match Time"
             }
           },
-          "9,0": {
+          "8,0": {
             "size": [
               3,
               1
@@ -152,7 +152,7 @@
               "_title": "Remaining Match Time"
             }
           },
-          "5,0": {
+          "6,0": {
             "size": [
               1,
               1
@@ -163,9 +163,9 @@
               "_title": "RevUp AI"
             }
           },
-          "1,5": {
+          "2,5": {
             "size": [
-              1,
+              2,
               1
             ],
             "content": {
@@ -176,7 +176,7 @@
           },
           "0,5": {
             "size": [
-              1,
+              2,
               1
             ],
             "content": {
@@ -185,9 +185,9 @@
               "_title": "Teleop: shoot low RPM"
             }
           },
-          "2,5": {
+          "4,4": {
             "size": [
-              1,
+              2,
               1
             ],
             "content": {
@@ -198,7 +198,7 @@
           },
           "0,4": {
             "size": [
-              1,
+              2,
               1
             ],
             "content": {
@@ -207,9 +207,9 @@
               "_title": "Teleop: Intake speed"
             }
           },
-          "1,4": {
+          "2,4": {
             "size": [
-              1,
+              2,
               1
             ],
             "content": {
@@ -244,7 +244,7 @@
           },
           "4,0": {
             "size": [
-              1,
+              2,
               1
             ],
             "content": {
