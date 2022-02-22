@@ -155,8 +155,8 @@ public class Flywheel extends SubsystemBase {
   }
 
   public void updateFlywheelInfoOnDashboard(){
-    SmartDashboard.putNumber("Flywheel velocity", getFlywheelVelocity());
-    SmartDashboard.putNumber("Flywheel setpoint", getFlywheelSetpoint());
+    SmartDashboard.putNumber("FW velocity", getFlywheelVelocity());
+    SmartDashboard.putNumber("FW setpoint", getFlywheelSetpoint());
     SmartDashboard.putBoolean("Lock activated", getShooterLock());
     SmartDashboard.putBoolean("Hood up", getHood());
   }
