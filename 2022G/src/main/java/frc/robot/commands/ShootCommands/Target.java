@@ -55,7 +55,7 @@ public class Target extends CommandBase {
      else{
        steering_adjust = 0;
      }  
-      drivetrain.curvatureDrive(0, steering_adjust);
+      drivetrain.arcadeDrive(0, steering_adjust);
   }
 
   @Override
@@ -65,6 +65,7 @@ public class Target extends CommandBase {
 
   @Override
   public boolean isFinished() { 
-    return Math.abs(error) < angle_bound;
+    //return Math.abs(error) < angle_bound;
+    return false;
 }
 }

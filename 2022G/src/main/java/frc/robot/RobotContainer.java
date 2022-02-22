@@ -46,7 +46,7 @@ public class RobotContainer {
   private final Hopper hopper;
   private final Flywheel flywheel;
   private final Climber climber;
-  private final Limelight limelight;
+  public final Limelight limelight;  //SWITCH BACK TO PRIVATE AFTER TESTING PID
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -85,19 +85,13 @@ public class RobotContainer {
   }
 
   public void setupSmartDashboard() {
+    SmartDashboard.putNumber("Teleop: shootLL RPM delta", 0);
     intake.putSmartDashboardOverrides();
     hopper.putSmartDashboardOverrides();
     limelight.putSmartDashboardOverrides();
     climber.putSmartDashboardOverrides();
     flywheel.putSmartDashboardOverrides();
     SmartDashboard.putString("Mode", Constants.OI_CONFIG.toString());
-    SmartDashboard.putData(CommandScheduler.getInstance());
-
-    SmartDashboard.putNumber("LL P", Constants.LL_P);
-    SmartDashboard.putNumber("LL I", Constants.LL_I);
-    SmartDashboard.putNumber("LL D", Constants.LL_D);
-    SmartDashboard.putNumber("LL FF", Constants.LL_FF);
-    SmartDashboard.putNumber("LL ANGLE BOUND", Constants.LL_ANGLE_BOUND);
     SmartDashboard.putData(CommandScheduler.getInstance());
   }
 
