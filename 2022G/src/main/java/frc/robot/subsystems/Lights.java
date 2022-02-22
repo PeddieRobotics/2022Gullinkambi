@@ -15,7 +15,7 @@ public class Lights extends SubsystemBase{
     private boolean lightsFlashing;
 
     public Lights() {
-        strip = new Solenoid(21,PneumaticsModuleType.REVPH, 15);
+        strip = new Solenoid(21, PneumaticsModuleType.REVPH, 15);
         lightsFlashing = false;
     }
 
@@ -44,11 +44,11 @@ public class Lights extends SubsystemBase{
 
     public void timeCheck(){
       if (!lightsFlashing && Timer.getMatchTime() <= 30){
-        CommandScheduler.getInstance().schedule(new FlashLights(15));
+        CommandScheduler.getInstance().schedule(new FlashLights(30));
       }
     }
     @Override
     public void periodic() {
-      // timeCheck();
+      timeCheck();
     }
 }

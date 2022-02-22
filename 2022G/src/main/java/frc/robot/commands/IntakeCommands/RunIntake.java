@@ -7,26 +7,34 @@
 
 package frc.robot.commands.IntakeCommands;
 
-// import com.team2363.logger.HelixEvents;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Flywheel;
+import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Intake;
 import frc.robot.utils.Constants;
 
-public class StartIntake extends CommandBase {
+public class RunIntake extends CommandBase {
 
   private Intake intake;
+  private Flywheel flywheel;
+  private Hopper hopper;
 
-  /** Creates a new StartIntake. */
-  public StartIntake() {
+  /** Creates a new RunIntake. */
+  public RunIntake() {
     intake = Intake.getInstance();
-    addRequirements(intake);
+    hopper = Hopper.getInstance();
+    flywheel = Flywheel.getInstance();
+    addRequirements(intake, flywheel);
 
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    flywheel.stopFlywheel();
     intake.setIntakeSolenoid(true);
+    intake.setIntakeSpeed(SmartDashboard.getNumber("Teleop: Intake speed", Constants.INTAKE_SPEED));
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -37,12 +45,14 @@ public class StartIntake extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intake.setIntakeSpeed(Constants.INTAKE_SPEED);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return intake.getIntakeSolenoid(); // End immediately
+    if (hopper.sensesBallBottom() && hopper.sensesBallTop()){
+      return false;
+    }
+    return true;
   }
 }

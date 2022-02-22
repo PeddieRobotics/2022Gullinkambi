@@ -17,6 +17,9 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
@@ -58,6 +61,13 @@ public class SplitFFRamseteCommand extends CommandBase {
   private final BiConsumer<Double, Double> m_output;
   private DifferentialDriveWheelSpeeds m_prevSpeeds;
   private double m_prevTime;
+  private NetworkTable table = NetworkTableInstance.getDefault().getTable("troubleshooting");
+  private NetworkTableEntry poseXReference = table.getEntry("posex_reference");
+  private NetworkTableEntry poseXMeasurement = table.getEntry("posex_measurement");
+  private NetworkTableEntry poseYReference = table.getEntry("posey_reference");
+  private NetworkTableEntry poseYMeasurement = table.getEntry("posey_measurement");
+  private NetworkTableEntry leftOutputSpeed = table.getEntry("leftOutputSpeed");
+  private NetworkTableEntry rightOutputSpeed = table.getEntry("rightOutputSpeed");
 
   /**
    * Constructs a new RamseteCommand that, when executed, will follow the provided
@@ -188,6 +198,11 @@ public class SplitFFRamseteCommand extends CommandBase {
     var targetWheelSpeeds = m_kinematics.toWheelSpeeds(
         m_follower.calculate(m_pose.get(), m_trajectory.sample(curTime)));
 
+    poseXMeasurement.setNumber(m_pose.get().getX());
+    poseXReference.setNumber(m_trajectory.sample(curTime).poseMeters.getX());
+    poseYMeasurement.setNumber(m_pose.get().getY());
+    poseYReference.setNumber(m_trajectory.sample(curTime).poseMeters.getY());
+
     var leftSpeedSetpoint = targetWheelSpeeds.leftMetersPerSecond;
     var rightSpeedSetpoint = targetWheelSpeeds.rightMetersPerSecond;
 
@@ -211,6 +226,9 @@ public class SplitFFRamseteCommand extends CommandBase {
       leftOutput = leftSpeedSetpoint;
       rightOutput = rightSpeedSetpoint;
     }
+
+    leftOutputSpeed.setNumber(rightOutput);
+    rightOutputSpeed.setNumber(leftOutput);
 
     m_output.accept(leftOutput, rightOutput);
 

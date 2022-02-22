@@ -24,7 +24,7 @@ public class Intake extends SubsystemBase {
     intakeSolenoid = new Solenoid(RobotMapGullinkambi.PNEUMATICS_HUB, PneumaticsModuleType.REVPH, RobotMapGullinkambi.SOLENOID_INTAKE);
     intakeMotor = new CANSparkMax(RobotMapGullinkambi.MOTOR_INTAKE, MotorType.kBrushed);
 
-    intakeMotor.setSmartCurrentLimit(30);
+    intakeMotor.setSmartCurrentLimit(Constants.INTAKE_MAX_CURRENT);
   }
 
   @Override
@@ -40,9 +40,7 @@ public class Intake extends SubsystemBase {
   }
 
   public void setIntakeSpeed(double intakeSpeed) {
-    if (getIntakeSolenoid()) {
-      intakeMotor.set(intakeSpeed);
-    }
+    intakeMotor.set(intakeSpeed);
   }
 
   public double getIntakeSpeed() {
@@ -73,6 +71,7 @@ public class Intake extends SubsystemBase {
   public void putSmartDashboardOverrides() {
     SmartDashboard.putNumber("OR: Intake speed", 0.0);
     SmartDashboard.putBoolean("OR: Intake solenoid", false);
+    SmartDashboard.putNumber("Teleop: Intake speed", Constants.INTAKE_SPEED);
   }
 
   public void updateIntakeInfoOnDashboard(){
