@@ -85,19 +85,20 @@ public class RobotContainer {
   }
 
   public void setupSmartDashboard() {
-    // Leave drivetrain overrides disabled by default, they can be dangerous and are not needed in normal operation
-    //drivetrain.putSmartDashboardOverrides();
     intake.putSmartDashboardOverrides();
     hopper.putSmartDashboardOverrides();
     limelight.putSmartDashboardOverrides();
     climber.putSmartDashboardOverrides();
     flywheel.putSmartDashboardOverrides();
+    SmartDashboard.putString("Mode", Constants.OI_CONFIG.toString());
     SmartDashboard.putData(CommandScheduler.getInstance());
 
-    SmartDashboard.putData("Reset climber", new InitializeArm());
-    SmartDashboard.putData("Extend climber", new ExtendArm());
-    SmartDashboard.putData("Retract climber", new RetractArm());
-
+    SmartDashboard.putNumber("LL P", Constants.LL_P);
+    SmartDashboard.putNumber("LL I", Constants.LL_I);
+    SmartDashboard.putNumber("LL D", Constants.LL_D);
+    SmartDashboard.putNumber("LL FF", Constants.LL_FF);
+    SmartDashboard.putNumber("LL ANGLE BOUND", Constants.LL_ANGLE_BOUND);
+    SmartDashboard.putData(CommandScheduler.getInstance());
   }
 
   // Overrides for interfacing with robot hardware
@@ -110,12 +111,10 @@ public class RobotContainer {
     hopper.updateHopperFromDashboard();
     flywheel.updateFlywheelFromDashboard();
     climber.updateClimberFromDashboard();
-
   }
 
   public void updateInfoOnDashboard(){
     SmartDashboard.putNumber("Remaining Match Time", Timer.getMatchTime());
-
     drivetrain.updateDrivetrainInfoOnDashboard();
     intake.updateIntakeInfoOnDashboard();
     hopper.updateHopperInfoOnDashboard();

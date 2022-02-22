@@ -227,8 +227,8 @@ public class SplitFFRamseteCommand extends CommandBase {
       rightOutput = rightSpeedSetpoint;
     }
 
-    leftOutputSpeed.setNumber(leftOutput);
-    rightOutputSpeed.setNumber(rightOutput);
+    leftOutputSpeed.setNumber(rightOutput);
+    rightOutputSpeed.setNumber(leftOutput);
 
     m_output.accept(leftOutput, rightOutput);
 

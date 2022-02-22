@@ -1,33 +1,16 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.utils;
 
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-/**
- * The Constants class provides a convenient place for teams to hold robot-wide
- * numerical or boolean
- * constants. This class should not be used for any other purpose. All constants
- * should be declared
- * globally (i.e. public static). Do not put anything functional in this class.
- *
- * <p>
- * It is advised to statically import this class (or one of its inner classes)
- * wherever the
- * constants are needed, to reduce verbosity.
- */
+
 public final class Constants {
   // Is Gullinkambi
   public static final boolean IS_GULLINKAMBI = true;
   
-//uncommment whichever one you want to use & comment the rest
+  //uncommment whichever one you want to use & comment the rest
   public static final OIConfig OI_CONFIG = OIConfig.COMPETITION; 
   // public static final OIConfig OI_CONFIG = OIConfig.XBOX_TEST;
   //public static final OIConfig OI_CONFIG = OIConfig.JOYSTICK_TEST;
-
 
   // Drivetrain constants
   public static final int DRIVETRAIN_MAX_CURRENT = 40;
@@ -41,11 +24,11 @@ public final class Constants {
 
   // Intake constants
   public static final int INTAKE_MAX_CURRENT = 30; // amps
-  public static final double INTAKE_SPEED = 0.5;
+  public static final double INTAKE_SPEED = 1.0;
 
   // Hopper constants
   public static final int HOPPER_MAX_CURRENT = 30; // amps
-  public static final double HOPPER_SPEED = 0.5;
+  public static final double HOPPER_SPEED = 0.7;
   public static final double LOWER_SENSOR_INPUT_THRESHOLD = 0.99;
 
   // Flywheel constants
@@ -57,8 +40,7 @@ public final class Constants {
   public static final double FLYWHEEL_FF = 0.000186;
   public static final double FLYWHEEL_IZONE = 100;
 
-  public static final double FLYWHEEL_RPM_SHOOTLL = 3100;
-  public static final double FLYWHEEL_RPM_LAYUP = 2600;
+  public static final double FLYWHEEL_RPM_LAYUP = 2450;
   public static final double FLYWHEEL_RPM_LOW = 1500;
   public static final double FLYWHEEL_RPM_REV_UP = 1500;
 
@@ -79,16 +61,18 @@ public final class Constants {
 
   public static final int CLIMBER_MAX_CURRENT = 60;
 
-  public static final double LL_P = -0.0033;
-  public static final double LL_I = 0.0000001;
+  public static final double LL_P = 0.005;
+  public static final double LL_I = 0;
   public static final double LL_D = 0;
-  public static final double LL_ANGLE = 20;
+  public static final double LL_FF = 0.15;
+  public static final double LL_ANGLE_BOUND = 2.0;
+  public static final double LL_ANGLE = 20; //45
   public static final double LL_HEIGHT = 24.5;
-  public static final double LL_PANNING = 0;
+  public static final double LL_PANNING_ANGLE = 0; 
   public static final double TARGET_HEIGHT = 104;
   
-  public static final double [] LL_DIST = new double[]{100,150,200};
-  public static final double [] RPMS = new double[]{2800,3000,3200};
+  public static final double [] LL_DIST = new double[]{100,125,150,175,200};
+  public static final double [] RPMS = new double[]{2200,2350,2500,2600,2800};
   public static LookupTable DIST_TO_RPM = new LookupTable(LL_DIST, RPMS);
 
   // OI constants
@@ -114,7 +98,7 @@ public final class Constants {
     public static final double kvVoltSecondsPerMeter = 2.9997;
     public static final double kaVoltSecondsSquaredPerMeter = 0.23926;
 
-    public static final double kPDriveVel = 0.0005;
+    public static final double kPDriveVel = 0.5;
 
     public static final double kTrackwidthMeters = 0.597;
     public static final DifferentialDriveKinematics kDriveKinematics =
