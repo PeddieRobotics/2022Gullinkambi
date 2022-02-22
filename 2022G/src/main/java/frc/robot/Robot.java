@@ -5,8 +5,8 @@
 package frc.robot;
 
 
-import org.littletonrobotics.junction.LoggedRobot;
-import org.littletonrobotics.junction.Logger;
+import frc.robot.utils.LoggingCustoms.LoggedRobotCustom;
+import frc.robot.utils.LoggingCustoms.LoggerCustom;
 import org.littletonrobotics.junction.inputs.LoggedNetworkTables;
 import org.littletonrobotics.junction.io.ByteLogReceiver;
 import org.littletonrobotics.junction.io.LogSocketServer;
@@ -33,7 +33,7 @@ import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
  * build.gradle file in the
  * project.
  */
-public class Robot extends LoggedRobot {
+public class Robot extends LoggedRobotCustom {
   private RobotContainer robotContainer;
   private Lights lights;
 
@@ -49,7 +49,7 @@ public class Robot extends LoggedRobot {
     // Instantiate our RobotContainer. This will perform all our button bindings,
     // and put our
     // autonomous chooser on the dashboard.
-    Logger logger = Logger.getInstance();
+    LoggerCustom logger = LoggerCustom.getInstance();
     setUseTiming(true);
     LoggedNetworkTables.getInstance().addTable("/LiveWindow");
     logger.addDataReceiver(new ByteLogReceiver("/home/lvuser/"));
