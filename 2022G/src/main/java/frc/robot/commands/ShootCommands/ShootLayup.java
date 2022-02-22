@@ -21,7 +21,7 @@ public class ShootLayup extends CommandBase {
   @Override
   public void initialize() {
     flywheel.setHood(false); // no hood for high shot
-    flywheel.runFlywheelSetpoint(SmartDashboard.getNumber("Teleop: shoot layup RPM", Constants.FLYWHEEL_RPM_LAYUP));
+    flywheel.runFlywheelSetpoint(SmartDashboard.getNumber("Teleop: layup RPM", Constants.FLYWHEEL_RPM_LAYUP));
     hopper.runHopper(SmartDashboard.getNumber("Teleop: Hopper speed", Constants.HOPPER_SPEED));
   }
 
