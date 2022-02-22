@@ -40,7 +40,7 @@ public final class Constants {
   public static final double FLYWHEEL_FF = 0.000186;
   public static final double FLYWHEEL_IZONE = 100;
 
-  public static final double FLYWHEEL_RPM_LAYUP = 2350;
+  public static final double FLYWHEEL_RPM_LAYUP = 2450;
   public static final double FLYWHEEL_RPM_LOW = 1500;
   public static final double FLYWHEEL_RPM_REV_UP = 1500;
 
@@ -98,7 +98,7 @@ public final class Constants {
     public static final double kvVoltSecondsPerMeter = 2.9997;
     public static final double kaVoltSecondsSquaredPerMeter = 0.23926;
 
-    public static final double kPDriveVel = 0.0005;
+    public static final double kPDriveVel = 0.5;
 
     public static final double kTrackwidthMeters = 0.597;
     public static final DifferentialDriveKinematics kDriveKinematics =

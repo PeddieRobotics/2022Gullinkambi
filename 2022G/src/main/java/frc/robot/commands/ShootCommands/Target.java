@@ -31,7 +31,7 @@ public class Target extends CommandBase {
   }
   @Override
   public void initialize() {
-    limelightPIDController.setSetpoint(0);
+    //limelightPIDController.setSetpoint(0);
   }
 
   @Override

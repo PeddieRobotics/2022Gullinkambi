@@ -29,10 +29,10 @@ public class XboxOI {
     private Intake intake;
 
     public XboxOI() {
-        configureXboxControllers();
-
         drivetrain = Drivetrain.getInstance();
         intake = Intake.getInstance();
+
+        configureXboxControllers();
     }
 
     public static XboxOI getInstance() {
@@ -56,9 +56,9 @@ public class XboxOI {
             // Driver xbox controller binds    
             new Button(() -> xboxController.getRawAxis(3) > 0.5).whenHeld(new ShootLayup()); // XBOX_RT
 
-            new Button(() -> xboxController.getRawAxis(2) > 0.5).toggleWhenPressed(new ConditionalCommand(new RunIntake(), new StopIntake(), intake::getIntakeSolenoid)); // XBOX_LT
+            new Button(() -> xboxController.getRawAxis(2) > 0.5).toggleWhenPressed(new ConditionalCommand(new StopIntake(), new RunIntake(), intake::getIntakeSolenoid)); // XBOX_LT
 
-            new JoystickButton(xboxController, ControllerMap.XBOX_LB).toggleWhenPressed(new ConditionalCommand(new InstantCommand(drivetrain::setToInverseMode, drivetrain), new InstantCommand(drivetrain::setToRegularMode, drivetrain), drivetrain::isInverseMode));
+            new JoystickButton(xboxController, ControllerMap.XBOX_LB).toggleWhenPressed(new ConditionalCommand(new InstantCommand(drivetrain::setToRegularMode, drivetrain), new InstantCommand(drivetrain::setToInverseMode, drivetrain), drivetrain::isInverseMode));
             ; // XBOX_LB
 
             new JoystickButton(xboxController, ControllerMap.XBOX_A).whenHeld(new ShootWithLL()); // XBOX_A

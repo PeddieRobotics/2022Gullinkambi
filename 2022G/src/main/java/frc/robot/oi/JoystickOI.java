@@ -32,12 +32,12 @@ public class JoystickOI {
       driverButtonRightBumper, driverButtonBack, driverButtonStart, driverButtonLeftStick, driverButtonRightStick;
 
   public JoystickOI() {
-
+    drivetrain = Drivetrain.getInstance();
+    intake = Intake.getInstance();
+    
     initializeJoysticks();
     configureJoysticks();
 
-    drivetrain = Drivetrain.getInstance();
-    intake = Intake.getInstance();
   }
 
   public void initializeJoysticks() {
@@ -59,14 +59,12 @@ public class JoystickOI {
 
   public void configureJoysticks() {
     // Driver joystick binds (dual joystick)
-    leftTrigger.toggleWhenPressed(new ConditionalCommand(new RunIntake(), new StopIntake(), intake::getIntakeSolenoid));
-    leftButton2.toggleWhenPressed(new ConditionalCommand(new InstantCommand(drivetrain::setToInverseMode, drivetrain), new InstantCommand(drivetrain::setToRegularMode, drivetrain), drivetrain::isInverseMode));
-
-    leftButton4.whenHeld(new ExtendArm()).whenReleased(new RetractArm());
+    leftTrigger.toggleWhenPressed(new ConditionalCommand(new StopIntake(), new RunIntake(), intake::getIntakeSolenoid));
+    leftButton2.toggleWhenPressed(new ConditionalCommand(new InstantCommand(drivetrain::setToRegularMode, drivetrain), new InstantCommand(drivetrain::setToInverseMode, drivetrain), drivetrain::isInverseMode));
     
     rightTrigger.whenHeld(new ShootLayup());
     rightButton2.whenHeld(new ParallelCommandGroup(new Target(), new ShootWithLL()));
-    rightButton3.whenHeld(new ShootLayup());
+    rightButton3.whenHeld(new ExtendArm()).whenReleased(new RetractArm());
     rightButton4.whenHeld(new Target());
   }
 
