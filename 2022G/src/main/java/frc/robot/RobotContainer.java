@@ -91,11 +91,6 @@ public class RobotContainer {
     climber.putSmartDashboardOverrides();
     flywheel.putSmartDashboardOverrides();
     SmartDashboard.putData(CommandScheduler.getInstance());
-
-    SmartDashboard.putData("Reset climber", new InitializeArm());
-    SmartDashboard.putData("Extend climber", new ExtendArm());
-    SmartDashboard.putData("Retract climber", new RetractArm());
-
   }
 
   // Overrides for interfacing with robot hardware
