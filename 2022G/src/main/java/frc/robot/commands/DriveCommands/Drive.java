@@ -12,18 +12,19 @@ import frc.robot.utils.Constants.OIConfig;
 public class Drive extends CommandBase {
 
     private Drivetrain drivetrain;
-    private XboxOI oi;
-    private JoystickOI oi2;
+    private XboxOI xboxOI;
+    private JoystickOI joystickOI;
 
     public Drive() {
         drivetrain = Drivetrain.getInstance();
+
         if (Constants.OI_CONFIG == OIConfig.COMPETITION) {
-            oi = XboxOI.getInstance();
-            oi2 = JoystickOI.getInstance();
+            xboxOI = XboxOI.getInstance();
+            joystickOI = JoystickOI.getInstance();
         } else if (Constants.OI_CONFIG == OIConfig.XBOX_TEST) {
-            oi = XboxOI.getInstance();
+            xboxOI = XboxOI.getInstance();
         } else if (Constants.OI_CONFIG == OIConfig.JOYSTICK_TEST) {
-            oi2 = JoystickOI.getInstance();
+            joystickOI = JoystickOI.getInstance();
         }
 
         addRequirements(drivetrain);
@@ -46,28 +47,24 @@ public class Drive extends CommandBase {
             // xbox is the operator
             // for now this is just the same stuff as joysticks, so it needs to change to
             // something
-            speedInput = oi2.getSpeed();
-            turnInput = -oi2.getTurn();
-            reverse = oi2.getInverseMode();
+            speedInput = joystickOI.getSpeed();
+            turnInput = -joystickOI.getTurn();
+            reverse = drivetrain.isInverseMode();
 
         } else if (Constants.OI_CONFIG == OIConfig.XBOX_TEST) { // xbox
 
-            speedInput = oi.getSpeed();
-            turnInput = -oi.getTurn();
-            reverse = oi.getInverseMode();
+            speedInput = xboxOI.getSpeed();
+            turnInput = -xboxOI.getTurn();
+            reverse = drivetrain.isInverseMode();
 
         } else if (Constants.OI_CONFIG == OIConfig.JOYSTICK_TEST) { // joystick
 
-            speedInput = oi2.getSpeed();
-            turnInput = -oi2.getTurn();
-            reverse = oi2.getInverseMode();
+            speedInput = joystickOI.getSpeed();
+            turnInput = -joystickOI.getTurn();
+            reverse = drivetrain.isInverseMode();
 
         }
-        // if (!reverse) {
-        // drivetrain.arcadeDrive(speedInput, turnInput);
-        // } else {
-        // drivetrain.arcadeDrive(-speedInput, turnInput);
-        // }
+
         if (!reverse) {
             drivetrain.curvatureDrive(speedInput, turnInput);
         } else {

@@ -11,45 +11,51 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class Target extends CommandBase {
   private final Limelight limelight;
   private final Drivetrain drivetrain;
+
+  private double ff;
   private double steering_adjust;
   private double error;
   private double average_error;
-  private double Kp = Constants.LL_P;
-  private double Ki = Constants.LL_I;
-  private double Kd = Constants.LL_D;
-  private double min_command = 0.35;
-  private double angle_bound = 1;
-  private PIDController LL;
+  private double angle_bound;
+  private PIDController limelightPIDController;
 
   public Target() {
     limelight = Limelight.getInstance();
     drivetrain = Drivetrain.getInstance();
+
     addRequirements(drivetrain);
+
+    limelightPIDController = limelight.getPIDController();
+
+    angle_bound = Constants.LL_ANGLE_BOUND;
   }
   @Override
-  public void initialize() {}
+  public void initialize() {
+    //limelightPIDController.setSetpoint(0);
+  }
 
   @Override
   public void execute() {
-     LL = new PIDController(Kp, Ki, Kd);
-     System.out.println(limelight.getTx());
+     angle_bound = SmartDashboard.getNumber("LL ANGLE BOUND", Constants.LL_ANGLE_BOUND);
+     ff = limelight.getFF();
+
      if (limelight.hasTarget()){
         error = limelight.getTx();
         average_error = limelight.getTxAverage();
-        if (error> angle_bound){
-          steering_adjust = LL.calculate(average_error) + min_command;
+        if (average_error < -angle_bound){
+          steering_adjust = limelightPIDController.calculate(average_error) + ff;
         }
-        else if (error < -angle_bound){
-          steering_adjust = LL.calculate(average_error) - min_command;
+        else if (average_error > angle_bound){
+          steering_adjust = limelightPIDController.calculate(average_error) - ff;
         }
         else{
           steering_adjust = 0;
         }  
       } 
      else{
-       steering_adjust=0;
+       steering_adjust = 0;
      }  
-      drivetrain.arcadeDrive(0, steering_adjust);
+      drivetrain.curvatureDrive(0, steering_adjust);
   }
 
   @Override
@@ -59,9 +65,6 @@ public class Target extends CommandBase {
 
   @Override
   public boolean isFinished() { 
-    if(error>-angle_bound && error<angle_bound){
-      return true;
-    }
-    else return false;
+    return Math.abs(error) < angle_bound;
 }
 }
