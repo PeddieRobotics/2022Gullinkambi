@@ -29,10 +29,10 @@ public class XboxOI {
     private Intake intake;
 
     public XboxOI() {
-        configureXboxControllers();
-
         drivetrain = Drivetrain.getInstance();
         intake = Intake.getInstance();
+
+        configureXboxControllers();
     }
 
     public static XboxOI getInstance() {

@@ -32,12 +32,12 @@ public class JoystickOI {
       driverButtonRightBumper, driverButtonBack, driverButtonStart, driverButtonLeftStick, driverButtonRightStick;
 
   public JoystickOI() {
-
+    drivetrain = Drivetrain.getInstance();
+    intake = Intake.getInstance();
+    
     initializeJoysticks();
     configureJoysticks();
 
-    drivetrain = Drivetrain.getInstance();
-    intake = Intake.getInstance();
   }
 
   public void initializeJoysticks() {
