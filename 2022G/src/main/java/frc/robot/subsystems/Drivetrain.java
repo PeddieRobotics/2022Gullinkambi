@@ -156,14 +156,15 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void updateDrivetrainInfoOnDashboard() {
+    SmartDashboard.putNumber("Heading", getHeading());
+    //only heading in competition mode
     SmartDashboard.putNumber("LDrive enc pos", getLeftEncoderPosition());
     SmartDashboard.putNumber("RDrive enc pos", getRightEncoderPosition());
     SmartDashboard.putNumber("LDrive enc vel", getLeftEncoderVelocity());
     SmartDashboard.putNumber("RDrive enc vel", getRightEncoderVelocity());
-    SmartDashboard.putNumber("Heading", getHeading());
     SmartDashboard.putNumber("Odometry X", odometry.getPoseMeters().getTranslation().getX());
     SmartDashboard.putNumber("Odometry Y", odometry.getPoseMeters().getTranslation().getY());
-    SmartDashboard.putNumber("Average Velocity", getAverageEncoderVelocity());
+    SmartDashboard.putNumber("Avg Velocity", getAverageEncoderVelocity());
     SmartDashboard.putNumber("Left wheel speeds", getWheelSpeeds().leftMetersPerSecond);
     SmartDashboard.putNumber("Right wheel speeds", getWheelSpeeds().rightMetersPerSecond);
     SmartDashboard.putNumber("LDrive master AMPS", leftMaster.getOutputCurrent());
