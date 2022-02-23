@@ -41,6 +41,7 @@ public class Autonomous extends SubsystemBase {
     private Hashtable<String,Command> autoRoutines;
 
     private Trajectory oneBallLeftUp, oneBallLeftToHuman, twoBallLeftUpShoot, twoBallRightUpShoot, oneBallRightToHuman;
+    private Trajectory fourBallRight_1, fourBallRight_2;
 
     public Autonomous() {
         autoRoutines = new Hashtable<String,Command>();
@@ -106,9 +107,10 @@ public class Autonomous extends SubsystemBase {
 
         autoRoutines.put("CMD Group: 1 Ball Left Up", new OneBallLeftUp(getOneBallLeftUp()));
         autoRoutines.put("CMD Group: 1 Ball Left To Human", new OneBallLeftToHuman(getOneBallLeftToHuman()));
+        autoRoutines.put("CMD Group: 1 Ball Right To Human", new OneBallRightToHuman(getOneBallRightToHuman()));
         autoRoutines.put("CMD Group: 2 Ball Left Up Shoot", new TwoBallLeftUpShoot(getTwoBallLeftUpShoot()));
         autoRoutines.put("CMD Group: 2 Ball Right Up Shoot", new TwoBallRightUpShoot(getTwoBallRightUpShoot()));
-        autoRoutines.put("CMD Group: 2 Ball Right To Human", new OneBallRightToHuman(getOneBallRightToHuman()));
+        // autoRoutines.put("CMD Group: 4 Ball Path", new FourBallPathRight(getFourBallPart1(), getFourBallPart2()));
     }
 
     public Command returnAutonomousCommand() {
@@ -121,6 +123,8 @@ public class Autonomous extends SubsystemBase {
         twoBallLeftUpShoot = getTransformedTrajectory(PathPlanner.loadPath("2BallLeftUpShoot", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared));
         twoBallRightUpShoot = getTransformedTrajectory(PathPlanner.loadPath("2BallRightUpShoot", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared));
         oneBallRightToHuman = getTransformedTrajectory(PathPlanner.loadPath("1BallRightToHuman", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared));
+        fourBallRight_1 = getTransformedTrajectory(PathPlanner.loadPath("4BallRight_Part1", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared));
+        fourBallRight_2 = getTransformedTrajectory(PathPlanner.loadPath("4BallRight_Part2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared));
     }
  
     public SplitFFRamseteCommand createCommandFromTrajectory(Trajectory trajectory){
@@ -187,6 +191,15 @@ public class Autonomous extends SubsystemBase {
 
     public SplitFFRamseteCommand getOneBallRightToHuman(){
         return createCommandFromTrajectory(oneBallRightToHuman);
+    }
+
+    public SplitFFRamseteCommand getFourBallPart1(){
+        return createCommandFromTrajectory(fourBallRight_1);
+    }
+
+    
+    public SplitFFRamseteCommand getFourBallPart2(){
+        return createCommandFromTrajectory(fourBallRight_2);
     }
 
     @Override
