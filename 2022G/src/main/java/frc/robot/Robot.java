@@ -33,7 +33,7 @@ import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
  * build.gradle file in the
  * project.
  */
-public class Robot extends LoggedRobotCustom {
+public class Robot extends TimedRobot {
   private RobotContainer robotContainer;
   private Lights lights;
 
@@ -50,7 +50,7 @@ public class Robot extends LoggedRobotCustom {
     // and put our
     // autonomous chooser on the dashboard.
     LoggerCustom logger = LoggerCustom.getInstance();
-    setUseTiming(true);
+    // setUseTiming(true);
     LoggedNetworkTables.getInstance().addTable("/LiveWindow");
     logger.addDataReceiver(new ByteLogReceiver("/home/lvuser/"));
     logger.addDataReceiver(new LogSocketServer(5800));
