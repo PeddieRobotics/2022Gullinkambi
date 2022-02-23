@@ -139,6 +139,7 @@ public class Robot extends LoggedRobotCustom {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    robotContainer.limelight.updateLimelightFromDashboard(); //REMOVE AFTER TESTING PID
   }
 
   @Override

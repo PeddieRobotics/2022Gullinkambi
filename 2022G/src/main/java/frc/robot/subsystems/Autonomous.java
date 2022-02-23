@@ -22,6 +22,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.SplitFFRamseteCommand;
+// import frc.robot.commands.AutoCommands.OneBallLeftToHuman;
+// import frc.robot.commands.AutoCommands.OneBallLeftUp;
+// import frc.robot.commands.AutoCommands.ShootForTimed;
+import frc.robot.commands.AutoCommands.*;
 import frc.robot.utils.Constants;
 
 public class Autonomous extends SubsystemBase {
@@ -36,7 +40,7 @@ public class Autonomous extends SubsystemBase {
     private SendableChooser<Command> autoRoutineSelector;
     private Hashtable<String,Command> autoRoutines;
 
-    private Trajectory test, sPathTest;
+    private Trajectory oneBallLeftUp, oneBallLeftToHuman;
 
     public Autonomous() {
         autoRoutines = new Hashtable<String,Command>();
@@ -94,8 +98,10 @@ public class Autonomous extends SubsystemBase {
     }
 
     public void setupAutoRoutines() {
-        autoRoutines.put("Test Path", createCommandFromTrajectory(test));
-        autoRoutines.put("Spath", createCommandFromTrajectory(sPathTest));
+        autoRoutines.put("1BallLeftUp", createCommandFromTrajectory(oneBallLeftUp));
+        autoRoutines.put("1BallLeftToHuman", createCommandFromTrajectory(oneBallLeftToHuman));
+        autoRoutines.put("CMD Group: 1 Left Up", new OneBallLeftUp(getOneBallLeftUp()));
+        autoRoutines.put("CMD Group: 1 Left To Human", new OneBallLeftToHuman(getOneBallLeftToHuman()));
     }
 
     public Command returnAutonomousCommand() {
@@ -103,9 +109,9 @@ public class Autonomous extends SubsystemBase {
     }
 
     private void defineAutoPaths(){
-        test = getTransformedTrajectory(PathPlanner.loadPath("StraightPathTest", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared));
-        // test = getTransformedTrajectory(test);
-        sPathTest = getTransformedTrajectory(PathPlanner.loadPath("SPathTest", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared)); 
+        oneBallLeftUp = getTransformedTrajectory(PathPlanner.loadPath("1BallLeftUp", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared)); 
+        oneBallLeftToHuman = getTransformedTrajectory(PathPlanner.loadPath("1BallLeftToHuman", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared)); 
+
     }
  
     public SplitFFRamseteCommand createCommandFromTrajectory(Trajectory trajectory){
@@ -152,6 +158,14 @@ public class Autonomous extends SubsystemBase {
         Pose2d newOrigin = t.getInitialPose();
         Trajectory transformed = t.relativeTo(newOrigin);
         return transformed;
+    }
+
+    public SplitFFRamseteCommand getOneBallLeftUp(){
+        return createCommandFromTrajectory(oneBallLeftUp);
+    }
+
+    public SplitFFRamseteCommand getOneBallLeftToHuman(){
+        return createCommandFromTrajectory(oneBallLeftToHuman);
     }
 
     @Override
