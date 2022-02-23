@@ -34,7 +34,7 @@ public class ShootWithLL extends CommandBase {
   @Override
   public void execute() {
     // Check whether the speed of flywheel is good enough to shoot
-    if (flywheel.isAtRPM(SmartDashboard.getNumber("Test: shoot LL threshold", Constants.FLYWHEEL_THRESHOLD_SHOOTLL))) {
+    if (Math.abs(limelight.getTx()) < 1 && flywheel.isAtRPM(SmartDashboard.getNumber("Test: shoot LL threshold", Constants.FLYWHEEL_THRESHOLD_SHOOTLL))) {
       flywheel.setShooterLock(true);
     } else {
       flywheel.setShooterLock(false);

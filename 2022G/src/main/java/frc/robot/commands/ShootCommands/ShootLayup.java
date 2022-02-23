@@ -21,8 +21,8 @@ public class ShootLayup extends CommandBase {
   @Override
   public void initialize() {
     flywheel.setHood(false); // no hood for high shot
+    flywheel.setShooterLock(true);
     flywheel.runFlywheelSetpoint(SmartDashboard.getNumber("Teleop: layup RPM", Constants.FLYWHEEL_RPM_LAYUP));
-    hopper.runHopper(SmartDashboard.getNumber("Teleop: Hopper speed", Constants.HOPPER_SPEED));
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -30,9 +30,9 @@ public class ShootLayup extends CommandBase {
   public void execute() {
     // Check whether the speed of flywheel is good enough to shoot
     if (flywheel.isAtRPM(SmartDashboard.getNumber("Test: shoot layup threshold", Constants.FLYWHEEL_THRESHOLD_LAYUP))){
-      flywheel.setShooterLock(true);
+      hopper.runHopper(SmartDashboard.getNumber("Teleop: Hopper speed", Constants.HOPPER_SPEED));
     } else {
-      flywheel.setShooterLock(false);
+      hopper.stopHopper();
     }
 
   }
