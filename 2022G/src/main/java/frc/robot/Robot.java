@@ -34,6 +34,7 @@ import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
  * project.
  */
 public class Robot extends LoggedRobotCustom {
+  private Command autonomousCommand;
   private RobotContainer robotContainer;
   private Lights lights;
 
@@ -117,6 +118,10 @@ public class Robot extends LoggedRobotCustom {
     robotContainer.setDrivetrainToBrakeMode();
 
     // schedule the autonomous command (example)
+    if (!(robotContainer.getAutonomousCommand() == null)) {
+      autonomousCommand = robotContainer.getAutonomousCommand();
+      autonomousCommand.schedule();
+    }
   }
 
   /** This function is called periodically during autonomous. */
@@ -132,6 +137,9 @@ public class Robot extends LoggedRobotCustom {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
+    if (autonomousCommand != null) {
+      autonomousCommand.cancel();
+    }
     lights.on();
     CommandScheduler.getInstance().schedule(new InitializeArm());
   }
