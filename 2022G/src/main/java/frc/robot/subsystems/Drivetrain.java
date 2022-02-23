@@ -20,9 +20,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.Constants;
-import frc.robot.utils.RobotMapGullinkambi;
-import frc.robot.utils.RobotMapMini;
+import frc.robot.utils.*;
 
 public class Drivetrain extends SubsystemBase {
   private static Drivetrain drivetrain;
@@ -40,6 +38,10 @@ public class Drivetrain extends SubsystemBase {
   private boolean inverseMode;
 
   private final RelativeEncoder leftEncoder, rightEncoder;
+
+  //Logging
+  private static UpdateLogs updateLogs = UpdateLogs.getInstance();
+  private double speedSetpoint, turnSetpoint;
 
   public Drivetrain() {
     if(Constants.IS_GULLINKAMBI){
@@ -86,6 +88,7 @@ public class Drivetrain extends SubsystemBase {
     rightEncoder = rightMaster.getEncoder();
     resetEncoders();
 
+
     drive = new DifferentialDrive(leftMotors, rightMotors);
     drive.setDeadband(Constants.DRIVING_DEADBANDS);
     drive.setSafetyEnabled(false);
@@ -105,6 +108,7 @@ public class Drivetrain extends SubsystemBase {
   @Override
   public void periodic() {
     odometry.update(getHeadingAsRotation2d(), leftEncoder.getPosition(), rightEncoder.getPosition());
+    updateLogs.updateDrivetrainLogData();
   }
 
   @Override
@@ -117,30 +121,6 @@ public class Drivetrain extends SubsystemBase {
       drivetrain = new Drivetrain();
     }
     return drivetrain;
-  }
-
-  public double getLeftEncoderPosition() {
-    return leftEncoder.getPosition();
-  }
-
-  public double getRightEncoderPosition() {
-    return -rightEncoder.getPosition();
-  }
-
-  public double getLeftEncoderVelocity() {
-    return leftEncoder.getVelocity();
-  }
-
-  public double getRightEncoderVelocity() {
-    return -rightEncoder.getVelocity();
-  }
-
-  public double getAverageEncoderVelocity() {
-    return (Math.abs(getLeftEncoderVelocity()) + Math.abs(getRightEncoderVelocity())) / 2;
-  }
-
-  public double getAverageEncoderDistance() {
-    return (leftEncoder.getPosition() + rightEncoder.getPosition()) / 2.0;
   }
 
   private void setConversionFactors() {
@@ -156,14 +136,15 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void updateDrivetrainInfoOnDashboard() {
+    SmartDashboard.putNumber("Heading", getHeading());
+    //only heading in competition mode
     SmartDashboard.putNumber("LDrive enc pos", getLeftEncoderPosition());
     SmartDashboard.putNumber("RDrive enc pos", getRightEncoderPosition());
     SmartDashboard.putNumber("LDrive enc vel", getLeftEncoderVelocity());
     SmartDashboard.putNumber("RDrive enc vel", getRightEncoderVelocity());
-    SmartDashboard.putNumber("Heading", getHeading());
     SmartDashboard.putNumber("Odometry X", odometry.getPoseMeters().getTranslation().getX());
     SmartDashboard.putNumber("Odometry Y", odometry.getPoseMeters().getTranslation().getY());
-    SmartDashboard.putNumber("Average Velocity", getAverageEncoderVelocity());
+    SmartDashboard.putNumber("Avg Velocity", getAverageEncoderVelocity());
     SmartDashboard.putNumber("Left wheel speeds", getWheelSpeeds().leftMetersPerSecond);
     SmartDashboard.putNumber("Right wheel speeds", getWheelSpeeds().rightMetersPerSecond);
     SmartDashboard.putNumber("LDrive master AMPS", leftMaster.getOutputCurrent());
@@ -261,6 +242,115 @@ public class Drivetrain extends SubsystemBase {
     drive.feed();
   }
 
+  //Encoder Getters
+  public double getLeftEncoderPosition(){
+    return leftEncoder.getPosition();
+  }
+
+  public double getRightEncoderPosition(){
+    return -rightEncoder.getPosition();
+  }
+
+  public double getLeftEncoderVelocity(){
+    return leftEncoder.getVelocity();
+  }
+
+  public double getRightEncoderVelocity(){
+    return -rightEncoder.getVelocity();
+  }
+
+  public double getAverageEncoderDistance(){
+    return (leftEncoder.getPosition() + rightEncoder.getPosition())/2.0;
+  }
+
+  public double getAverageEncoderVelocity(){
+    return (leftEncoder.getVelocity() + rightEncoder.getVelocity())/2.0;
+  }
+
+
+  //Setpoint Getters
+  public double getSpeedSetpoint(){
+    return speedSetpoint;
+  }
+  public double getTurnSetpoint(){
+    return turnSetpoint;
+  }
+
+  public double getLeftMasterVelocity(){
+    return leftMaster.get();
+  }
+  
+  public double getLeftFollowerVelocity(){
+    return leftFollower1.get();
+  }
+
+  public double getLeftFollower2Velocity(){
+    return leftFollower2.get();
+  }
+  
+  public double getRightMasterVelocity(){
+    return rightMaster.get();
+  }
+  
+  public double getRightFollowerVelocity(){
+    return rightFollower1.get();
+  }
+
+  public double getRightFollower2Velocity(){
+    return rightFollower2.get();
+  }
+
+
+  //Current Getters
+  public double getLeftMasterCurrent(){
+    return leftMaster.getOutputCurrent();
+  }
+  
+  public double getLeftFollowerCurrent(){
+    return leftFollower1.getOutputCurrent();
+  }
+
+  public double getLeftFollower2Current(){
+    return leftFollower2.getOutputCurrent();
+  }
+  
+  public double getRightMasterCurrent(){
+    return rightMaster.getOutputCurrent();
+  }
+  
+  public double getRightFollowerCurrent(){
+    return rightFollower1.getOutputCurrent();
+  }
+
+  public double getRightFollower2Current(){
+    return rightFollower2.getOutputCurrent();
+  }
+
+
+  //Motor Temperaure Getters
+  public double getLeftMasterMotorTemperature(){
+    return leftMaster.getMotorTemperature();
+  }
+  
+  public double getLeftFollowerMotorTemperature(){
+    return leftFollower1.getMotorTemperature();
+  }
+
+  public double getLeftFollower2MotorTemperature(){
+    return leftFollower2.getMotorTemperature();
+  }
+  
+  public double getRightMasterMotorTemperature(){
+    return rightMaster.getMotorTemperature();
+  }
+  
+  public double getRightFollowerMotorTemperature(){
+    return rightFollower1.getMotorTemperature();
+  }
+
+  public double getRightFollower2MotorTemperature(){
+    return rightFollower2.getMotorTemperature();
+  }
   public void setToInverseMode(){
     inverseMode = true;
   }

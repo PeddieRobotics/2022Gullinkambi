@@ -6,8 +6,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.Constants;
-import frc.robot.utils.RollingAverage;
+import frc.robot.utils.*;
 
 public class Limelight extends SubsystemBase {
   /**
@@ -30,6 +29,9 @@ public class Limelight extends SubsystemBase {
   
   private RollingAverage txAverage = new RollingAverage();
   private RollingAverage tyAverage = new RollingAverage();
+
+  private static UpdateLogs updateLogs = UpdateLogs.getInstance();
+
     
   public Limelight() {
     limelightPIDController = new PIDController(Constants.LL_P, Constants.LL_I, Constants.LL_D);
@@ -48,6 +50,8 @@ public class Limelight extends SubsystemBase {
   
   public void periodic() {
     updateRollingAverages();
+    updateLogs.updateLimelightLogData();
+
   }
 
   public PIDController getPIDController(){
@@ -113,9 +117,9 @@ public class Limelight extends SubsystemBase {
   }
 
   public void updateLimelightInfoOnDashboard(){
-    SmartDashboard.putNumber("Limelight vertical error", getTy());
-    SmartDashboard.putNumber("Limelight horizontal error", getTx());
-    SmartDashboard.putNumber("Limelight distance", getDistance());
+    SmartDashboard.putNumber("Limelight vt error", getTy());
+    SmartDashboard.putNumber("Limelight hz error", getTx());
+    SmartDashboard.putNumber("Limelight dist", getDistance());
   }
 
   public void updateLimelightFromDashboard(){
@@ -126,6 +130,11 @@ public class Limelight extends SubsystemBase {
   }
 
   public void putSmartDashboardOverrides(){
+    SmartDashboard.putNumber("LL P", Constants.LL_P);
+    SmartDashboard.putNumber("LL I", Constants.LL_I);
+    SmartDashboard.putNumber("LL D", Constants.LL_D);
+    SmartDashboard.putNumber("LL FF", Constants.LL_FF);
+    SmartDashboard.putNumber("LL ANGLE BOUND", Constants.LL_ANGLE_BOUND);
   }
 
   public void setFF(double feedforward){

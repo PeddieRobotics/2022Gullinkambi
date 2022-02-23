@@ -21,7 +21,7 @@ public class ShootLow extends CommandBase {
   @Override
   public void initialize() {
     flywheel.setHood(true); // no hood for low shot
-    flywheel.runFlywheelSetpoint(SmartDashboard.getNumber("Teleop: Flywheel shoot low RPM", Constants.FLYWHEEL_RPM_LOW));
+    flywheel.runFlywheelSetpoint(SmartDashboard.getNumber("Teleop: shoot low RPM", Constants.FLYWHEEL_RPM_LOW));
     hopper.runHopper(SmartDashboard.getNumber("Teleop: Hopper speed", Constants.HOPPER_SPEED));
   }
 
@@ -29,7 +29,7 @@ public class ShootLow extends CommandBase {
   @Override
   public void execute() {
     // Check whether the speed of flywheel is good enough to shoot
-    if (flywheel.isAtRPM(SmartDashboard.getNumber("Teleop: Flywheel shoot LL threshold", Constants.FLYWHEEL_THRESHOLD_SHOOTLL))){
+    if (flywheel.isAtRPM(SmartDashboard.getNumber("Test: shoot LL threshold", Constants.FLYWHEEL_THRESHOLD_SHOOTLL))){
       flywheel.setShooterLock(true);
     } else {
       flywheel.setShooterLock(false);

@@ -4,6 +4,13 @@
 
 package frc.robot;
 
+
+import frc.robot.utils.LoggingCustoms.LoggedRobotCustom;
+import frc.robot.utils.LoggingCustoms.LoggerCustom;
+import org.littletonrobotics.junction.inputs.LoggedNetworkTables;
+import org.littletonrobotics.junction.io.ByteLogReceiver;
+import org.littletonrobotics.junction.io.LogSocketServer;
+
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -26,9 +33,7 @@ import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
  * build.gradle file in the
  * project.
  */
-public class Robot extends TimedRobot {
-  private Command autonomousCommand;
-
+public class Robot extends LoggedRobotCustom {
   private RobotContainer robotContainer;
   private Lights lights;
 
@@ -44,6 +49,13 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer. This will perform all our button bindings,
     // and put our
     // autonomous chooser on the dashboard.
+    LoggerCustom logger = LoggerCustom.getInstance();
+    setUseTiming(true);
+    LoggedNetworkTables.getInstance().addTable("/LiveWindow");
+    logger.addDataReceiver(new ByteLogReceiver("/home/lvuser/"));
+    logger.addDataReceiver(new LogSocketServer(5800));
+    logger.start();
+
     robotContainer = new RobotContainer();
     robotContainer.setDrivetrainToCoastMode();
     robotContainer.calibrateGyro();
@@ -105,10 +117,6 @@ public class Robot extends TimedRobot {
     robotContainer.setDrivetrainToBrakeMode();
 
     // schedule the autonomous command (example)
-    if (!(robotContainer.getAutonomousCommand() == null)) {
-      autonomousCommand = robotContainer.getAutonomousCommand();
-      autonomousCommand.schedule();
-    }
   }
 
   /** This function is called periodically during autonomous. */
@@ -124,9 +132,6 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    if (autonomousCommand != null) {
-      autonomousCommand.cancel();
-    }
     lights.on();
     CommandScheduler.getInstance().schedule(new InitializeArm());
   }
@@ -134,6 +139,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    robotContainer.limelight.updateLimelightFromDashboard(); //REMOVE AFTER TESTING PID
   }
 
   @Override

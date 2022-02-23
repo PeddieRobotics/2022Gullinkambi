@@ -8,8 +8,7 @@ import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.Constants;
-
+import frc.robot.utils.*;
 import frc.robot.utils.RobotMapGullinkambi;
 
 public class Hopper extends SubsystemBase {
@@ -20,6 +19,8 @@ public class Hopper extends SubsystemBase {
 
     // Define sensors for the hopper to count cargo
     private DigitalInput bottomSensor, topSensor;
+
+    private static UpdateLogs updateLogs = UpdateLogs.getInstance();
 
     public Hopper() {
         hopperSystem = new CANSparkMax(RobotMapGullinkambi.MOTOR_HOPPER, MotorType.kBrushless);
@@ -32,6 +33,7 @@ public class Hopper extends SubsystemBase {
     }
 
     public void periodic() {
+        updateLogs.updateHopperLogData();
     }
 
     public static Hopper getInstance() {
@@ -42,8 +44,8 @@ public class Hopper extends SubsystemBase {
         return hopper;
     }
 
-    public void runHopper(double speed) {
-        hopperSystem.set(-speed);
+    public void runHopper(double speed){
+        hopperSystem.set(-speed); //the speed input needs a multiplier
     }
 
     public void stopHopper() {
@@ -54,8 +56,25 @@ public class Hopper extends SubsystemBase {
         runHopper(-speed);
     }
 
-    public double getHopperSpeed() {
+    //Getters
+    public double getHopperVelocity(){
         return hopperSystem.get();
+    }
+
+    public double getHopperCurrent(){
+        return hopperSystem.getOutputCurrent();
+    }
+
+    public double getHopperMotorTemperature(){
+        return hopperSystem.getMotorTemperature();
+    }
+
+    public double getHopperEncoderVelocity(){
+        return hopperSystem.getEncoder().getVelocity();
+    }
+
+    public double getHopperEncoderPosition(){
+        return hopperSystem.getEncoder().getPosition();
     }
 
     public boolean sensesBallBottom() {
@@ -81,7 +100,7 @@ public class Hopper extends SubsystemBase {
     }
 
     public void updateHopperInfoOnDashboard(){
-        SmartDashboard.putNumber("Hopper speed", getHopperSpeed());
+        SmartDashboard.putNumber("Hopper speed", getHopperVelocity());
         SmartDashboard.putBoolean("Lower sensor", sensesBallBottom());
         SmartDashboard.putBoolean("Upper sensor", sensesBallTop());
     }

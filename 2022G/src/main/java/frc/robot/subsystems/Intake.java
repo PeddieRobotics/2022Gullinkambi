@@ -6,12 +6,13 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.Constants;
-import frc.robot.utils.RobotMapGullinkambi;
+import frc.robot.utils.*;
 
 public class Intake extends SubsystemBase {
 
@@ -19,6 +20,9 @@ public class Intake extends SubsystemBase {
 
   private Solenoid intakeSolenoid;
   private CANSparkMax intakeMotor;
+
+  private static UpdateLogs updateLogs = UpdateLogs.getInstance();
+
 
   public Intake() {
     intakeSolenoid = new Solenoid(RobotMapGullinkambi.PNEUMATICS_HUB, PneumaticsModuleType.REVPH, RobotMapGullinkambi.SOLENOID_INTAKE);
@@ -29,6 +33,7 @@ public class Intake extends SubsystemBase {
 
   @Override
   public void periodic() {
+    updateLogs.updateIntakeLogData();
   }
 
   public static Intake getInstance() {
@@ -89,4 +94,21 @@ public class Intake extends SubsystemBase {
     setIntakeSolenoid(SmartDashboard.getBoolean("OR: Intake solenoid", false));
   }
 
+  public void putValuesSmartDashboard() {
+    SmartDashboard.putNumber("Intake speed", getIntakeSpeed());
+    SmartDashboard.putBoolean("Intake solenoid", getIntakeSolenoid());
+  }
+
+  //Getters
+  public boolean getSolenoidState() {
+    return intakeSolenoid.get();
+  }
+
+  public double getIntakeCurrent(){
+    return intakeMotor.getOutputCurrent();
+  }
+
+  public double getIntakeMotorTemperature(){
+    return intakeMotor.getMotorTemperature();
+  }
 }
