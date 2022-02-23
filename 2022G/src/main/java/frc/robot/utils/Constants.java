@@ -68,7 +68,7 @@ public final class Constants {
   public static final double LL_ANGLE_BOUND = 2.0;
   public static final double LL_ANGLE = 20; //45
   public static final double LL_HEIGHT = 24.5;
-  public static final double LL_PANNING_ANGLE = 0; 
+  public static final double LL_PANNING_ANGLE = 0;
   public static final double TARGET_HEIGHT = 104;
   
   public static final double [] LL_DIST = new double[]{100,125,150,175,200};

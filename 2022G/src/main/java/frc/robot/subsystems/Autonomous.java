@@ -98,8 +98,8 @@ public class Autonomous extends SubsystemBase {
     }
 
     public void setupAutoRoutines() {
-        autoRoutines.put("1BallLeftUp", createCommandFromTrajectory(oneBallLeftUp));
-        autoRoutines.put("1BallLeftToHuman", createCommandFromTrajectory(oneBallLeftToHuman));
+        // autoRoutines.put("1BallLeftUp", createCommandFromTrajectory(oneBallLeftUp));
+        // autoRoutines.put("1BallLeftToHuman", createCommandFromTrajectory(oneBallLeftToHuman));
         autoRoutines.put("CMD Group: 1 Left Up", new OneBallLeftUp(getOneBallLeftUp()));
         autoRoutines.put("CMD Group: 1 Left To Human", new OneBallLeftToHuman(getOneBallLeftToHuman()));
     }
