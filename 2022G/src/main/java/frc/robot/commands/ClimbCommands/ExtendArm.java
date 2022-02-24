@@ -16,6 +16,8 @@ public class ExtendArm extends CommandBase {
    // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    climber.enablePIDController();
+    climber.setClimberSolenoidBrake(false);
     climber.moveToPosition(Constants.CLIMBER_TOP_ENCODER_POSITION);
   }
 

@@ -7,6 +7,8 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxPIDController;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.*;
@@ -19,6 +21,7 @@ public class Climber extends SubsystemBase {
 
   private CANSparkMax armMotor1, armMotor2;
   private DigitalInput armSensor;
+  private Solenoid armBrake; 
 
   private double climberSetpoint;
 
@@ -43,6 +46,8 @@ public class Climber extends SubsystemBase {
     armMotor2.setSmartCurrentLimit(Constants.CLIMBER_MAX_CURRENT);
 
     armSensor = new DigitalInput(2);
+
+    armBrake = new Solenoid(RobotMapGullinkambi.PNEUMATICS_HUB, PneumaticsModuleType.REVPH, RobotMapGullinkambi.SOLENOID_CLIMBER_BRAKE); 
 
     climberPIDController = armMotor1.getPIDController();
     climberPIDController.setOutputRange(-1, 1);
@@ -80,6 +85,7 @@ public class Climber extends SubsystemBase {
   }
 
   public void moveToPosition(double encoderPosition){
+
     climberSetpoint = encoderPosition;
     climberPIDController.setReference(climberSetpoint, ControlType.kPosition);
   }
@@ -104,15 +110,26 @@ public class Climber extends SubsystemBase {
     armMotor1.getEncoder().setPosition(position);
   }
 
-  public void setBrake() {
+  public void setBrakeMode() {
     armMotor1.setIdleMode(IdleMode.kBrake);
     armMotor2.setIdleMode(IdleMode.kBrake);
   }
 
-  public void setCoast() {
+  public void setCoastMode() {
     armMotor1.setIdleMode(IdleMode.kCoast);
     armMotor2.setIdleMode(IdleMode.kCoast);
   }
+
+  //solenoid = true is unlocked, solenoid = false is locked
+
+  public void setClimberSolenoidBrake(boolean solenoidState) { // solenoidState = true is locked, solenoidState = false is unlocked
+    armBrake.set(solenoidState);
+  }
+
+  public boolean getClimberSolenoidBrake() {
+    return armBrake.get();
+  }
+
 
   @Override
   public void periodic() {
@@ -167,6 +184,9 @@ public class Climber extends SubsystemBase {
   }
 
   public void putSmartDashboardOverrides(){  
+
+    SmartDashboard.putBoolean("OR: Climber set brake ", false);
+
     SmartDashboard.putNumber("OR: Climber power", 0);
     SmartDashboard.putNumber("OR: Climber coast", 0);
 
@@ -187,15 +207,15 @@ public class Climber extends SubsystemBase {
   public void updateClimberInfoOnDashboard(){
     SmartDashboard.putBoolean("Climber sensor state", climber.armSensorState());
     SmartDashboard.putNumber("Climber encoder", climber.getEncoderPosition());
-    
+    SmartDashboard.putBoolean("OR: Climber brake state", climber.getClimberSolenoidBrake());
   }
 
   public void updateClimberFromDashboard() {
     if(SmartDashboard.getBoolean("OR: Climber coast", false)){
-      climber.setCoast();
+      climber.setCoastMode();
     }
     else{
-      climber.setBrake();
+      climber.setBrakeMode();
     }
     
     climberPIDController.setP(SmartDashboard.getNumber("OR: P climber", kP));
@@ -204,12 +224,16 @@ public class Climber extends SubsystemBase {
     climberPIDController.setIZone(SmartDashboard.getNumber("OR: I zone climber", kIz));
     climberPIDController.setFF(SmartDashboard.getNumber("OR: FF climber", kFF));
     
+    climber.setClimberSolenoidBrake(SmartDashboard.getBoolean("OR: Climber set brake ", false));
+
     if(armSensorState()){
       setEncoderPosition(0);
     }
     //climber.run(SmartDashboard.getNumber("OR: Climber power",0));
-
-    moveToPosition(SmartDashboard.getNumber("OR: Climber setpoint", 0.0));
+    if(SmartDashboard.getNumber("OR: Climber setpoint", 0.0)>Constants.CLIMBER_TOP_ENCODER_POSITION){
+      moveToPosition(SmartDashboard.getNumber("OR: Climber setpoint", 0.0));
+    }
+    
 
   }
 }

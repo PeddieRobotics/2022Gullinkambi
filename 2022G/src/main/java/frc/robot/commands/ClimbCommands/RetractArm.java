@@ -16,7 +16,9 @@ public class RetractArm extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    climber.moveToPosition(15); // Attempt to go past the limit sensor to make sure we reach it
+    climber.disablePIDController();
+    climber.setClimberSolenoidBrake(false);
+    climber.run(1); // Attempt to go past the limit sensor to make sure we reach it
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -27,7 +29,8 @@ public class RetractArm extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    climber.moveToPosition(0); // Hold at encoder position 0
+    climber.run(0);
+    climber.setClimberSolenoidBrake(true);
   }
 
   // Returns true when the command should end.
