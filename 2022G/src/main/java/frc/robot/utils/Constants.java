@@ -8,9 +8,9 @@ public final class Constants {
   public static final boolean IS_GULLINKAMBI = true;
   
   //uncommment whichever one you want to use & comment the rest
-  //public static final OIConfig OI_CONFIG = OIConfig.COMPETITION; 
+  public static final OIConfig OI_CONFIG = OIConfig.COMPETITION; 
   // public static final OIConfig OI_CONFIG = OIConfig.XBOX_TEST;
-  public static final OIConfig OI_CONFIG = OIConfig.JOYSTICK_TEST;
+  //public static final OIConfig OI_CONFIG = OIConfig.JOYSTICK_TEST;
 
   // Drivetrain constants
   public static final int DRIVETRAIN_MAX_CURRENT = 40;
