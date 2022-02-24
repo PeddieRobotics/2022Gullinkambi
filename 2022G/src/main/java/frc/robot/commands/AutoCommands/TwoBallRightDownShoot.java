@@ -16,11 +16,7 @@ public class TwoBallRightDownShoot extends  SequentialCommandGroup{
                 twoBallRightDownShoot
             ),
             new StopIntake(),
-            new ParallelCommandGroup(
-                new Target(),
-                new ShootWithLL()
-            )
-            
+            new ShootWithLLForTime(4)
         );
     }
 }
