@@ -47,7 +47,8 @@ public class XboxOI {
         if (Constants.OI_CONFIG == OIConfig.COMPETITION) {
             xboxController = new Joystick(ControllerMap.XBOX_OPERATOR_PORT);
 
-            new JoystickButton(xboxController, ControllerMap.XBOX_Y).whenHeld(new UnjamIntake()).whenReleased(new RunIntake()); // XBOX_Y
+            new JoystickButton(xboxController, ControllerMap.XBOX_X).whenPressed(new UnjamIntake(true)).whenReleased(new RunIntake()); // XBOX_X
+            new JoystickButton(xboxController, ControllerMap.XBOX_Y).whenHeld(new UnjamIntake(false)).whenReleased(new RunIntake()); // XBOX_Y
             new JoystickButton(xboxController, ControllerMap.XBOX_A).whenHeld(new ShootLow()); // XBOX_A
             new JoystickButton(xboxController, ControllerMap.XBOX_B).whenPressed(new InitializeArm()); // XBOX_B
 

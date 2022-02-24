@@ -13,18 +13,25 @@ public class UnjamIntake extends CommandBase {
     private Intake m_intake;
     private Hopper m_hopper;
     private Flywheel m_flywheel;
+    private boolean unjamOneBall;
+    private double initialCurrent;
 
-    public UnjamIntake() {
+    public UnjamIntake(boolean unjamOne) {
         m_intake = Intake.getInstance();
         m_hopper = Hopper.getInstance();
         m_flywheel = Flywheel.getInstance();
         addRequirements(m_intake, m_hopper, m_flywheel);
+
+        unjamOneBall = unjamOne;
+        initialCurrent = 0.0;
     }
 
     @Override
     public void initialize() {
         m_intake.setIntakeSolenoid(true);
         m_flywheel.stopFlywheel();
+
+        initialCurrent = m_intake.getIntakeCurrent();
     }
 
     @Override
@@ -42,6 +49,12 @@ public class UnjamIntake extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
+        if(unjamOneBall){
+            // If we detect a spike in the intake current, stop unjamming since we've gotten rid of one ball
+            if(m_intake.getIntakeCurrent() - initialCurrent > 5.0){
+                return true;
+            }
+        }
         return false;
     }
 }

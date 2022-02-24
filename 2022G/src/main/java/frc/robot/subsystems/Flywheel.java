@@ -140,12 +140,7 @@ public class Flywheel extends SubsystemBase {
     SmartDashboard.putNumber("Teleop: shoot low RPM", Constants.FLYWHEEL_RPM_LOW);
     SmartDashboard.putNumber("Teleop: layup RPM", Constants.FLYWHEEL_RPM_LAYUP);
 
-    //only test layout for the last 3
-    SmartDashboard.putNumber("Test: shootLL threshold", Constants.FLYWHEEL_THRESHOLD_SHOOTLL);
-    SmartDashboard.putNumber("Test: shoot low threshold", Constants.FLYWHEEL_THRESHOLD_LOW);
-    SmartDashboard.putNumber("Test: shoot layup threshold", Constants.FLYWHEEL_THRESHOLD_LAYUP);
     SmartDashboard.putBoolean("RevUp AI", true);
-
 
     // Smart dashboard controls for flywheel PID gain tuning
     SmartDashboard.putNumber("OR: P flywheel", Constants.FLYWHEEL_P);
@@ -211,19 +206,7 @@ public class Flywheel extends SubsystemBase {
   public boolean isHoodUp(){
     return hoodSolenoid.get();
   }
-  public void updatePIDGainsFromDashboard(){
-    kP = SmartDashboard.getNumber("OR: P gain", kP);
-    kI = SmartDashboard.getNumber("OR: I gain", kI);
-    kD = SmartDashboard.getNumber("OR: D gain", kD);
-    kIz = SmartDashboard.getNumber("OR: I zone", kIz);
-    kFF = SmartDashboard.getNumber("OR: Feed forward", kFF);
-    
-    flywheelPIDController.setP(kP);
-    flywheelPIDController.setI(kI);
-    flywheelPIDController.setD(kD);
-    flywheelPIDController.setIZone(kIz);
-    flywheelPIDController.setFF(kFF);
-  }
+
   public void updateFlywheelFromDashboard() {
     flywheelPIDController.setP(SmartDashboard.getNumber("OR: P flywheel", Constants.FLYWHEEL_P));
     flywheelPIDController.setI(SmartDashboard.getNumber("OR: I flywheel", Constants.FLYWHEEL_I));
