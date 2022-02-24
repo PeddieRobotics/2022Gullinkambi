@@ -107,8 +107,10 @@ public class Autonomous extends SubsystemBase {
         autoRoutines.put("twoBallLeftUpShoot", createCommandFromTrajectory(twoBallLeftUpShoot));
         autoRoutines.put("twoBallRightUpShoot", createCommandFromTrajectory(twoBallRightUpShoot));
         autoRoutines.put("oneBallRightToHuman", createCommandFromTrajectory(oneBallRightToHuman));
+
         autoRoutines.put("3 Ball Part 1 Test:", createCommandFromTrajectory(threeBallRight_1));
         autoRoutines.put("3 Ball Part 2 Test:", createCommandFromTrajectory(threeBallRight_2));
+        
         autoRoutines.put("4 Ball Part 1 Test:", createCommandFromTrajectory(fourBallRight_1));
         autoRoutines.put("4 Ball Part 2 Test:", createCommandFromTrajectory(fourBallRight_2));
         
