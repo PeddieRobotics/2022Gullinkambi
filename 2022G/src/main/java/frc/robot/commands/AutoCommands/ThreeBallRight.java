@@ -9,8 +9,8 @@ import frc.robot.commands.ShootCommands.ShootLayup;
 import frc.robot.commands.ShootCommands.ShootWithLL;
 import frc.robot.commands.ShootCommands.Target;
 
-public class FourBallPathRight extends  SequentialCommandGroup{
-    public FourBallPathRight(SplitFFRamseteCommand part1, SplitFFRamseteCommand part2){
+public class ThreeBallRight extends SequentialCommandGroup{
+    public ThreeBallRight(SplitFFRamseteCommand part1, SplitFFRamseteCommand part2){
         addCommands(
             part1,
             new ShootForTimed(3),

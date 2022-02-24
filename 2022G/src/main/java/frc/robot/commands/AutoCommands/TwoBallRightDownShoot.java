@@ -5,17 +5,22 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.SplitFFRamseteCommand;
 import frc.robot.commands.IntakeCommands.RunIntake;
 import frc.robot.commands.IntakeCommands.StopIntake;
-import frc.robot.commands.ShootCommands.ShootLayup;
 import frc.robot.commands.ShootCommands.ShootWithLL;
 import frc.robot.commands.ShootCommands.Target;
 
-public class FourBallPathRight extends  SequentialCommandGroup{
-    public FourBallPathRight(SplitFFRamseteCommand part1, SplitFFRamseteCommand part2){
+public class TwoBallRightDownShoot extends  SequentialCommandGroup{
+    public TwoBallRightDownShoot(SplitFFRamseteCommand twoBallRightDownShoot){
         addCommands(
-            part1,
-            new ShootForTimed(3),
-            part2,
-            new ShootWithLLForTime(3)
+            new ParallelCommandGroup(
+                new RunIntake(),
+                twoBallRightDownShoot
+            ),
+            new StopIntake(),
+            new ParallelCommandGroup(
+                new Target(),
+                new ShootWithLL()
+            )
+            
         );
     }
 }

@@ -1,6 +1,7 @@
 package frc.robot.commands.AutoCommands;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.SplitFFRamseteCommand;
 import frc.robot.commands.IntakeCommands.RunIntake;
@@ -9,13 +10,15 @@ import frc.robot.commands.ShootCommands.ShootLayup;
 import frc.robot.commands.ShootCommands.ShootWithLL;
 import frc.robot.commands.ShootCommands.Target;
 
-public class FourBallPathRight extends  SequentialCommandGroup{
-    public FourBallPathRight(SplitFFRamseteCommand part1, SplitFFRamseteCommand part2){
+public class ThreeBallRightToHuman extends  SequentialCommandGroup{
+    public ThreeBallRightToHuman(SplitFFRamseteCommand threeBallRightToHuman){
         addCommands(
-            part1,
-            new ShootForTimed(3),
-            part2,
-            new ShootWithLLForTime(3)
+            new ParallelRaceGroup(
+                new RunIntake(),
+                threeBallRightToHuman
+            ),
+            new StopIntake(),
+            new ShootWithLLForTime(4)
         );
     }
 }
