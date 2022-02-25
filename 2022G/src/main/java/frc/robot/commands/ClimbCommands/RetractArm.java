@@ -17,7 +17,7 @@ public class RetractArm extends CommandBase {
   @Override
   public void initialize() {
     climber.disablePIDController();
-    climber.setClimberSolenoidBrake(false);
+    climber.setClimberSolenoidBrake(true);
     climber.run(1); // Attempt to go past the limit sensor to make sure we reach it
   }
 
@@ -30,7 +30,7 @@ public class RetractArm extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     climber.run(0);
-    climber.setClimberSolenoidBrake(true);
+    climber.setClimberSolenoidBrake(false);
   }
 
   // Returns true when the command should end.

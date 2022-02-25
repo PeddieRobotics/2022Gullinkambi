@@ -123,11 +123,11 @@ public class Climber extends SubsystemBase {
   //solenoid = true is unlocked, solenoid = false is locked
 
   public void setClimberSolenoidBrake(boolean solenoidState) { // solenoidState = true is locked, solenoidState = false is unlocked
-    armBrake.set(!solenoidState);
+    armBrake.set(solenoidState);
   }
 
   public boolean getClimberSolenoidBrake() {
-    return !armBrake.get();
+    return armBrake.get();
   }
 
 

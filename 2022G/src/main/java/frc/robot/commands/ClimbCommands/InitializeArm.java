@@ -18,7 +18,7 @@ public class InitializeArm extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    climber.setClimberSolenoidBrake(false);
+    climber.setClimberSolenoidBrake(true);
     climber.run(-0.25);
   }
 
@@ -36,7 +36,7 @@ public class InitializeArm extends CommandBase {
   public void end(boolean interrupted) {
     climber.setEncoderPosition(0); // Call this retracted position the new "zero"
     climber.run(0);
-    climber.setClimberSolenoidBrake(true);
+    climber.setClimberSolenoidBrake(false);
   }
 
   // Returns true when the command should end.

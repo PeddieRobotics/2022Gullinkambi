@@ -17,7 +17,7 @@ public class ExtendArm extends CommandBase {
   @Override
   public void initialize() {
     climber.enablePIDController();
-    climber.setClimberSolenoidBrake(false);
+    climber.setClimberSolenoidBrake(true);
     climber.moveToPosition(Constants.CLIMBER_TOP_ENCODER_POSITION);
   }
 
