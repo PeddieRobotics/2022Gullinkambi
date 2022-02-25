@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.SplitFFRamseteCommand;
+import frc.robot.commands.IntakeCommands.AutoIntakeWithHopper;
 import frc.robot.commands.IntakeCommands.RunIntake;
 import frc.robot.commands.IntakeCommands.StopIntake;
 import frc.robot.commands.ShootCommands.ShootLayup;
@@ -15,14 +16,14 @@ public class FourBallPathRight extends  SequentialCommandGroup{
     public FourBallPathRight(SplitFFRamseteCommand part1, SplitFFRamseteCommand part2){
         addCommands(
             new ParallelCommandGroup(
-                new RunIntake(),
+                new AutoIntakeWithHopper(),//
                 part1
             ),
             new StopIntake(),
-            new ShootForTimed(4),
+            new ShootForTimed(2),
             new ParallelCommandGroup(
                 part2,
-                new RunIntake()
+                new AutoIntakeWithHopper()
             ),
             new StopIntake(),
             new ShootWithLLForTime(2)
