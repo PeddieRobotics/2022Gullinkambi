@@ -7,6 +7,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.*;
+import frc.robot.utils.Constants.OIConfig;
 
 public class Limelight extends SubsystemBase {
   /**
@@ -117,9 +118,11 @@ public class Limelight extends SubsystemBase {
   }
 
   public void updateLimelightInfoOnDashboard(){
-    SmartDashboard.putNumber("Limelight vt error", getTy());
-    SmartDashboard.putNumber("Limelight hz error", getTx());
-    SmartDashboard.putNumber("Limelight dist", getDistance());
+    if(Constants.OI_CONFIG != OIConfig.COMPETITION){
+      SmartDashboard.putNumber("Limelight vt error", getTy());
+      SmartDashboard.putNumber("Limelight hz error", getTx());
+      SmartDashboard.putNumber("Limelight dist", getDistance());
+    }
   }
 
   public void updateLimelightFromDashboard(){

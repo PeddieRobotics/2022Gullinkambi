@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.*;
+import frc.robot.utils.Constants.OIConfig;
 
 public class Drivetrain extends SubsystemBase {
   private static Drivetrain drivetrain;
@@ -36,6 +37,7 @@ public class Drivetrain extends SubsystemBase {
   private double headingValue;
 
   private boolean inverseMode;
+  private boolean isBrakeMode;
 
   private final RelativeEncoder leftEncoder, rightEncoder;
 
@@ -103,6 +105,11 @@ public class Drivetrain extends SubsystemBase {
     setConversionFactors();
 
     inverseMode = false;
+    isBrakeMode = false;
+    
+    if (Constants.OI_CONFIG == OIConfig.COMPETITION){
+      SmartDashboard.putBoolean("Teleop: Brake mode", false);
+    }
   }
 
   @Override
@@ -152,6 +159,16 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("LDrive power", leftMaster.get());
     SmartDashboard.putNumber("RDrive power", rightMaster.get());
 
+    if (Constants.OI_CONFIG == OIConfig.COMPETITION){
+      if(isBrakeMode != SmartDashboard.getBoolean("Teleop: Brake mode", false)){
+        if (SmartDashboard.getBoolean("Teleop: Brake mode", false)){
+          setCoast();
+        } else {
+          setBrake();
+        }
+        isBrakeMode = SmartDashboard.getBoolean("Teleop: Brake mode", false);
+      }
+    }
   }
 
   public void setBrake() {
@@ -351,6 +368,7 @@ public class Drivetrain extends SubsystemBase {
   public double getRightFollower2MotorTemperature(){
     return rightFollower2.getMotorTemperature();
   }
+
   public void setToInverseMode(){
     inverseMode = true;
   }
