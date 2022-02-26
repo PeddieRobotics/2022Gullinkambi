@@ -75,11 +75,11 @@ public final class Constants {
   public static final double [] RPMS = new double[]{2450,2600,2800,3000,3250,3400,3800};
   public static LookupTable DIST_TO_RPM = new LookupTable(LL_DIST, RPMS);
 
-  public static final double kTurnP = 0.01;
-  public static final double kTurnI = 0;
+  public static final double kTurnP = 0.0055;
+  public static final double kTurnI = 0.0000012;
   public static final double kTurnD = 0;
   public static final double kTurnFF = 0.15;
-  public static final double kTurnToleranceDeg = 1;
+  public static final double kTurnToleranceDeg = 0.5;
   public static final double kTurnRateToleranceDegPerS = 0;
 
   // OI constants

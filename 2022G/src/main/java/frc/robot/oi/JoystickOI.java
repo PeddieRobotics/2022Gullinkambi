@@ -64,10 +64,12 @@ public class JoystickOI {
     leftButton2.toggleWhenPressed(new ConditionalCommand(new InstantCommand(drivetrain::setToRegularMode, drivetrain), new InstantCommand(drivetrain::setToInverseMode, drivetrain), drivetrain::isInverseMode));
     
     rightTrigger.whenHeld(new ShootLayup());
-    rightButton2.whenHeld(new ParallelCommandGroup(new Target(), new ShootWithLL()));
-    rightButton3.whenHeld(new ExtendArm()).whenReleased(new RetractArm());
+   // rightButton2.whenHeld(new ParallelCommandGroup(new Target(), new ShootWithLL()));
+    //rightButton3.whenHeld(new ExtendArm()).whenReleased(new RetractArm());
     //rightButton4.whenHeld(new Target());
-    rightButton4.whenHeld(new TurnToAngle(90, drivetrain));
+    rightButton4.whenPressed(new TurnToAngle(90));
+    rightButton2.whenPressed(new TurnToAngle(150));
+    rightButton3.whenPressed(new TurnToAngle(20));
   }
 
   public double getSpeed() {

@@ -9,6 +9,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
@@ -40,6 +41,8 @@ public class Drivetrain extends SubsystemBase {
   private boolean brakeMode;
 
   private final RelativeEncoder leftEncoder, rightEncoder;
+
+  private PIDController turnPidController;
 
   //Logging
   private static UpdateLogs updateLogs = UpdateLogs.getInstance();
@@ -106,6 +109,13 @@ public class Drivetrain extends SubsystemBase {
 
     inverseMode = false;
     brakeMode = false;
+
+    turnPidController = new PIDController(Constants.kTurnP, Constants.kTurnI, Constants.kTurnD);
+    // Set the controller to be continuous (because it is an angle controller)
+    turnPidController.enableContinuousInput(-180, 180);
+    // Set the controller tolerance - the delta tolerance ensures the robot is stationary at the
+    // setpoint before it is considered as having reached the reference
+    turnPidController.setTolerance(Constants.kTurnToleranceDeg);
 
   }
 
@@ -378,6 +388,10 @@ public class Drivetrain extends SubsystemBase {
 
   public boolean isBrakeMode(){
     return brakeMode;
+  }
+
+  public PIDController getTurnPID(){
+    return turnPidController;
   }
 
 }

@@ -1,46 +1,50 @@
 package frc.robot.commands.DriveCommands;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.Controller;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.utils.Constants;
 
 /** A command that will turn the robot to the specified angle. */
-public class TurnToAngle extends PIDCommand {
+public class TurnToAngle extends CommandBase{
   /**
    * Turns to robot to the specified angle.
    *
    * @param targetAngleDegrees The angle to turn to
    * @param drive The drive subsystem to use
    */
-  public TurnToAngle(double targetAngleDegrees, Drivetrain drive) {
-    super(
-        new PIDController(Constants.kTurnP, Constants.kTurnI, Constants.kTurnD),
-        // Close loop on heading
-        drive::getHeading,
-        // Set reference to target
-        targetAngleDegrees+drive.getHeading(),
-        // Pipe output to turn robot
-        output -> {
-          if (output > 0) {
-              drive.arcadeDrive(0, output + Constants.kTurnFF);
-          } else if (output < 0) {
-              drive.arcadeDrive(0, output - Constants.kTurnFF);
-          } else {
-              drive.arcadeDrive(0, output);
-          }
-        },
-        // Require the drive
-        drive);
-    
-    // Set the controller to be continuous (because it is an angle controller)
-    getController().enableContinuousInput(-180, 180);
-    // Set the controller tolerance - the delta tolerance ensures the robot is stationary at the
-    // setpoint before it is considered as having reached the reference
-    getController().setTolerance(Constants.kTurnToleranceDeg);
-  } 
+
+   private double targetAngleDegrees;
+   private double adjustedTargetAngleDegrees;
+
+  public TurnToAngle(double targetAngleDegrees) {
+    this.targetAngleDegrees = targetAngleDegrees;
+  }
+
+  @Override
+  public void initialize(){
+    // getController().setSetpoint(Drivetrain.getInstance().getHeading() + getController().getSetpoint());
+    SmartDashboard.putNumber("TURNTOPLACE HEADING", Drivetrain.getInstance().getTurnPID().getSetpoint());
+    adjustedTargetAngleDegrees = Drivetrain.getInstance().getTurnPID().getSetpoint() + targetAngleDegrees;
+  }
+
+  @Override
+  public void execute(){
+    double output = Drivetrain.getInstance().getTurnPID().calculate(Drivetrain.getInstance().getHeading(), adjustedTargetAngleDegrees);
+    if (output > 0) {
+      Drivetrain.getInstance().arcadeDrive(0, output + Constants.kTurnFF);
+    } else if (output < 0) {
+      Drivetrain.getInstance().arcadeDrive(0, output - Constants.kTurnFF);
+    } else {
+      Drivetrain.getInstance().arcadeDrive(0, output);
+    }
+  }
+
   @Override
   public boolean isFinished() {
     // End when the controller is at the reference.
-    return getController().atSetpoint();
+    return Drivetrain.getInstance().getTurnPID().atSetpoint();
   }
 }
