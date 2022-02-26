@@ -37,7 +37,7 @@ public class Drivetrain extends SubsystemBase {
   private double headingValue;
 
   private boolean inverseMode;
-  private boolean isBrakeMode;
+  private boolean brakeMode;
 
   private final RelativeEncoder leftEncoder, rightEncoder;
 
@@ -105,11 +105,8 @@ public class Drivetrain extends SubsystemBase {
     setConversionFactors();
 
     inverseMode = false;
-    isBrakeMode = false;
-    
-    if (Constants.OI_CONFIG == OIConfig.COMPETITION){
-      SmartDashboard.putBoolean("Teleop: Brake mode", false);
-    }
+    brakeMode = false;
+
   }
 
   @Override
@@ -159,16 +156,6 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("LDrive power", leftMaster.get());
     SmartDashboard.putNumber("RDrive power", rightMaster.get());
 
-    if (Constants.OI_CONFIG == OIConfig.COMPETITION){
-      if(isBrakeMode != SmartDashboard.getBoolean("Teleop: Brake mode", false)){
-        if (SmartDashboard.getBoolean("Teleop: Brake mode", false)){
-          setCoast();
-        } else {
-          setBrake();
-        }
-        isBrakeMode = SmartDashboard.getBoolean("Teleop: Brake mode", false);
-      }
-    }
   }
 
   public void setBrake() {
@@ -379,6 +366,18 @@ public class Drivetrain extends SubsystemBase {
 
   public boolean isInverseMode(){
     return inverseMode;
+  }
+
+  public void setToBrakeMode(){
+    brakeMode = true;
+  }
+
+  public void setToCoastMode(){
+    brakeMode = false;
+  }
+
+  public boolean isBrakeMode(){
+    return brakeMode;
   }
 
 }
