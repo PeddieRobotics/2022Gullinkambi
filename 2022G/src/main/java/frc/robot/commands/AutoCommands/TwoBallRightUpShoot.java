@@ -20,7 +20,6 @@ public class TwoBallRightUpShoot extends  SequentialCommandGroup{
                 new Target(),
                 new ShootWithLL()
             )
-            
         );
     }
 }

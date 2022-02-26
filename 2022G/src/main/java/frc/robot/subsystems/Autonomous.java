@@ -44,7 +44,7 @@ public class Autonomous extends SubsystemBase {
     private Trajectory oneBallLeftUp, oneBallLeftToHuman, oneBallRightToHuman;
     private Trajectory twoBallLeftUpShoot, twoBallRightUpShoot, twoBallRightDownShoot;
     private Trajectory threeBallRightHuman, threeBallRight_1, threeBallRight_2;
-    private Trajectory fourBallRight_1, fourBallRight_2;
+    private Trajectory fourBallRight_1, fourBallRight_2, fourBallRight_2_Dustin;
 
     public Autonomous() {
         autoRoutines = new Hashtable<String,Command>();
@@ -107,8 +107,10 @@ public class Autonomous extends SubsystemBase {
         autoRoutines.put("twoBallLeftUpShoot", createCommandFromTrajectory(twoBallLeftUpShoot));
         autoRoutines.put("twoBallRightUpShoot", createCommandFromTrajectory(twoBallRightUpShoot));
         autoRoutines.put("oneBallRightToHuman", createCommandFromTrajectory(oneBallRightToHuman));
+
         autoRoutines.put("3 Ball Part 1 Test:", createCommandFromTrajectory(threeBallRight_1));
         autoRoutines.put("3 Ball Part 2 Test:", createCommandFromTrajectory(threeBallRight_2));
+        
         autoRoutines.put("4 Ball Part 1 Test:", createCommandFromTrajectory(fourBallRight_1));
         autoRoutines.put("4 Ball Part 2 Test:", createCommandFromTrajectory(fourBallRight_2));
         
@@ -146,6 +148,7 @@ public class Autonomous extends SubsystemBase {
 
         fourBallRight_1 = getTransformedTrajectory(PathPlanner.loadPath("4BallRight_Part1", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared));
         fourBallRight_2 = getTransformedTrajectory(PathPlanner.loadPath("4BallRight_Part2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared));
+        fourBallRight_2_Dustin = getTransformedTrajectory(PathPlanner.loadPath("4BallPath_Part2_DustinRevision", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared));
     }
  
     public SplitFFRamseteCommand createCommandFromTrajectory(Trajectory trajectory){
@@ -237,6 +240,10 @@ public class Autonomous extends SubsystemBase {
     
     public SplitFFRamseteCommand getFourBallPart2(){
         return createCommandFromTrajectory(fourBallRight_2);
+    }
+
+    public SplitFFRamseteCommand getFourBallPart2_Dustin(){
+        return createCommandFromTrajectory(fourBallRight_2_Dustin);
     }
 
     @Override
