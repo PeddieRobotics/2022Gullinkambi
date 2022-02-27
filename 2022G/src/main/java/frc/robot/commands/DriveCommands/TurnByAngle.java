@@ -1,14 +1,10 @@
 package frc.robot.commands.DriveCommands;
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.Controller;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.utils.Constants;
 
 /** A command that will turn the robot to the specified angle. */
-public class TurnToAngle extends CommandBase{
+public class TurnByAngle extends CommandBase{
   /**
    * Turns to robot to the specified angle.
    *
@@ -19,14 +15,12 @@ public class TurnToAngle extends CommandBase{
    private double targetAngleDegrees;
    private double adjustedTargetAngleDegrees;
 
-  public TurnToAngle(double targetAngleDegrees) {
+  public TurnByAngle(double targetAngleDegrees) {
     this.targetAngleDegrees = targetAngleDegrees;
   }
 
   @Override
   public void initialize(){
-    // getController().setSetpoint(Drivetrain.getInstance().getHeading() + getController().getSetpoint());
-    SmartDashboard.putNumber("TURNTOPLACE HEADING", Drivetrain.getInstance().getTurnPID().getSetpoint());
     adjustedTargetAngleDegrees = Drivetrain.getInstance().getTurnPID().getSetpoint() + targetAngleDegrees;
   }
 

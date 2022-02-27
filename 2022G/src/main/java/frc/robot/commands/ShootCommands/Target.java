@@ -31,7 +31,6 @@ public class Target extends CommandBase {
   }
   @Override
   public void initialize() {
-    //limelightPIDController.setSetpoint(0);
   }
 
   @Override
@@ -65,7 +64,6 @@ public class Target extends CommandBase {
 
   @Override
   public boolean isFinished() { 
-    //return Math.abs(error) < angle_bound;
     return false;
 }
 }

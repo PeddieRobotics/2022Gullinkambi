@@ -7,7 +7,8 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ClimbCommands.ExtendArm;
 import frc.robot.commands.ClimbCommands.RetractArm;
-import frc.robot.commands.DriveCommands.TurnToAngle;
+import frc.robot.commands.DriveCommands.LLDriveToTarget;
+import frc.robot.commands.DriveCommands.TurnByAngle;
 import frc.robot.commands.IntakeCommands.RunIntake;
 import frc.robot.commands.IntakeCommands.StopIntake;
 import frc.robot.commands.ShootCommands.ShootLayup;
@@ -64,12 +65,11 @@ public class JoystickOI {
     leftButton2.toggleWhenPressed(new ConditionalCommand(new InstantCommand(drivetrain::setToRegularMode, drivetrain), new InstantCommand(drivetrain::setToInverseMode, drivetrain), drivetrain::isInverseMode));
     
     rightTrigger.whenHeld(new ShootLayup());
-   // rightButton2.whenHeld(new ParallelCommandGroup(new Target(), new ShootWithLL()));
+    rightButton2.whenHeld(new ParallelCommandGroup(new Target(), new ShootWithLL()));
     //rightButton3.whenHeld(new ExtendArm()).whenReleased(new RetractArm());
     //rightButton4.whenHeld(new Target());
-    rightButton4.whenPressed(new TurnToAngle(90));
-    rightButton2.whenPressed(new TurnToAngle(150));
-    rightButton3.whenPressed(new TurnToAngle(20));
+    rightButton4.whenPressed(new TurnByAngle(90));
+    rightButton3.whenHeld(new LLDriveToTarget(0.35,0));
   }
 
   public double getSpeed() {

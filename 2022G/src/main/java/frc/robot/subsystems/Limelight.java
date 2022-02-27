@@ -63,6 +63,12 @@ public class Limelight extends SubsystemBase {
     return ff;
   }
 
+  // Tv is whether the limelight has a valid target
+  // 1 is true, 0 is false
+  public double getTv(){
+    return tv.getDouble(0.0);
+  }
+
   // Tvert is the vertical sidelength of the rough bounding box (0 - 320 pixels)
   public double getTvert() {
     return tvert.getDouble(0.0);
@@ -104,7 +110,7 @@ public class Limelight extends SubsystemBase {
   }
   
   public boolean hasTarget(){
-    if (limelightTable.getEntry("tv").getDouble(0.0)==1){
+    if (tv.getDouble(0.0)==1){
       return true;
     } else
       return false;
