@@ -51,6 +51,7 @@ public class XboxOI {
             new JoystickButton(xboxController, ControllerMap.XBOX_Y).whenHeld(new UnjamIntake(false)).whenReleased(new RunIntake()); // XBOX_Y
             new JoystickButton(xboxController, ControllerMap.XBOX_A).whenHeld(new ShootLow()); // XBOX_A
             new JoystickButton(xboxController, ControllerMap.XBOX_B).whenPressed(new InitializeArm()); // XBOX_B
+            new JoystickButton(xboxController, ControllerMap.XBOX_RB).toggleWhenPressed(new ConditionalCommand(new InstantCommand(drivetrain::setToCoastMode, drivetrain), new InstantCommand(drivetrain::setToBrakeMode, drivetrain), drivetrain::isBrakeMode)); //XBOX_RB
 
         } else if (Constants.OI_CONFIG == OIConfig.XBOX_TEST) {
             xboxController = new Joystick(ControllerMap.XBOX_DRIVER_PORT);
@@ -60,11 +61,11 @@ public class XboxOI {
             new Button(() -> xboxController.getRawAxis(2) > 0.5).toggleWhenPressed(new ConditionalCommand(new StopIntake(), new RunIntake(), intake::getIntakeSolenoid)); // XBOX_LT
 
             new JoystickButton(xboxController, ControllerMap.XBOX_LB).toggleWhenPressed(new ConditionalCommand(new InstantCommand(drivetrain::setToRegularMode, drivetrain), new InstantCommand(drivetrain::setToInverseMode, drivetrain), drivetrain::isInverseMode));
-            ; // XBOX_LB
+             // XBOX_LB
 
             new JoystickButton(xboxController, ControllerMap.XBOX_A).whenHeld(new ShootWithLL()); // XBOX_A
 
-             new JoystickButton(xboxController, ControllerMap.XBOX_X).whenHeld(new ExtendArm()).whenReleased(new RetractArm()); // XBOX_X
+            new JoystickButton(xboxController, ControllerMap.XBOX_X).whenHeld(new ExtendArm()).whenReleased(new RetractArm()); // XBOX_X
 
         }
     }

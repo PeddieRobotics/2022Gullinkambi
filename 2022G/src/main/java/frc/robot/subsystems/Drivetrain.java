@@ -9,6 +9,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
@@ -21,6 +22,7 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.*;
+import frc.robot.utils.Constants.OIConfig;
 
 public class Drivetrain extends SubsystemBase {
   private static Drivetrain drivetrain;
@@ -36,8 +38,11 @@ public class Drivetrain extends SubsystemBase {
   private double headingValue;
 
   private boolean inverseMode;
+  private boolean brakeMode;
 
   private final RelativeEncoder leftEncoder, rightEncoder;
+
+  private PIDController turnPidController;
 
   //Logging
   private static UpdateLogs updateLogs = UpdateLogs.getInstance();
@@ -103,6 +108,15 @@ public class Drivetrain extends SubsystemBase {
     setConversionFactors();
 
     inverseMode = false;
+    brakeMode = false;
+
+    turnPidController = new PIDController(Constants.kTurnP, Constants.kTurnI, Constants.kTurnD);
+    // Set the controller to be continuous (because it is an angle controller)
+    turnPidController.enableContinuousInput(-180, 180);
+    // Set the controller tolerance - the delta tolerance ensures the robot is stationary at the
+    // setpoint before it is considered as having reached the reference
+    turnPidController.setTolerance(Constants.kTurnToleranceDeg);
+
   }
 
   @Override
@@ -350,6 +364,7 @@ public class Drivetrain extends SubsystemBase {
   public double getRightFollower2MotorTemperature(){
     return rightFollower2.getMotorTemperature();
   }
+
   public void setToInverseMode(){
     inverseMode = true;
   }
@@ -360,6 +375,22 @@ public class Drivetrain extends SubsystemBase {
 
   public boolean isInverseMode(){
     return inverseMode;
+  }
+
+  public void setToBrakeMode(){
+    brakeMode = true;
+  }
+
+  public void setToCoastMode(){
+    brakeMode = false;
+  }
+
+  public boolean isBrakeMode(){
+    return brakeMode;
+  }
+
+  public PIDController getTurnPID(){
+    return turnPidController;
   }
 
 }

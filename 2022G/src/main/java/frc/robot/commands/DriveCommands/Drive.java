@@ -40,6 +40,7 @@ public class Drive extends CommandBase {
     public void execute() {
 
         boolean reverse = false;
+        boolean brakeMode = false;
         double speedInput = 0.0;
         double turnInput = 0.0;
 
@@ -50,6 +51,7 @@ public class Drive extends CommandBase {
             speedInput = joystickOI.getSpeed();
             turnInput = -joystickOI.getTurn();
             reverse = drivetrain.isInverseMode();
+            brakeMode = drivetrain.isBrakeMode();
 
         } else if (Constants.OI_CONFIG == OIConfig.XBOX_TEST) { // xbox
 
@@ -69,6 +71,12 @@ public class Drive extends CommandBase {
             drivetrain.curvatureDrive(speedInput, turnInput);
         } else {
             drivetrain.curvatureDrive(-speedInput, turnInput);
+        }
+
+        if(!brakeMode){
+            drivetrain.setCoast();
+        } else {
+            drivetrain.setBrake();
         }
 
     }

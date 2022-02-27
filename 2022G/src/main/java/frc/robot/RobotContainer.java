@@ -115,6 +115,7 @@ public class RobotContainer {
     flywheel.updateFlywheelInfoOnDashboard();
     climber.updateClimberInfoOnDashboard();
     limelight.updateLimelightInfoOnDashboard();
+    SmartDashboard.putNumber("Angle", drivetrain.getHeading());
   }
 
   public void stopAllSystems(){
