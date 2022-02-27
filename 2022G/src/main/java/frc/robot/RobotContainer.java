@@ -54,7 +54,6 @@ public class RobotContainer {
   public RobotContainer() {
 
     drivetrain = Drivetrain.getInstance();
-    autonomous = Autonomous.getInstance();
     intake = Intake.getInstance();
     hopper = Hopper.getInstance();
     flywheel = Flywheel.getInstance();
@@ -62,6 +61,7 @@ public class RobotContainer {
     limelight = Limelight.getInstance();
     oi = OI.getInstance();
     lights = Lights.getInstance();
+    autonomous = Autonomous.getInstance();
 
     drivetrain.setDefaultCommand(new Drive());
     intake.register();
