@@ -49,6 +49,6 @@ public class Lights extends SubsystemBase{
     }
     @Override
     public void periodic() {
-      timeCheck();
+      //timeCheck();
     }
 }

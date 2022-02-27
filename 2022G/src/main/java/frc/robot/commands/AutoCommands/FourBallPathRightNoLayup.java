@@ -23,11 +23,11 @@ public class FourBallPathRightNoLayup extends SequentialCommandGroup{
                 part1
             ),
             new ShootWithLLUntilEmpty(),
-            new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),
             new TurnByAngle(97),
             part2,
             new TurnByAngle(-20),
             new StopIntake(),
+            new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),
             new LLDriveToTarget(0.35, 0.0),
             new ShootWithLLUntilEmpty()
         );
