@@ -128,7 +128,7 @@ public class Autonomous extends SubsystemBase {
         autoRoutines.put("CMD Group: 3 Ball Right To Human", new ThreeBallRightToHuman(getThreeBallRightHuman()));
         autoRoutines.put("CMD Group: 3 Ball Right", new ThreeBallRight(getThreeBallRightPart1(), getThreeBallRightPart2()));
 
-        autoRoutines.put("CMD Group: 4 Ball Path", new FourBallPathRight(getFourBallPart1(), getFourBallPart2()));
+        autoRoutines.put("CMD Group: 4 Ball Path", new FourBallPathRight(fourBallRight_1.getInitialPose(), getFourBallPart1(), getFourBallPart2()));
     }
 
     public Command returnAutonomousCommand() {
@@ -150,8 +150,8 @@ public class Autonomous extends SubsystemBase {
         threeBallRight_1 = getTransformedTrajectory(PathPlanner.loadPath("3BallRight_Part1", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared));
         threeBallRight_2 = getTransformedTrajectory(PathPlanner.loadPath("3BallRight_Part2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared));
 
-        fourBallRight_1 = getTransformedTrajectory(PathPlanner.loadPath("4BallRight_Part1", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared));
-        fourBallRight_2 = getTransformedTrajectory(PathPlanner.loadPath("4BallRight_Part2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared*0.85));
+        fourBallRight_1 = PathPlanner.loadPath("4BallRight_Part1", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
+        fourBallRight_2 = PathPlanner.loadPath("4BallRight_Part2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared*0.8);
         
     }
  
