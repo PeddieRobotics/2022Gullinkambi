@@ -2,8 +2,6 @@ package frc.robot.subsystems;
 
 import java.util.Enumeration;
 import java.util.Hashtable;
-import java.util.List;
-import java.util.SplittableRandom;
 
 import com.pathplanner.lib.PathPlanner;
 
@@ -11,22 +9,28 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
-import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.SplitFFRamseteCommand;
-// import frc.robot.commands.AutoCommands.OneBallLeftToHuman;
-// import frc.robot.commands.AutoCommands.OneBallLeftUp;
-// import frc.robot.commands.AutoCommands.ShootForTimed;
-import frc.robot.commands.AutoCommands.*;
+import frc.robot.commands.AutoCommands.FourBallPathLeft;
+import frc.robot.commands.AutoCommands.FourBallPathRight;
+import frc.robot.commands.AutoCommands.FourBallPathRightNoLayup;
+import frc.robot.commands.AutoCommands.OneBallLeftToHuman;
+import frc.robot.commands.AutoCommands.OneBallLeftUp;
+import frc.robot.commands.AutoCommands.OneBallRightToHuman;
+import frc.robot.commands.AutoCommands.ThreeBallRight;
+import frc.robot.commands.AutoCommands.ThreeBallRightToHuman;
+import frc.robot.commands.AutoCommands.TwoBallLeftUpShoot;
+import frc.robot.commands.AutoCommands.TwoBallRightDownShoot;
+import frc.robot.commands.AutoCommands.TwoBallRightUpShoot;
+import frc.robot.commands.DriveCommands.ResetOdometry;
 import frc.robot.utils.Constants;
 
 public class Autonomous extends SubsystemBase {
@@ -45,7 +49,7 @@ public class Autonomous extends SubsystemBase {
     private Trajectory oneBallLeftUp, oneBallLeftToHuman, oneBallRightToHuman;
     private Trajectory twoBallLeftUpShoot, twoBallRightUpShoot, twoBallRightDownShoot;
     private Trajectory threeBallRightHuman, threeBallRight_1, threeBallRight_2;
-    private Trajectory fourBallRight_1, fourBallRight_2, fourBallRight_NoLayup_1, fourBallRight_NoLayup_2;
+    private Trajectory fourBallRight_1, fourBallRight_2, fourBallRight_NoLayup_1, fourBallRight_NoLayup_2, fourBallLeft_1, fourBallLeft_2, fourBallLeft_3;
 
     public Autonomous() {
         autoRoutines = new Hashtable<String,Command>();
@@ -103,19 +107,19 @@ public class Autonomous extends SubsystemBase {
     }
 
     public void setupAutoRoutines() {
-        autoRoutines.put("Sanity Check", createCommandFromTrajectory(sanityCheck));
+        autoRoutines.put("Sanity Check", new SequentialCommandGroup(new ResetOdometry(sanityCheck.getInitialPose()),createCommandFromTrajectory(sanityCheck)));
 
-        // autoRoutines.put("1BallLeftUp", createCommandFromTrajectory(oneBallLeftUp));
-        // autoRoutines.put("1BallLeftToHuman", createCommandFromTrajectory(oneBallLeftToHuman));
-        // autoRoutines.put("twoBallLeftUpShoot", createCommandFromTrajectory(twoBallLeftUpShoot));
-        // autoRoutines.put("twoBallRightUpShoot", createCommandFromTrajectory(twoBallRightUpShoot));
-        // autoRoutines.put("oneBallRightToHuman", createCommandFromTrajectory(oneBallRightToHuman));
+        // autoRoutines.put("1BallLeftUp", new SequentialCommandGroup(new ResetOdometry(oneBallLeftUp.getInitialPose()),createCommandFromTrajectory(oneBallLeftUp)));
+        // autoRoutines.put("1BallLeftToHuman", new SequentialCommandGroup(new ResetOdometry(oneBallLeftToHuman.getInitialPose()),createCommandFromTrajectory(oneBallLeftToHuman)));
+        // autoRoutines.put("twoBallLeftUpShoot", new SequentialCommandGroup(new ResetOdometry(twoBallLeftUpShoot.getInitialPose()),createCommandFromTrajectory(twoBallLeftUpShoot)));
+        // autoRoutines.put("twoBallRightUpShoot", new SequentialCommandGroup(new ResetOdometry(twoBallRightUpShoot.getInitialPose()),createCommandFromTrajectory(twoBallRightUpShoot)));
+        // autoRoutines.put("oneBallRightToHuman", new SequentialCommandGroup(new ResetOdometry(oneBallRightToHuman.getInitialPose()),createCommandFromTrajectory(oneBallRightToHuman)));
 
-        // autoRoutines.put("3 Ball Part 1 Test:", createCommandFromTrajectory(threeBallRight_1));
-        // autoRoutines.put("3 Ball Part 2 Test:", createCommandFromTrajectory(threeBallRight_2));
+        // autoRoutines.put("3 Ball Part 1 Test:", new SequentialCommandGroup(new ResetOdometry(threeBallRight_1.getInitialPose()),createCommandFromTrajectory(threeBallRight_1)));
+        // autoRoutines.put("3 Ball Part 2 Test:", new SequentialCommandGroup(new ResetOdometry(threeBallRight_2.getInitialPose()),createCommandFromTrajectory(threeBallRight_2)));
         
-        autoRoutines.put("4 Ball Part 1 Test:", createCommandFromTrajectory(fourBallRight_1));
-        autoRoutines.put("4 Ball Part 2 Test:", createCommandFromTrajectory(fourBallRight_2));
+        autoRoutines.put("4 Ball Part 1 Test:", new SequentialCommandGroup(new ResetOdometry(fourBallRight_1.getInitialPose()),createCommandFromTrajectory(fourBallRight_1)));
+        autoRoutines.put("4 Ball Part 2 Test:", new SequentialCommandGroup(new ResetOdometry(fourBallRight_2.getInitialPose()),createCommandFromTrajectory(fourBallRight_2)));
         
         autoRoutines.put("CMD Group: 1 Ball Left Up", new OneBallLeftUp(getOneBallLeftUp()));
         autoRoutines.put("CMD Group: 1 Ball Left To Human", new OneBallLeftToHuman(getOneBallLeftToHuman()));
@@ -128,9 +132,11 @@ public class Autonomous extends SubsystemBase {
         autoRoutines.put("CMD Group: 3 Ball Right To Human", new ThreeBallRightToHuman(getThreeBallRightHuman()));
         autoRoutines.put("CMD Group: 3 Ball Right", new ThreeBallRight(getThreeBallRightPart1(), getThreeBallRightPart2()));
 
-        autoRoutines.put("CMD Group: 4 Ball Path", new FourBallPathRight(fourBallRight_1.getInitialPose(), getFourBallPart1(), getFourBallPart2()));
+        autoRoutines.put("CMD Group: 4 Ball Path (Right)", new FourBallPathRight(fourBallRight_1.getInitialPose(), getFourBallRightPart1(), getFourBallRightPart2()));
 
-        autoRoutines.put("CMD Group: 4 Ball Path No Layup", new FourBallPathRightNoLayup(fourBallRight_NoLayup_1.getInitialPose(), getFourBallNoLayupPart1(), getFourBallNoLayupPart2()));
+        autoRoutines.put("CMD Group: 4 Ball Path (Right) No Layup", new FourBallPathRightNoLayup(fourBallRight_NoLayup_1.getInitialPose(), getFourBallNoLayupPart1(), getFourBallNoLayupPart2()));
+
+        autoRoutines.put("CMD Group: 4 Ball Path (Left)", new FourBallPathLeft(fourBallLeft_1.getInitialPose(), getFourBallLeftPart1(), getFourBallLeftPart2(), getFourBallLeftPart3()));
 
     }
 
@@ -139,26 +145,30 @@ public class Autonomous extends SubsystemBase {
     }
 
     private void defineAutoPaths(){
-        sanityCheck = getTransformedTrajectory(PathPlanner.loadPath("SanityCheck", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared));
+        sanityCheck = PathPlanner.loadPath("SanityCheck", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
 
-        oneBallLeftUp = getTransformedTrajectory(PathPlanner.loadPath("1BallLeftUp", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared)); 
-        oneBallLeftToHuman = getTransformedTrajectory(PathPlanner.loadPath("1BallLeftToHuman", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared));
-        oneBallRightToHuman = getTransformedTrajectory(PathPlanner.loadPath("1BallRightToHuman", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared));
+        oneBallLeftUp = PathPlanner.loadPath("1BallLeftUp", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared); 
+        oneBallLeftToHuman = PathPlanner.loadPath("1BallLeftToHuman", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
+        oneBallRightToHuman = PathPlanner.loadPath("1BallRightToHuman", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
 
-        twoBallLeftUpShoot = getTransformedTrajectory(PathPlanner.loadPath("2BallLeftUpShoot", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared));
-        twoBallRightUpShoot = getTransformedTrajectory(PathPlanner.loadPath("2BallRightUpShoot", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared));
-        twoBallRightDownShoot = getTransformedTrajectory(PathPlanner.loadPath("2BallRightDownShoot", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared));
+        twoBallLeftUpShoot = PathPlanner.loadPath("2BallLeftUpShoot", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
+        twoBallRightUpShoot = PathPlanner.loadPath("2BallRightUpShoot", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
+        twoBallRightDownShoot = PathPlanner.loadPath("2BallRightDownShoot", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
         
-        threeBallRightHuman = getTransformedTrajectory(PathPlanner.loadPath("3BallRightHuman", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared));
-        threeBallRight_1 = getTransformedTrajectory(PathPlanner.loadPath("3BallRight_Part1", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared));
-        threeBallRight_2 = getTransformedTrajectory(PathPlanner.loadPath("3BallRight_Part2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared));
+        threeBallRightHuman = PathPlanner.loadPath("3BallRightHuman", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
+        threeBallRight_1 = PathPlanner.loadPath("3BallRight_Part1", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
+        threeBallRight_2 = PathPlanner.loadPath("3BallRight_Part2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
 
         fourBallRight_1 = PathPlanner.loadPath("4BallRight_Part1", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
-        fourBallRight_2 = PathPlanner.loadPath("4BallRight_Part2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared*0.8);
+        fourBallRight_2 = PathPlanner.loadPath("4BallRight_Part2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared*0.5);
         
         fourBallRight_NoLayup_1 = PathPlanner.loadPath("4BallRight_NoLayup_Part1", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
         fourBallRight_NoLayup_2 = PathPlanner.loadPath("4BallRight_NoLayup_Part2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared*0.5);
         
+        fourBallLeft_1 = PathPlanner.loadPath("4BallLeft_Part1", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
+        fourBallLeft_2 = PathPlanner.loadPath("4BallLeft_Part2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared*0.5);
+        fourBallLeft_3 = PathPlanner.loadPath("4BallLeft_Part3", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared*0.5);
+
     }
  
     public SplitFFRamseteCommand createCommandFromTrajectory(Trajectory trajectory){
@@ -244,12 +254,11 @@ public class Autonomous extends SubsystemBase {
         return createCommandFromTrajectory(threeBallRight_2);
     }
 
-    public SplitFFRamseteCommand getFourBallPart1(){
+    public SplitFFRamseteCommand getFourBallRightPart1(){
         return createCommandFromTrajectory(fourBallRight_1);
     }
-
     
-    public SplitFFRamseteCommand getFourBallPart2(){
+    public SplitFFRamseteCommand getFourBallRightPart2(){
         return createCommandFromTrajectory(fourBallRight_2);
     }
 
@@ -259,6 +268,18 @@ public class Autonomous extends SubsystemBase {
     
     public SplitFFRamseteCommand getFourBallNoLayupPart2(){
         return createCommandFromTrajectory(fourBallRight_NoLayup_2);
+    }
+
+    public SplitFFRamseteCommand getFourBallLeftPart1(){
+        return createCommandFromTrajectory(fourBallLeft_1);
+    }
+    
+    public SplitFFRamseteCommand getFourBallLeftPart2(){
+        return createCommandFromTrajectory(fourBallLeft_2);
+    }
+
+    public SplitFFRamseteCommand getFourBallLeftPart3(){
+        return createCommandFromTrajectory(fourBallLeft_3);
     }
 
     @Override
