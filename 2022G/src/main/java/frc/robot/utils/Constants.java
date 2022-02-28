@@ -30,6 +30,7 @@ public final class Constants {
   public static final int HOPPER_MAX_CURRENT = 30; // amps
   public static final double HOPPER_SPEED = 0.7;
   public static final double LOWER_SENSOR_INPUT_THRESHOLD = 0.99;
+  public static final double UPPER_SENSOR_INPUT_THRESHOLD = 0.6;
 
   // Flywheel constants
   public static final int FLYWHEEL_MAX_CURRENT = 40; // amps

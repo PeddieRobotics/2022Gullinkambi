@@ -11,7 +11,6 @@ import frc.robot.utils.Constants;
 public class AutoIntakeWithHopper extends CommandBase {
 
   private Intake intake;
-  private Flywheel flywheel;
   private Hopper hopper;
 
   /** Creates a new AutoIntakeWithHopper. */

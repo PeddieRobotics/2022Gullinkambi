@@ -13,7 +13,7 @@ import frc.robot.utils.RobotMapGullinkambi;
 
 public class Hopper extends SubsystemBase {
     private static Hopper hopper;
-    private LinearFilter filter;
+    private LinearFilter bottomSensorFilter, topSensorFilter;
 
     private CANSparkMax hopperSystem;
 
@@ -26,7 +26,8 @@ public class Hopper extends SubsystemBase {
         hopperSystem = new CANSparkMax(RobotMapGullinkambi.MOTOR_HOPPER, MotorType.kBrushless);
         hopperSystem.setIdleMode(IdleMode.kBrake);
         hopperSystem.setSmartCurrentLimit(Constants.HOPPER_MAX_CURRENT);
-        filter = LinearFilter.singlePoleIIR(0.2, 0.02);
+        bottomSensorFilter = LinearFilter.singlePoleIIR(0.2, 0.02);
+        topSensorFilter = LinearFilter.singlePoleIIR(0.2, 0.02);
 
         bottomSensor = new DigitalInput(1);
         topSensor = new DigitalInput(0);
@@ -80,18 +81,33 @@ public class Hopper extends SubsystemBase {
     public boolean sensesBallBottom() {
         boolean filteredInput = false;
         if(!bottomSensor.get()){
-            double x = filter.calculate(1);
+            double x = bottomSensorFilter.calculate(1);
+            SmartDashboard.putNumber("Senses ball bottom", x);
             filteredInput = x > Constants.LOWER_SENSOR_INPUT_THRESHOLD;
         } else {
-            double x = filter.calculate(0);
+            double x = bottomSensorFilter.calculate(0);
+            SmartDashboard.putNumber("Senses ball bottom", x);
             filteredInput = x > Constants.LOWER_SENSOR_INPUT_THRESHOLD;
         }
-        SmartDashboard.putBoolean("filteredInput", filteredInput);
         return filteredInput;
     }
 
     public boolean sensesBallTop() {
         return !topSensor.get();
+    }
+
+    public boolean sensesBallTopWithFilter() {
+        boolean filteredInput = false;
+        if(!topSensor.get()){
+            double x = topSensorFilter.calculate(1);
+            SmartDashboard.putNumber("Senses ball top", x);
+            filteredInput = x > Constants.UPPER_SENSOR_INPUT_THRESHOLD;
+        } else {
+            double x = topSensorFilter.calculate(0);
+            SmartDashboard.putNumber("Senses ball top", x);
+            filteredInput = x > Constants.UPPER_SENSOR_INPUT_THRESHOLD;
+        }
+        return filteredInput;
     }
 
     public void putSmartDashboardOverrides() {

@@ -21,12 +21,13 @@ public class CheckIfHopperEmpty extends CommandBase {
 
   @Override
   public void initialize() {
+    hopperCleared = false;
   }
 
   @Override
   public void execute() {
     // Repeatedly check whether both sensors are clear
-    if(!hopperCleared && !hopper.sensesBallTop() && !hopper.sensesBallBottom()){
+    if(!hopperCleared && !hopper.sensesBallTopWithFilter() && !hopper.sensesBallBottom()){
         initialTime = Timer.getFPGATimestamp();
         hopperCleared = true;
     }

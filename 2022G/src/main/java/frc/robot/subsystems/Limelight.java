@@ -127,8 +127,8 @@ public class Limelight extends SubsystemBase {
     if(Constants.OI_CONFIG != OIConfig.COMPETITION){
       SmartDashboard.putNumber("Limelight vt error", getTy());
       SmartDashboard.putNumber("Limelight hz error", getTx());
-      SmartDashboard.putNumber("Limelight dist", getDistance());
     }
+    SmartDashboard.putNumber("Limelight dist", getDistance());
   }
 
   public void updateLimelightFromDashboard(){

@@ -4,11 +4,13 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ClimbCommands.ExtendArm;
 import frc.robot.commands.ClimbCommands.RetractArm;
 import frc.robot.commands.DriveCommands.LLDriveToTarget;
 import frc.robot.commands.DriveCommands.TurnByAngle;
+import frc.robot.commands.IntakeCommands.CheckIfHopperEmpty;
 import frc.robot.commands.IntakeCommands.RunIntake;
 import frc.robot.commands.IntakeCommands.StopIntake;
 import frc.robot.commands.ShootCommands.ShootLayup;
@@ -66,10 +68,11 @@ public class JoystickOI {
     
     rightTrigger.whenHeld(new ShootLayup());
     rightButton2.whenHeld(new ParallelCommandGroup(new Target(), new ShootWithLL()));
-    //rightButton3.whenHeld(new ExtendArm()).whenReleased(new RetractArm());
+    rightButton3.whenHeld(new ExtendArm()).whenReleased(new RetractArm());
     //rightButton4.whenHeld(new Target());
-    rightButton4.whenPressed(new TurnByAngle(90));
-    rightButton3.whenHeld(new LLDriveToTarget(0.35,0));
+    //rightButton4.whenPressed(new ParallelRaceGroup(new Target(), new ShootLayup(), new CheckIfHopperEmpty(0.1)));
+    //rightButton4.whenPressed(new TurnByAngle(90));
+    //rightButton3.whenHeld(new LLDriveToTarget(0.35,0));
   }
 
   public double getSpeed() {

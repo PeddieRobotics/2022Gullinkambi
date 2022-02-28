@@ -21,6 +21,8 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.oi.JoystickOI;
+import frc.robot.oi.XboxOI;
 import frc.robot.utils.*;
 import frc.robot.utils.Constants.OIConfig;
 
@@ -150,14 +152,25 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void updateDrivetrainInfoOnDashboard() {
+    if(Constants.OI_CONFIG == OIConfig.COMPETITION || Constants.OI_CONFIG == OIConfig.JOYSTICK_TEST){
+      SmartDashboard.putNumber("Speed", JoystickOI.getInstance().getSpeed());
+      SmartDashboard.putNumber("Turn", JoystickOI.getInstance().getTurn());
+    }
+    else{
+      SmartDashboard.putNumber("Speed", XboxOI.getInstance().getSpeed());
+      SmartDashboard.putNumber("Turn", XboxOI.getInstance().getTurn());      
+    }
     SmartDashboard.putNumber("Heading", getHeading());
-    //only heading in competition mode
+    SmartDashboard.putNumber("Odometry X", odometry.getPoseMeters().getTranslation().getX());
+    SmartDashboard.putNumber("Odometry Y", odometry.getPoseMeters().getTranslation().getY());
+    SmartDashboard.putNumber("Odometry Pose", odometry.getPoseMeters().getRotation().getDegrees());
+
+    //only heading and odometry in competition mode
     SmartDashboard.putNumber("LDrive enc pos", getLeftEncoderPosition());
     SmartDashboard.putNumber("RDrive enc pos", getRightEncoderPosition());
     SmartDashboard.putNumber("LDrive enc vel", getLeftEncoderVelocity());
     SmartDashboard.putNumber("RDrive enc vel", getRightEncoderVelocity());
-    SmartDashboard.putNumber("Odometry X", odometry.getPoseMeters().getTranslation().getX());
-    SmartDashboard.putNumber("Odometry Y", odometry.getPoseMeters().getTranslation().getY());
+  
     SmartDashboard.putNumber("Avg Velocity", getAverageEncoderVelocity());
     SmartDashboard.putNumber("Left wheel speeds", getWheelSpeeds().leftMetersPerSecond);
     SmartDashboard.putNumber("Right wheel speeds", getWheelSpeeds().rightMetersPerSecond);

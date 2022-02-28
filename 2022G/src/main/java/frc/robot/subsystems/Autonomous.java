@@ -121,16 +121,16 @@ public class Autonomous extends SubsystemBase {
         autoRoutines.put("4 Ball Part 1 Test:", new SequentialCommandGroup(new ResetOdometry(fourBallRight_1.getInitialPose()),createCommandFromTrajectory(fourBallRight_1)));
         autoRoutines.put("4 Ball Part 2 Test:", new SequentialCommandGroup(new ResetOdometry(fourBallRight_2.getInitialPose()),createCommandFromTrajectory(fourBallRight_2)));
         
-        autoRoutines.put("CMD Group: 1 Ball Left Up", new OneBallLeftUp(getOneBallLeftUp()));
-        autoRoutines.put("CMD Group: 1 Ball Left To Human", new OneBallLeftToHuman(getOneBallLeftToHuman()));
-        autoRoutines.put("CMD Group: 1 Ball Right To Human", new OneBallRightToHuman(getOneBallRightToHuman()));
+        autoRoutines.put("CMD Group: 1 Ball Left Up", new OneBallLeftUp(oneBallLeftUp.getInitialPose(), getOneBallLeftUp()));
+        autoRoutines.put("CMD Group: 1 Ball Left To Human", new OneBallLeftToHuman(oneBallLeftToHuman.getInitialPose(), getOneBallLeftToHuman()));
+        autoRoutines.put("CMD Group: 1 Ball Right To Human", new OneBallRightToHuman(oneBallRightToHuman.getInitialPose(), getOneBallRightToHuman()));
 
-        autoRoutines.put("CMD Group: 2 Ball Left Up Shoot", new TwoBallLeftUpShoot(getTwoBallLeftUpShoot()));
-        autoRoutines.put("CMD Group: 2 Ball Right Up Shoot", new TwoBallRightUpShoot(getTwoBallRightUpShoot()));
-        autoRoutines.put("CMD Group: 2 Ball Right Down Shoot", new TwoBallRightDownShoot(getTwoBallRightDownShoot()));
+        autoRoutines.put("CMD Group: 2 Ball Left Up Shoot", new TwoBallLeftUpShoot(twoBallLeftUpShoot.getInitialPose(), getTwoBallLeftUpShoot()));
+        autoRoutines.put("CMD Group: 2 Ball Right Up Shoot", new TwoBallRightUpShoot(twoBallRightUpShoot.getInitialPose(), getTwoBallRightUpShoot()));
+        autoRoutines.put("CMD Group: 2 Ball Right Down Shoot", new TwoBallRightDownShoot(twoBallRightDownShoot.getInitialPose(), getTwoBallRightDownShoot()));
 
-        autoRoutines.put("CMD Group: 3 Ball Right To Human", new ThreeBallRightToHuman(getThreeBallRightHuman()));
-        autoRoutines.put("CMD Group: 3 Ball Right", new ThreeBallRight(getThreeBallRightPart1(), getThreeBallRightPart2()));
+        autoRoutines.put("CMD Group: 3 Ball Right To Human", new ThreeBallRightToHuman(threeBallRightHuman.getInitialPose(), getThreeBallRightHuman()));
+        autoRoutines.put("CMD Group: 3 Ball Right", new ThreeBallRight(threeBallRight_1.getInitialPose(), getThreeBallRightPart1(), getThreeBallRightPart2()));
 
         autoRoutines.put("CMD Group: 4 Ball Path (Right)", new FourBallPathRight(fourBallRight_1.getInitialPose(), getFourBallRightPart1(), getFourBallRightPart2()));
 
@@ -155,19 +155,19 @@ public class Autonomous extends SubsystemBase {
         twoBallRightUpShoot = PathPlanner.loadPath("2BallRightUpShoot", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
         twoBallRightDownShoot = PathPlanner.loadPath("2BallRightDownShoot", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
         
-        threeBallRightHuman = PathPlanner.loadPath("3BallRightHuman", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
-        threeBallRight_1 = PathPlanner.loadPath("3BallRight_Part1", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
-        threeBallRight_2 = PathPlanner.loadPath("3BallRight_Part2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
+        threeBallRightHuman = PathPlanner.loadPath("3BallRightHuman", Constants.kMaxSpeedMetersPerSecond*0.5, Constants.kMaxAccelerationMetersPerSecondSquared*0.5);
+        threeBallRight_1 = PathPlanner.loadPath("3BallRight_Part1", Constants.kMaxSpeedMetersPerSecond*0.5, Constants.kMaxAccelerationMetersPerSecondSquared*0.5);
+        threeBallRight_2 = PathPlanner.loadPath("3BallRight_Part2", Constants.kMaxSpeedMetersPerSecond*0.5, Constants.kMaxAccelerationMetersPerSecondSquared*0.5);
 
         fourBallRight_1 = PathPlanner.loadPath("4BallRight_Part1", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
-        fourBallRight_2 = PathPlanner.loadPath("4BallRight_Part2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared*0.5);
+        fourBallRight_2 = PathPlanner.loadPath("4BallRight_Part2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared*0.7);
         
-        fourBallRight_NoLayup_1 = PathPlanner.loadPath("4BallRight_NoLayup_Part1", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
-        fourBallRight_NoLayup_2 = PathPlanner.loadPath("4BallRight_NoLayup_Part2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared*0.5);
+        fourBallRight_NoLayup_1 = PathPlanner.loadPath("4BallRight_NoLayup_Part1", Constants.kMaxSpeedMetersPerSecond*0.5, Constants.kMaxAccelerationMetersPerSecondSquared*0.5);
+        fourBallRight_NoLayup_2 = PathPlanner.loadPath("4BallRight_NoLayup_Part2", Constants.kMaxSpeedMetersPerSecond*0.5, Constants.kMaxAccelerationMetersPerSecondSquared*0.5);
         
         fourBallLeft_1 = PathPlanner.loadPath("4BallLeft_Part1", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
-        fourBallLeft_2 = PathPlanner.loadPath("4BallLeft_Part2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared*0.5);
-        fourBallLeft_3 = PathPlanner.loadPath("4BallLeft_Part3", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared*0.5);
+        fourBallLeft_2 = PathPlanner.loadPath("4BallLeft_Part2", Constants.kMaxSpeedMetersPerSecond*0.5, Constants.kMaxAccelerationMetersPerSecondSquared*0.5);
+        fourBallLeft_3 = PathPlanner.loadPath("4BallLeft_Part3", Constants.kMaxSpeedMetersPerSecond*0.5, Constants.kMaxAccelerationMetersPerSecondSquared*0.5);
 
     }
  
@@ -209,7 +209,7 @@ public class Autonomous extends SubsystemBase {
                   rightReference.setNumber(leftController.getSetpoint());
               },
               m_drivetrain);
-        return autoCommand;
+            return autoCommand;
       }
     
     public Trajectory getTransformedTrajectory(Trajectory t){

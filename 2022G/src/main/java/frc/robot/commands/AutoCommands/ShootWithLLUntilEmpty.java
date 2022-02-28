@@ -18,7 +18,7 @@ public class ShootWithLLUntilEmpty extends SequentialCommandGroup{
             new ParallelRaceGroup(
                 new Target(),
                 new ShootWithLL(),
-                new CheckIfHopperEmpty(0.25))
+                new CheckIfHopperEmpty(0.5))
         );
     }
     

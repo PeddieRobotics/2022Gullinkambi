@@ -198,10 +198,10 @@ public class SplitFFRamseteCommand extends CommandBase {
     var targetWheelSpeeds = m_kinematics.toWheelSpeeds(
         m_follower.calculate(m_pose.get(), m_trajectory.sample(curTime)));
 
-    poseXMeasurement.setNumber(m_pose.get().getX());
-    poseXReference.setNumber(m_trajectory.sample(curTime).poseMeters.getX());
-    poseYMeasurement.setNumber(m_pose.get().getY());
-    poseYReference.setNumber(m_trajectory.sample(curTime).poseMeters.getY());
+    // poseXMeasurement.setNumber(m_pose.get().getX());
+    // poseXReference.setNumber(m_trajectory.sample(curTime).poseMeters.getX());
+    // poseYMeasurement.setNumber(m_pose.get().getY());
+    // poseYReference.setNumber(m_trajectory.sample(curTime).poseMeters.getY());
 
     var leftSpeedSetpoint = targetWheelSpeeds.leftMetersPerSecond;
     var rightSpeedSetpoint = targetWheelSpeeds.rightMetersPerSecond;
@@ -227,8 +227,8 @@ public class SplitFFRamseteCommand extends CommandBase {
       rightOutput = rightSpeedSetpoint;
     }
 
-    leftOutputSpeed.setNumber(rightOutput);
-    rightOutputSpeed.setNumber(leftOutput);
+    // leftOutputSpeed.setNumber(rightOutput);
+    // rightOutputSpeed.setNumber(leftOutput);
 
     m_output.accept(leftOutput, rightOutput);
 
@@ -239,6 +239,7 @@ public class SplitFFRamseteCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_timer.stop();
+    m_output.accept(0.0, 0.0);
   }
 
   @Override

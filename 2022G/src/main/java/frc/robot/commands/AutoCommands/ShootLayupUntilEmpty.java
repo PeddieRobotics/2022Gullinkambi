@@ -11,7 +11,7 @@ public class ShootLayupUntilEmpty extends ParallelRaceGroup{
     public ShootLayupUntilEmpty(){
         addCommands(
             new ShootLayup(),
-            new CheckIfHopperEmpty(0.25)
+            new CheckIfHopperEmpty(0.5)
         );
     }
 }
