@@ -51,7 +51,9 @@ public class Limelight extends SubsystemBase {
   
   public void periodic() {
     updateRollingAverages();
-    updateLogs.updateLimelightLogData();
+    if(Constants.USE_LOGGING){
+      updateLogs.updateLimelightLogData();
+    }
 
   }
 

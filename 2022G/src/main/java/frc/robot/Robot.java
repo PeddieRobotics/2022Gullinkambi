@@ -5,6 +5,7 @@
 package frc.robot;
 
 
+import frc.robot.utils.Constants;
 import frc.robot.utils.LoggingCustoms.LoggedRobotCustom;
 import frc.robot.utils.LoggingCustoms.LoggerCustom;
 import org.littletonrobotics.junction.inputs.LoggedNetworkTables;
@@ -47,15 +48,15 @@ public class Robot extends LoggedRobotCustom {
    */
   @Override
   public void robotInit() {
-    // Instantiate our RobotContainer. This will perform all our button bindings,
-    // and put our
-    // autonomous chooser on the dashboard.
-    LoggerCustom logger = LoggerCustom.getInstance();
-    setUseTiming(true);
-    LoggedNetworkTables.getInstance().addTable("/LiveWindow");
-    logger.addDataReceiver(new ByteLogReceiver("/home/lvuser/"));
-    logger.addDataReceiver(new LogSocketServer(5800));
-    logger.start();
+    
+    if(Constants.USE_LOGGING){
+      LoggerCustom logger = LoggerCustom.getInstance();
+      setUseTiming(true);
+      LoggedNetworkTables.getInstance().addTable("/LiveWindow");
+      logger.addDataReceiver(new ByteLogReceiver("/home/lvuser/"));
+      logger.addDataReceiver(new LogSocketServer(5800));
+      logger.start();
+    }
 
     robotContainer = new RobotContainer();
     robotContainer.setDrivetrainToCoastMode();
@@ -131,7 +132,7 @@ public class Robot extends LoggedRobotCustom {
 
   @Override
   public void teleopInit() {
-    robotContainer.resetGyro();
+    // robotContainer.resetGyro();
     robotContainer.setDrivetrainToCoastMode();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
@@ -140,7 +141,7 @@ public class Robot extends LoggedRobotCustom {
     if (autonomousCommand != null) {
       autonomousCommand.cancel();
     }
-    lights.on();
+    // lights.on();
     CommandScheduler.getInstance().schedule(new InitializeArm());
   }
 

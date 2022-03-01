@@ -34,7 +34,9 @@ public class Hopper extends SubsystemBase {
     }
 
     public void periodic() {
-        updateLogs.updateHopperLogData();
+        if(Constants.USE_LOGGING){
+            updateLogs.updateHopperLogData();
+        }
     }
 
     public static Hopper getInstance() {

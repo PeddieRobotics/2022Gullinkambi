@@ -24,22 +24,25 @@ public class ShootWithLL extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    rpm = Constants.DIST_TO_RPM.get(limelight.getDistance());
-    flywheel.setHood(true); // turn hood on for shoot far with high speed
-    flywheel.runFlywheelSetpoint(rpm + SmartDashboard.getNumber("Teleop: shootLL RPM delta", 0));
-    flywheel.setShooterLock(true);
+    if(limelight.hasTarget()){
+      rpm = Constants.DIST_TO_RPM.get(limelight.getDistance());
+      flywheel.setHood(true); // turn hood on for shoot far with high speed
+      flywheel.runFlywheelSetpoint(rpm + SmartDashboard.getNumber("Teleop: shootLL RPM delta", 0));
+      flywheel.setShooterLock(true);
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // Check whether the speed of flywheel is good enough to shoot
-    if (Math.abs(limelight.getTx()) < 1 && flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_SHOOTLL)) {
-      hopper.runHopper(SmartDashboard.getNumber("Teleop: Hopper speed", Constants.HOPPER_SPEED));
-    } else {
-      hopper.stopHopper();
+    if(limelight.hasTarget()){
+      // Check whether the speed of flywheel is good enough to shoot
+      if (Math.abs(limelight.getTx()) < 1 && flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_SHOOTLL)) {
+        hopper.runHopper(SmartDashboard.getNumber("Teleop: Hopper speed", Constants.HOPPER_SPEED));
+      } else {
+        hopper.stopHopper();
+      }
     }
-
   }
 
   // Called once the command ends or is interrupted.

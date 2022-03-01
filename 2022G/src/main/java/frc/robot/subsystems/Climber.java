@@ -133,7 +133,9 @@ public class Climber extends SubsystemBase {
 
   @Override
   public void periodic() {
-    updateLogs.updateClimberLogData();
+    if(Constants.USE_LOGGING){
+      updateLogs.updateClimberLogData();
+    }
   }
 
   public double getarmMotor1Velocity(){

@@ -6,6 +6,9 @@ import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 public final class Constants {
   // Is Gullinkambi
   public static final boolean IS_GULLINKAMBI = true;
+
+  // use logging?
+  public static final boolean USE_LOGGING = false;
   
   //uncommment whichever one you want to use & comment the rest
   public static final OIConfig OI_CONFIG = OIConfig.COMPETITION; 
@@ -21,6 +24,20 @@ public final class Constants {
   public static final double DRIVING_DEADBANDS = 0.1;
   public static final double SPEED_MULTIPLIER = 1;
   public static final double TURN_MULTIPLIER = 1;
+
+  public static final double kTurnByAngleP = 0.0055;
+  public static final double kTurnByAngleI = 0.0000012;
+  public static final double kTurnByAngleD = 0;
+  public static final double kTurnByAngleFF = 0.15;
+  public static final double kTurnByAngleToleranceDeg = 0.5;
+  public static final double kTurnByAngleRateToleranceDegPerS = 0;
+
+  public static final double kTurnToAngleP = 0.0055;
+  public static final double kTurnToAngleI = 0.0000012;
+  public static final double kTurnToAngleD = 0;
+  public static final double kTurnToAngleFF = 0.15;
+  public static final double kTurnToAngleToleranceDeg = 0.5;
+  public static final double kTurnToAngleRateToleranceDegPerS = 0;
 
   // Intake constants
   public static final int INTAKE_MAX_CURRENT = 30; // amps
@@ -62,6 +79,7 @@ public final class Constants {
 
   public static final int CLIMBER_MAX_CURRENT = 60;
 
+  // Limelight constants
   public static final double LL_P = 0.01;
   public static final double LL_I = 0;
   public static final double LL_D = 0;
@@ -72,16 +90,9 @@ public final class Constants {
   public static final double LL_PANNING_ANGLE = 0;
   public static final double TARGET_HEIGHT = 104;
   
-  public static final double [] LL_DIST = new double[]{60,70,75,80,90,100,110,125,150,175,200};
-  public static final double [] RPMS = new double[]{2450,2520,2560,2600,2670,2750,2900,3050,3200,3400,3600};
+  public static final double [] LL_DIST = new double[]{60,70,80,90,100,110};
+  public static final double [] RPMS = new double[]{2430,2500,2580,2660,2750,2870};
   public static LookupTable DIST_TO_RPM = new LookupTable(LL_DIST, RPMS);
-
-  public static final double kTurnP = 0.0055;
-  public static final double kTurnI = 0.0000012;
-  public static final double kTurnD = 0;
-  public static final double kTurnFF = 0.15;
-  public static final double kTurnToleranceDeg = 0.5;
-  public static final double kTurnRateToleranceDegPerS = 0;
 
   // OI constants
   public static final int XBOX_TRIGGER_SENSITIVITY = 0;

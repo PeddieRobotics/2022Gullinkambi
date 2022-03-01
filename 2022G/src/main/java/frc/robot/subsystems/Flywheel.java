@@ -72,8 +72,9 @@ public class Flywheel extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    updateLogs.updateFlywheelLogData();
+    if(Constants.USE_LOGGING){
+      updateLogs.updateFlywheelLogData();
+    }
   }
 
   public static Flywheel getInstance() {

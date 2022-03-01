@@ -18,14 +18,11 @@ public class TwoBallRightUpShoot extends  SequentialCommandGroup{
             new ResetOdometry(initialPose),
             new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),
             new ParallelCommandGroup(
-                new RunIntake(),
+                new AutoIntakeWithHopper(),
                 twoBallRightUpShoot
             ),
             new StopIntake(),
-            new ParallelCommandGroup(
-                new Target(),
-                new ShootWithLL()
-            )
+            new ShootWithLLForTime(5)
         );
     }
 }

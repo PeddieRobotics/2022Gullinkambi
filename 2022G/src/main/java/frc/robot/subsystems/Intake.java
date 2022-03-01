@@ -33,7 +33,9 @@ public class Intake extends SubsystemBase {
 
   @Override
   public void periodic() {
-    updateLogs.updateIntakeLogData();
+    if(Constants.USE_LOGGING){
+      updateLogs.updateIntakeLogData();
+    }
   }
 
   public static Intake getInstance() {

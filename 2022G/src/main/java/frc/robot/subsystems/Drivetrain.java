@@ -44,7 +44,7 @@ public class Drivetrain extends SubsystemBase {
 
   private final RelativeEncoder leftEncoder, rightEncoder;
 
-  private PIDController turnPidController;
+  private PIDController turnByAnglePIDController;
 
   //Logging
   private static UpdateLogs updateLogs = UpdateLogs.getInstance();
@@ -112,19 +112,21 @@ public class Drivetrain extends SubsystemBase {
     inverseMode = false;
     brakeMode = false;
 
-    turnPidController = new PIDController(Constants.kTurnP, Constants.kTurnI, Constants.kTurnD);
+    turnByAnglePIDController = new PIDController(Constants.kTurnByAngleP, Constants.kTurnByAngleI, Constants.kTurnByAngleD);
     // Set the controller to be continuous (because it is an angle controller)
-    turnPidController.enableContinuousInput(-180, 180);
+    turnByAnglePIDController.enableContinuousInput(-180, 180);
     // Set the controller tolerance - the delta tolerance ensures the robot is stationary at the
     // setpoint before it is considered as having reached the reference
-    turnPidController.setTolerance(Constants.kTurnToleranceDeg);
+    turnByAnglePIDController.setTolerance(Constants.kTurnByAngleToleranceDeg, Constants.kTurnByAngleRateToleranceDegPerS);
 
   }
 
   @Override
   public void periodic() {
     odometry.update(getHeadingAsRotation2d(), leftEncoder.getPosition(), rightEncoder.getPosition());
-    updateLogs.updateDrivetrainLogData();
+    if(Constants.USE_LOGGING){
+      updateLogs.updateDrivetrainLogData();
+    }
   }
 
   @Override
@@ -403,7 +405,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public PIDController getTurnPID(){
-    return turnPidController;
+    return turnByAnglePIDController;
   }
 
 }
