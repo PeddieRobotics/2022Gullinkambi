@@ -90,8 +90,8 @@ public final class Constants {
   public static final double LL_PANNING_ANGLE = 0;
   public static final double TARGET_HEIGHT = 104;
   
-  public static final double [] LL_DIST = new double[]{60,70,80,90,100,110};
-  public static final double [] RPMS = new double[]{2430,2500,2580,2660,2750,2870};
+  public static final double [] LL_DIST = new double[]{50,60,70,80,90,100,110};
+  public static final double [] RPMS = new double[]{2310,2400,2470,2560,2640,2730,2850};
   public static LookupTable DIST_TO_RPM = new LookupTable(LL_DIST, RPMS);
 
   // OI constants

@@ -28,9 +28,9 @@ public class TurnByAngle extends CommandBase{
   public void execute(){
     double output = Drivetrain.getInstance().getTurnPID().calculate(Drivetrain.getInstance().getHeading(), adjustedTargetAngleDegrees);
     if (output > 0) {
-      Drivetrain.getInstance().arcadeDrive(0, output + Constants.kTurnFF);
+      Drivetrain.getInstance().arcadeDrive(0, output + Constants.kTurnToAngleFF);
     } else if (output < 0) {
-      Drivetrain.getInstance().arcadeDrive(0, output - Constants.kTurnFF);
+      Drivetrain.getInstance().arcadeDrive(0, output - Constants.kTurnToAngleFF);
     } else {
       Drivetrain.getInstance().arcadeDrive(0, output);
     }

@@ -7,6 +7,7 @@ import frc.robot.commands.SplitFFRamseteCommand;
 import frc.robot.commands.DriveCommands.LLDriveToTarget;
 import frc.robot.commands.DriveCommands.ResetOdometry;
 import frc.robot.commands.DriveCommands.TurnByAngle;
+import frc.robot.commands.DriveCommands.TurnToAngle;
 import frc.robot.commands.IntakeCommands.AutoIntakeWithHopper;
 import frc.robot.commands.IntakeCommands.StopIntake;
 import frc.robot.commands.ShootCommands.SetFlywheelRPM;
@@ -22,12 +23,12 @@ public class FourBallPathRight extends SequentialCommandGroup{
                 new AutoIntakeWithHopper(),
                 part1
             ),
-            new ShootWithLLUntilEmpty(),
+            new ShootWithLLForTime(2),
             new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),
-            new TurnByAngle(97),
+            new TurnToAngle(-186),
             part2,
             new StopIntake(),
-            new ShootWithLLUntilEmpty()
+            new ShootWithLLForTime(3)
         );
     }
 }

@@ -26,7 +26,7 @@ public class TwoBallLeftUpShoot extends  SequentialCommandGroup{
                 twoBallLeftUpShoot
             ),
             new StopIntake(),
-            new ShootWithLLForTime(4)
+            new ShootWithLLForTime(5)
         );
     }
 }
