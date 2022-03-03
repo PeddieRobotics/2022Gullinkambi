@@ -12,29 +12,26 @@ import frc.robot.commands.IntakeCommands.StopIntake;
 import frc.robot.commands.ShootCommands.SetFlywheelRPM;
 import frc.robot.utils.Constants;
 
-public class FiveBallPathRight extends SequentialCommandGroup{ 
+public class FiveBallPathRightv2 extends SequentialCommandGroup{ 
 
-    public FiveBallPathRight(Pose2d initialPose, SplitFFRamseteCommand part1, SplitFFRamseteCommand part2, SplitFFRamseteCommand part3, SplitFFRamseteCommand part4){
+    public FiveBallPathRightv2(Pose2d initialPose, SplitFFRamseteCommand part1, SplitFFRamseteCommand part2, SplitFFRamseteCommand part3, SplitFFRamseteCommand part4){
         addCommands(
             new ResetOdometry(initialPose),
-            new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),
+            new ShootWithLLUntilEmpty(),
             new ParallelCommandGroup(
                 new AutoIntakeWithHopper(),
                 part1
             ),
-            new ShootWithLLUntilEmpty(),
-            new ParallelCommandGroup(
-                part2,
-                new AutoIntakeWithHopper()
-            ),
-            new WaitCommand(1),
+            new TurnToAngle(135),
             new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),
-                part3,
+            part2,
+            new TurnToAngle(35),
             new ShootWithLLUntilEmpty(),
-            new ParallelCommandGroup(
-                part4,
-                new AutoIntakeWithHopper()
-            ),
+            new AutoIntakeWithHopper(),
+            part3,
+            new WaitCommand(1),
+            part4,
+            new StopIntake(),
             new ShootWithLLUntilEmpty()
         );
     }

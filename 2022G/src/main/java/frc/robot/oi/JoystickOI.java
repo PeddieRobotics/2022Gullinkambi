@@ -69,10 +69,7 @@ public class JoystickOI {
     rightTrigger.whenHeld(new ShootLayup());
     rightButton2.whenHeld(new ParallelCommandGroup(new Target(), new ShootWithLL()));
     rightButton3.whenHeld(new ExtendArm()).whenReleased(new RetractArm());
-    //rightButton4.whenHeld(new Target());
-    //rightButton4.whenPressed(new ParallelRaceGroup(new Target(), new ShootLayup(), new CheckIfHopperEmpty(0.1)));
-    //rightButton4.whenPressed(new TurnByAngle(90));
-    //rightButton3.whenHeld(new LLDriveToTarget(0.35,0));
+
   }
 
   public double getSpeed() {
