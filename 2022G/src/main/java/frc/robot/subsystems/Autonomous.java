@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.SplitFFRamseteCommand;
 import frc.robot.commands.AutoCommands.FiveBallPathRight;
+import frc.robot.commands.AutoCommands.FiveBallPathRightv2;
 import frc.robot.commands.AutoCommands.FourBallPathLeft;
 import frc.robot.commands.AutoCommands.FourBallPathRight;
 import frc.robot.commands.AutoCommands.TwoBallLeftUpShoot;
@@ -87,9 +88,8 @@ public class Autonomous extends SubsystemBase {
         // autoRoutines.put("CMD Group: 1 Ball Left To Human", new OneBallLeftToHuman(oneBallLeftToHuman.getInitialPose(), getOneBallLeftToHuman()));
         // autoRoutines.put("CMD Group: 1 Ball Right To Human", new OneBallRightToHuman(oneBallRightToHuman.getInitialPose(), getOneBallRightToHuman()));
 
-        autoRoutines.put("CMD Group: 2 Ball Left Up Shoot", new TwoBallLeftUpShoot(twoBallLeftUpShoot.getInitialPose(), getTwoBallLeftUpShoot()));
-        autoRoutines.put("CMD Group: 2 Ball Right Up Shoot", new TwoBallRightUpShoot(twoBallRightUpShoot.getInitialPose(), getTwoBallRightUpShoot()));
-        autoRoutines.put("CMD Group: 2 Ball Right Down Shoot", new TwoBallRightDownShoot(twoBallRightDownShoot.getInitialPose(), getTwoBallRightDownShoot()));
+        autoRoutines.put("CMD Group: 2 Ball (longer)", new TwoBallLeftUpShoot(twoBallLeftUpShoot.getInitialPose(), getTwoBallLeftUpShoot()));
+        autoRoutines.put("CMD Group: 2 Ball (shorter)", new TwoBallRightDownShoot(twoBallRightDownShoot.getInitialPose(), getTwoBallRightDownShoot()));
 
         // autoRoutines.put("CMD Group: 3 Ball Right To Human", new ThreeBallRightToHuman(threeBallRightHuman.getInitialPose(), getThreeBallRightHuman()));
         // autoRoutines.put("CMD Group: 3 Ball Right", new ThreeBallRight(threeBallRight_1.getInitialPose(), getThreeBallRightPart1(), getThreeBallRightPart2()));
@@ -99,6 +99,9 @@ public class Autonomous extends SubsystemBase {
         autoRoutines.put("CMD Group: 4 Ball Path (Left)", new FourBallPathLeft(fourBallLeft_1.getInitialPose(), getFourBallLeftPart1(), getFourBallLeftPart2(), getFourBallLeftPart3()));
 
         autoRoutines.put("CMD Group: 5 Ball Path (Right)", new FiveBallPathRight(fiveBallRight_1.getInitialPose(), getFiveBallRightPart1(), getFiveBallRightPart2(), getFiveBallRightPart3(), getFiveBallRightPart4()));
+
+        autoRoutines.put("CMD Group: 5 Ball Path v2 (Right)", new FiveBallPathRightv2(fiveBallRight_v2_1.getInitialPose(), getFiveBallRightv2Part1(), getFiveBallRightv2Part2(), getFiveBallRightv2Part3(), getFiveBallRightv2Part4()));
+
 
     }
 
@@ -258,6 +261,22 @@ public class Autonomous extends SubsystemBase {
 
     public SplitFFRamseteCommand getFiveBallRightPart4(){
         return createCommandFromTrajectory(fiveBallRight_4);
+    }
+
+    public SplitFFRamseteCommand getFiveBallRightv2Part1(){
+        return createCommandFromTrajectory(fiveBallRight_v2_1);
+    }
+    
+    public SplitFFRamseteCommand getFiveBallRightv2Part2(){
+        return createCommandFromTrajectory(fiveBallRight_v2_2);
+    }
+
+    public SplitFFRamseteCommand getFiveBallRightv2Part3(){
+        return createCommandFromTrajectory(fiveBallRight_v2_3);
+    }
+
+    public SplitFFRamseteCommand getFiveBallRightv2Part4(){
+        return createCommandFromTrajectory(fiveBallRight_v2_4);
     }
 
 }
