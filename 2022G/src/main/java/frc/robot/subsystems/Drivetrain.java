@@ -154,18 +154,10 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void updateDrivetrainInfoOnDashboard() {
-    if(Constants.OI_CONFIG == OIConfig.COMPETITION || Constants.OI_CONFIG == OIConfig.JOYSTICK_TEST){
-      SmartDashboard.putNumber("Speed", JoystickOI.getInstance().getSpeed());
-      SmartDashboard.putNumber("Turn", JoystickOI.getInstance().getTurn());
-    }
-    else{
-      SmartDashboard.putNumber("Speed", XboxOI.getInstance().getSpeed());
-      SmartDashboard.putNumber("Turn", XboxOI.getInstance().getTurn());      
-    }
     SmartDashboard.putNumber("Heading", getHeading());
     SmartDashboard.putNumber("Odometry X", odometry.getPoseMeters().getTranslation().getX());
     SmartDashboard.putNumber("Odometry Y", odometry.getPoseMeters().getTranslation().getY());
-    SmartDashboard.putNumber("Odometry Pose", odometry.getPoseMeters().getRotation().getDegrees());
+    SmartDashboard.putNumber("Odometry Pose", getPoseHeading());
 
     //only heading and odometry in competition mode
     SmartDashboard.putNumber("LDrive enc pos", getLeftEncoderPosition());
@@ -251,6 +243,10 @@ public class Drivetrain extends SubsystemBase {
 
   public Pose2d getPose() {
     return odometry.getPoseMeters();
+  }
+
+  public double getPoseHeading(){
+    return odometry.getPoseMeters().getRotation().getDegrees();
   }
 
   public void resetGyro() {

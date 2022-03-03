@@ -209,7 +209,7 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "2,2": {
+          "3,2": {
             "size": [
               1,
               1
@@ -264,7 +264,7 @@
               "_title": "OR: I zone flywheel"
             }
           },
-          "3,1": {
+          "5,2": {
             "size": [
               1,
               1
@@ -428,7 +428,7 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "4,1": {
+          "3,1": {
             "size": [
               1,
               1
@@ -441,7 +441,7 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "6,1": {
+          "5,1": {
             "size": [
               1,
               1
@@ -454,7 +454,7 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "5,1": {
+          "4,1": {
             "size": [
               1,
               1
@@ -489,26 +489,26 @@
               "_title": "SmartDashboard/Odometry Y"
             }
           },
-          "3,2": {
+          "4,2": {
             "size": [
               1,
               1
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Speed",
-              "_title": "SmartDashboard/Speed"
+              "_source0": "network_table:///limelight/tx",
+              "_title": "limelight/tx"
             }
           },
-          "5,2": {
+          "2,2": {
             "size": [
               1,
               1
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/LL speed",
-              "_title": "/SmartDashboard/LL speed"
+              "_source0": "network_table:///SmartDashboard/Odometry Pose",
+              "_title": "SmartDashboard/Odometry Pose"
             }
           },
           "6,2": {
@@ -518,30 +518,8 @@
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/LL turn",
-              "_title": "/SmartDashboard/LL turn"
-            }
-          },
-          "4,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Turn",
-              "_title": "SmartDashboard/Turn"
-            }
-          },
-          "3,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///limelight/tx",
-              "_title": "limelight/tx"
+              "_source0": "network_table:///SmartDashboard/turn pid setpoint",
+              "_title": "/SmartDashboard/turn pid setpoint"
             }
           }
         }
