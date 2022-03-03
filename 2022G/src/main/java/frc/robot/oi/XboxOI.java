@@ -45,11 +45,12 @@ public class XboxOI {
 
     public void configureXboxControllers() {
         if (Constants.OI_CONFIG == OIConfig.COMPETITION) {
+
             xboxController = new Joystick(ControllerMap.XBOX_OPERATOR_PORT);
 
-            new JoystickButton(xboxController, ControllerMap.XBOX_X).whenPressed(new UnjamIntake(true)).whenReleased(new RunIntake()); // XBOX_X
-            new JoystickButton(xboxController, ControllerMap.XBOX_Y).whenHeld(new UnjamIntake(false)).whenReleased(new RunIntake()); // XBOX_Y
-            new JoystickButton(xboxController, ControllerMap.XBOX_A).whenHeld(new ShootLow()); // XBOX_A
+            
+            new JoystickButton(xboxController, ControllerMap.XBOX_Y).whenHeld(new ShootLow()); // XBOX_Y
+            new JoystickButton(xboxController, ControllerMap.XBOX_A).whenHeld(new UnjamIntake(false)).whenReleased(new RunIntake()); // XBOX_A
             new JoystickButton(xboxController, ControllerMap.XBOX_B).whenPressed(new InitializeArm()); // XBOX_B
             new JoystickButton(xboxController, ControllerMap.XBOX_RB).toggleWhenPressed(new ConditionalCommand(new InstantCommand(drivetrain::setToCoastMode, drivetrain), new InstantCommand(drivetrain::setToBrakeMode, drivetrain), drivetrain::isBrakeMode)); //XBOX_RB
 
