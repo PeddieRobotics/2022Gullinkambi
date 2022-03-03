@@ -108,8 +108,7 @@ public class UpdateLogs {
         LoggerCustom.getInstance().recordOutput("Flywheel/RPMSetpoint", m_flywheel.getFlywheelSetpoint());
 
         //Motor Data
-        LoggerCustom.getInstance().recordOutput("Flywheel/PrimaryFlywheelVelocity", m_flywheel.getPrimaryFlywheelVelocity());
-        LoggerCustom.getInstance().recordOutput("Flywheel/SecondaryFlywheelVelocity", m_flywheel.getSecondaryFlywheelVelocity());
+        LoggerCustom.getInstance().recordOutput("Flywheel/FlywheelVelocity", m_flywheel.getFlywheelVelocity());
         
         LoggerCustom.getInstance().recordOutput("Flywheel/PrimaryFlywheelCurrent", m_flywheel.getPrimaryFlywheelCurrent());
         LoggerCustom.getInstance().recordOutput("Flywheel/SecondaryFlywheel2Current", m_flywheel.getSecondaryFlywheelCurrent());

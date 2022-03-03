@@ -153,7 +153,8 @@ public class Flywheel extends SubsystemBase {
 
   public void updateFlywheelInfoOnDashboard(){
     SmartDashboard.putNumber("FW velocity", getFlywheelVelocity());
-    SmartDashboard.putNumber("FW setpoint", getFlywheelSetpoint());
+    SmartDashboard.putNumber("FW setpoint", 
+    getFlywheelSetpoint());
     SmartDashboard.putNumber("FW current", flywheelPrimary.getOutputCurrent());
     SmartDashboard.putBoolean("Lock activated", getShooterLock());
     SmartDashboard.putBoolean("Hood up", getHood());
@@ -174,16 +175,8 @@ public class Flywheel extends SubsystemBase {
     return flywheelSetpoint;
   }
 
-  public double getPrimaryFlywheelVelocity(){
-    return flywheelPrimary.get();
-  }
-
-  public double getSecondaryFlywheelVelocity(){
-    return flywheelSecondary.get();
-  }
-
   public double getFlywheelVelocity(){
-    return (getPrimaryFlywheelVelocity()+getSecondaryFlywheelVelocity())/2;
+    return getFlywheelEncoderVelocity();
   }
 
   //Current Getters
