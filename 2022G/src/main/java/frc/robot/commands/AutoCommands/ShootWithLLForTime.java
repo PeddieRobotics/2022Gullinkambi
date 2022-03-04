@@ -10,7 +10,7 @@ import frc.robot.commands.ShootCommands.ShootWithLL;
 import frc.robot.commands.ShootCommands.Target;
 
 public class ShootWithLLForTime extends SequentialCommandGroup{
-    public ShootWithLLForTime(double x) {
+    public ShootWithLLForTime(int x) {
         addCommands(
             new ParallelRaceGroup(
                 new Target(),
