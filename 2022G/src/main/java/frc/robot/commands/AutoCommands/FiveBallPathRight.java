@@ -29,7 +29,8 @@ public class FiveBallPathRight extends SequentialCommandGroup{
             ),
             new WaitCommand(1),
             new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),
-                part3,
+            part3,
+            new TurnToAngle(-100),
             new ShootWithLLForTime(2),
             new ParallelCommandGroup(
                 part4,

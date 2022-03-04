@@ -17,16 +17,18 @@ public class FiveBallPathRightv2 extends SequentialCommandGroup{
     public FiveBallPathRightv2(Pose2d initialPose, SplitFFRamseteCommand part1, SplitFFRamseteCommand part2, SplitFFRamseteCommand part3, SplitFFRamseteCommand part4){
         addCommands(
             new ResetOdometry(initialPose),
-            new ShootWithLLForTime(1),
+            new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),
             new ParallelCommandGroup(
                 new AutoIntakeWithHopper(),
                 part1
             ),
-            new TurnToAngle(135),
+            new ShootWithLLForTime(2),
             new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),
+            new AutoIntakeWithHopper(),
+            new TurnToAngle(135),
             part2,
             new TurnToAngle(35),
-            new ShootWithLLForTime(2),
+            new ShootWithLLForTime(1),
             new AutoIntakeWithHopper(),
             part3,
             new WaitCommand(1),
