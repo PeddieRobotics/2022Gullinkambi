@@ -92,7 +92,7 @@ public final class Constants {
   public static final double TARGET_HEIGHT = 104;
   
   public static final double [] LL_DIST = new double[]{50,60,70,80,90,100,110,120,130,140};
-  public static final double [] RPMS = new double[]{2435,2505,2565,2645,2715,2785,2855,2965,3055,3205};
+  public static final double [] RPMS = new double[]{2435,2505,2565,2645,2715,2785,2855,2990,3080,3230};
   public static LookupTable DIST_TO_RPM = new LookupTable(LL_DIST, RPMS);
 
   // OI constants
