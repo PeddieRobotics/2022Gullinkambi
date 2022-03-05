@@ -27,7 +27,7 @@ public class AutoIntakeWithHopper extends CommandBase {
   public void initialize() {
     intake.setIntakeSolenoid(true);
     intake.setIntakeSpeed(SmartDashboard.getNumber("Teleop: Intake speed", Constants.INTAKE_SPEED));
-    hopper.runHopper(SmartDashboard.getNumber("Teleop: Hopper speed", Constants.HOPPER_SPEED));
+    hopper.runHopper(SmartDashboard.getNumber("Teleop: Hopper speed", Constants.HOPPER_INDEX_SPEED));
   }
 
   // Called every time the scheduler runs while the command is scheduled.
