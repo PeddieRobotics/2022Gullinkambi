@@ -9,7 +9,7 @@ import frc.robot.commands.ShootCommands.ShootLayup;
 public class ShootLayupForTime extends ParallelRaceGroup{
     public ShootLayupForTime(double x){
         addCommands(
-            new ShootLayup(),
+            new ShootLayup(true),
             new WaitCommand(x)
         );
     }

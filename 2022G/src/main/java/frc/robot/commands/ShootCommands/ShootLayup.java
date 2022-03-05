@@ -2,6 +2,7 @@ package frc.robot.commands.ShootCommands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hopper;
 import frc.robot.utils.Constants;
@@ -10,16 +11,24 @@ public class ShootLayup extends CommandBase {
 
   private Flywheel flywheel;
   private Hopper hopper;
+  private Drivetrain drivetrain;
 
-  public ShootLayup() {
+  private boolean isAuto;
+
+  public ShootLayup(boolean autonomous) {
     flywheel = Flywheel.getInstance();
     hopper = Hopper.getInstance();
-    addRequirements(flywheel, hopper);
+    drivetrain = Drivetrain.getInstance();
+    
+    addRequirements(flywheel, hopper, drivetrain);
+
+    isAuto = autonomous;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    drivetrain.setBrake();
     flywheel.setHood(false); // no hood for high shot
     flywheel.setShooterLock(true);
     flywheel.runFlywheelSetpoint(SmartDashboard.getNumber("Teleop: layup RPM", Constants.FLYWHEEL_RPM_LAYUP));
@@ -43,6 +52,10 @@ public class ShootLayup extends CommandBase {
     hopper.stopHopper();
     flywheel.stopFlywheel();
     flywheel.setShooterLock(false);
+
+    if(!isAuto){
+      drivetrain.setCoast();
+    }
   }
 
   // Returns true when the command should end.

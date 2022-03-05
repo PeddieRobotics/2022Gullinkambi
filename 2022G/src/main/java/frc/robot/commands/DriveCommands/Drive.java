@@ -33,12 +33,14 @@ public class Drive extends CommandBase {
     // Initializes the drive command
     @Override
     public void initialize() {
+        // If we're driving, we're not locked on a limelight target. Shouldn't be needed, but placed here as a safety on the logic elsewhere.
+        drivetrain.setLockedOnTarget(false);
     }
 
     // Executes the drive command
     @Override
     public void execute() {
-
+        // Local variables for this particular execute loop. May be modified by checking elsewhere. (Inefficient/consider changing implementation)
         boolean reverse = false;
         boolean brakeMode = false;
         double speedInput = 0.0;

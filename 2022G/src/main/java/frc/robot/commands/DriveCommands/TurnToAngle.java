@@ -13,34 +13,37 @@ public class TurnToAngle extends CommandBase{
    * @param drive The drive subsystem to use
    */
 
+  private Drivetrain drivetrain;
+
    private double targetAngleDegrees;
 
   public TurnToAngle(double targetAngleDegrees) {
     this.targetAngleDegrees = targetAngleDegrees;
+
+    drivetrain = Drivetrain.getInstance();
+
+    addRequirements(drivetrain);
   }
 
   @Override
   public void initialize(){
-    Drivetrain.getInstance().getTurnPID().setSetpoint(targetAngleDegrees);
+    drivetrain.getTurnPID().setSetpoint(targetAngleDegrees);
   }
 
   @Override
   public void execute(){
-    double output = Drivetrain.getInstance().getTurnPID().calculate(Drivetrain.getInstance().getPoseHeading(), targetAngleDegrees);
+    double output = drivetrain.getTurnPID().calculate(drivetrain.getPoseHeading(), targetAngleDegrees);
     if (output > 0) {
-      Drivetrain.getInstance().arcadeDrive(0, output + Constants.kTurnToAngleFF);
+      drivetrain.arcadeDrive(0, output + Constants.kTurnToAngleFF);
     } else if (output < 0) {
-      Drivetrain.getInstance().arcadeDrive(0, output - Constants.kTurnToAngleFF);
+      drivetrain.arcadeDrive(0, output - Constants.kTurnToAngleFF);
     } else {
-      Drivetrain.getInstance().arcadeDrive(0, output);
+      drivetrain.arcadeDrive(0, output);
     }
   }
 
   @Override
   public boolean isFinished() {
-    return (Math.abs(Drivetrain.getInstance().getPoseHeading()-targetAngleDegrees) < Constants.kTurnByAngleToleranceDeg);
-    // End when the controller is at the reference
-    //SmartDashboard.putNumber("turn pid setpoint", Drivetrain.getInstance().getTurnPID().getPositionError());
-    //return Drivetrain.getInstance().getTurnPID().atSetpoint();
+    return (Math.abs(drivetrain.getPoseHeading()-targetAngleDegrees) < Constants.kTurnByAngleToleranceDeg);
   }
 }

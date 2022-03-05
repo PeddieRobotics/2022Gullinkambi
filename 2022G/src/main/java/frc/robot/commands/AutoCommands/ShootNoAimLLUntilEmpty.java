@@ -16,7 +16,7 @@ public class ShootNoAimLLUntilEmpty extends SequentialCommandGroup{
     public ShootNoAimLLUntilEmpty() {
         addCommands(    
             new ParallelRaceGroup(
-                new ShootWithLL(),
+                new ShootWithLL(true),
                 new CheckIfHopperEmpty(0.25))
         );
     }

@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ClimbCommands.ExtendArm;
 import frc.robot.commands.ClimbCommands.RetractArm;
@@ -13,6 +14,7 @@ import frc.robot.commands.DriveCommands.TurnToAngle;
 import frc.robot.commands.IntakeCommands.CheckIfHopperEmpty;
 import frc.robot.commands.IntakeCommands.RunIntake;
 import frc.robot.commands.IntakeCommands.StopIntake;
+import frc.robot.commands.ShootCommands.BlankCommand;
 import frc.robot.commands.ShootCommands.ShootLayup;
 import frc.robot.commands.ShootCommands.ShootWithLL;
 import frc.robot.commands.ShootCommands.Target;
@@ -66,8 +68,8 @@ public class JoystickOI {
     leftTrigger.toggleWhenPressed(new ConditionalCommand(new StopIntake(), new RunIntake(), intake::getIntakeSolenoid));
     leftButton2.toggleWhenPressed(new ConditionalCommand(new InstantCommand(drivetrain::setToRegularMode, drivetrain), new InstantCommand(drivetrain::setToInverseMode, drivetrain), drivetrain::isInverseMode));
     
-    rightTrigger.whenHeld(new ShootLayup());
-    rightButton2.whenHeld(new ParallelCommandGroup(new Target(), new ShootWithLL()));
+    rightTrigger.whenHeld(new ShootLayup(false));
+    rightButton2.whenHeld(new SequentialCommandGroup(new Target(), new ConditionalCommand(new ShootWithLL(false), new BlankCommand(), drivetrain::isLockedOnTarget)));
     rightButton3.whenHeld(new ExtendArm()).whenReleased(new RetractArm());
 
   }
