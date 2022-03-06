@@ -12,12 +12,14 @@ public class AutoIntakeWithHopper extends CommandBase {
 
   private Intake intake;
   private Hopper hopper;
+  private double indexSpeed, hopperSpeed;
 
   /** Creates a new AutoIntakeWithHopper. */
-  public AutoIntakeWithHopper() {
+  public AutoIntakeWithHopper(double indexSpeed, double hopperSpeed) {
     intake = Intake.getInstance();
     hopper = Hopper.getInstance();
-
+    this.indexSpeed = indexSpeed;
+    this.hopperSpeed = hopperSpeed;
     addRequirements(intake, hopper);
 
   }
@@ -26,8 +28,8 @@ public class AutoIntakeWithHopper extends CommandBase {
   @Override
   public void initialize() {
     intake.setIntakeSolenoid(true);
-    intake.setIntakeSpeed(SmartDashboard.getNumber("Teleop: Intake speed", Constants.INTAKE_SPEED));
-    hopper.runHopper(SmartDashboard.getNumber("Teleop: Hopper speed", Constants.HOPPER_INDEX_SPEED));
+    intake.setIntakeSpeed(indexSpeed);
+    hopper.runHopper(hopperSpeed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

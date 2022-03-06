@@ -20,7 +20,7 @@ public class FourBallPathLeft extends SequentialCommandGroup{
             new ResetOdometry(initialPose),
             new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),
             new ParallelCommandGroup(
-                new AutoIntakeWithHopper(),
+                new AutoIntakeWithHopper(1.0, 0.7),
                 part1
             ),
             new StopIntake(),
@@ -28,7 +28,7 @@ public class FourBallPathLeft extends SequentialCommandGroup{
             new TurnToAngle(-135),
             new ParallelCommandGroup(
                 part2,
-                new SequentialCommandGroup(new WaitCommand(1.3), new AutoIntakeWithHopper())
+                new SequentialCommandGroup(new WaitCommand(1.3), new AutoIntakeWithHopper(1.0, 0.7))
             ),
             new WaitCommand(1),
             new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),

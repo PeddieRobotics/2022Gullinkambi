@@ -19,13 +19,13 @@ public class FiveBallPathRight extends SequentialCommandGroup{
             new ResetOdometry(initialPose),
             new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),
             new ParallelCommandGroup(
-                new AutoIntakeWithHopper(),
+                new AutoIntakeWithHopper(1.0, 0.7),
                 part1
             ),
             new ShootWithLLForTime(2),
             new ParallelCommandGroup(
                 part2,
-                new AutoIntakeWithHopper()
+                new AutoIntakeWithHopper(1.0, 0.7)
             ),
             new WaitCommand(1),
             new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),
@@ -33,7 +33,7 @@ public class FiveBallPathRight extends SequentialCommandGroup{
             new ShootWithLLForTime(2),
             new ParallelCommandGroup(
                 part4,
-                new AutoIntakeWithHopper()
+                new AutoIntakeWithHopper(1.0, 0.7)
             ),
             new ShootWithLLForTime(5)
         );

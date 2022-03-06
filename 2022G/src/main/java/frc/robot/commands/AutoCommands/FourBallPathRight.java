@@ -20,11 +20,11 @@ public class FourBallPathRight extends SequentialCommandGroup{
             new ResetOdometry(initialPose),
             new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),
             new ParallelCommandGroup(
-                new AutoIntakeWithHopper(),
+                new AutoIntakeWithHopper(0.7, 0.7),
                 part1
             ),
             new ShootWithLLForTime(2),
-            new AutoIntakeWithHopper(),
+            new AutoIntakeWithHopper(1.0, 0.7),
             new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),
             new TurnToAngle(155),
             part2,

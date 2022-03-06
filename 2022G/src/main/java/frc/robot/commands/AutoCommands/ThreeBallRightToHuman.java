@@ -21,7 +21,7 @@ public class ThreeBallRightToHuman extends  SequentialCommandGroup{
             new ResetOdometry(initialPose),
             new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),
             new ParallelRaceGroup(
-                new AutoIntakeWithHopper(),
+                new AutoIntakeWithHopper(1.0, 0.7),
                 threeBallRightToHuman
             ),
             new StopIntake(),
