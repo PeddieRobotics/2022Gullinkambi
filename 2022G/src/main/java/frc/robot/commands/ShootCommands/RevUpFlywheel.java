@@ -1,7 +1,6 @@
 package frc.robot.commands.ShootCommands;
 
 import frc.robot.subsystems.Intake;
-// import com.team2363.logger.HelixEvents;
 import frc.robot.utils.Constants;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hopper;

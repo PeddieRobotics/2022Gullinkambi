@@ -19,7 +19,7 @@ public class FiveBallPathRightv2 extends SequentialCommandGroup{
             new ResetOdometry(initialPose),
             new ShootWithLLForTime(1),
             new ParallelCommandGroup(
-                new AutoIntakeWithHopper(),
+                new AutoIntakeWithHopper(1.0, 0.7),
                 part1
             ),
             new TurnToAngle(135),
@@ -27,7 +27,7 @@ public class FiveBallPathRightv2 extends SequentialCommandGroup{
             part2,
             new TurnToAngle(35),
             new ShootWithLLForTime(2),
-            new AutoIntakeWithHopper(),
+            new AutoIntakeWithHopper(1.0, 0.7),
             part3,
             new WaitCommand(1),
             part4,

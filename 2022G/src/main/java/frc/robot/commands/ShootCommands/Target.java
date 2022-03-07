@@ -31,11 +31,12 @@ public class Target extends CommandBase {
   }
   @Override
   public void initialize() {
+      // Assume by default that we're not locked on a limelight target. Shouldn't be needed, but placed here as a safety on the logic elsewhere.
+      drivetrain.setLockedOnTarget(false);
   }
 
   @Override
   public void execute() {
-     angle_bound = SmartDashboard.getNumber("LL ANGLE BOUND", Constants.LL_ANGLE_BOUND);
      ff = limelight.getFF();
 
      if (limelight.hasTarget()){
@@ -60,10 +61,15 @@ public class Target extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     drivetrain.arcadeDrive(0,0);
+    // If we end this command with the LL seeing target AND we weren't interrupted (e.g. trigger release), we are locked to target now
+    // Otherwise we must be ending immediately because no target was found for alignment
+    if(limelight.hasTarget() && !interrupted){
+      drivetrain.setLockedOnTarget(true);
+    }
   }
 
   @Override
   public boolean isFinished() { 
-    return false;
+    return (Math.abs(limelight.getTx()) < angle_bound);
 }
 }

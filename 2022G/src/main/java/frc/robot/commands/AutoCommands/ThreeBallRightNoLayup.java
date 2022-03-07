@@ -17,7 +17,7 @@ public class ThreeBallRightNoLayup extends SequentialCommandGroup{
             new ResetOdometry(initialPose),
             new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),
             new ParallelCommandGroup(
-                new AutoIntakeWithHopper(),
+                new AutoIntakeWithHopper(1.0, 0.7),
                 part1
             ),
             new StopIntake(),
@@ -25,7 +25,7 @@ public class ThreeBallRightNoLayup extends SequentialCommandGroup{
             new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),
             new ParallelCommandGroup(
                 part2,
-                new AutoIntakeWithHopper()
+                new AutoIntakeWithHopper(1.0, 0.7)
             ),
             new StopIntake(),
             new ShootWithLLUntilEmpty()

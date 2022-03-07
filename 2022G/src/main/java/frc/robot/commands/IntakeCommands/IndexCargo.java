@@ -28,7 +28,7 @@ public class IndexCargo extends CommandBase {
     } else {
       // if there are 0 or 1 balls in the hopper, run the hopper
       if (!hopper.sensesBallTop() || !hopper.sensesBallBottom()) {
-        hopper.runHopper(SmartDashboard.getNumber("Teleop: Hopper speed", Constants.HOPPER_SPEED));
+        hopper.runHopper(SmartDashboard.getNumber("Teleop: Hopper speed", Constants.HOPPER_INDEX_SPEED));
       } else {
         hopper.stopHopper();
       }

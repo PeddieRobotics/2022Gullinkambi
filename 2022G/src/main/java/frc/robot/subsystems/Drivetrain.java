@@ -42,9 +42,11 @@ public class Drivetrain extends SubsystemBase {
   private boolean inverseMode;
   private boolean brakeMode;
 
+  private boolean lockedOnTarget;
+
   private final RelativeEncoder leftEncoder, rightEncoder;
 
-  private PIDController turnByAnglePIDController;
+  private PIDController turnToAnglePIDController;
 
   //Logging
   private static UpdateLogs updateLogs = UpdateLogs.getInstance();
@@ -112,12 +114,14 @@ public class Drivetrain extends SubsystemBase {
     inverseMode = false;
     brakeMode = false;
 
-    turnByAnglePIDController = new PIDController(Constants.kTurnByAngleP, Constants.kTurnByAngleI, Constants.kTurnByAngleD);
+    lockedOnTarget = false;
+
+    turnToAnglePIDController = new PIDController(Constants.kTurnByAngleP, Constants.kTurnByAngleI, Constants.kTurnByAngleD);
     // Set the controller to be continuous (because it is an angle controller)
-    turnByAnglePIDController.enableContinuousInput(-180, 180);
+    turnToAnglePIDController.enableContinuousInput(-180, 180);
     // Set the controller tolerance - the delta tolerance ensures the robot is stationary at the
     // setpoint before it is considered as having reached the reference
-    turnByAnglePIDController.setTolerance(Constants.kTurnByAngleToleranceDeg, Constants.kTurnByAngleRateToleranceDegPerS);
+    turnToAnglePIDController.setTolerance(Constants.kTurnByAngleToleranceDeg, Constants.kTurnByAngleRateToleranceDegPerS);
 
   }
 
@@ -401,7 +405,15 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public PIDController getTurnPID(){
-    return turnByAnglePIDController;
+    return turnToAnglePIDController;
+  }
+
+  public boolean isLockedOnTarget(){
+    return lockedOnTarget;
+  }
+
+  public void setLockedOnTarget(boolean lockedOn){
+    lockedOnTarget = lockedOn;
   }
 
 }

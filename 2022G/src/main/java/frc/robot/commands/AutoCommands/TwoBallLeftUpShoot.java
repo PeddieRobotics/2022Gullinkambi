@@ -22,7 +22,7 @@ public class TwoBallLeftUpShoot extends  SequentialCommandGroup{
             new ResetOdometry(initialPose),
             new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),
             new ParallelCommandGroup(
-                new AutoIntakeWithHopper(),
+                new AutoIntakeWithHopper(1.0, 0.7),
                 twoBallLeftUpShoot
             ),
             new StopIntake(),
