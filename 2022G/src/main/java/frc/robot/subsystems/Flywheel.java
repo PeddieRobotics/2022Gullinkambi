@@ -137,7 +137,6 @@ public class Flywheel extends SubsystemBase {
     SmartDashboard.putNumber("OR: Flywheel setpoint", 0);
     SmartDashboard.putBoolean("OR: Flywheel lock", false);
     SmartDashboard.putBoolean("OR: Hood up", false);
-    //SmartDashboard.putNumber("Teleop: shootLL RPM", 0);
     SmartDashboard.putNumber("Teleop: shoot low RPM", Constants.FLYWHEEL_RPM_LOW);
     SmartDashboard.putNumber("Teleop: layup RPM", Constants.FLYWHEEL_RPM_LAYUP);
 
@@ -158,6 +157,7 @@ public class Flywheel extends SubsystemBase {
     SmartDashboard.putNumber("FW current", flywheelPrimary.getOutputCurrent());
     SmartDashboard.putBoolean("Lock activated", getShooterLock());
     SmartDashboard.putBoolean("Hood up", getHood());
+    SmartDashboard.putBoolean("isAtRPM", isAtRPM(Constants.FLYWHEEL_THRESHOLD_SHOOTLL));
   }
 
 

@@ -162,20 +162,23 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("Odometry X", odometry.getPoseMeters().getTranslation().getX());
     SmartDashboard.putNumber("Odometry Y", odometry.getPoseMeters().getTranslation().getY());
     SmartDashboard.putNumber("Odometry Pose", getPoseHeading());
+    SmartDashboard.putBoolean("Locked on target", isLockedOnTarget());
 
     //only heading and odometry in competition mode
-    SmartDashboard.putNumber("LDrive enc pos", getLeftEncoderPosition());
-    SmartDashboard.putNumber("RDrive enc pos", getRightEncoderPosition());
-    SmartDashboard.putNumber("LDrive enc vel", getLeftEncoderVelocity());
-    SmartDashboard.putNumber("RDrive enc vel", getRightEncoderVelocity());
-  
-    SmartDashboard.putNumber("Avg Velocity", getAverageEncoderVelocity());
-    SmartDashboard.putNumber("Left wheel speeds", getWheelSpeeds().leftMetersPerSecond);
-    SmartDashboard.putNumber("Right wheel speeds", getWheelSpeeds().rightMetersPerSecond);
-    SmartDashboard.putNumber("LDrive master AMPS", leftMaster.getOutputCurrent());
-    SmartDashboard.putNumber("RDrive master AMPS", rightMaster.getOutputCurrent());
-    SmartDashboard.putNumber("LDrive power", leftMaster.get());
-    SmartDashboard.putNumber("RDrive power", rightMaster.get());
+    if(Constants.OI_CONFIG != OIConfig.COMPETITION){
+      SmartDashboard.putNumber("LDrive enc pos", getLeftEncoderPosition());
+      SmartDashboard.putNumber("RDrive enc pos", getRightEncoderPosition());
+      SmartDashboard.putNumber("LDrive enc vel", getLeftEncoderVelocity());
+      SmartDashboard.putNumber("RDrive enc vel", getRightEncoderVelocity());
+    
+      SmartDashboard.putNumber("Avg Velocity", getAverageEncoderVelocity());
+      SmartDashboard.putNumber("Left wheel speeds", getWheelSpeeds().leftMetersPerSecond);
+      SmartDashboard.putNumber("Right wheel speeds", getWheelSpeeds().rightMetersPerSecond);
+      SmartDashboard.putNumber("LDrive master AMPS", leftMaster.getOutputCurrent());
+      SmartDashboard.putNumber("RDrive master AMPS", rightMaster.getOutputCurrent());
+      SmartDashboard.putNumber("LDrive power", leftMaster.get());
+      SmartDashboard.putNumber("RDrive power", rightMaster.get());
+    }
 
   }
 
