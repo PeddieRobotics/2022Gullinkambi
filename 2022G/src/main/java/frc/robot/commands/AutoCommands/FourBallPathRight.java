@@ -23,7 +23,7 @@ public class FourBallPathRight extends SequentialCommandGroup{
                 new AutoIntakeWithHopper(0.7, 0.7),
                 part1
             ),
-            new ShootWithLLForTime(2),
+            new ShootWithLLUntilEmpty(),
             new AutoIntakeWithHopper(1.0, 0.7),
             new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),
             new TurnToAngle(155),

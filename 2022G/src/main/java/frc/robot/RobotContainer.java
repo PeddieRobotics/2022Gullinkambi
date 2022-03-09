@@ -118,6 +118,10 @@ public class RobotContainer {
     SmartDashboard.putNumber("Angle", drivetrain.getHeading());
   }
 
+  public void updateUpperHopperSensorFilter(){
+    hopper.updateUpperSensorFilter();
+  }
+
   public void stopAllSystems(){
     intake.stopIntake();
     hopper.stopHopper();

@@ -99,17 +99,19 @@ public class Hopper extends SubsystemBase {
     }
 
     public boolean sensesBallTopWithFilter() {
-        boolean filteredInput = false;
-        if(!topSensor.get()){
-            double x = topSensorFilter.calculate(1);
+        return updateUpperSensorFilter() > Constants.UPPER_SENSOR_INPUT_THRESHOLD;
+    }
+
+    public double updateUpperSensorFilter(){
+        double x = 0.0;
+        if(sensesBallTop()){
+            x = topSensorFilter.calculate(1);
             SmartDashboard.putNumber("Senses ball top", x);
-            filteredInput = x > Constants.UPPER_SENSOR_INPUT_THRESHOLD;
         } else {
-            double x = topSensorFilter.calculate(0);
+            x = topSensorFilter.calculate(0);
             SmartDashboard.putNumber("Senses ball top", x);
-            filteredInput = x > Constants.UPPER_SENSOR_INPUT_THRESHOLD;
         }
-        return filteredInput;
+        return x;
     }
 
     public void putSmartDashboardOverrides() {

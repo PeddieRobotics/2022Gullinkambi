@@ -93,6 +93,7 @@ public class Robot extends LoggedRobotCustom {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     robotContainer.updateInfoOnDashboard();
+    robotContainer.updateUpperHopperSensorFilter();
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
