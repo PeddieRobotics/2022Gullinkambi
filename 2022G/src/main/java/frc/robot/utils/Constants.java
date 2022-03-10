@@ -4,9 +4,6 @@ import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 
 
 public final class Constants {
-  // Is Gullinkambi
-  public static final boolean IS_GULLINKAMBI = true;
-
   // use logging?
   public static final boolean USE_LOGGING = false;
   
@@ -25,18 +22,11 @@ public final class Constants {
   public static final double SPEED_MULTIPLIER = 1;
   public static final double TURN_MULTIPLIER = 1;
 
-  public static final double kTurnByAngleP = 0.0055;
-  public static final double kTurnByAngleI = 0.0000005;
-  public static final double kTurnByAngleD = 0.0;
-  public static final double kTurnByAngleFF = 0.15;
-  public static final double kTurnByAngleToleranceDeg = 0.5;
-  public static final double kTurnByAngleRateToleranceDegPerS = 0;
-
   public static final double kTurnToAngleP = 0.0055;
-  public static final double kTurnToAngleI = 0.0000012;
-  public static final double kTurnToAngleD = 0;
+  public static final double kTurnToAngleI = 0.0000005;
+  public static final double kTurnToAngleD = 0.0;
   public static final double kTurnToAngleFF = 0.15;
-  public static final double kTurnToAngleToleranceDeg = 1;
+  public static final double kTurnToAngleToleranceDeg = 0.5;
   public static final double kTurnToAngleRateToleranceDegPerS = 0;
 
   // Intake constants
@@ -63,7 +53,7 @@ public final class Constants {
   public static final double FLYWHEEL_I = 0.000001;
   public static final double FLYWHEEL_D = 0.0001;
   public static final double FLYWHEEL_FF = 0.000186;
-  public static final double FLYWHEEL_IZONE = 100;
+  public static final double FLYWHEEL_IZONE = 50;
 
   public static final double FLYWHEEL_RPM_LAYUP = 2350;
   public static final double FLYWHEEL_RPM_LOW = 1300;
@@ -123,7 +113,7 @@ public final class Constants {
     public static final double kvVoltSecondsPerMeter = 3.1138;
     public static final double kaVoltSecondsSquaredPerMeter = 0.3875;
 
-    public static final double kPDriveVel = 0.03125;
+    public static final double kPDriveVel = 1.4228E-05; //0.00020646; // 0.03125;
     
     public static final double kTrackwidthMeters = 0.687; /* True calculations: 0.653*/
     public static final DifferentialDriveKinematics kDriveKinematics =

@@ -27,7 +27,7 @@ public class IndexCargo extends CommandBase {
       hopper.stopHopper();
     } else {
       // if there are 0 or 1 balls in the hopper, run the hopper
-      if (!hopper.sensesBallTop() || !hopper.sensesBallBottom()) {
+      if (!hopper.sensesBallTop() || !hopper.sensesBallBottomFiltered()) {
         hopper.runHopper(Constants.HOPPER_INDEX_POWER);
       } else {
         hopper.stopHopper();

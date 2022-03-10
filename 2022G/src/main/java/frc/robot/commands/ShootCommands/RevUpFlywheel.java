@@ -32,7 +32,7 @@ public class RevUpFlywheel extends CommandBase {
     @Override
     public void execute() {
         if (SmartDashboard.getBoolean("RevUp AI", true)) {
-            if (hopper.sensesBallBottom() && hopper.sensesBallTop()) {
+            if (hopper.sensesBallBottomFiltered() && hopper.sensesBallTop()) {
                 intake.stopIntake();
                 flywheel.runFlywheelSetpoint(Constants.FLYWHEEL_RPM_REV_UP);
             }

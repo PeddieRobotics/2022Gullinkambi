@@ -22,7 +22,7 @@ public class ShootWithLL extends CommandBase {
     hopper = Hopper.getInstance();
     drivetrain = Drivetrain.getInstance();
     limelight = Limelight.getInstance();
-    addRequirements(flywheel, hopper, drivetrain);
+    addRequirements(flywheel, hopper);
 
     isAuto = autonomous;
   }
@@ -49,14 +49,14 @@ public class ShootWithLL extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    hopper.stopHopper();
-    flywheel.stopFlywheel();
-    flywheel.setHood(false);
+    drivetrain.setLockedOnTarget(false);
     flywheel.setShooterLock(false);
     if(!isAuto){
+      hopper.stopHopper();
+      flywheel.runFlywheelSetpoint(0);
+      flywheel.setHood(false);
       drivetrain.setCoast();
     }
-    drivetrain.setLockedOnTarget(false);
   }
 
   // Returns true when the command should end.

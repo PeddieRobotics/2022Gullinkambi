@@ -32,7 +32,7 @@ public class RunIntake extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    flywheel.stopFlywheel();
+    flywheel.runFlywheelSetpoint(0);
     intake.setIntakeSolenoid(true);
     intake.setIntakeSpeed(SmartDashboard.getNumber("Teleop: Intake speed", Constants.INTAKE_SPEED));
   }
@@ -50,7 +50,7 @@ public class RunIntake extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (hopper.sensesBallBottom() && hopper.sensesBallTop()){
+    if (hopper.sensesBallBottomFiltered() && hopper.sensesBallTop()){
       return false;
     }
     return true;

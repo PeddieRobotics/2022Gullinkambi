@@ -126,10 +126,10 @@ public class Flywheel extends SubsystemBase {
   }
 
   public void stopFlywheel() {
-    setHood(false);
-    setShooterLock(false);
     flywheelSetpoint = 0;
     flywheelPIDController.setReference(flywheelSetpoint, ControlType.kVelocity);
+    flywheel.setShooterLock(false);
+    flywheel.setHood(false);
   }
 
   public void putSmartDashboardOverrides() {

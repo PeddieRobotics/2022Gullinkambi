@@ -49,7 +49,7 @@ public class ShootLayup extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     hopper.stopHopper();
-    flywheel.stopFlywheel();
+    flywheel.runFlywheelSetpoint(0);
     flywheel.setShooterLock(false);
 
     if(!isAuto){

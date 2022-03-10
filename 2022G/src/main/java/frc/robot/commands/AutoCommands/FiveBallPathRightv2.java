@@ -23,17 +23,11 @@ public class FiveBallPathRightv2 extends SequentialCommandGroup{
                 part1
             ),
             new ShootWithLLUntilEmpty(),
-            new AutoIntakeWithHopper(0.7, 0.7),
-            new SetFlywheelRPM(2500),
             part2,
-            new TurnToAngle(-145),
             new ShootWithLLUntilEmpty(),
-            new SetFlywheelRPM(2500),
-            new AutoIntakeWithHopper(1.0, 0.7),
             part3,
             new WaitCommand(1.5),
             part4,
-            new StopIntake(),
             new ShootWithLLForTime(5)
         );
     }

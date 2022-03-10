@@ -106,41 +106,38 @@ public class Hopper extends SubsystemBase {
 
     public boolean atRPM(){
         return Math.abs(getHopperVelocity()) > Math.abs(hopperVelSetpoint);
-        // return Math.abs(getHopperVelocity()-hopperVelSetpoint) < 50;
     }
 
     public boolean sensesBallBottom() {
-        boolean filteredInput = false;
-        if(!bottomSensor.get()){
-            double x = bottomSensorFilter.calculate(1);
-            SmartDashboard.putNumber("Senses ball bottom", x);
-            filteredInput = x > Constants.LOWER_SENSOR_INPUT_THRESHOLD;
-        } else {
-            double x = bottomSensorFilter.calculate(0);
-            SmartDashboard.putNumber("Senses ball bottom", x);
-            filteredInput = x > Constants.LOWER_SENSOR_INPUT_THRESHOLD;
-        }
-        return filteredInput;
+        return !bottomSensor.get();
     }
 
     public boolean sensesBallTop() {
         return !topSensor.get();
     }
 
-    public boolean sensesBallTopWithFilter() {
-        return updateUpperSensorFilter() > Constants.UPPER_SENSOR_INPUT_THRESHOLD;
+    public boolean sensesBallBottomFiltered() {
+        boolean filteredInput = false;
+        if(sensesBallBottom()){
+            double x = bottomSensorFilter.calculate(1);
+            filteredInput = x > Constants.LOWER_SENSOR_INPUT_THRESHOLD;
+        } else {
+            double x = bottomSensorFilter.calculate(0);
+            filteredInput = x > Constants.LOWER_SENSOR_INPUT_THRESHOLD;
+        }
+        return filteredInput;
     }
 
-    public double updateUpperSensorFilter(){
-        double x = 0.0;
+    public boolean sensesBallTopFiltered() {
+        boolean filteredInput = false;
         if(sensesBallTop()){
-            x = topSensorFilter.calculate(1);
-            SmartDashboard.putNumber("Senses ball top", x);
+            double x = topSensorFilter.calculate(1);
+            filteredInput = x > Constants.UPPER_SENSOR_INPUT_THRESHOLD;
         } else {
-            x = topSensorFilter.calculate(0);
-            SmartDashboard.putNumber("Senses ball top", x);
+            double x = topSensorFilter.calculate(0);
+            filteredInput = x > Constants.UPPER_SENSOR_INPUT_THRESHOLD;
         }
-        return x;
+        return filteredInput;
     }
 
     public void putSmartDashboardOverrides() {

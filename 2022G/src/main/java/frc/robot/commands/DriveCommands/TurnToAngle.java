@@ -44,6 +44,6 @@ public class TurnToAngle extends CommandBase{
 
   @Override
   public boolean isFinished() {
-    return (Math.abs(drivetrain.getPoseHeading()-targetAngleDegrees) < Constants.kTurnByAngleToleranceDeg);
+    return (Math.abs(drivetrain.getPoseHeading()-targetAngleDegrees) < Constants.kTurnToAngleToleranceDeg);
   }
 }

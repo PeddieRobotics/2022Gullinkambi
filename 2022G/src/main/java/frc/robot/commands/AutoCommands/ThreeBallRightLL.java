@@ -8,27 +8,22 @@ import frc.robot.commands.DriveCommands.ResetOdometry;
 import frc.robot.commands.IntakeCommands.AutoIntakeWithHopper;
 import frc.robot.commands.IntakeCommands.StopIntake;
 import frc.robot.commands.ShootCommands.SetFlywheelRPM;
-import frc.robot.utils.Constants;
 
-public class ThreeBallRightNoLayup extends SequentialCommandGroup{ 
+public class ThreeBallRightLL extends SequentialCommandGroup{ 
 
-    public ThreeBallRightNoLayup(Pose2d initialPose, SplitFFRamseteCommand part1, SplitFFRamseteCommand part2){
+    public ThreeBallRightLL(Pose2d initialPose, SplitFFRamseteCommand part1, SplitFFRamseteCommand part2){
         addCommands(
             new ResetOdometry(initialPose),
-            new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),
+            new SetFlywheelRPM(2500),
             new ParallelCommandGroup(
                 new AutoIntakeWithHopper(1.0, 0.7),
                 part1
             ),
             new StopIntake(),
-            new ShootLayupUntilEmpty(),
-            new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),
-            new ParallelCommandGroup(
-                part2,
-                new AutoIntakeWithHopper(1.0, 0.7)
-            ),
+            new ShootWithLLUntilEmpty(),
+            part2,
             new StopIntake(),
-            new ShootWithLLUntilEmpty()
+            new ShootWithLLForTime(5)
         );
     }
 }

@@ -53,45 +53,27 @@ public class Drivetrain extends SubsystemBase {
   private double speedSetpoint, turnSetpoint;
 
   public Drivetrain() {
-    if(Constants.IS_GULLINKAMBI){
-      leftMaster = new CANSparkMax(RobotMapGullinkambi.MOTOR_DRIVE_LEFT_MASTER, MotorType.kBrushless);
-      rightMaster = new CANSparkMax(RobotMapGullinkambi.MOTOR_DRIVE_RIGHT_MASTER, MotorType.kBrushless);
-      leftFollower1 = new CANSparkMax(RobotMapGullinkambi.MOTOR_DRIVE_LEFT_FOLLOWER1, MotorType.kBrushless);
-      rightFollower1 = new CANSparkMax(RobotMapGullinkambi.MOTOR_DRIVE_RIGHT_FOLLOWER1, MotorType.kBrushless);
-      leftFollower2 = new CANSparkMax(RobotMapGullinkambi.MOTOR_DRIVE_LEFT_FOLLOWER2, MotorType.kBrushless);
-      rightFollower2 = new CANSparkMax(RobotMapGullinkambi.MOTOR_DRIVE_RIGHT_FOLLOWER2, MotorType.kBrushless);
+    leftMaster = new CANSparkMax(RobotMapGullinkambi.MOTOR_DRIVE_LEFT_MASTER, MotorType.kBrushless);
+    rightMaster = new CANSparkMax(RobotMapGullinkambi.MOTOR_DRIVE_RIGHT_MASTER, MotorType.kBrushless);
+    leftFollower1 = new CANSparkMax(RobotMapGullinkambi.MOTOR_DRIVE_LEFT_FOLLOWER1, MotorType.kBrushless);
+    rightFollower1 = new CANSparkMax(RobotMapGullinkambi.MOTOR_DRIVE_RIGHT_FOLLOWER1, MotorType.kBrushless);
+    leftFollower2 = new CANSparkMax(RobotMapGullinkambi.MOTOR_DRIVE_LEFT_FOLLOWER2, MotorType.kBrushless);
+    rightFollower2 = new CANSparkMax(RobotMapGullinkambi.MOTOR_DRIVE_RIGHT_FOLLOWER2, MotorType.kBrushless);
 
-      leftMotors = new MotorControllerGroup(leftMaster, leftFollower1, leftFollower2);
-      rightMotors = new MotorControllerGroup(rightMaster, rightFollower1, rightFollower2);
+    leftMotors = new MotorControllerGroup(leftMaster, leftFollower1, leftFollower2);
+    rightMotors = new MotorControllerGroup(rightMaster, rightFollower1, rightFollower2);
 
-      leftFollower1.follow(leftMaster);
-      leftFollower2.follow(leftMaster);
-      rightFollower1.follow(rightMaster);
-      rightFollower2.follow(rightMaster);
+    leftFollower1.follow(leftMaster);
+    leftFollower2.follow(leftMaster);
+    rightFollower1.follow(rightMaster);
+    rightFollower2.follow(rightMaster);
 
-      leftMaster.setSmartCurrentLimit(Constants.DRIVETRAIN_MAX_CURRENT);
-      rightMaster.setSmartCurrentLimit(Constants.DRIVETRAIN_MAX_CURRENT);
-      leftFollower1.setSmartCurrentLimit(Constants.DRIVETRAIN_MAX_CURRENT);
-      rightFollower1.setSmartCurrentLimit(Constants.DRIVETRAIN_MAX_CURRENT);
-      leftFollower2.setSmartCurrentLimit(Constants.DRIVETRAIN_MAX_CURRENT);
-      rightFollower2.setSmartCurrentLimit(Constants.DRIVETRAIN_MAX_CURRENT);
-    } else {
-      leftMaster = new CANSparkMax(RobotMapMini.MOTOR_DRIVE_LEFT_MASTER, MotorType.kBrushless);
-      rightMaster = new CANSparkMax(RobotMapMini.MOTOR_DRIVE_RIGHT_MASTER, MotorType.kBrushless);
-      leftFollower1 = new CANSparkMax(RobotMapMini.MOTOR_DRIVE_LEFT_FOLLOWER1, MotorType.kBrushless);
-      rightFollower1 = new CANSparkMax(RobotMapMini.MOTOR_DRIVE_RIGHT_FOLLOWER1, MotorType.kBrushless);
-
-      leftMotors = new MotorControllerGroup(leftMaster, leftFollower1);
-      rightMotors = new MotorControllerGroup(rightMaster, rightFollower1);
-      
-      leftFollower1.follow(leftMaster);
-      rightFollower1.follow(rightMaster);
-
-      leftMaster.setSmartCurrentLimit(Constants.DRIVETRAIN_MAX_CURRENT);
-      rightMaster.setSmartCurrentLimit(Constants.DRIVETRAIN_MAX_CURRENT);
-      leftFollower1.setSmartCurrentLimit(Constants.DRIVETRAIN_MAX_CURRENT);
-      rightFollower1.setSmartCurrentLimit(Constants.DRIVETRAIN_MAX_CURRENT);
-    }
+    leftMaster.setSmartCurrentLimit(Constants.DRIVETRAIN_MAX_CURRENT);
+    rightMaster.setSmartCurrentLimit(Constants.DRIVETRAIN_MAX_CURRENT);
+    leftFollower1.setSmartCurrentLimit(Constants.DRIVETRAIN_MAX_CURRENT);
+    rightFollower1.setSmartCurrentLimit(Constants.DRIVETRAIN_MAX_CURRENT);
+    leftFollower2.setSmartCurrentLimit(Constants.DRIVETRAIN_MAX_CURRENT);
+    rightFollower2.setSmartCurrentLimit(Constants.DRIVETRAIN_MAX_CURRENT);
 
     leftEncoder = leftMaster.getEncoder();
     rightEncoder = rightMaster.getEncoder();
@@ -116,12 +98,12 @@ public class Drivetrain extends SubsystemBase {
 
     lockedOnTarget = false;
 
-    turnToAnglePIDController = new PIDController(Constants.kTurnByAngleP, Constants.kTurnByAngleI, Constants.kTurnByAngleD);
+    turnToAnglePIDController = new PIDController(Constants.kTurnToAngleP, Constants.kTurnToAngleI, Constants.kTurnToAngleD);
     // Set the controller to be continuous (because it is an angle controller)
     turnToAnglePIDController.enableContinuousInput(-180, 180);
     // Set the controller tolerance - the delta tolerance ensures the robot is stationary at the
     // setpoint before it is considered as having reached the reference
-    turnToAnglePIDController.setTolerance(Constants.kTurnByAngleToleranceDeg, Constants.kTurnByAngleRateToleranceDegPerS);
+    turnToAnglePIDController.setTolerance(Constants.kTurnToAngleToleranceDeg, Constants.kTurnToAngleRateToleranceDegPerS);
 
   }
 
@@ -170,31 +152,21 @@ public class Drivetrain extends SubsystemBase {
       SmartDashboard.putNumber("RDrive enc pos", getRightEncoderPosition());
       SmartDashboard.putNumber("LDrive enc vel", getLeftEncoderVelocity());
       SmartDashboard.putNumber("RDrive enc vel", getRightEncoderVelocity());
-    
-      SmartDashboard.putNumber("Avg Velocity", getAverageEncoderVelocity());
       SmartDashboard.putNumber("Left wheel speeds", getWheelSpeeds().leftMetersPerSecond);
       SmartDashboard.putNumber("Right wheel speeds", getWheelSpeeds().rightMetersPerSecond);
-      SmartDashboard.putNumber("LDrive master AMPS", leftMaster.getOutputCurrent());
-      SmartDashboard.putNumber("RDrive master AMPS", rightMaster.getOutputCurrent());
-      SmartDashboard.putNumber("LDrive power", leftMaster.get());
-      SmartDashboard.putNumber("RDrive power", rightMaster.get());
     }
 
   }
 
   public void setBrake() {
-
     leftMaster.setIdleMode(IdleMode.kBrake);
     rightMaster.setIdleMode(IdleMode.kBrake);
 
     leftFollower1.setIdleMode(IdleMode.kBrake);
     rightFollower1.setIdleMode(IdleMode.kBrake);
 
-    // With Gullinkambi
-    if(Constants.IS_GULLINKAMBI){
-      leftFollower2.setIdleMode(IdleMode.kBrake);
-      rightFollower2.setIdleMode(IdleMode.kBrake);
-    }
+    leftFollower2.setIdleMode(IdleMode.kBrake);
+    rightFollower2.setIdleMode(IdleMode.kBrake);
   }
 
   public void setCoast() {
@@ -204,13 +176,10 @@ public class Drivetrain extends SubsystemBase {
     leftFollower1.setIdleMode(IdleMode.kCoast);
     rightFollower1.setIdleMode(IdleMode.kCoast);
 
-    // With Gullinkambi
-    if(Constants.IS_GULLINKAMBI){
-      leftFollower2.setIdleMode(IdleMode.kCoast);
-      rightFollower2.setIdleMode(IdleMode.kCoast);
-    }
+    leftFollower2.setIdleMode(IdleMode.kCoast);
+    rightFollower2.setIdleMode(IdleMode.kCoast);
   }
-
+  
   public void resetEncoders() {
     leftEncoder.setPosition(0.0);
     rightEncoder.setPosition(0.0);
@@ -358,7 +327,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
 
-  //Motor Temperaure Getters
+  //Motor Temperature Getters
   public double getLeftMasterMotorTemperature(){
     return leftMaster.getMotorTemperature();
   }
