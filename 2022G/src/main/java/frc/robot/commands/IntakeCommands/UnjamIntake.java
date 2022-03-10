@@ -37,7 +37,7 @@ public class UnjamIntake extends CommandBase {
     @Override
     public void execute() {
         m_intake.reverseIntake(SmartDashboard.getNumber("Teleop: Intake speed", Constants.INTAKE_SPEED));
-        m_hopper.reverseHopper(SmartDashboard.getNumber("Teleop: Hopper speed", Constants.HOPPER_SPEED));
+        m_hopper.reverseHopper(Constants.HOPPER_INDEX_POWER);
     }
 
     // Called once the command ends or is interrupted.

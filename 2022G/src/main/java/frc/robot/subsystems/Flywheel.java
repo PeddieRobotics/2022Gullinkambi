@@ -104,7 +104,7 @@ public class Flywheel extends SubsystemBase {
 
   public boolean isAtRPM(double threshold){
     if(getFlywheelSetpoint() > 0){
-        return Math.abs(getFlywheelEncoderVelocity()-getFlywheelSetpoint()) < threshold;
+        return Math.abs(getFlywheelVelocity()-getFlywheelSetpoint()) < threshold;
     }
     return false;
   }
@@ -139,6 +139,7 @@ public class Flywheel extends SubsystemBase {
     SmartDashboard.putBoolean("OR: Hood up", false);
     SmartDashboard.putNumber("Teleop: shoot low RPM", Constants.FLYWHEEL_RPM_LOW);
     SmartDashboard.putNumber("Teleop: layup RPM", Constants.FLYWHEEL_RPM_LAYUP);
+    SmartDashboard.putNumber("Teleop: shootLL RPM delta", 0);
 
     SmartDashboard.putBoolean("RevUp AI", true);
 
@@ -160,23 +161,13 @@ public class Flywheel extends SubsystemBase {
     SmartDashboard.putBoolean("isAtRPM", isAtRPM(Constants.FLYWHEEL_THRESHOLD_SHOOTLL));
   }
 
-
-  //Encoder Getters
-  public double getFlywheelEncoderPosition() {
-    return flywheelEncoder.getPosition();
-  }
-
-  public double getFlywheelEncoderVelocity() {
-    return flywheelEncoder.getVelocity();
-  }
-
   //Setpoint Getters
   public double getFlywheelSetpoint() {
     return flywheelSetpoint;
   }
 
   public double getFlywheelVelocity(){
-    return getFlywheelEncoderVelocity();
+    return flywheelEncoder.getVelocity();
   }
 
   //Current Getters

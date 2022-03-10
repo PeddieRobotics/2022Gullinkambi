@@ -85,7 +85,6 @@ public class RobotContainer {
   }
 
   public void setupSmartDashboard() {
-    SmartDashboard.putNumber("Teleop: shootLL RPM delta", 0);
     intake.putSmartDashboardOverrides();
     hopper.putSmartDashboardOverrides();
     limelight.putSmartDashboardOverrides();

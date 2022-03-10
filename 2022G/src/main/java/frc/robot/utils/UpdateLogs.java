@@ -101,8 +101,7 @@ public class UpdateLogs {
 
     public void updateFlywheelLogData(){
         //Encoders
-        LoggerCustom.getInstance().recordOutput("Flywheel/FlywheelEncPosition", m_flywheel.getFlywheelEncoderPosition());
-        LoggerCustom.getInstance().recordOutput("Flywheel/FlywheelEncVelocity", m_flywheel.getFlywheelEncoderVelocity());
+        LoggerCustom.getInstance().recordOutput("Flywheel/FlywheelVelocity", m_flywheel.getFlywheelVelocity());
 
         //Flywheel Setpoints
         LoggerCustom.getInstance().recordOutput("Flywheel/RPMSetpoint", m_flywheel.getFlywheelSetpoint());
@@ -125,8 +124,8 @@ public class UpdateLogs {
         LoggerCustom.getInstance().recordOutput("Hopper/TopSensorValue", m_hopper.sensesBallTop());
 
         //EncoderData
-        LoggerCustom.getInstance().recordOutput("Hopper/HopperMotorEncoderVelocity", m_hopper.getHopperEncoderVelocity());
-        LoggerCustom.getInstance().recordOutput("Hopper/HopperMotorEncoderCurrent", m_hopper.getHopperEncoderPosition());
+        LoggerCustom.getInstance().recordOutput("Hopper/HopperVelocity", m_hopper.getHopperVelocity());
+        LoggerCustom.getInstance().recordOutput("Hopper/HopperPosition", m_hopper.getHopperPosition());
 
         //Hopper Motor Data
         LoggerCustom.getInstance().recordOutput("Hopper/HopperMotorVelocity", m_hopper.getHopperVelocity());

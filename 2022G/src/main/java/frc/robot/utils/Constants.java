@@ -45,16 +45,21 @@ public final class Constants {
 
   // Hopper constants
   public static final int HOPPER_MAX_CURRENT = 30; // amps
-  public static final double HOPPER_SPEED = 0.7;
-  public static final double HOPPER_SHOOT_SPEED = 0.7;
-  public static final double HOPPER_INDEX_SPEED = 0.4;
+  public static final double HOPPER_SHOOT_SPEED = -3650; // rpm
+  public static final double HOPPER_SHOOT_POWER = 0.65;
+  public static final double HOPPER_INDEX_POWER = 0.7;
   public static final double LOWER_SENSOR_INPUT_THRESHOLD = 0.99;
   public static final double UPPER_SENSOR_INPUT_THRESHOLD = 0.6;
+
+  public static final double HOPPER_VEL_P = 0.00002;
+  public static final double HOPPER_VEL_I = 0.0000002;
+  public static final double HOPPER_VEL_D = 0.0;
+  public static final double HOPPER_VEL_FF = 0.00014;
 
   // Flywheel constants
   public static final int FLYWHEEL_MAX_CURRENT = 40; // amps
 
-  public static final double FLYWHEEL_P = 0.0003;
+  public static final double FLYWHEEL_P = 0.0002;
   public static final double FLYWHEEL_I = 0.000001;
   public static final double FLYWHEEL_D = 0.0001;
   public static final double FLYWHEEL_FF = 0.000186;
@@ -62,11 +67,11 @@ public final class Constants {
 
   public static final double FLYWHEEL_RPM_LAYUP = 2350;
   public static final double FLYWHEEL_RPM_LOW = 1300;
-  public static final double FLYWHEEL_RPM_REV_UP = 2000;
+  public static final double FLYWHEEL_RPM_REV_UP = 1500;
 
-  public static final double FLYWHEEL_THRESHOLD_LAYUP = 350;
-  public static final double FLYWHEEL_THRESHOLD_LOW = 100;
-  public static final double FLYWHEEL_THRESHOLD_SHOOTLL = 350;
+  public static final double FLYWHEEL_THRESHOLD_LAYUP = 600;
+  public static final double FLYWHEEL_THRESHOLD_LOW = 600;
+  public static final double FLYWHEEL_THRESHOLD_SHOOTLL = 600;
 
   public static final double FLYWHEEL_MAX_POWER = 1;
   public static final double FLYWHEEL_MAX_RPM = 4000;
@@ -93,7 +98,7 @@ public final class Constants {
   public static final double TARGET_HEIGHT = 104;
   
   public static final double [] LL_DIST = new double[]{50,60,70,80,90,100,110,120,130,140};
-  public static final double [] RPMS = new double[]{2435,2505,2565,2645,2715,2785,2855,2990,3080,3230};
+  public static final double [] RPMS = new double[]{2390,2460,2520,2600,2670,2740,2810,2940,3030,3190};
   public static LookupTable DIST_TO_RPM = new LookupTable(LL_DIST, RPMS);
 
   // OI constants

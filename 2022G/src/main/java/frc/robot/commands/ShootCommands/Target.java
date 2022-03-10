@@ -36,8 +36,6 @@ public class Target extends CommandBase {
   public void initialize() {
       // Assume by default that we're not locked on a limelight target. Shouldn't be needed, but placed here as a safety on the logic elsewhere.
       drivetrain.setLockedOnTarget(false);
-
-      flywheel.setHood(true); // turn hood on for LL shot
   }
 
   @Override
@@ -75,9 +73,7 @@ public class Target extends CommandBase {
     if(limelight.hasTarget() && !interrupted){
       drivetrain.setLockedOnTarget(true);
     }
-    else{
-      flywheel.setHood(false);
-    }
+
   }
 
   @Override

@@ -30,7 +30,7 @@ public class ShootLow extends CommandBase {
   public void execute() {
     // Check whether the speed of flywheel is good enough to shoot
     if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_LOW)){
-      hopper.runHopper(SmartDashboard.getNumber("Teleop: Hopper speed", Constants.HOPPER_SPEED));
+      hopper.runHopper(Constants.HOPPER_SHOOT_POWER);
     } else {
       hopper.stopHopper();
     }
