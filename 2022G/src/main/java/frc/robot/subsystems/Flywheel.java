@@ -193,13 +193,18 @@ public class Flywheel extends SubsystemBase {
     return hoodSolenoid.get();
   }
 
-  public void updateFlywheelFromDashboard() {
+  public void updateFlywheelPIDFromDashboard(){
     flywheelPIDController.setP(SmartDashboard.getNumber("OR: P flywheel", Constants.FLYWHEEL_P));
     flywheelPIDController.setI(SmartDashboard.getNumber("OR: I flywheel", Constants.FLYWHEEL_I));
     flywheelPIDController.setD(SmartDashboard.getNumber("OR: D flywheel", Constants.FLYWHEEL_D));
     flywheelPIDController.setIZone(SmartDashboard.getNumber("OR: I zone flywheel", Constants.FLYWHEEL_IZONE));
     flywheelPIDController.setFF(SmartDashboard.getNumber("OR: FF flywheel", Constants.FLYWHEEL_FF));
 
+  }
+
+  public void updateFlywheelFromDashboard() {
+    updateFlywheelPIDFromDashboard();
+    
     setShooterLock(SmartDashboard.getBoolean("OR: Flywheel lock", false));
     setHood(SmartDashboard.getBoolean("OR: Hood up", false));
     if(SmartDashboard.getNumber("OR: Flywheel power", 0) > 0){

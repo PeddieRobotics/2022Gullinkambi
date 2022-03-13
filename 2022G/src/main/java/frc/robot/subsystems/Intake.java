@@ -84,6 +84,9 @@ public class Intake extends SubsystemBase {
   public void updateIntakeInfoOnDashboard(){
     SmartDashboard.putNumber("Intake speed", getIntakeSpeed());
     SmartDashboard.putBoolean("Intake solenoid", getIntakeSolenoid());
+    SmartDashboard.putNumber("Intake current", getIntakeCurrent());
+
+
   }
 
   public void updateIntakeFromDashboard() {

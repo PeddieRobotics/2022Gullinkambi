@@ -16,11 +16,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.commands.SplitFFRamseteCommand;
 import frc.robot.commands.AutoCommands.FiveBallPathRight;
 import frc.robot.commands.AutoCommands.FiveBallPathRightv2;
 import frc.robot.commands.AutoCommands.FourBallPathLeft;
 import frc.robot.commands.AutoCommands.FourBallPathRight;
+import frc.robot.commands.AutoCommands.SplitFFRamseteCommand;
 import frc.robot.commands.AutoCommands.ThreeBallRightLL;
 import frc.robot.commands.AutoCommands.ThreeBallRightLayup;
 import frc.robot.commands.AutoCommands.TwoBallLeftRude;
@@ -150,13 +150,13 @@ public class Autonomous extends SubsystemBase {
               m_drivetrain::getPose,
               ramseteController,
               new SimpleMotorFeedforward(
-                0.163,
-                3.1319,
-                0.1493),
+                Constants.ksVolts,
+                Constants.kvVoltSecondsPerMeter,
+                Constants.kaVoltSecondsSquaredPerMeter),
             new SimpleMotorFeedforward(
-                0.15892,
-                3.1252,
-                0.14618),
+                Constants.ksVolts,
+                Constants.kvVoltSecondsPerMeter,
+                Constants.kaVoltSecondsSquaredPerMeter),
               Constants.kDriveKinematics,
               m_drivetrain::getWheelSpeeds,
             leftController,

@@ -1,8 +1,6 @@
 
-package frc.robot;
+package frc.robot.oi;
 
-import frc.robot.oi.JoystickOI;
-import frc.robot.oi.XboxOI;
 import frc.robot.utils.Constants;
 import frc.robot.utils.Constants.OIConfig;
 
