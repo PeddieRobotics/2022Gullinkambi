@@ -209,7 +209,17 @@ public class Climber extends SubsystemBase {
   public void updateClimberInfoOnDashboard(){
     SmartDashboard.putBoolean("Climber sensor state", climber.armSensorState());
     SmartDashboard.putNumber("Climber encoder", climber.getEncoderPosition());
+    SmartDashboard.putNumber("Climber current primary", climber.getPrimaryCurrent());
+    SmartDashboard.putNumber("Climber current secondary", climber.getSecondaryCurrent());
     SmartDashboard.putBoolean("OR: Climber brake state", climber.getClimberSolenoidBrake());
+  }
+
+  public double getPrimaryCurrent(){
+    return armMotor1.getOutputCurrent();
+  }
+
+  public double getSecondaryCurrent(){
+    return armMotor2.getOutputCurrent();
   }
 
   public void updateClimberFromDashboard() {
