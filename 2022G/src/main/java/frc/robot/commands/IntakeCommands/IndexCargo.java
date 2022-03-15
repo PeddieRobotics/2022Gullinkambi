@@ -1,6 +1,5 @@
 package frc.robot.commands.IntakeCommands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Intake;
@@ -27,8 +26,8 @@ public class IndexCargo extends CommandBase {
       hopper.stopHopper();
     } else {
       // if there are 0 or 1 balls in the hopper, run the hopper
-      if (!hopper.sensesBallTop() || !hopper.sensesBallBottom()) {
-        hopper.runHopper(SmartDashboard.getNumber("Teleop: Hopper speed", Constants.HOPPER_SPEED));
+      if (!hopper.sensesBallTop() || !hopper.sensesBallBottomFiltered()) {
+        hopper.runHopper(Constants.HOPPER_INDEX_POWER);
       } else {
         hopper.stopHopper();
       }

@@ -17,6 +17,7 @@ import frc.robot.commands.ClimbCommands.RetractArm;
 import frc.robot.commands.DriveCommands.Drive;
 import frc.robot.commands.IntakeCommands.IndexCargo;
 import frc.robot.commands.ShootCommands.RevUpFlywheel;
+import frc.robot.oi.OI;
 import frc.robot.subsystems.Autonomous;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
@@ -26,7 +27,6 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
 import frc.robot.utils.Constants;
 import frc.robot.subsystems.Lights;
-import frc.robot.OI;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -38,7 +38,7 @@ import frc.robot.OI;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  public final OI oi;
+  private final OI oi;
   private final Drivetrain drivetrain;
   private final Autonomous autonomous;
   private final Intake intake;
@@ -46,7 +46,7 @@ public class RobotContainer {
   private final Hopper hopper;
   private final Flywheel flywheel;
   private final Climber climber;
-  public final Limelight limelight;  //SWITCH BACK TO PRIVATE AFTER TESTING PID
+  private final Limelight limelight;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -85,7 +85,6 @@ public class RobotContainer {
   }
 
   public void setupSmartDashboard() {
-    SmartDashboard.putNumber("Teleop: shootLL RPM delta", 0);
     intake.putSmartDashboardOverrides();
     hopper.putSmartDashboardOverrides();
     limelight.putSmartDashboardOverrides();
@@ -115,7 +114,6 @@ public class RobotContainer {
     flywheel.updateFlywheelInfoOnDashboard();
     climber.updateClimberInfoOnDashboard();
     limelight.updateLimelightInfoOnDashboard();
-    SmartDashboard.putNumber("Angle", drivetrain.getHeading());
   }
 
   public void stopAllSystems(){

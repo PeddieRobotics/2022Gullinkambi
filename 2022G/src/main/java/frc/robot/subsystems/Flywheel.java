@@ -104,7 +104,7 @@ public class Flywheel extends SubsystemBase {
 
   public boolean isAtRPM(double threshold){
     if(getFlywheelSetpoint() > 0){
-        return Math.abs(getFlywheelEncoderVelocity()-getFlywheelSetpoint()) < threshold;
+        return Math.abs(getFlywheelVelocity()-getFlywheelSetpoint()) < threshold;
     }
     return false;
   }
@@ -126,10 +126,10 @@ public class Flywheel extends SubsystemBase {
   }
 
   public void stopFlywheel() {
-    setHood(false);
-    setShooterLock(false);
     flywheelSetpoint = 0;
     flywheelPIDController.setReference(flywheelSetpoint, ControlType.kVelocity);
+    flywheel.setShooterLock(false);
+    flywheel.setHood(false);
   }
 
   public void putSmartDashboardOverrides() {
@@ -137,9 +137,9 @@ public class Flywheel extends SubsystemBase {
     SmartDashboard.putNumber("OR: Flywheel setpoint", 0);
     SmartDashboard.putBoolean("OR: Flywheel lock", false);
     SmartDashboard.putBoolean("OR: Hood up", false);
-    //SmartDashboard.putNumber("Teleop: shootLL RPM", 0);
     SmartDashboard.putNumber("Teleop: shoot low RPM", Constants.FLYWHEEL_RPM_LOW);
     SmartDashboard.putNumber("Teleop: layup RPM", Constants.FLYWHEEL_RPM_LAYUP);
+    SmartDashboard.putNumber("Teleop: shootLL RPM delta", 0);
 
     SmartDashboard.putBoolean("RevUp AI", true);
 
@@ -153,21 +153,10 @@ public class Flywheel extends SubsystemBase {
 
   public void updateFlywheelInfoOnDashboard(){
     SmartDashboard.putNumber("FW velocity", getFlywheelVelocity());
-    SmartDashboard.putNumber("FW setpoint", 
-    getFlywheelSetpoint());
-    SmartDashboard.putNumber("FW current", flywheelPrimary.getOutputCurrent());
+    SmartDashboard.putNumber("FW setpoint", getFlywheelSetpoint());
     SmartDashboard.putBoolean("Lock activated", getShooterLock());
     SmartDashboard.putBoolean("Hood up", getHood());
-  }
-
-
-  //Encoder Getters
-  public double getFlywheelEncoderPosition() {
-    return flywheelEncoder.getPosition();
-  }
-
-  public double getFlywheelEncoderVelocity() {
-    return flywheelEncoder.getVelocity();
+    SmartDashboard.putBoolean("isAtRPM", isAtRPM(Constants.FLYWHEEL_THRESHOLD_SHOOTLL));
   }
 
   //Setpoint Getters
@@ -176,7 +165,7 @@ public class Flywheel extends SubsystemBase {
   }
 
   public double getFlywheelVelocity(){
-    return getFlywheelEncoderVelocity();
+    return flywheelEncoder.getVelocity();
   }
 
   //Current Getters
@@ -202,13 +191,18 @@ public class Flywheel extends SubsystemBase {
     return hoodSolenoid.get();
   }
 
-  public void updateFlywheelFromDashboard() {
+  public void updateFlywheelPIDFromDashboard(){
     flywheelPIDController.setP(SmartDashboard.getNumber("OR: P flywheel", Constants.FLYWHEEL_P));
     flywheelPIDController.setI(SmartDashboard.getNumber("OR: I flywheel", Constants.FLYWHEEL_I));
     flywheelPIDController.setD(SmartDashboard.getNumber("OR: D flywheel", Constants.FLYWHEEL_D));
     flywheelPIDController.setIZone(SmartDashboard.getNumber("OR: I zone flywheel", Constants.FLYWHEEL_IZONE));
     flywheelPIDController.setFF(SmartDashboard.getNumber("OR: FF flywheel", Constants.FLYWHEEL_FF));
 
+  }
+
+  public void updateFlywheelFromDashboard() {
+    updateFlywheelPIDFromDashboard();
+    
     setShooterLock(SmartDashboard.getBoolean("OR: Flywheel lock", false));
     setHood(SmartDashboard.getBoolean("OR: Hood up", false));
     if(SmartDashboard.getNumber("OR: Flywheel power", 0) > 0){

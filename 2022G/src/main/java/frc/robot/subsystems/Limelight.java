@@ -130,6 +130,7 @@ public class Limelight extends SubsystemBase {
       SmartDashboard.putNumber("LL vt error", getTy());
       SmartDashboard.putNumber("LL hz error", getTx());
     }
+    
     SmartDashboard.putNumber("LL dist", getDistance());
     SmartDashboard.putBoolean("LL has target", hasTarget());
   }

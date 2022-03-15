@@ -1,7 +1,6 @@
 package frc.robot.commands.ShootCommands;
 
 import frc.robot.subsystems.Intake;
-// import com.team2363.logger.HelixEvents;
 import frc.robot.utils.Constants;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hopper;
@@ -33,7 +32,7 @@ public class RevUpFlywheel extends CommandBase {
     @Override
     public void execute() {
         if (SmartDashboard.getBoolean("RevUp AI", true)) {
-            if (hopper.sensesBallBottom() && hopper.sensesBallTop()) {
+            if (hopper.sensesBallBottomFiltered() && hopper.sensesBallTop()) {
                 intake.stopIntake();
                 flywheel.runFlywheelSetpoint(Constants.FLYWHEEL_RPM_REV_UP);
             }
