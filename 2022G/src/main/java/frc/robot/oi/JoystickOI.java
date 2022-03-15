@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.AutoCommands.ShootWithLLUntilEmpty;
 import frc.robot.commands.ClimbCommands.ExtendArm;
 import frc.robot.commands.ClimbCommands.RetractArm;
 import frc.robot.commands.DriveCommands.LLDriveToTarget;
@@ -33,9 +34,6 @@ public class JoystickOI {
 
   private JoystickButton leftTrigger, leftButton2, leftButton3, leftButton4;
   private JoystickButton rightTrigger, rightButton2, rightButton3, rightButton4;
-  private JoystickButton opTrigger, opButton2, opButton3, opButton4, opButton5, opButton6, opButton7, opButton8, opButton9, opButton10, opButton11, opButton12;
-  private JoystickButton driverButtonA, driverButtonB, driverButtonX, driverButtonY, driverButtonLeftBumper,
-      driverButtonRightBumper, driverButtonBack, driverButtonStart, driverButtonLeftStick, driverButtonRightStick;
 
   public JoystickOI() {
     drivetrain = Drivetrain.getInstance();

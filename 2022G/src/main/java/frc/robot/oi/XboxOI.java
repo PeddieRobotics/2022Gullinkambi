@@ -4,12 +4,14 @@ package frc.robot.oi;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ClimbCommands.ExtendArm;
 import frc.robot.commands.ClimbCommands.InitializeArm;
 import frc.robot.commands.ClimbCommands.RetractArm;
 import frc.robot.commands.IntakeCommands.RunIntake;
+import frc.robot.commands.IntakeCommands.RunIntakeEndImmediately;
 import frc.robot.commands.IntakeCommands.StopIntake;
 import frc.robot.commands.IntakeCommands.UnjamIntake;
 import frc.robot.commands.ShootCommands.ShootWithLL;
@@ -48,8 +50,8 @@ public class XboxOI {
 
             xboxController = new Joystick(ControllerMap.XBOX_OPERATOR_PORT);
 
-            
             new JoystickButton(xboxController, ControllerMap.XBOX_Y).whenHeld(new ShootLow()); // XBOX_Y
+            new JoystickButton(xboxController, ControllerMap.XBOX_X).whenPressed(new UnjamIntake(true).andThen(new WaitCommand(0.25)).andThen(new RunIntakeEndImmediately())); // XBOX_X
             new JoystickButton(xboxController, ControllerMap.XBOX_A).whenHeld(new UnjamIntake(false)).whenReleased(new RunIntake()); // XBOX_A
             new JoystickButton(xboxController, ControllerMap.XBOX_B).whenPressed(new InitializeArm()); // XBOX_B
             new JoystickButton(xboxController, ControllerMap.XBOX_RB).toggleWhenPressed(new ConditionalCommand(new InstantCommand(drivetrain::setToCoastMode, drivetrain), new InstantCommand(drivetrain::setToBrakeMode, drivetrain), drivetrain::isBrakeMode)); //XBOX_RB

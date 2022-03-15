@@ -120,9 +120,7 @@ public class Climber extends SubsystemBase {
     armMotor2.setIdleMode(IdleMode.kCoast);
   }
 
-  //solenoid = true is unlocked, solenoid = false is locked
-
-  public void setClimberSolenoidBrake(boolean solenoidState) { // solenoidState = true is locked, solenoidState = false is unlocked
+  public void setClimberSolenoidBrake(boolean solenoidState) {
     armBrake.set(solenoidState);
   }
 
@@ -172,16 +170,16 @@ public class Climber extends SubsystemBase {
 
   public boolean sensesArm(){
     if(armSensorState()){
-    if (armMotor1.getOutputCurrent() > 30 && !reboundFromCurrentSpike){
-      setEncoderPosition(0);
-      moveToPosition(-15);
-      reboundFromCurrentSpike = true;
+      if (armMotor1.getOutputCurrent() > 60 && !reboundFromCurrentSpike){
+        setEncoderPosition(0);
+        moveToPosition(-15);
+        reboundFromCurrentSpike = true;
+      }
+      
+      if(armSensorState() && !reboundFromCurrentSpike){
+        setEncoderPosition(0);
+      }
     }
-    
-    if(armSensorState() && !reboundFromCurrentSpike){
-      setEncoderPosition(0);
-    }
-  }
     return armSensor.get();
   }
 
@@ -209,7 +207,17 @@ public class Climber extends SubsystemBase {
   public void updateClimberInfoOnDashboard(){
     SmartDashboard.putBoolean("Climber sensor state", climber.armSensorState());
     SmartDashboard.putNumber("Climber encoder", climber.getEncoderPosition());
+    SmartDashboard.putNumber("Climber current primary", climber.getPrimaryCurrent());
+    SmartDashboard.putNumber("Climber current secondary", climber.getSecondaryCurrent());
     SmartDashboard.putBoolean("OR: Climber brake state", climber.getClimberSolenoidBrake());
+  }
+
+  public double getPrimaryCurrent(){
+    return armMotor1.getOutputCurrent();
+  }
+
+  public double getSecondaryCurrent(){
+    return armMotor2.getOutputCurrent();
   }
 
   public void updateClimberFromDashboard() {
@@ -231,11 +239,12 @@ public class Climber extends SubsystemBase {
     if(armSensorState()){
       setEncoderPosition(0);
     }
-    //climber.run(SmartDashboard.getNumber("OR: Climber power",0));
-    if(SmartDashboard.getNumber("OR: Climber setpoint", 0.0)>Constants.CLIMBER_TOP_ENCODER_POSITION){
+    if(SmartDashboard.getNumber("OR: Climber setpoint", 0.0) > 0){
       moveToPosition(SmartDashboard.getNumber("OR: Climber setpoint", 0.0));
     }
+    else{
+      climber.run(SmartDashboard.getNumber("OR: Climber power",0));
+    }
     
-
   }
 }

@@ -39,10 +39,8 @@ public class ShootLayup extends CommandBase {
   @Override
   public void execute() {
     // Check whether the speed of flywheel is good enough to shoot
-    if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_LAYUP)){
-      hopper.runHopper(SmartDashboard.getNumber("Teleop: Hopper speed", Constants.HOPPER_SPEED));
-    } else {
-      hopper.stopHopper();
+    if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_LAYUP)) {
+      hopper.setHopperVelocity(SmartDashboard.getNumber("Teleop: Hopper shoot speed", Constants.HOPPER_SHOOT_SPEED));
     }
 
   }
@@ -51,7 +49,7 @@ public class ShootLayup extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     hopper.stopHopper();
-    flywheel.stopFlywheel();
+    flywheel.runFlywheelSetpoint(0);
     flywheel.setShooterLock(false);
 
     if(!isAuto){

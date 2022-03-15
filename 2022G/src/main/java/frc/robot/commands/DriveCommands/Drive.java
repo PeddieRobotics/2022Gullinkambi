@@ -75,11 +75,11 @@ public class Drive extends CommandBase {
             drivetrain.curvatureDrive(-speedInput, turnInput);
         }
 
-        if(!brakeMode){
-            drivetrain.setCoast();
-        } else {
-            drivetrain.setBrake();
-        }
+        // if(!brakeMode){
+        //     drivetrain.setCoast();
+        // } else {
+        //     drivetrain.setBrake();
+        // }
 
     }
 

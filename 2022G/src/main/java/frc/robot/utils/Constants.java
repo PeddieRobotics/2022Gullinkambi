@@ -4,9 +4,6 @@ import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 
 
 public final class Constants {
-  // Is Gullinkambi
-  public static final boolean IS_GULLINKAMBI = true;
-
   // use logging?
   public static final boolean USE_LOGGING = false;
   
@@ -25,18 +22,11 @@ public final class Constants {
   public static final double SPEED_MULTIPLIER = 1;
   public static final double TURN_MULTIPLIER = 1;
 
-  public static final double kTurnByAngleP = 0.0055;
-  public static final double kTurnByAngleI = 0.0000005;
-  public static final double kTurnByAngleD = 0.0;
-  public static final double kTurnByAngleFF = 0.15;
-  public static final double kTurnByAngleToleranceDeg = 0.5;
-  public static final double kTurnByAngleRateToleranceDegPerS = 0;
-
   public static final double kTurnToAngleP = 0.0055;
-  public static final double kTurnToAngleI = 0.0000012;
-  public static final double kTurnToAngleD = 0;
+  public static final double kTurnToAngleI = 0.0000005;
+  public static final double kTurnToAngleD = 0.0;
   public static final double kTurnToAngleFF = 0.15;
-  public static final double kTurnToAngleToleranceDeg = 1;
+  public static final double kTurnToAngleToleranceDeg = 0.5;
   public static final double kTurnToAngleRateToleranceDegPerS = 0;
 
   // Intake constants
@@ -45,10 +35,16 @@ public final class Constants {
 
   // Hopper constants
   public static final int HOPPER_MAX_CURRENT = 30; // amps
-  public static final double HOPPER_SPEED = 0.7;
-  public static final double HOPPER_INDEX_SPEED = 0.4;
+  public static final double HOPPER_SHOOT_SPEED = -3650; // rpm
+  public static final double HOPPER_SHOOT_POWER = 0.65;
+  public static final double HOPPER_INDEX_POWER = 0.7;
   public static final double LOWER_SENSOR_INPUT_THRESHOLD = 0.99;
   public static final double UPPER_SENSOR_INPUT_THRESHOLD = 0.6;
+
+  public static final double HOPPER_VEL_P = 0.00002;
+  public static final double HOPPER_VEL_I = 0.0000002;
+  public static final double HOPPER_VEL_D = 0.0;
+  public static final double HOPPER_VEL_FF = 0.00014;
 
   // Flywheel constants
   public static final int FLYWHEEL_MAX_CURRENT = 40; // amps
@@ -57,15 +53,15 @@ public final class Constants {
   public static final double FLYWHEEL_I = 0.000001;
   public static final double FLYWHEEL_D = 0.0001;
   public static final double FLYWHEEL_FF = 0.000186;
-  public static final double FLYWHEEL_IZONE = 100;
+  public static final double FLYWHEEL_IZONE = 50;
 
   public static final double FLYWHEEL_RPM_LAYUP = 2350;
   public static final double FLYWHEEL_RPM_LOW = 1300;
   public static final double FLYWHEEL_RPM_REV_UP = 1500;
 
-  public static final double FLYWHEEL_THRESHOLD_LAYUP = 100;
-  public static final double FLYWHEEL_THRESHOLD_LOW = 100;
-  public static final double FLYWHEEL_THRESHOLD_SHOOTLL = 100;
+  public static final double FLYWHEEL_THRESHOLD_LAYUP = 600;
+  public static final double FLYWHEEL_THRESHOLD_LOW = 600;
+  public static final double FLYWHEEL_THRESHOLD_SHOOTLL = 600;
 
   public static final double FLYWHEEL_MAX_POWER = 1;
   public static final double FLYWHEEL_MAX_RPM = 4000;
@@ -92,7 +88,7 @@ public final class Constants {
   public static final double TARGET_HEIGHT = 104;
   
   public static final double [] LL_DIST = new double[]{50,60,70,80,90,100,110,120,130,140};
-  public static final double [] RPMS = new double[]{2435,2505,2565,2645,2715,2785,2855,2990,3080,3230};
+  public static final double [] RPMS = new double[]{2415,2585,2545,2625,2695,2765,2835,2970,3060,3210};
   public static LookupTable DIST_TO_RPM = new LookupTable(LL_DIST, RPMS);
 
   // OI constants
@@ -117,9 +113,9 @@ public final class Constants {
     public static final double kvVoltSecondsPerMeter = 3.1138;
     public static final double kaVoltSecondsSquaredPerMeter = 0.3875;
 
-    public static final double kPDriveVel = 0.03125;
+    public static final double kPDriveVel = 0.03125; //1.4228E-05; //0.00020646; // 0.03125;
     
-    public static final double kTrackwidthMeters = 0.687; /* True calculations: 0.653*/
+    public static final double kTrackwidthMeters = 0.72791; /* True calculations: 0.653*/
     public static final DifferentialDriveKinematics kDriveKinematics =
         new DifferentialDriveKinematics(kTrackwidthMeters);
 
