@@ -130,7 +130,6 @@ public class Autonomous extends SubsystemBase {
         fiveBallRight_v2_3 = PathPlanner.loadPath("5BallRight_v2_Part3", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
         fiveBallRight_v2_4 = PathPlanner.loadPath("5BallRight_v2_Part4", Constants.kMaxSpeedMetersPerSecond*1.5, Constants.kMaxAccelerationMetersPerSecondSquared*1.5, true);
 
-
     }
  
     public SplitFFRamseteCommand createCommandFromTrajectory(Trajectory trajectory){
