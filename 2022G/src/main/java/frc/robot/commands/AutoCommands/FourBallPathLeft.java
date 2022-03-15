@@ -22,13 +22,13 @@ public class FourBallPathLeft extends SequentialCommandGroup{
                 part1
             ),
             new StopIntake(),
-            new ShootWithLLUntilEmpty(),
+            new ShootWithLLUntilEmpty(0.3),
             new TurnToAngle(-135),
             new ParallelCommandGroup(
                 part2,
                 new SequentialCommandGroup(new WaitCommand(1.3), new AutoIntakeWithHopper(1.0, 0.7))
             ),
-            new WaitCommand(1.5),
+            new WaitCommand(1),
             new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),
             part3,
             new StopIntake(),

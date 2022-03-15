@@ -152,10 +152,13 @@ public class Hopper extends SubsystemBase {
     }
 
     public void updateHopperInfoOnDashboard(){
-        SmartDashboard.putNumber("Hopper velocity", getHopperVelocity());
-        SmartDashboard.putNumber("Hopper position", getHopperPosition());
         SmartDashboard.putBoolean("Lower sensor", sensesBallBottom());
         SmartDashboard.putBoolean("Upper sensor", sensesBallTop());
+
+        if(Constants.OI_CONFIG != OIConfig.COMPETITION){
+            SmartDashboard.putNumber("Hopper velocity", getHopperVelocity());
+            SmartDashboard.putNumber("Hopper position", getHopperPosition());
+        }
     }
 
     public void updateHopperFromDashboard() {
@@ -169,25 +172,5 @@ public class Hopper extends SubsystemBase {
         hopperPIDController.setI(SmartDashboard.getNumber("OR: Hop Vel I", Constants.HOPPER_VEL_I));
         hopperPIDController.setD(SmartDashboard.getNumber("OR: Hop Vel D", Constants.HOPPER_VEL_D));
         hopperPIDController.setFF(SmartDashboard.getNumber("OR: Hop Vel FF", Constants.HOPPER_VEL_FF));
-
-        if(SmartDashboard.getNumber("OR: Hopper power", 0) == 0 && SmartDashboard.getNumber("OR: Hopper velocity", 0.0) == 0){
-            revUpStarted = false;
-            revUpEnded = false;
-            elapsedRevUpTime = 0.0;
-            SmartDashboard.putNumber("Time to reach setpoint", elapsedRevUpTime);
-        }
-
-        if(Math.abs(hopperVelSetpoint) > 1000 && Math.abs(getHopperVelocity()) > 0 && !revUpStarted && !revUpEnded){
-            initialRevUpTime = Timer.getFPGATimestamp();
-            revUpStarted = true;
-        }
-        
-        if(Math.abs(getHopperVelocity()) > 0 && atRPM() && revUpStarted){
-            elapsedRevUpTime = Timer.getFPGATimestamp() - initialRevUpTime;
-            SmartDashboard.putNumber("Time to reach setpoint", elapsedRevUpTime);
-            revUpStarted = false;
-            revUpEnded = true;
-        }
-
     }
 }

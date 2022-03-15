@@ -18,11 +18,12 @@ public class FiveBallPathRightv2 extends SequentialCommandGroup{
                 new AutoIntakeWithHopper(0.7, 0.7),
                 part1
             ),
-            new ShootWithLLUntilEmpty(),
+            new ShootWithLLUntilEmpty(0.3),
             part2,
-            new ShootWithLLUntilEmpty(),
+            new AutoIntakeWithHopper(1.0, 1.0),
+            new ShootWithLLUntilEmpty(0.6),
             part3,
-            new WaitCommand(1.5),
+            new WaitCommand(1),
             part4,
             new ShootWithLLForTime(5)
         );

@@ -20,7 +20,7 @@ public class FiveBallPathRight extends SequentialCommandGroup{
                 new AutoIntakeWithHopper(1.0, 0.7),
                 part1
             ),
-            new ShootWithLLUntilEmpty(),
+            new ShootWithLLUntilEmpty(0.3),
             new ParallelCommandGroup(
                 part2,
                 new AutoIntakeWithHopper(0.7, 0.7)
@@ -29,7 +29,7 @@ public class FiveBallPathRight extends SequentialCommandGroup{
             new SetFlywheelRPM(2500),
                 part3,
             new TurnToAngle(-100),
-            new ShootWithLLUntilEmpty(),
+            new ShootWithLLUntilEmpty(0.3),
             new ParallelCommandGroup(
                 new AutoIntakeWithHopper(0.7, 0.7),
                 part4

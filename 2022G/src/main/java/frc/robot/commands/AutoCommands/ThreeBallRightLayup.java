@@ -14,7 +14,7 @@ public class ThreeBallRightLayup extends SequentialCommandGroup{
             new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),
             new AutoIntakeWithHopper(1.0, 0.7),
             part1,
-            new ShootLayupUntilEmpty(),
+            new ShootLayupUntilEmpty(0.3),
             part2,
             new ShootLayupForTime(5)
         );

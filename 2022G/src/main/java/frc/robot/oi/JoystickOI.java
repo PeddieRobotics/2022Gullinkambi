@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.AutoCommands.ShootWithLLForCount;
 import frc.robot.commands.AutoCommands.ShootWithLLUntilEmpty;
 import frc.robot.commands.ClimbCommands.ExtendArm;
 import frc.robot.commands.ClimbCommands.RetractArm;
@@ -70,7 +69,6 @@ public class JoystickOI {
     rightTrigger.whenHeld(new ShootLayup(false));
     rightButton2.whenHeld(new SequentialCommandGroup(new Target(), new ConditionalCommand(new ShootWithLL(false), new BlankCommand(), drivetrain::isLockedOnTarget)));
     rightButton3.whenHeld(new ExtendArm()).whenReleased(new RetractArm());
-    rightButton4.whenPressed(new ShootWithLLUntilEmpty());
 
   }
 

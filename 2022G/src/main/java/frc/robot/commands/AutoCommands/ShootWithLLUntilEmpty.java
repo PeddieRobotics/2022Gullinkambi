@@ -11,11 +11,11 @@ import frc.robot.subsystems.Drivetrain;
 
 public class ShootWithLLUntilEmpty extends SequentialCommandGroup{
 
-    public ShootWithLLUntilEmpty() {
+    public ShootWithLLUntilEmpty(double delay) {
         addCommands(    
             new ParallelRaceGroup(
                 new SequentialCommandGroup(new Target(), new ConditionalCommand(new ShootWithLL(true), new BlankCommand(), Drivetrain.getInstance()::isLockedOnTarget)),
-                new CheckIfHopperEmpty(0.3))
+                new CheckIfHopperEmpty(delay))
         );
     }
     

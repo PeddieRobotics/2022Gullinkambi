@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.*;
+import frc.robot.utils.Constants.OIConfig;
 
 public class Intake extends SubsystemBase {
 
@@ -82,10 +83,12 @@ public class Intake extends SubsystemBase {
   }
 
   public void updateIntakeInfoOnDashboard(){
-    SmartDashboard.putNumber("Intake speed", getIntakeSpeed());
     SmartDashboard.putBoolean("Intake solenoid", getIntakeSolenoid());
-    SmartDashboard.putNumber("Intake current", getIntakeCurrent());
 
+    if(Constants.OI_CONFIG != OIConfig.COMPETITION){
+      SmartDashboard.putNumber("Intake speed", getIntakeSpeed());
+      SmartDashboard.putNumber("Intake current", getIntakeCurrent());
+    }
 
   }
 

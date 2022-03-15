@@ -7,11 +7,11 @@ import frc.robot.commands.ShootCommands.ShootLow;
 
 public class ShootLowUntilEmpty extends SequentialCommandGroup{
 
-    public ShootLowUntilEmpty() {
+    public ShootLowUntilEmpty(double delay) {
         addCommands(    
             new ParallelRaceGroup(
                 new ShootLow(),
-                new CheckIfHopperEmpty(0.3))
+                new CheckIfHopperEmpty(delay))
         );
     }
     

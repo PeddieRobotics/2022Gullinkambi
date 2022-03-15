@@ -120,9 +120,7 @@ public class Climber extends SubsystemBase {
     armMotor2.setIdleMode(IdleMode.kCoast);
   }
 
-  //solenoid = true is unlocked, solenoid = false is locked
-
-  public void setClimberSolenoidBrake(boolean solenoidState) { // solenoidState = true is locked, solenoidState = false is unlocked
+  public void setClimberSolenoidBrake(boolean solenoidState) {
     armBrake.set(solenoidState);
   }
 
@@ -172,16 +170,16 @@ public class Climber extends SubsystemBase {
 
   public boolean sensesArm(){
     if(armSensorState()){
-    if (armMotor1.getOutputCurrent() > 30 && !reboundFromCurrentSpike){
-      setEncoderPosition(0);
-      moveToPosition(-15);
-      reboundFromCurrentSpike = true;
+      if (armMotor1.getOutputCurrent() > 60 && !reboundFromCurrentSpike){
+        setEncoderPosition(0);
+        moveToPosition(-15);
+        reboundFromCurrentSpike = true;
+      }
+      
+      if(armSensorState() && !reboundFromCurrentSpike){
+        setEncoderPosition(0);
+      }
     }
-    
-    if(armSensorState() && !reboundFromCurrentSpike){
-      setEncoderPosition(0);
-    }
-  }
     return armSensor.get();
   }
 
@@ -241,11 +239,12 @@ public class Climber extends SubsystemBase {
     if(armSensorState()){
       setEncoderPosition(0);
     }
-    //climber.run(SmartDashboard.getNumber("OR: Climber power",0));
-    if(SmartDashboard.getNumber("OR: Climber setpoint", 0.0)>Constants.CLIMBER_TOP_ENCODER_POSITION){
+    if(SmartDashboard.getNumber("OR: Climber setpoint", 0.0) > 0){
       moveToPosition(SmartDashboard.getNumber("OR: Climber setpoint", 0.0));
     }
+    else{
+      climber.run(SmartDashboard.getNumber("OR: Climber power",0));
+    }
     
-
   }
 }

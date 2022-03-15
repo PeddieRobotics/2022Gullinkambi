@@ -68,7 +68,6 @@ public class Target extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-    System.out.println("TARGETED at" + Timer.getFPGATimestamp());
     drivetrain.arcadeDrive(0,0);
     // If we end this command with the LL seeing target AND we weren't interrupted (e.g. trigger release), we are locked to target now
     // Otherwise we must be ending immediately because no target was found for alignment

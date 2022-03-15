@@ -153,9 +153,7 @@ public class Flywheel extends SubsystemBase {
 
   public void updateFlywheelInfoOnDashboard(){
     SmartDashboard.putNumber("FW velocity", getFlywheelVelocity());
-    SmartDashboard.putNumber("FW setpoint", 
-    getFlywheelSetpoint());
-    SmartDashboard.putNumber("FW current", flywheelPrimary.getOutputCurrent());
+    SmartDashboard.putNumber("FW setpoint", getFlywheelSetpoint());
     SmartDashboard.putBoolean("Lock activated", getShooterLock());
     SmartDashboard.putBoolean("Hood up", getHood());
     SmartDashboard.putBoolean("isAtRPM", isAtRPM(Constants.FLYWHEEL_THRESHOLD_SHOOTLL));

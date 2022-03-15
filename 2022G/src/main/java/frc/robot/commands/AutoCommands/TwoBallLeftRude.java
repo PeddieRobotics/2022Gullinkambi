@@ -18,11 +18,11 @@ public class TwoBallLeftRude extends SequentialCommandGroup{
                 new AutoIntakeWithHopper(1.0, 0.7),
                 part1
             ),
-            new ShootWithLLUntilEmpty(),
+            new ShootWithLLUntilEmpty(0.3),
             new TurnToAngle(78),
             part2,
             new TurnToAngle(180),
-            new ShootLowUntilEmpty(),
+            new ShootLowUntilEmpty(0.3),
             new TurnToAngle(28)
         );
     }

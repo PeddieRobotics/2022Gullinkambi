@@ -5,10 +5,10 @@ import frc.robot.commands.IntakeCommands.CheckIfHopperEmpty;
 import frc.robot.commands.ShootCommands.ShootLayup;
 
 public class ShootLayupUntilEmpty extends ParallelRaceGroup{
-    public ShootLayupUntilEmpty(){
+    public ShootLayupUntilEmpty(double delay){
         addCommands(
             new ShootLayup(true),
-            new CheckIfHopperEmpty(0.3)
+            new CheckIfHopperEmpty(delay)
         );
     }
 }

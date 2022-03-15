@@ -141,13 +141,14 @@ public class Drivetrain extends SubsystemBase {
 
   public void updateDrivetrainInfoOnDashboard() {
     SmartDashboard.putNumber("Heading", getHeading());
-    SmartDashboard.putNumber("Odometry X", odometry.getPoseMeters().getTranslation().getX());
-    SmartDashboard.putNumber("Odometry Y", odometry.getPoseMeters().getTranslation().getY());
-    SmartDashboard.putNumber("Odometry Pose", getPoseHeading());
-    SmartDashboard.putBoolean("Locked on target", isLockedOnTarget());
 
     //only heading and odometry in competition mode
     if(Constants.OI_CONFIG != OIConfig.COMPETITION){
+      SmartDashboard.putNumber("Odometry X", odometry.getPoseMeters().getTranslation().getX());
+      SmartDashboard.putNumber("Odometry Y", odometry.getPoseMeters().getTranslation().getY());
+      SmartDashboard.putNumber("Odometry Pose", getPoseHeading());
+      SmartDashboard.putBoolean("Locked on target", isLockedOnTarget());  
+
       SmartDashboard.putNumber("LDrive enc pos", getLeftEncoderPosition());
       SmartDashboard.putNumber("RDrive enc pos", getRightEncoderPosition());
       SmartDashboard.putNumber("LDrive enc vel", getLeftEncoderVelocity());

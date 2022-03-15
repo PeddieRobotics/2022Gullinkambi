@@ -19,7 +19,7 @@ public class ThreeBallRightLL extends SequentialCommandGroup{
                 part1
             ),
             new StopIntake(),
-            new ShootWithLLUntilEmpty(),
+            new ShootWithLLUntilEmpty(0.3),
             part2,
             new StopIntake(),
             new ShootWithLLForTime(5)

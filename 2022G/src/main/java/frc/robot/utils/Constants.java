@@ -88,7 +88,7 @@ public final class Constants {
   public static final double TARGET_HEIGHT = 104;
   
   public static final double [] LL_DIST = new double[]{50,60,70,80,90,100,110,120,130,140};
-  public static final double [] RPMS = new double[]{2390,2460,2520,2600,2670,2740,2810,2940,3030,3190};
+  public static final double [] RPMS = new double[]{2415,2585,2545,2625,2695,2765,2835,2970,3060,3210};
   public static LookupTable DIST_TO_RPM = new LookupTable(LL_DIST, RPMS);
 
   // OI constants
@@ -119,8 +119,8 @@ public final class Constants {
     public static final DifferentialDriveKinematics kDriveKinematics =
         new DifferentialDriveKinematics(kTrackwidthMeters);
 
-    public static final double kMaxSpeedMetersPerSecond = 1.0;
-    public static final double kMaxAccelerationMetersPerSecondSquared = 1.0;
+    public static final double kMaxSpeedMetersPerSecond = 3.0;
+    public static final double kMaxAccelerationMetersPerSecondSquared = 3.0;
 
     // Reasonable baseline values for a RAMSETE follower in units of meters and seconds
     public static final double kRamseteB = 2;
