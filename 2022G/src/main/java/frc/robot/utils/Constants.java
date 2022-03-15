@@ -35,7 +35,7 @@ public final class Constants {
 
   // Hopper constants
   public static final int HOPPER_MAX_CURRENT = 30; // amps
-  public static final double HOPPER_SHOOT_SPEED = -3650; // rpm
+  public static final double HOPPER_SHOOT_SPEED = -3000; // rpm
   public static final double HOPPER_SHOOT_POWER = 0.65;
   public static final double HOPPER_INDEX_POWER = 0.7;
   public static final double LOWER_SENSOR_INPUT_THRESHOLD = 0.99;
@@ -49,11 +49,11 @@ public final class Constants {
   // Flywheel constants
   public static final int FLYWHEEL_MAX_CURRENT = 40; // amps
 
-  public static final double FLYWHEEL_P = 0.0002;
+  public static final double FLYWHEEL_P = 0.0001;
   public static final double FLYWHEEL_I = 0.000001;
-  public static final double FLYWHEEL_D = 0.0001;
-  public static final double FLYWHEEL_FF = 0.000186;
-  public static final double FLYWHEEL_IZONE = 50;
+  public static final double FLYWHEEL_D = 0.001;
+  public static final double FLYWHEEL_FF = 0.000182;
+  public static final double FLYWHEEL_IZONE = 100;
 
   public static final double FLYWHEEL_RPM_LAYUP = 2350;
   public static final double FLYWHEEL_RPM_LOW = 1300;
@@ -61,7 +61,7 @@ public final class Constants {
 
   public static final double FLYWHEEL_THRESHOLD_LAYUP = 600;
   public static final double FLYWHEEL_THRESHOLD_LOW = 600;
-  public static final double FLYWHEEL_THRESHOLD_SHOOTLL = 600;
+  public static final double FLYWHEEL_THRESHOLD_SHOOTLL = 100;
 
   public static final double FLYWHEEL_MAX_POWER = 1;
   public static final double FLYWHEEL_MAX_RPM = 4000;

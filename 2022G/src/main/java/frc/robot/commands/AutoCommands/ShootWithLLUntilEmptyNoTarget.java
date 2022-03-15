@@ -14,7 +14,7 @@ public class ShootWithLLUntilEmptyNoTarget extends SequentialCommandGroup{
     public ShootWithLLUntilEmptyNoTarget(double delay) {
         addCommands(    
             new ParallelRaceGroup(
-                new SequentialCommandGroup(new Target(), new ConditionalCommand(new ShootWithLL(true), new BlankCommand(), Drivetrain.getInstance()::isLockedOnTarget)),
+                new ShootWithLL(true),
                 new CheckIfHopperEmpty(delay))
         );
     }

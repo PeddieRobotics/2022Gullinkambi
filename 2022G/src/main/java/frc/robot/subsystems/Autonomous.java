@@ -126,7 +126,7 @@ public class Autonomous extends SubsystemBase {
         fiveBallRight_4 = PathPlanner.loadPath("5BallRight_Part4", Constants.kMaxSpeedMetersPerSecond*2, Constants.kMaxAccelerationMetersPerSecondSquared*1.2);
 
         fiveBallRight_v2_1 = PathPlanner.loadPath("5BallRight_v2_Part1", Constants.kMaxSpeedMetersPerSecond*1.3, Constants.kMaxAccelerationMetersPerSecondSquared*1.3);
-        fiveBallRight_v2_2 = PathPlanner.loadPath("5BallRight_v2_Part2", Constants.kMaxSpeedMetersPerSecond*1.2, Constants.kMaxAccelerationMetersPerSecondSquared*1.2);
+        fiveBallRight_v2_2 = PathPlanner.loadPath("5BallRight_v2_Part2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
         fiveBallRight_v2_3 = PathPlanner.loadPath("5BallRight_v2_Part3", Constants.kMaxSpeedMetersPerSecond*0.8, Constants.kMaxAccelerationMetersPerSecondSquared*0.8);
         fiveBallRight_v2_4 = PathPlanner.loadPath("5BallRight_v2_Part4", Constants.kMaxSpeedMetersPerSecond*1.25, Constants.kMaxAccelerationMetersPerSecondSquared*1.25, true);
 
