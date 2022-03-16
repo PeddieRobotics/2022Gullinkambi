@@ -136,8 +136,8 @@ public class Autonomous extends SubsystemBase {
  
     public SplitFFRamseteCommand createCommandFromTrajectory(Trajectory trajectory){
         var ramseteController = new RamseteController();
-        ramseteController.setEnabled(false);
-        var leftController = new PIDController(Constants.kPDriveVel, 0, 0);
+        //ramseteController.setEnabled(false);
+        var leftController = new PIDController(Constants.kPDriveVel, 0.000001, 0);
         var rightController = new PIDController(Constants.kPDriveVel, 0, 0);
         var table = NetworkTableInstance.getDefault().getTable("troubleshooting");
         var leftReference = table.getEntry("left_reference");
@@ -152,13 +152,13 @@ public class Autonomous extends SubsystemBase {
               m_drivetrain::getPose,
               ramseteController,
               new SimpleMotorFeedforward(
-                0.15892,
-                3.1252,
-                0.3818),
+                0.15892*0.95,
+                3.1252*0.95,
+                0.3818*0.95),
             new SimpleMotorFeedforward(
-                0.15892,
-                3.1252,
-                0.3818),
+                0.15892*0.95,
+                3.1252*0.95,
+                0.3818*0.95),
               Constants.kDriveKinematics,
               m_drivetrain::getWheelSpeeds,
             leftController,
