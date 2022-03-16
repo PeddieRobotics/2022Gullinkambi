@@ -7,27 +7,27 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.DriveCommands.ResetOdometry;
 import frc.robot.commands.DriveCommands.TurnToAngle;
 import frc.robot.commands.IntakeCommands.AutoIntakeWithHopper;
-import frc.robot.commands.IntakeCommands.StopIntake;
 import frc.robot.commands.ShootCommands.SetFlywheelRPM;
 
-public class FiveBallPathRight extends SequentialCommandGroup{ 
+public class SixBallPathRight extends SequentialCommandGroup{ 
 
-    public FiveBallPathRight(Pose2d initialPose, SplitFFRamseteCommand part1, SplitFFRamseteCommand part2, SplitFFRamseteCommand part3){
+    public SixBallPathRight(Pose2d initialPose, SplitFFRamseteCommand part1, SplitFFRamseteCommand part2, SplitFFRamseteCommand part3, SplitFFRamseteCommand part4){
         addCommands(
             new ResetOdometry(initialPose),
-            new SetFlywheelRPM(2500),
+            new SetFlywheelRPM(2650),
             new ParallelCommandGroup(
-                new AutoIntakeWithHopper(1.0, 0.7),
+                new AutoIntakeWithHopper(1, 1),
                 part1
             ),
             new ShootWithLLUntilEmpty(0.3),
-            new ParallelCommandGroup(
-                part2,
-                new AutoIntakeWithHopper(0.7, 0.7)
-            ),
+            new AutoIntakeWithHopper(1, 1),
+            part2,
+            new TurnToAngle(-146),
+            new ShootWithLLUntilEmpty(0.3),
+            new AutoIntakeWithHopper(1, 0.7),
+            part3,
             new WaitCommand(1),
-            new SetFlywheelRPM(2500),
-                part3,
+            part4,
             new ShootWithLLForTime(5)
         );
     }
