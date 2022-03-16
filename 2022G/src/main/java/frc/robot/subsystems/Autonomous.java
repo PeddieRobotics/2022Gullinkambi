@@ -37,7 +37,7 @@ public class Autonomous extends SubsystemBase {
     private SendableChooser<Command> autoRoutineSelector;
     private Hashtable<String,Command> autoRoutines;
 
-    private Trajectory sanityCheck, pathVerification;
+    private Trajectory sanityCheck, pathVerification, pathVerification_2;
     private Trajectory twoBallLeftUpShoot, twoBallRightDownShoot, twoBallLeftRude_1, twoBallLeftRude_2;
     private Trajectory threeBallRight_LL_1, threeBallRight_LL_2, threeBallRight_Layup_1, threeBallRight_Layup_2;
     private Trajectory fourBallRight_1, fourBallRight_2, fourBallLeft_1, fourBallLeft_2, fourBallLeft_3;
@@ -75,6 +75,7 @@ public class Autonomous extends SubsystemBase {
     public void setupAutoRoutines() {
         autoRoutines.put("Sanity Check", new SequentialCommandGroup(new ResetOdometry(sanityCheck.getInitialPose()),createCommandFromTrajectory(sanityCheck)));
         autoRoutines.put("Path Verification", new SequentialCommandGroup(new ResetOdometry(pathVerification.getInitialPose()),createCommandFromTrajectory(pathVerification)));
+        autoRoutines.put("Path Verification 2", new SequentialCommandGroup(new ResetOdometry(pathVerification_2.getInitialPose()), createCommandFromTrajectory(pathVerification_2)));
 
         autoRoutines.put("CMD Group: 2 Ball (longer)", new TwoBallLonger(twoBallLeftUpShoot.getInitialPose(), createCommandFromTrajectory(twoBallLeftUpShoot)));
         autoRoutines.put("CMD Group: 2 Ball (shorter)", new TwoBallShorter(twoBallRightDownShoot.getInitialPose(), createCommandFromTrajectory(twoBallRightDownShoot)));
@@ -100,6 +101,7 @@ public class Autonomous extends SubsystemBase {
         sanityCheck = PathPlanner.loadPath("SanityCheck", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
 
         pathVerification = PathPlanner.loadPath("PathVerification", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
+        pathVerification_2 = PathPlanner.loadPath("PathVerification2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
 
         twoBallLeftUpShoot = PathPlanner.loadPath("2BallLeftUpShoot", Constants.kMaxSpeedMetersPerSecond*0.5, Constants.kMaxAccelerationMetersPerSecondSquared*0.5);
         twoBallRightDownShoot = PathPlanner.loadPath("2BallRightDownShoot", Constants.kMaxSpeedMetersPerSecond*0.5, Constants.kMaxAccelerationMetersPerSecondSquared*0.5);
@@ -134,6 +136,7 @@ public class Autonomous extends SubsystemBase {
  
     public SplitFFRamseteCommand createCommandFromTrajectory(Trajectory trajectory){
         var ramseteController = new RamseteController();
+        ramseteController.setEnabled(false);
         var leftController = new PIDController(Constants.kPDriveVel, 0, 0);
         var rightController = new PIDController(Constants.kPDriveVel, 0, 0);
         var table = NetworkTableInstance.getDefault().getTable("troubleshooting");
@@ -149,9 +152,9 @@ public class Autonomous extends SubsystemBase {
               m_drivetrain::getPose,
               ramseteController,
               new SimpleMotorFeedforward(
-                0.163,
-                3.1319,
-                0.3),
+                0.15892*0.8,
+                3.1252*0.8,
+                0.3818*0.8),
             new SimpleMotorFeedforward(
                 0.15892,
                 3.1252,
@@ -166,7 +169,7 @@ public class Autonomous extends SubsystemBase {
                   leftMeasurement.setNumber(m_drivetrain.getWheelSpeeds().leftMetersPerSecond);
                   leftReference.setNumber(rightController.getSetpoint());
 
-                  rightMeasurement.setNumber(m_drivetrain.getWheelSpeeds().rightMetersPerSecond);
+                  rightMeasurement.setNumber(-m_drivetrain.getWheelSpeeds().rightMetersPerSecond);
                   rightReference.setNumber(leftController.getSetpoint());
               },
               m_drivetrain);
