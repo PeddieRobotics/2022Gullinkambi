@@ -521,6 +521,17 @@
               "_source0": "network_table:///SmartDashboard/turn pid setpoint",
               "_title": "/SmartDashboard/turn pid setpoint"
             }
+          },
+          "4,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Teleop: Hopper shoot speed",
+              "_title": "SmartDashboard/Teleop: Hopper shoot speed"
+            }
           }
         }
       }
@@ -994,6 +1005,97 @@
                   "_type": "PID Controller",
                   "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[30]",
                   "_title": "PIDController[30]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[42]",
+                  "_title": "LiveWindow/Ungrouped/PIDController[42]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[44]",
+                  "_title": "LiveWindow/Ungrouped/PIDController[44]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[45]",
+                  "_title": "LiveWindow/Ungrouped/PIDController[45]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[47]",
+                  "_title": "LiveWindow/Ungrouped/PIDController[47]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[43]",
+                  "_title": "LiveWindow/Ungrouped/PIDController[43]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[41]",
+                  "_title": "LiveWindow/Ungrouped/PIDController[41]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[46]",
+                  "_title": "LiveWindow/Ungrouped/PIDController[46]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[48]",
+                  "_title": "LiveWindow/Ungrouped/PIDController[48]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[51]",
+                  "_title": "PIDController[51]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[53]",
+                  "_title": "PIDController[53]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[49]",
+                  "_title": "PIDController[49]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[54]",
+                  "_title": "PIDController[54]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[50]",
+                  "_title": "PIDController[50]"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Solenoid[21,2]/Value",
+                  "_title": "Solenoid[21,2]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[3]/Value",
+                  "_title": "DigitalInput[3]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Solenoid[21,3]/Value",
+                  "_title": "Solenoid[21,3]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[52]",
+                  "_title": "PIDController[52]"
                 }
               ]
             }
@@ -1089,7 +1191,27 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "titleType": 0,
-        "tiles": {}
+        "tiles": {
+          "3,1": {
+            "size": [
+              6,
+              4
+            ],
+            "content": {
+              "_type": "Camera Stream",
+              "_source0": "camera_server://USBCamera",
+              "_title": "USBCamera",
+              "Crosshair/Show crosshair": true,
+              "Crosshair/Crosshair color": "#FFFFFFFF",
+              "Controls/Show controls": true,
+              "Controls/Rotation": "NONE",
+              "compression": -1.0,
+              "fps": 20,
+              "imageWidth": 1280,
+              "imageHeight": 720
+            }
+          }
+        }
       }
     },
     {
@@ -1133,9 +1255,9 @@
     }
   ],
   "windowGeometry": {
-    "x": -8.0,
-    "y": -8.0,
-    "width": 1936.0,
-    "height": 1056.0
+    "x": -7.0,
+    "y": 2.0,
+    "width": 1932.0,
+    "height": 1045.0
   }
 }
