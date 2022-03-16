@@ -5,20 +5,19 @@ import frc.robot.subsystems.Climber;
 import frc.robot.utils.Constants;
 
 /** An example command that uses an example subsystem. */
-public class ExtendArm extends CommandBase {
+public class ExtendLeftArm extends CommandBase {
   private Climber climber;
 
-  public ExtendArm() {
+  public ExtendLeftArm() {
     climber = Climber.getInstance();
-    addRequirements(climber);
   }
 
    // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    climber.enablePIDController();
-    climber.setClimberSolenoidBrake(true);
-    climber.moveToPosition(Constants.CLIMBER_TOP_ENCODER_POSITION);
+    climber.enableLeftPIDController();
+    climber.setLeftArmSolenoidBrake(true);
+    climber.moveLeftArmToPosition(Constants.CLIMBER_TOP_ENCODER_POSITION);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

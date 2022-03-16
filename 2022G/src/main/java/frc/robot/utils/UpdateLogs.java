@@ -82,21 +82,19 @@ public class UpdateLogs {
     }
 
     public void updateClimberLogData(){
-        LoggerCustom.getInstance().recordOutput("Climber/ClimberArmSensorValue", m_climber.sensesArm());
-
         //Encoder Data
-        LoggerCustom.getInstance().recordOutput("Climber/WinchMotor1EncoderVelocity", m_climber.getarmMotor1EncoderVelocity());
-        LoggerCustom.getInstance().recordOutput("Climber/WinchMotor1EncoderPosition", m_climber.getarmMotor1EncoderPosition());
+        LoggerCustom.getInstance().recordOutput("Climber/WinchMotor1EncoderVelocity", m_climber.getRightArmPrimaryMotorEncoderVelocity());
+        LoggerCustom.getInstance().recordOutput("Climber/WinchMotor1EncoderPosition", m_climber.getRightArmPrimaryMotorEncoderPosition());
         
         //Winch Motor Data
-        LoggerCustom.getInstance().recordOutput("Climber/WinchMotor1Velocity", m_climber.getarmMotor1Velocity());
-        LoggerCustom.getInstance().recordOutput("Climber/WinchMotor2Velocity", m_climber.getarmMotor2Velocity());
+        LoggerCustom.getInstance().recordOutput("Climber/WinchMotor1Velocity", m_climber.getRightArmPrimaryMotorVelocity());
+        LoggerCustom.getInstance().recordOutput("Climber/WinchMotor2Velocity", m_climber.getRightArmSecondaryMotorVelocity());
 
-        LoggerCustom.getInstance().recordOutput("Climber/WinchMotor1Current", m_climber.getarmMotor1Current());
-        LoggerCustom.getInstance().recordOutput("Climber/WinchMotor2Current", m_climber.getarmMotor2Current());
+        LoggerCustom.getInstance().recordOutput("Climber/WinchMotor1Current", m_climber.getRightArmPrimaryMotorCurrent());
+        LoggerCustom.getInstance().recordOutput("Climber/WinchMotor2Current", m_climber.getRightArmSecondaryMotorCurrent());
         
-        LoggerCustom.getInstance().recordOutput("Climber/WinchMotor1Temperature", m_climber.getarmMotor1Temperature());
-        LoggerCustom.getInstance().recordOutput("Climber/WinchMotor2Temperature", m_climber.getarmMotor2Temperature());
+        LoggerCustom.getInstance().recordOutput("Climber/WinchMotor1Temperature", m_climber.getRightArmPrimaryMotorTemperature());
+        LoggerCustom.getInstance().recordOutput("Climber/WinchMotor2Temperature", m_climber.getRightArmSecondaryMotorTemperature());
     }
 
     public void updateFlywheelLogData(){

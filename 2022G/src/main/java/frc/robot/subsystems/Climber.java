@@ -16,16 +16,15 @@ import frc.robot.utils.*;
 public class Climber extends SubsystemBase {
   private static Climber climber;
   
-
   private static UpdateLogs updateLogs = UpdateLogs.getInstance();
 
-  private CANSparkMax armMotor1, armMotor2;
-  private DigitalInput armSensor;
-  private Solenoid armBrake; 
+  private CANSparkMax rightArmMotorPrimary, rightArmMotorSecondary, leftArmMotorPrimary, leftArmMotorSecondary;
+  private DigitalInput rightArmSensor, leftArmSensor;
+  private Solenoid rightArmBrake, leftArmBrake, thirdArmExtender; 
 
-  private double climberSetpoint;
+  private double climberRightSetpoint, climberLeftSetpoint;
 
-  private SparkMaxPIDController climberPIDController;
+  private SparkMaxPIDController climberRightPIDController, climberLeftPIDController;
 
   private double kP = Constants.CLIMBER_P;
   private double kI = Constants.CLIMBER_I;
@@ -33,43 +32,73 @@ public class Climber extends SubsystemBase {
   private double kIz = Constants.CLIMBER_IZONE;
   private double kFF = Constants.CLIMBER_FF;
 
-  private boolean reboundFromCurrentSpike;
-
   public Climber() {
-    armMotor1 = new CANSparkMax(RobotMapGullinkambi.MOTOR_CLIMBER_PRIMARY, MotorType.kBrushless);
-    armMotor2 = new CANSparkMax(RobotMapGullinkambi.MOTOR_CLIMBER_SECONDARY, MotorType.kBrushless);
-    armMotor2.follow(armMotor1);
+    rightArmMotorPrimary = new CANSparkMax(RobotMapGullinkambi.MOTOR_CLIMBER_RIGHT_PRIMARY, MotorType.kBrushless);
+    rightArmMotorSecondary = new CANSparkMax(RobotMapGullinkambi.MOTOR_CLIMBER_RIGHT_SECONDARY, MotorType.kBrushless);
+    rightArmMotorSecondary.follow(rightArmMotorPrimary);
 
-    armMotor1.setIdleMode(IdleMode.kBrake);
-    armMotor2.setIdleMode(IdleMode.kBrake);
-    armMotor1.setSmartCurrentLimit(Constants.CLIMBER_MAX_CURRENT);
-    armMotor2.setSmartCurrentLimit(Constants.CLIMBER_MAX_CURRENT);
+    rightArmMotorPrimary.setIdleMode(IdleMode.kBrake);
+    rightArmMotorSecondary.setIdleMode(IdleMode.kBrake);
+    rightArmMotorPrimary.setSmartCurrentLimit(Constants.CLIMBER_MAX_CURRENT);
+    rightArmMotorSecondary.setSmartCurrentLimit(Constants.CLIMBER_MAX_CURRENT);
 
-    armSensor = new DigitalInput(2);
+    leftArmMotorPrimary = new CANSparkMax(RobotMapGullinkambi.MOTOR_CLIMBER_LEFT_PRIMARY, MotorType.kBrushless);
+    leftArmMotorSecondary = new CANSparkMax(RobotMapGullinkambi.MOTOR_CLIMBER_LEFT_SECONDARY, MotorType.kBrushless);
+    leftArmMotorSecondary.follow(leftArmMotorPrimary);
 
-    armBrake = new Solenoid(RobotMapGullinkambi.PNEUMATICS_HUB, PneumaticsModuleType.REVPH, RobotMapGullinkambi.SOLENOID_CLIMBER_BRAKE); 
+    leftArmMotorPrimary.setIdleMode(IdleMode.kBrake);
+    leftArmMotorSecondary.setIdleMode(IdleMode.kBrake);
+    leftArmMotorPrimary.setSmartCurrentLimit(Constants.CLIMBER_MAX_CURRENT);
+    leftArmMotorSecondary.setSmartCurrentLimit(Constants.CLIMBER_MAX_CURRENT);
 
-    climberPIDController = armMotor1.getPIDController();
-    climberPIDController.setOutputRange(-1, 1);
-    enablePIDController();
+    rightArmSensor = new DigitalInput(2);
+    rightArmBrake = new Solenoid(RobotMapGullinkambi.PNEUMATICS_HUB, PneumaticsModuleType.REVPH, RobotMapGullinkambi.SOLENOID_CLIMBER_RIGHT_BRAKE); 
 
-    reboundFromCurrentSpike = false;
+    leftArmSensor = new DigitalInput(3);
+    leftArmBrake = new Solenoid(RobotMapGullinkambi.PNEUMATICS_HUB, PneumaticsModuleType.REVPH, RobotMapGullinkambi.SOLENOID_CLIMBER_LEFT_BRAKE); 
+
+    climberRightPIDController = rightArmMotorPrimary.getPIDController();
+    climberRightPIDController.setOutputRange(-1, 1);
+    enableRightPIDController();
+
+    climberLeftPIDController = leftArmMotorPrimary.getPIDController();
+    climberLeftPIDController.setOutputRange(-1, 1);
+    enableLeftPIDController();
+
+    thirdArmExtender = new Solenoid(RobotMapGullinkambi.PNEUMATICS_HUB, PneumaticsModuleType.REVPH, RobotMapGullinkambi.SOLENOID_CLIMBER_THIRD_ARM);
+
   }
 
-  public void enablePIDController(){
-    climberPIDController.setP(Constants.CLIMBER_P);
-    climberPIDController.setI(Constants.CLIMBER_I);
-    climberPIDController.setD(Constants.CLIMBER_D);
-    climberPIDController.setIZone(Constants.CLIMBER_IZONE);
-    climberPIDController.setFF(Constants.CLIMBER_FF);
+  public void enableRightPIDController(){
+    climberRightPIDController.setP(Constants.CLIMBER_P);
+    climberRightPIDController.setI(Constants.CLIMBER_I);
+    climberRightPIDController.setD(Constants.CLIMBER_D);
+    climberRightPIDController.setIZone(Constants.CLIMBER_IZONE);
+    climberRightPIDController.setFF(Constants.CLIMBER_FF);
   }
 
-  public void disablePIDController(){
-    climberPIDController.setP(0);
-    climberPIDController.setI(0);
-    climberPIDController.setD(0);
-    climberPIDController.setIZone(0);
-    climberPIDController.setFF(0);
+  public void disableRightPIDController(){
+    climberRightPIDController.setP(0);
+    climberRightPIDController.setI(0);
+    climberRightPIDController.setD(0);
+    climberRightPIDController.setIZone(0);
+    climberRightPIDController.setFF(0);
+  }
+
+  public void enableLeftPIDController(){
+    climberLeftPIDController.setP(Constants.CLIMBER_P);
+    climberLeftPIDController.setI(Constants.CLIMBER_I);
+    climberLeftPIDController.setD(Constants.CLIMBER_D);
+    climberLeftPIDController.setIZone(Constants.CLIMBER_IZONE);
+    climberLeftPIDController.setFF(Constants.CLIMBER_FF);
+  }
+
+  public void disableLeftPIDController(){
+    climberLeftPIDController.setP(0);
+    climberLeftPIDController.setI(0);
+    climberLeftPIDController.setD(0);
+    climberLeftPIDController.setIZone(0);
+    climberLeftPIDController.setFF(0);
   }
   
   public static Climber getInstance(){
@@ -80,54 +109,132 @@ public class Climber extends SubsystemBase {
     return climber;
   }
 
-  public boolean armSensorState(){
-    return !armSensor.get();  
+  public boolean rightArmSensorState(){
+    return !rightArmSensor.get();  
   }
 
-  public void moveToPosition(double encoderPosition){
-
-    climberSetpoint = encoderPosition;
-    climberPIDController.setReference(climberSetpoint, ControlType.kPosition);
+  public boolean leftArmSensorState(){
+    return !leftArmSensor.get();  
   }
 
-  public void run(double speed) {
+  public void moveRightArmToPosition(double encoderPosition){
+    climberRightSetpoint = encoderPosition;
+    climberRightPIDController.setReference(climberRightSetpoint, ControlType.kPosition);
+  }
+
+  public void moveLeftArmToPosition(double encoderPosition){
+    climberLeftSetpoint = encoderPosition;
+    climberLeftPIDController.setReference(climberLeftSetpoint, ControlType.kPosition);
+  }
+
+  public void moveBothArmsToPosition(double encoderPosition){
+    moveRightArmToPosition(encoderPosition);
+    moveLeftArmToPosition(encoderPosition);
+  }
+
+  public void setRightArmMotorSpeed(double speed) {
     if(speed < 0){
-      armMotor1.set(speed);
+      rightArmMotorPrimary.set(speed);
     }
     else{
-      if(!armSensorState()){
-        armMotor1.set(speed);
+      if(!rightArmSensorState()){
+        rightArmMotorPrimary.set(speed);
       }
-      else armMotor1.set(0);
+      else rightArmMotorPrimary.set(0);
     }
   }
 
-  public double getEncoderPosition(){
-    return armMotor1.getEncoder().getPosition();
+  public void setLeftArmMotorSpeed(double speed) {
+    if(speed < 0){
+      leftArmMotorPrimary.set(speed);
+    }
+    else{
+      if(!leftArmSensorState()){
+        leftArmMotorPrimary.set(speed);
+      }
+      else leftArmMotorPrimary.set(0);
+    }
   }
 
-  public void setEncoderPosition(double position){
-    armMotor1.getEncoder().setPosition(position);
+  public void setBothArmsMotorSpeed(double speed){
+    setRightArmMotorSpeed(speed);
+    setLeftArmMotorSpeed(speed);
   }
 
-  public void setBrakeMode() {
-    armMotor1.setIdleMode(IdleMode.kBrake);
-    armMotor2.setIdleMode(IdleMode.kBrake);
+  public double getRightArmEncoderPosition(){
+    return rightArmMotorPrimary.getEncoder().getPosition();
   }
 
-  public void setCoastMode() {
-    armMotor1.setIdleMode(IdleMode.kCoast);
-    armMotor2.setIdleMode(IdleMode.kCoast);
+  public void setRightArmEncoderPosition(double position){
+    rightArmMotorPrimary.getEncoder().setPosition(position);
   }
 
-  public void setClimberSolenoidBrake(boolean solenoidState) {
-    armBrake.set(solenoidState);
+  public double getLeftArmEncoderPosition(){
+    return leftArmMotorPrimary.getEncoder().getPosition();
   }
 
-  public boolean getClimberSolenoidBrake() {
-    return armBrake.get();
+  public void setLeftArmEncoderPosition(double position){
+    leftArmMotorPrimary.getEncoder().setPosition(position);
   }
 
+  public void setBothArmsEncoderPosition(double position){
+    setRightArmEncoderPosition(position);
+    setLeftArmEncoderPosition(position);
+  }
+
+  public void setBrakeMode(){
+    setRightArmBrakeMode();
+    setLeftArmBrakeMode();
+  }
+
+  public void setCoastMode(){
+    setRightArmCoastMode();
+    setLeftArmCoastMode();
+  }
+
+  public void setRightArmBrakeMode() {
+    rightArmMotorPrimary.setIdleMode(IdleMode.kBrake);
+    rightArmMotorSecondary.setIdleMode(IdleMode.kBrake);
+  }
+
+  public void setRightArmCoastMode() {
+    rightArmMotorPrimary.setIdleMode(IdleMode.kCoast);
+    rightArmMotorSecondary.setIdleMode(IdleMode.kCoast);
+  }
+
+  public void setLeftArmBrakeMode() {
+    leftArmMotorPrimary.setIdleMode(IdleMode.kBrake);
+    leftArmMotorSecondary.setIdleMode(IdleMode.kBrake);
+  }
+
+  public void setLeftArmCoastMode() {
+    leftArmMotorPrimary.setIdleMode(IdleMode.kCoast);
+    leftArmMotorSecondary.setIdleMode(IdleMode.kCoast);
+  }
+
+  public void setRightArmSolenoidBrake(boolean solenoidState) {
+    rightArmBrake.set(solenoidState);
+  }
+
+  public void setLeftArmSolenoidBrake(boolean solenoidState) {
+    leftArmBrake.set(solenoidState);
+  }
+
+  public boolean getRightArmSolenoidBrake() {
+    return rightArmBrake.get();
+  }
+
+  public boolean getLeftArmSolenoidBrake() {
+    return leftArmBrake.get();
+  }
+
+  public void setThirdArmExtender(boolean state){
+    thirdArmExtender.set(state);
+  }
+
+  public boolean getThirdArmExtender(){
+    return thirdArmExtender.get();
+  }
 
   @Override
   public void periodic() {
@@ -136,59 +243,45 @@ public class Climber extends SubsystemBase {
     }
   }
 
-  public double getarmMotor1Velocity(){
-    return armMotor1.get();
+  public double getRightArmPrimaryMotorVelocity(){
+    return rightArmMotorPrimary.get();
   }
   
-  public double getarmMotor2Velocity(){
-    return armMotor2.get();
+  public double getRightArmSecondaryMotorVelocity(){
+    return rightArmMotorSecondary.get();
   }
 
-  public double getarmMotor1Current(){
-    return armMotor1.getOutputCurrent();
+  public double getRightArmPrimaryMotorCurrent(){
+    return rightArmMotorPrimary.getOutputCurrent();
   }
   
-  public double getarmMotor2Current(){
-    return armMotor2.getOutputCurrent();
+  public double getRightArmSecondaryMotorCurrent(){
+    return rightArmMotorSecondary.getOutputCurrent();
   }
 
-  public double getarmMotor1Temperature(){
-    return armMotor1.getMotorTemperature();
+  public double getRightArmPrimaryMotorTemperature(){
+    return rightArmMotorPrimary.getMotorTemperature();
   }
   
-  public double getarmMotor2Temperature(){
-    return armMotor2.getMotorTemperature();
+  public double getRightArmSecondaryMotorTemperature(){
+    return rightArmMotorSecondary.getMotorTemperature();
   }
 
-  public double getarmMotor1EncoderVelocity(){
-    return armMotor1.getEncoder().getVelocity();
+  public double getRightArmPrimaryMotorEncoderVelocity(){
+    return rightArmMotorPrimary.getEncoder().getVelocity();
   }
 
-  public double getarmMotor1EncoderPosition(){
-    return armMotor1.getEncoder().getPosition();
-  }
-
-  public boolean sensesArm(){
-    if(armSensorState()){
-      if (armMotor1.getOutputCurrent() > 60 && !reboundFromCurrentSpike){
-        setEncoderPosition(0);
-        moveToPosition(-15);
-        reboundFromCurrentSpike = true;
-      }
-      
-      if(armSensorState() && !reboundFromCurrentSpike){
-        setEncoderPosition(0);
-      }
-    }
-    return armSensor.get();
+  public double getRightArmPrimaryMotorEncoderPosition(){
+    return rightArmMotorPrimary.getEncoder().getPosition();
   }
 
   public void putSmartDashboardOverrides(){  
 
-    SmartDashboard.putBoolean("OR: Climber set brake ", false);
+    SmartDashboard.putBoolean("OR: Climber right brake", false);
+    SmartDashboard.putBoolean("OR: Climber left brake", false);
 
-    SmartDashboard.putNumber("OR: Climber power", 0);
-    SmartDashboard.putNumber("OR: Climber coast", 0);
+    SmartDashboard.putNumber("OR: Climber (right) power", 0);
+    SmartDashboard.putNumber("OR: Climber (left) power", 0);
 
     SmartDashboard.putNumber("OR: P climber", Constants.CLIMBER_P);
     SmartDashboard.putNumber("OR: I climber", Constants.CLIMBER_I);
@@ -196,54 +289,76 @@ public class Climber extends SubsystemBase {
     SmartDashboard.putNumber("OR: I zone climber", Constants.CLIMBER_IZONE);
     SmartDashboard.putNumber("OR: FF climber", Constants.CLIMBER_FF);
 
-    if(climber.getEncoderPosition() <= 0){
-      SmartDashboard.putNumber("OR: Climber setpoint", climber.getEncoderPosition());
+    if(climber.getRightArmEncoderPosition() <= 0){
+      SmartDashboard.putNumber("OR: Climber (right) setpoint", climber.getRightArmEncoderPosition());
     }
     else{
-      SmartDashboard.putNumber("OR: Climber setpoint", 0.0);
+      SmartDashboard.putNumber("OR: Climber (right) setpoint", 0.0);
     }
+
+    if(climber.getLeftArmEncoderPosition() <= 0){
+      SmartDashboard.putNumber("OR: Climber (left) setpoint", climber.getLeftArmEncoderPosition());
+    }
+    else{
+      SmartDashboard.putNumber("OR: Climber (left) setpoint", 0.0);
+    }
+
   }
 
   public void updateClimberInfoOnDashboard(){
-    SmartDashboard.putBoolean("Climber sensor state", climber.armSensorState());
-    SmartDashboard.putNumber("Climber encoder", climber.getEncoderPosition());
-    SmartDashboard.putNumber("Climber current primary", climber.getPrimaryCurrent());
-    SmartDashboard.putNumber("Climber current secondary", climber.getSecondaryCurrent());
-    SmartDashboard.putBoolean("OR: Climber brake state", climber.getClimberSolenoidBrake());
+    SmartDashboard.putBoolean("Climber (left) sensor", climber.leftArmSensorState());
+    SmartDashboard.putBoolean("Climber (right) sensor", climber.rightArmSensorState());
+    SmartDashboard.putNumber("Climber (left) encoder", climber.getLeftArmEncoderPosition());
+    SmartDashboard.putNumber("Climber (right) encoder", climber.getRightArmEncoderPosition());
+    SmartDashboard.putBoolean("Climber (left) brake", climber.getLeftArmSolenoidBrake());
+    SmartDashboard.putBoolean("Climber (right) brake", climber.getRightArmSolenoidBrake());
   }
 
-  public double getPrimaryCurrent(){
-    return armMotor1.getOutputCurrent();
+  public void updateLeftClimberPIDFromDashboard(){
+    climberLeftPIDController.setP(SmartDashboard.getNumber("OR: P climber", kP));
+    climberLeftPIDController.setI(SmartDashboard.getNumber("OR: I climber", kI));
+    climberLeftPIDController.setD(SmartDashboard.getNumber("OR: D climber", kD));
+    climberLeftPIDController.setIZone(SmartDashboard.getNumber("OR: I zone climber", kIz));
+    climberLeftPIDController.setFF(SmartDashboard.getNumber("OR: FF climber", kFF));
+    
   }
 
-  public double getSecondaryCurrent(){
-    return armMotor2.getOutputCurrent();
+  public void updateRightClimberPIDFromDashboard(){
+    climberRightPIDController.setP(SmartDashboard.getNumber("OR: P climber", kP));
+    climberRightPIDController.setI(SmartDashboard.getNumber("OR: I climber", kI));
+    climberRightPIDController.setD(SmartDashboard.getNumber("OR: D climber", kD));
+    climberRightPIDController.setIZone(SmartDashboard.getNumber("OR: I zone climber", kIz));
+    climberRightPIDController.setFF(SmartDashboard.getNumber("OR: FF climber", kFF));
+    
   }
 
   public void updateClimberFromDashboard() {
-    if(SmartDashboard.getBoolean("OR: Climber coast", false)){
-      climber.setCoastMode();
-    }
-    else{
-      climber.setBrakeMode();
-    }
+    updateLeftClimberPIDFromDashboard();
+    updateRightClimberPIDFromDashboard();
     
-    climberPIDController.setP(SmartDashboard.getNumber("OR: P climber", kP));
-    climberPIDController.setI(SmartDashboard.getNumber("OR: I climber", kI));
-    climberPIDController.setD(SmartDashboard.getNumber("OR: D climber", kD));
-    climberPIDController.setIZone(SmartDashboard.getNumber("OR: I zone climber", kIz));
-    climberPIDController.setFF(SmartDashboard.getNumber("OR: FF climber", kFF));
-    
-    climber.setClimberSolenoidBrake(SmartDashboard.getBoolean("OR: Climber set brake ", false));
+    climber.setLeftArmSolenoidBrake(SmartDashboard.getBoolean("OR: Climber (left) brake", false));
+    climber.setRightArmSolenoidBrake(SmartDashboard.getBoolean("OR: Climber (right) brake", false));
 
-    if(armSensorState()){
-      setEncoderPosition(0);
+    if(rightArmSensorState()){
+      setRightArmEncoderPosition(0);
     }
-    if(SmartDashboard.getNumber("OR: Climber setpoint", 0.0) > 0){
-      moveToPosition(SmartDashboard.getNumber("OR: Climber setpoint", 0.0));
+
+    if(leftArmSensorState()){
+      setLeftArmEncoderPosition(0);
+    }
+
+    if(SmartDashboard.getNumber("OR: Climber (right) setpoint", 0.0) > 0){
+      moveRightArmToPosition(SmartDashboard.getNumber("OR: Climber (right) setpoint", 0.0));
     }
     else{
-      climber.run(SmartDashboard.getNumber("OR: Climber power",0));
+      climber.setRightArmMotorSpeed(SmartDashboard.getNumber("OR: Climber (right) power",0));
+    }
+
+    if(SmartDashboard.getNumber("OR: Climber (left) setpoint", 0.0) > 0){
+      moveLeftArmToPosition(SmartDashboard.getNumber("OR: Climber (left) setpoint", 0.0));
+    }
+    else{
+      climber.setLeftArmMotorSpeed(SmartDashboard.getNumber("OR: Climber (left) power",0));
     }
     
   }

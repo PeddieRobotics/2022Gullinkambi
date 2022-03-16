@@ -14,7 +14,8 @@ import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.ClimbCommands.InitializeArm;
+import frc.robot.commands.ClimbCommands.InitializeBothArms;
+import frc.robot.commands.ClimbCommands.InitializeRightArm;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.Limelight;
@@ -66,6 +67,7 @@ public class Robot extends LoggedRobotCustom {
     driverCamera.setExposureAuto();
     driverCamera.setFPS(10);
     driverCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+    driverCamera.setResolution(1280, 720);
   }
 
   /**
@@ -129,7 +131,6 @@ public class Robot extends LoggedRobotCustom {
 
   @Override
   public void teleopInit() {
-    // robotContainer.resetGyro();
     robotContainer.setDrivetrainToCoastMode();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
@@ -138,8 +139,7 @@ public class Robot extends LoggedRobotCustom {
     if (autonomousCommand != null) {
       autonomousCommand.cancel();
     }
-    // lights.on();
-    CommandScheduler.getInstance().schedule(new InitializeArm());
+    CommandScheduler.getInstance().schedule(new InitializeBothArms());
   }
 
   /** This function is called periodically during operator control. */

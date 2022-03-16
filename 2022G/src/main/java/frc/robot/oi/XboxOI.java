@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.ClimbCommands.ExtendArm;
-import frc.robot.commands.ClimbCommands.InitializeArm;
-import frc.robot.commands.ClimbCommands.RetractArm;
+import frc.robot.commands.ClimbCommands.ExtendRightArm;
+import frc.robot.commands.ClimbCommands.InitializeRightArm;
+import frc.robot.commands.ClimbCommands.RetractRightArm;
 import frc.robot.commands.IntakeCommands.RunIntake;
 import frc.robot.commands.IntakeCommands.RunIntakeEndImmediately;
 import frc.robot.commands.IntakeCommands.StopIntake;
@@ -53,8 +53,8 @@ public class XboxOI {
             new JoystickButton(xboxController, ControllerMap.XBOX_Y).whenHeld(new ShootLow()); // XBOX_Y
             new JoystickButton(xboxController, ControllerMap.XBOX_X).whenPressed(new UnjamIntake(true).andThen(new WaitCommand(0.25)).andThen(new RunIntakeEndImmediately())); // XBOX_X
             new JoystickButton(xboxController, ControllerMap.XBOX_A).whenHeld(new UnjamIntake(false)).whenReleased(new RunIntake()); // XBOX_A
-            new JoystickButton(xboxController, ControllerMap.XBOX_B).whenPressed(new InitializeArm()); // XBOX_B
-            new JoystickButton(xboxController, ControllerMap.XBOX_RB).toggleWhenPressed(new ConditionalCommand(new InstantCommand(drivetrain::setToCoastMode, drivetrain), new InstantCommand(drivetrain::setToBrakeMode, drivetrain), drivetrain::isBrakeMode)); //XBOX_RB
+            new JoystickButton(xboxController, ControllerMap.XBOX_B).whenPressed(new InitializeRightArm()); // XBOX_B
+            //new JoystickButton(xboxController, ControllerMap.XBOX_RB).toggleWhenPressed(new ConditionalCommand(new InstantCommand(drivetrain::setToCoastMode, drivetrain), new InstantCommand(drivetrain::setToBrakeMode, drivetrain), drivetrain::isBrakeMode)); //XBOX_RB
 
         } else if (Constants.OI_CONFIG == OIConfig.XBOX_TEST) {
             xboxController = new Joystick(ControllerMap.XBOX_DRIVER_PORT);
@@ -68,7 +68,7 @@ public class XboxOI {
 
             new JoystickButton(xboxController, ControllerMap.XBOX_A).whenHeld(new ShootWithLL(false)); // XBOX_A
 
-            new JoystickButton(xboxController, ControllerMap.XBOX_X).whenHeld(new ExtendArm()).whenReleased(new RetractArm()); // XBOX_X
+            new JoystickButton(xboxController, ControllerMap.XBOX_X).whenHeld(new ExtendRightArm()).whenReleased(new RetractRightArm()); // XBOX_X
 
         }
     }
