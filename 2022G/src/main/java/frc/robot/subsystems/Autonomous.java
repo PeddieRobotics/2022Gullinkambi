@@ -152,9 +152,9 @@ public class Autonomous extends SubsystemBase {
               m_drivetrain::getPose,
               ramseteController,
               new SimpleMotorFeedforward(
-                0.15892*0.8,
-                3.1252*0.8,
-                0.3818*0.8),
+                0.15892,
+                3.1252,
+                0.3818),
             new SimpleMotorFeedforward(
                 0.15892,
                 3.1252,
