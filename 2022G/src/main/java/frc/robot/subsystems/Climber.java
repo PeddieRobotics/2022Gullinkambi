@@ -280,6 +280,8 @@ public class Climber extends SubsystemBase {
     SmartDashboard.putBoolean("OR: Climber right brake", false);
     SmartDashboard.putBoolean("OR: Climber left brake", false);
 
+    SmartDashboard.putBoolean("OR: Climber third arm", false);
+
     SmartDashboard.putNumber("OR: Climber (right) power", 0);
     SmartDashboard.putNumber("OR: Climber (left) power", 0);
 
@@ -312,6 +314,7 @@ public class Climber extends SubsystemBase {
     SmartDashboard.putNumber("Climber (right) encoder", climber.getRightArmEncoderPosition());
     SmartDashboard.putBoolean("Climber (left) brake", climber.getLeftArmSolenoidBrake());
     SmartDashboard.putBoolean("Climber (right) brake", climber.getRightArmSolenoidBrake());
+    SmartDashboard.putBoolean("Climber third arm", climber.getThirdArmExtender());
   }
 
   public void updateLeftClimberPIDFromDashboard(){
@@ -338,6 +341,7 @@ public class Climber extends SubsystemBase {
     
     climber.setLeftArmSolenoidBrake(SmartDashboard.getBoolean("OR: Climber (left) brake", false));
     climber.setRightArmSolenoidBrake(SmartDashboard.getBoolean("OR: Climber (right) brake", false));
+    climber.setThirdArmExtender(SmartDashboard.getBoolean("OR: Climber third arm", false));
 
     if(rightArmSensorState()){
       setRightArmEncoderPosition(0);
