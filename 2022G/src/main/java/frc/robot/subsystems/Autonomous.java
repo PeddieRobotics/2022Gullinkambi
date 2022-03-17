@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
@@ -15,8 +17,11 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.math.trajectory.TrajectoryUtil;
 import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -49,6 +54,9 @@ public class Autonomous extends SubsystemBase {
     private Trajectory threeBallRight_LL_1, threeBallRight_LL_2, threeBallRight_Layup_1, threeBallRight_Layup_2;
     private Trajectory fourBallRight_1, fourBallRight_2, fourBallLeft_1, fourBallLeft_2, fourBallLeft_3;
     private Trajectory fiveBallRight_1, fiveBallRight_2, fiveBallRight_3, fiveBallRight_4, fiveBallRight_v2_1, fiveBallRight_v2_2, fiveBallRight_v2_3, fiveBallRight_v2_4;
+
+    // Path weaver trajectories
+    private Trajectory straightLine;
 
     public Autonomous() {
         autoRoutines = new Hashtable<String,Command>();
@@ -90,6 +98,8 @@ public class Autonomous extends SubsystemBase {
 
         autoRoutines.put("S Path Manual", new SequentialCommandGroup(new ResetOdometry(sPath_manual.getInitialPose()), createCommandFromTrajectory(sPath_manual)));
 
+        autoRoutines.put("Straight Line", new SequentialCommandGroup(new ResetOdometry(straightLine.getInitialPose()), createCommandFromTrajectory(sPath_manual)));
+        
         autoRoutines.put("CMD Group: 2 Ball (longer)", new TwoBallLonger(twoBallLeftUpShoot.getInitialPose(), createCommandFromTrajectory(twoBallLeftUpShoot)));
         autoRoutines.put("CMD Group: 2 Ball (shorter)", new TwoBallShorter(twoBallRightDownShoot.getInitialPose(), createCommandFromTrajectory(twoBallRightDownShoot)));
         autoRoutines.put("CMD Group: 2 Ball Left Rude", new TwoBallLeftRude(twoBallLeftRude_1.getInitialPose(), createCommandFromTrajectory(twoBallLeftRude_1), createCommandFromTrajectory(twoBallLeftRude_2)));
@@ -152,6 +162,9 @@ public class Autonomous extends SubsystemBase {
                 // Pass config
                 config);
 
+
+        straightLine = loadPathWeaverJSON("output/StraightLine1.wpilib.json");
+
         twoBallLeftUpShoot = PathPlanner.loadPath("2BallLeftUpShoot", Constants.kMaxSpeedMetersPerSecond*0.5, Constants.kMaxAccelerationMetersPerSecondSquared*0.5);
         twoBallRightDownShoot = PathPlanner.loadPath("2BallRightDownShoot", Constants.kMaxSpeedMetersPerSecond*0.5, Constants.kMaxAccelerationMetersPerSecondSquared*0.5);
 
@@ -183,6 +196,17 @@ public class Autonomous extends SubsystemBase {
 
     }
  
+    private Trajectory loadPathWeaverJSON(String trajectoryJSON) {
+        Trajectory trajectory = null;
+        try {
+            Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
+            trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+            } catch (IOException ex) {
+            DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
+            }
+        return trajectory;
+    }
+
     public RamseteCommand createCommandFromTrajectory(Trajectory trajectory){
         var ramseteController = new RamseteController();
         //ramseteController.setEnabled(false);
