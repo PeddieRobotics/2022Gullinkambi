@@ -49,14 +49,11 @@ public class Autonomous extends SubsystemBase {
     private SendableChooser<Command> autoRoutineSelector;
     private Hashtable<String,Command> autoRoutines;
 
-    private Trajectory sanityCheck, pathVerification, pathVerification_2, pathVerification_3, pathVerification_4, pathVerification_5, pathVerification_6, sPath_manual;
+    private Trajectory sanityCheck, pathVerification, pathVerification_2, pathVerification_3, pathVerification_4, pathVerification_5, pathVerification_6, straightLine_PW, lPath_manual, lPath_PW, lollipopRight_PW;
     private Trajectory twoBallLeftUpShoot, twoBallRightDownShoot, twoBallLeftRude_1, twoBallLeftRude_2;
     private Trajectory threeBallRight_LL_1, threeBallRight_LL_2, threeBallRight_Layup_1, threeBallRight_Layup_2;
     private Trajectory fourBallRight_1, fourBallRight_2, fourBallLeft_1, fourBallLeft_2, fourBallLeft_3;
     private Trajectory fiveBallRight_1, fiveBallRight_2, fiveBallRight_3, fiveBallRight_4, fiveBallRight_v2_1, fiveBallRight_v2_2, fiveBallRight_v2_3, fiveBallRight_v2_4;
-
-    // Path weaver trajectories
-    private Trajectory straightLine;
 
     public Autonomous() {
         autoRoutines = new Hashtable<String,Command>();
@@ -96,10 +93,12 @@ public class Autonomous extends SubsystemBase {
         autoRoutines.put("Path Verification 5", new SequentialCommandGroup(new ResetOdometry(pathVerification_5.getInitialPose()), createCommandFromTrajectory(pathVerification_5)));
         autoRoutines.put("Path Verification 6", new SequentialCommandGroup(new ResetOdometry(pathVerification_6.getInitialPose()), createCommandFromTrajectory(pathVerification_6)));
 
-        autoRoutines.put("S Path Manual", new SequentialCommandGroup(new ResetOdometry(sPath_manual.getInitialPose()), createCommandFromTrajectory(sPath_manual)));
+        autoRoutines.put("L Path Manual", new SequentialCommandGroup(new ResetOdometry(lPath_manual.getInitialPose()), createCommandFromTrajectory(lPath_manual)));
 
-        autoRoutines.put("Straight Line", new SequentialCommandGroup(new ResetOdometry(straightLine.getInitialPose()), createCommandFromTrajectory(sPath_manual)));
-        
+        autoRoutines.put("Straight Line (PW)", new SequentialCommandGroup(new ResetOdometry(straightLine_PW.getInitialPose()), createCommandFromTrajectory(straightLine_PW)));
+        autoRoutines.put("L Path (PW)", new SequentialCommandGroup(new ResetOdometry(lPath_PW.getInitialPose()), createCommandFromTrajectory(lPath_PW)));
+        autoRoutines.put("Lollipop Right (PW)", new SequentialCommandGroup(new ResetOdometry(lollipopRight_PW.getInitialPose()), createCommandFromTrajectory(lollipopRight_PW)));
+
         autoRoutines.put("CMD Group: 2 Ball (longer)", new TwoBallLonger(twoBallLeftUpShoot.getInitialPose(), createCommandFromTrajectory(twoBallLeftUpShoot)));
         autoRoutines.put("CMD Group: 2 Ball (shorter)", new TwoBallShorter(twoBallRightDownShoot.getInitialPose(), createCommandFromTrajectory(twoBallRightDownShoot)));
         autoRoutines.put("CMD Group: 2 Ball Left Rude", new TwoBallLeftRude(twoBallLeftRude_1.getInitialPose(), createCommandFromTrajectory(twoBallLeftRude_1), createCommandFromTrajectory(twoBallLeftRude_2)));
@@ -151,7 +150,7 @@ public class Autonomous extends SubsystemBase {
                 .addConstraint(autoVoltageConstraint);
 
         // An example trajectory to follow.  All units in meters.
-        sPath_manual =
+        lPath_manual =
             TrajectoryGenerator.generateTrajectory(
                 // Start at the origin facing the +X direction
                 new Pose2d(0, 0, new Rotation2d(0)),
@@ -162,8 +161,9 @@ public class Autonomous extends SubsystemBase {
                 // Pass config
                 config);
 
-
-        straightLine = loadPathWeaverJSON("output/StraightLine1.wpilib.json");
+        straightLine_PW = loadPathWeaverJSON("output/StraightLine1.wpilib.json");
+        lPath_PW = loadPathWeaverJSON("output/LPath1.wpilib.json");
+        lollipopRight_PW = loadPathWeaverJSON("output/LollipopRight1.wpilib.json");
 
         twoBallLeftUpShoot = PathPlanner.loadPath("2BallLeftUpShoot", Constants.kMaxSpeedMetersPerSecond*0.5, Constants.kMaxAccelerationMetersPerSecondSquared*0.5);
         twoBallRightDownShoot = PathPlanner.loadPath("2BallRightDownShoot", Constants.kMaxSpeedMetersPerSecond*0.5, Constants.kMaxAccelerationMetersPerSecondSquared*0.5);
@@ -209,7 +209,7 @@ public class Autonomous extends SubsystemBase {
 
     public RamseteCommand createCommandFromTrajectory(Trajectory trajectory){
         var ramseteController = new RamseteController();
-        //ramseteController.setEnabled(false);
+        ramseteController.setEnabled(false);
         var table = NetworkTableInstance.getDefault().getTable("troubleshooting");
         var leftReference = table.getEntry("left_reference");
         var leftMeasurement = table.getEntry("left_measurement");

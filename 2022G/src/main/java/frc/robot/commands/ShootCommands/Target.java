@@ -63,7 +63,7 @@ public class Target extends CommandBase {
      else{
        steering_adjust = 0;
      }  
-      drivetrain.arcadeDrive(0, steering_adjust);
+      drivetrain.arcadeDrive(0, -steering_adjust);
   }
 
   @Override
