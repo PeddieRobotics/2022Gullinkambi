@@ -101,7 +101,7 @@ public final class Constants {
 
   public static final double DRIVE_GEAR_RATIO = 7.6388888;
   public static final double CONVERT_INCHES_TO_METERS = 0.0254;
-  public static final double DRIVE_WHEEL_DIAMETER = 4.0 * Constants.CONVERT_INCHES_TO_METERS;
+  public static final double DRIVE_WHEEL_DIAMETER = 3.95 * Constants.CONVERT_INCHES_TO_METERS;
 
   public static final double DRIVE_ENC_ROT_TO_DIST = (1 / Constants.DRIVE_GEAR_RATIO)
       * Math.PI
@@ -109,18 +109,22 @@ public final class Constants {
   // meters)
 
     // Autonomous constants
-    public static final double ksVolts = 0.15893;
-    public static final double kvVoltSecondsPerMeter = 3.1138;
-    public static final double kaVoltSecondsSquaredPerMeter = 0.3875;
+    public static final double ksVoltsLeft = 0.25893;
+    public static final double kvVoltSecondsPerMeterLeft = 3.0538/2.0;
+    public static final double kaVoltSecondsSquaredPerMeterLeft = 0.24;
 
-    public static final double kPDriveVel = 0.03125; //0.03125; //1.4228E-05; //0.00020646; // 0.03125;
+    public static final double ksVoltsRight = 0.25893;
+    public static final double kvVoltSecondsPerMeterRight = 3.0538/2.0;
+    public static final double kaVoltSecondsSquaredPerMeterRight = 0.24;
+
+    public static final double kPDriveVel = 0.5; //0.0013735; // 0.03125; //0.03125; //1.4228E-05; //0.00020646; // 0.03125;
     
     public static final double kTrackwidthMeters = 0.72791; /* True calculations: 0.653*/
     public static final DifferentialDriveKinematics kDriveKinematics =
         new DifferentialDriveKinematics(kTrackwidthMeters);
 
-    public static final double kMaxSpeedMetersPerSecond = 1.0;
-    public static final double kMaxAccelerationMetersPerSecondSquared = 1.0;
+    public static final double kMaxSpeedMetersPerSecond = 1.5;
+    public static final double kMaxAccelerationMetersPerSecondSquared = 1;
 
     // Reasonable baseline values for a RAMSETE follower in units of meters and seconds
     public static final double kRamseteB = 2;

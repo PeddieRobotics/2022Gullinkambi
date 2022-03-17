@@ -54,7 +54,6 @@ public class XboxOI {
             new JoystickButton(xboxController, ControllerMap.XBOX_X).whenPressed(new UnjamIntake(true).andThen(new WaitCommand(0.25)).andThen(new RunIntakeEndImmediately())); // XBOX_X
             new JoystickButton(xboxController, ControllerMap.XBOX_A).whenHeld(new UnjamIntake(false)).whenReleased(new RunIntake()); // XBOX_A
             new JoystickButton(xboxController, ControllerMap.XBOX_B).whenPressed(new InitializeArm()); // XBOX_B
-            new JoystickButton(xboxController, ControllerMap.XBOX_RB).toggleWhenPressed(new ConditionalCommand(new InstantCommand(drivetrain::setToCoastMode, drivetrain), new InstantCommand(drivetrain::setToBrakeMode, drivetrain), drivetrain::isBrakeMode)); //XBOX_RB
 
         } else if (Constants.OI_CONFIG == OIConfig.XBOX_TEST) {
             xboxController = new Joystick(ControllerMap.XBOX_DRIVER_PORT);
