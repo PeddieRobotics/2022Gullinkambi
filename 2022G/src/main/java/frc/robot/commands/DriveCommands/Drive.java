@@ -51,20 +51,20 @@ public class Drive extends CommandBase {
             // for now this is just the same stuff as joysticks, so it needs to change to
             // something
             speedInput = joystickOI.getSpeed();
-            turnInput = -joystickOI.getTurn();
+            turnInput = joystickOI.getTurn();
             reverse = drivetrain.isInverseMode();
             brakeMode = drivetrain.isBrakeMode();
 
         } else if (Constants.OI_CONFIG == OIConfig.XBOX_TEST) { // xbox
 
             speedInput = xboxOI.getSpeed();
-            turnInput = -xboxOI.getTurn();
+            turnInput = xboxOI.getTurn();
             reverse = drivetrain.isInverseMode();
 
         } else if (Constants.OI_CONFIG == OIConfig.JOYSTICK_TEST) { // joystick
 
             speedInput = joystickOI.getSpeed();
-            turnInput = -joystickOI.getTurn();
+            turnInput = joystickOI.getTurn();
             reverse = drivetrain.isInverseMode();
 
         }

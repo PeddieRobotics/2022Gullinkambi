@@ -5,11 +5,14 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
@@ -46,6 +49,10 @@ public class Drivetrain extends SubsystemBase {
 
   private final RelativeEncoder leftEncoder, rightEncoder;
 
+  private SparkMaxPIDController leftDrivePIDController, rightDrivePIDController;
+
+  private SimpleMotorFeedforward driveFF;
+
   private PIDController turnToAnglePIDController;
 
   //Logging
@@ -79,13 +86,12 @@ public class Drivetrain extends SubsystemBase {
     rightEncoder = rightMaster.getEncoder();
     resetEncoders();
 
-
     drive = new DifferentialDrive(leftMotors, rightMotors);
     drive.setDeadband(Constants.DRIVING_DEADBANDS);
     drive.setSafetyEnabled(false);
 
-    leftMaster.setInverted(true);
-    rightMaster.setInverted(false);
+    leftMaster.setInverted(false);
+    rightMaster.setInverted(true);
 
     gyro = new ADIS16470_IMU();
 
@@ -97,6 +103,15 @@ public class Drivetrain extends SubsystemBase {
     brakeMode = false;
 
     lockedOnTarget = false;
+
+    leftDrivePIDController = leftMaster.getPIDController();
+    leftDrivePIDController.setP(Constants.kPDriveVel);
+    rightDrivePIDController = rightMaster.getPIDController();
+    rightDrivePIDController.setP(Constants.kPDriveVel);
+
+    driveFF = new SimpleMotorFeedforward(Constants.ksVolts,
+    Constants.kvVoltSecondsPerMeter,
+    Constants.kaVoltSecondsSquaredPerMeter);
 
     turnToAnglePIDController = new PIDController(Constants.kTurnToAngleP, Constants.kTurnToAngleI, Constants.kTurnToAngleD);
     // Set the controller to be continuous (because it is an angle controller)
@@ -387,6 +402,24 @@ public class Drivetrain extends SubsystemBase {
 
   public void setLockedOnTarget(boolean lockedOn){
     lockedOnTarget = lockedOn;
+  }
+
+  public void updateDrivePIDControllers(double leftWheelSpeed, double rightWheelSpeed) {
+    leftDrivePIDController.setReference(leftWheelSpeed, CANSparkMax.ControlType.kVelocity, 0, driveFF.calculate(leftWheelSpeed));
+    rightDrivePIDController.setReference(rightWheelSpeed, CANSparkMax.ControlType.kVelocity, 1, driveFF.calculate(rightWheelSpeed));
+    drive.feed();
+  }
+
+  public SparkMaxPIDController getLeftDrivePIDController() {
+      return leftDrivePIDController;
+  }
+
+  public SparkMaxPIDController getRightDrivePIDController() {
+      return rightDrivePIDController;
+  }
+
+  public SimpleMotorFeedforward getDriveFF(){
+    return driveFF;
   }
 
 }

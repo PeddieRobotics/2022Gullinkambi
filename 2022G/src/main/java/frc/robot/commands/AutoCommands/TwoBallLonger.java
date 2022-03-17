@@ -10,7 +10,7 @@ import frc.robot.commands.ShootCommands.SetFlywheelRPM;
 import frc.robot.utils.Constants;
 
 public class TwoBallLonger extends  SequentialCommandGroup{
-    public TwoBallLonger(Pose2d initialPose, SplitFFRamseteCommand part1){
+    public TwoBallLonger(Pose2d initialPose, RamseteCommand part1){
         addCommands(
             new ResetOdometry(initialPose),
             new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),

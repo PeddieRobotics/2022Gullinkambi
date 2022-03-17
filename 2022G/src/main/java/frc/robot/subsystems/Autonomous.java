@@ -14,6 +14,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.AutoCommands.FiveBallPathRight;
@@ -134,46 +135,32 @@ public class Autonomous extends SubsystemBase {
 
     }
  
-    public SplitFFRamseteCommand createCommandFromTrajectory(Trajectory trajectory){
+    public RamseteCommand createCommandFromTrajectory(Trajectory trajectory){
         var ramseteController = new RamseteController();
         //ramseteController.setEnabled(false);
-        var leftController = new PIDController(Constants.kPDriveVel, 0.000001, 0);
-        var rightController = new PIDController(Constants.kPDriveVel, 0, 0);
         var table = NetworkTableInstance.getDefault().getTable("troubleshooting");
         var leftReference = table.getEntry("left_reference");
         var leftMeasurement = table.getEntry("left_measurement");
 
         var rightReference = table.getEntry("right_reference");
         var rightMeasurement = table.getEntry("right_measurement");
+        
+        RamseteCommand autoCommand = 
+            new RamseteCommand(trajectory,
+                                m_drivetrain::getPose,
+                                ramseteController,
+                                Constants.kDriveKinematics,
+                                (leftWheelSpeed, rightWheelSpeed) -> {
+                                m_drivetrain.updateDrivePIDControllers(leftWheelSpeed.doubleValue(), rightWheelSpeed.doubleValue()); 
+                                leftMeasurement.setNumber(m_drivetrain.getWheelSpeeds().leftMetersPerSecond);
+                                leftReference.setNumber(leftWheelSpeed.doubleValue());
+              
+                                rightMeasurement.setNumber(-m_drivetrain.getWheelSpeeds().rightMetersPerSecond);
+                                rightReference.setNumber(rightWheelSpeed.doubleValue());       
+                                },
+                                m_drivetrain);
 
-        SplitFFRamseteCommand autoCommand  =
-          new SplitFFRamseteCommand(
-              trajectory,
-              m_drivetrain::getPose,
-              ramseteController,
-              new SimpleMotorFeedforward(
-                0.15892*0.95,
-                3.1252*0.95,
-                0.3818*0.95),
-            new SimpleMotorFeedforward(
-                0.15892*0.95,
-                3.1252*0.95,
-                0.3818*0.95),
-              Constants.kDriveKinematics,
-              m_drivetrain::getWheelSpeeds,
-            leftController,
-            rightController,
-              // RamseteCommand passes volts to the callback
-              (leftVolts, rightVolts) -> {
-                  m_drivetrain.tankDriveVolts(rightVolts, leftVolts);
-                  leftMeasurement.setNumber(m_drivetrain.getWheelSpeeds().leftMetersPerSecond);
-                  leftReference.setNumber(rightController.getSetpoint());
-
-                  rightMeasurement.setNumber(-m_drivetrain.getWheelSpeeds().rightMetersPerSecond);
-                  rightReference.setNumber(leftController.getSetpoint());
-              },
-              m_drivetrain);
-            return autoCommand;
+        return autoCommand;
       }
     
     public Trajectory getTransformedTrajectory(Trajectory t){
