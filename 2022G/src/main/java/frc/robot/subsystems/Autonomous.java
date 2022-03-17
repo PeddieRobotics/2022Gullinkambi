@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.List;
 
 import com.pathplanner.lib.PathPlanner;
 
@@ -9,7 +10,12 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -38,7 +44,7 @@ public class Autonomous extends SubsystemBase {
     private SendableChooser<Command> autoRoutineSelector;
     private Hashtable<String,Command> autoRoutines;
 
-    private Trajectory sanityCheck, pathVerification, pathVerification_2, pathVerification_3, pathVerification_4, pathVerification_5, pathVerification_6;
+    private Trajectory sanityCheck, pathVerification, pathVerification_2, pathVerification_3, pathVerification_4, pathVerification_5, pathVerification_6, sPath_manual;
     private Trajectory twoBallLeftUpShoot, twoBallRightDownShoot, twoBallLeftRude_1, twoBallLeftRude_2;
     private Trajectory threeBallRight_LL_1, threeBallRight_LL_2, threeBallRight_Layup_1, threeBallRight_Layup_2;
     private Trajectory fourBallRight_1, fourBallRight_2, fourBallLeft_1, fourBallLeft_2, fourBallLeft_3;
@@ -82,6 +88,8 @@ public class Autonomous extends SubsystemBase {
         autoRoutines.put("Path Verification 5", new SequentialCommandGroup(new ResetOdometry(pathVerification_5.getInitialPose()), createCommandFromTrajectory(pathVerification_5)));
         autoRoutines.put("Path Verification 6", new SequentialCommandGroup(new ResetOdometry(pathVerification_6.getInitialPose()), createCommandFromTrajectory(pathVerification_6)));
 
+        autoRoutines.put("S Path Manual", new SequentialCommandGroup(new ResetOdometry(sPath_manual.getInitialPose()), createCommandFromTrajectory(sPath_manual)));
+
         autoRoutines.put("CMD Group: 2 Ball (longer)", new TwoBallLonger(twoBallLeftUpShoot.getInitialPose(), createCommandFromTrajectory(twoBallLeftUpShoot)));
         autoRoutines.put("CMD Group: 2 Ball (shorter)", new TwoBallShorter(twoBallRightDownShoot.getInitialPose(), createCommandFromTrajectory(twoBallRightDownShoot)));
         autoRoutines.put("CMD Group: 2 Ball Left Rude", new TwoBallLeftRude(twoBallLeftRude_1.getInitialPose(), createCommandFromTrajectory(twoBallLeftRude_1), createCommandFromTrajectory(twoBallLeftRude_2)));
@@ -111,6 +119,38 @@ public class Autonomous extends SubsystemBase {
         pathVerification_4 = PathPlanner.loadPath("PathVerification4", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
         pathVerification_5 = PathPlanner.loadPath("PathVerification5", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
         pathVerification_6 = PathPlanner.loadPath("PathVerification6", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
+
+        // Create a voltage constraint to ensure we don't accelerate too fast
+        var autoVoltageConstraint =
+            new DifferentialDriveVoltageConstraint(
+                new SimpleMotorFeedforward(
+                    Constants.ksVoltsLeft,
+                    Constants.kvVoltSecondsPerMeterLeft,
+                    Constants.kaVoltSecondsSquaredPerMeterLeft),
+                Constants.kDriveKinematics,
+                10);
+
+        // Create config for trajectory
+        TrajectoryConfig config =
+            new TrajectoryConfig(
+                    Constants.kMaxSpeedMetersPerSecond,
+                    Constants.kMaxAccelerationMetersPerSecondSquared)
+                // Add kinematics to ensure max speed is actually obeyed
+                .setKinematics(Constants.kDriveKinematics)
+                // Apply the voltage constraint
+                .addConstraint(autoVoltageConstraint);
+
+        // An example trajectory to follow.  All units in meters.
+        sPath_manual =
+            TrajectoryGenerator.generateTrajectory(
+                // Start at the origin facing the +X direction
+                new Pose2d(0, 0, new Rotation2d(0)),
+                // Pass through these two interior waypoints, making an 's' curve path
+                List.of(new Translation2d(1, 0), new Translation2d(1, -1)),
+                // End 3 meters straight ahead of where we started, facing forward
+                new Pose2d(3, -1, new Rotation2d(0)),
+                // Pass config
+                config);
 
         twoBallLeftUpShoot = PathPlanner.loadPath("2BallLeftUpShoot", Constants.kMaxSpeedMetersPerSecond*0.5, Constants.kMaxAccelerationMetersPerSecondSquared*0.5);
         twoBallRightDownShoot = PathPlanner.loadPath("2BallRightDownShoot", Constants.kMaxSpeedMetersPerSecond*0.5, Constants.kMaxAccelerationMetersPerSecondSquared*0.5);
@@ -145,7 +185,7 @@ public class Autonomous extends SubsystemBase {
  
     public RamseteCommand createCommandFromTrajectory(Trajectory trajectory){
         var ramseteController = new RamseteController();
-        ramseteController.setEnabled(false);
+        //ramseteController.setEnabled(false);
         var table = NetworkTableInstance.getDefault().getTable("troubleshooting");
         var leftReference = table.getEntry("left_reference");
         var leftMeasurement = table.getEntry("left_measurement");

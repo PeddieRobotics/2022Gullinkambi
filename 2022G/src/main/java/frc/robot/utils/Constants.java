@@ -109,15 +109,15 @@ public final class Constants {
   // meters)
 
     // Autonomous constants
-    public static final double ksVoltsLeft = 0.25893;
-    public static final double kvVoltSecondsPerMeterLeft = 3.0538/2.0;
-    public static final double kaVoltSecondsSquaredPerMeterLeft = 0.24;
+    public static final double ksVoltsLeft = 0.15893;
+    public static final double kvVoltSecondsPerMeterLeft = 3.0538;
+    public static final double kaVoltSecondsSquaredPerMeterLeft = 0.3;
 
-    public static final double ksVoltsRight = 0.25893;
-    public static final double kvVoltSecondsPerMeterRight = 3.0538/2.0;
-    public static final double kaVoltSecondsSquaredPerMeterRight = 0.24;
+    public static final double ksVoltsRight = 0.15893;
+    public static final double kvVoltSecondsPerMeterRight = 3.0538;
+    public static final double kaVoltSecondsSquaredPerMeterRight = 0.3;
 
-    public static final double kPDriveVel = 0.5; //0.0013735; // 0.03125; //0.03125; //1.4228E-05; //0.00020646; // 0.03125;
+    public static final double kPDriveVel = 0.5; //0.5; //0.0013735; // 0.03125; //0.03125; //1.4228E-05; //0.00020646; // 0.03125;
     
     public static final double kTrackwidthMeters = 0.72791; /* True calculations: 0.653*/
     public static final DifferentialDriveKinematics kDriveKinematics =
