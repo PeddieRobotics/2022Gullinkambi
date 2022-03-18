@@ -49,7 +49,7 @@ public class Autonomous extends SubsystemBase {
     private SendableChooser<Command> autoRoutineSelector;
     private Hashtable<String,Command> autoRoutines;
 
-    private Trajectory sanityCheck, pathVerification, pathVerification_2, pathVerification_3, pathVerification_4, pathVerification_5, pathVerification_6, straightLine_PW, lPath_manual, lPath_PW, lollipopRight_PW;
+    private Trajectory sanityCheck, pathVerification, pathVerification_2, pathVerification_2b, pathVerification_3, pathVerification_4, pathVerification_5, pathVerification_6, straightLine_PW, lPath_manual, lPath_PW, lollipopRight_PW;
     private Trajectory twoBallLeftUpShoot, twoBallRightDownShoot, twoBallLeftRude_1, twoBallLeftRude_2;
     private Trajectory threeBallRight_LL_1, threeBallRight_LL_2, threeBallRight_Layup_1, threeBallRight_Layup_2;
     private Trajectory fourBallRight_1, fourBallRight_2, fourBallLeft_1, fourBallLeft_2, fourBallLeft_3;
@@ -88,6 +88,8 @@ public class Autonomous extends SubsystemBase {
         autoRoutines.put("Sanity Check", new SequentialCommandGroup(new ResetOdometry(sanityCheck.getInitialPose()),createCommandFromTrajectory(sanityCheck)));
         autoRoutines.put("Path Verification", new SequentialCommandGroup(new ResetOdometry(pathVerification.getInitialPose()),createCommandFromTrajectory(pathVerification)));
         autoRoutines.put("Path Verification 2", new SequentialCommandGroup(new ResetOdometry(pathVerification_2.getInitialPose()), createCommandFromTrajectory(pathVerification_2)));
+        autoRoutines.put("Path Verification 2b", new SequentialCommandGroup(new ResetOdometry(pathVerification_2b.getInitialPose()), createCommandFromTrajectory(pathVerification_2b)));
+        autoRoutines.put("Path Verification 2+2b", new SequentialCommandGroup(new ResetOdometry(pathVerification_2.getInitialPose()), createCommandFromTrajectory(pathVerification_2) , createCommandFromTrajectory(pathVerification_2b)));
         autoRoutines.put("Path Verification 3", new SequentialCommandGroup(new ResetOdometry(pathVerification_3.getInitialPose()), createCommandFromTrajectory(pathVerification_3)));
         autoRoutines.put("Path Verification 4", new SequentialCommandGroup(new ResetOdometry(pathVerification_4.getInitialPose()), createCommandFromTrajectory(pathVerification_4)));
         autoRoutines.put("Path Verification 5", new SequentialCommandGroup(new ResetOdometry(pathVerification_5.getInitialPose()), createCommandFromTrajectory(pathVerification_5)));
@@ -124,6 +126,7 @@ public class Autonomous extends SubsystemBase {
 
         pathVerification = PathPlanner.loadPath("PathVerification", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
         pathVerification_2 = PathPlanner.loadPath("PathVerification2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
+        pathVerification_2b = PathPlanner.loadPath("PathVerification2b", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
         pathVerification_3 = PathPlanner.loadPath("PathVerification3", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
         pathVerification_4 = PathPlanner.loadPath("PathVerification4", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
         pathVerification_5 = PathPlanner.loadPath("PathVerification5", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
