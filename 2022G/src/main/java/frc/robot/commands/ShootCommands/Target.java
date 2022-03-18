@@ -63,7 +63,7 @@ public class Target extends CommandBase {
      else{
        steering_adjust = 0;
      }  
-      drivetrain.arcadeDrive(0, -steering_adjust);
+      drivetrain.arcadeDrive(0, steering_adjust);
   }
 
   @Override
@@ -73,6 +73,9 @@ public class Target extends CommandBase {
     // Otherwise we must be ending immediately because no target was found for alignment
     if(limelight.hasTarget() && !interrupted){
       drivetrain.setLockedOnTarget(true);
+    }
+    else{
+      flywheel.runFlywheelSetpoint(0);
     }
 
   }

@@ -88,7 +88,7 @@ public final class Constants {
   public static final double TARGET_HEIGHT = 104;
   
   public static final double [] LL_DIST = new double[]{50,60,70,80,90,100,110,120,130,140};
-  public static final double [] RPMS = new double[]{2415,2585,2545,2625,2695,2765,2835,2970,3060,3210};
+  public static final double [] RPMS = new double[]{2415,2485,2545,2625,2695,2765,2835,2970,3060,3210};
   public static LookupTable DIST_TO_RPM = new LookupTable(LL_DIST, RPMS);
 
   // OI constants
@@ -109,13 +109,13 @@ public final class Constants {
   // meters)
 
     // Autonomous constants
-    public static final double ksVoltsLeft = 0.19893;
-    public static final double kvVoltSecondsPerMeterLeft = 3.1138;
-    public static final double kaVoltSecondsSquaredPerMeterLeft = 0.3875;
+    public static final double ksVoltsLeft = 0.13408;
+    public static final double kvVoltSecondsPerMeterLeft = 3.1544;
+    public static final double kaVoltSecondsSquaredPerMeterLeft = 0.13889;
 
-    public static final double ksVoltsRight = 0.19893;
-    public static final double kvVoltSecondsPerMeterRight = 3.1138;
-    public static final double kaVoltSecondsSquaredPerMeterRight = 0.3875;
+    public static final double ksVoltsRight = 0.1255;
+    public static final double kvVoltSecondsPerMeterRight = 3.1233;
+    public static final double kaVoltSecondsSquaredPerMeterRight = 0.13889;
 
     public static final double kPDriveVel = 0.25; //0.5; //0.0013735; // 0.03125; //0.03125; //1.4228E-05; //0.00020646; // 0.03125;
     
@@ -123,8 +123,8 @@ public final class Constants {
     public static final DifferentialDriveKinematics kDriveKinematics =
         new DifferentialDriveKinematics(kTrackwidthMeters);
 
-    public static final double kMaxSpeedMetersPerSecond = 2.5;
-    public static final double kMaxAccelerationMetersPerSecondSquared = 2.5;
+    public static final double kMaxSpeedMetersPerSecond = 3;
+    public static final double kMaxAccelerationMetersPerSecondSquared = 3;
 
     // Reasonable baseline values for a RAMSETE follower in units of meters and seconds
     public static final double kRamseteB = 2;

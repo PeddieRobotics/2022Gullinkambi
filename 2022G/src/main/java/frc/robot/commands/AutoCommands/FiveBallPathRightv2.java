@@ -23,7 +23,7 @@ public class FiveBallPathRightv2 extends SequentialCommandGroup{
             new ShootWithLLUntilEmpty(0.3),
             new AutoIntakeWithHopper(1, 1),
             part2,
-            new TurnToAngle(-146),
+            new TurnToAngle(-142),
             new ShootWithLLUntilEmpty(0.3),
             new AutoIntakeWithHopper(1, 0.7),
             part3,
