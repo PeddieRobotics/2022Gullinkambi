@@ -10,30 +10,27 @@ import frc.robot.commands.DriveCommands.TurnToAngle;
 import frc.robot.commands.IntakeCommands.AutoIntakeWithHopper;
 import frc.robot.commands.IntakeCommands.StopIntake;
 import frc.robot.commands.ShootCommands.SetFlywheelRPM;
-import frc.robot.utils.Constants;
 
-public class FourBallPathLeft extends SequentialCommandGroup{ 
+public class FiveBallRight extends SequentialCommandGroup{ 
 
-    public FourBallPathLeft(Pose2d initialPose, RamseteCommand part1, RamseteCommand part2, RamseteCommand part3){
+    public FiveBallRight(Pose2d initialPose, RamseteCommand part1, RamseteCommand part2, RamseteCommand part3, RamseteCommand part4){
         addCommands(
             new ResetOdometry(initialPose),
-            new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),
+            new SetFlywheelRPM(2650),
             new ParallelCommandGroup(
-                new AutoIntakeWithHopper(1.0, 0.7),
+                new AutoIntakeWithHopper(1, 1),
                 part1
             ),
             new StopIntake(),
             new ShootWithLLUntilEmpty(0.3),
-            new TurnToAngle(-135),
             new ParallelCommandGroup(
-                part2,
-                new SequentialCommandGroup(new WaitCommand(1.3), new AutoIntakeWithHopper(1.0, 0.7))
-            ),
-            new WaitCommand(1),
-            new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),
+                new SequentialCommandGroup(new WaitCommand(0.5), new AutoIntakeWithHopper(1, 1)),
+            part2),
+            new ShootWithLLUntilEmpty(0.3),
+            new AutoIntakeWithHopper(1, 0.7),
             part3,
-            new StopIntake(),
-            new TurnToAngle(150),
+            new WaitCommand(1),
+            part4,
             new ShootWithLLForTime(5)
         );
     }

@@ -2,6 +2,7 @@
 package frc.robot.oi;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -50,9 +51,9 @@ public class XboxOI {
 
             xboxController = new Joystick(ControllerMap.XBOX_OPERATOR_PORT);
 
-            new JoystickButton(xboxController, ControllerMap.XBOX_Y).whenHeld(new ShootLow()); // XBOX_Y
-            new JoystickButton(xboxController, ControllerMap.XBOX_X).whenPressed(new UnjamIntake(true).andThen(new WaitCommand(0.25)).andThen(new RunIntakeEndImmediately())); // XBOX_X
-            new JoystickButton(xboxController, ControllerMap.XBOX_A).whenHeld(new UnjamIntake(false)).whenReleased(new RunIntake()); // XBOX_A
+            new JoystickButton(xboxController, ControllerMap.XBOX_Y).whenHeld(new ShootLow(SmartDashboard.getNumber("Teleop: shoot low RPM", Constants.FLYWHEEL_RPM_LOW))); // XBOX_Y
+            new JoystickButton(xboxController, ControllerMap.XBOX_A).whenPressed(new UnjamIntake(true).andThen(new WaitCommand(0.25)).andThen(new RunIntakeEndImmediately())); // XBOX_X
+            new JoystickButton(xboxController, ControllerMap.XBOX_X).whenHeld(new UnjamIntake(false)).whenReleased(new RunIntake()); // XBOX_A
             new JoystickButton(xboxController, ControllerMap.XBOX_B).whenPressed(new InitializeArm()); // XBOX_B
 
         } else if (Constants.OI_CONFIG == OIConfig.XBOX_TEST) {
