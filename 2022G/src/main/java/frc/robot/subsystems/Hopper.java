@@ -155,9 +155,9 @@ public class Hopper extends SubsystemBase {
     public void updateHopperInfoOnDashboard(){
         SmartDashboard.putBoolean("Lower sensor", sensesBallBottom());
         SmartDashboard.putBoolean("Upper sensor", sensesBallTop());
+        SmartDashboard.putNumber("Hopper velocity", getHopperVelocity());
 
         if(Constants.OI_CONFIG != OIConfig.COMPETITION){
-            SmartDashboard.putNumber("Hopper velocity", getHopperVelocity());
             SmartDashboard.putNumber("Hopper position", getHopperPosition());
         }
     }

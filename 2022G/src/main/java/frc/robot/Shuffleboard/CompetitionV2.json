@@ -49,17 +49,6 @@
               "imageHeight": 0
             }
           },
-          "2,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Flywheel setpoint",
-              "_title": "Flywheel setpoint"
-            }
-          },
           "3,0": {
             "size": [
               1,
@@ -163,17 +152,6 @@
               "_title": "Teleop: shoot low RPM"
             }
           },
-          "4,5": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Teleop: shootLL RPM delta",
-              "_title": "Teleop: shootLL RPM delta"
-            }
-          },
           "0,4": {
             "size": [
               2,
@@ -262,17 +240,6 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/OR: I zone flywheel",
               "_title": "OR: I zone flywheel"
-            }
-          },
-          "5,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Limelight dist",
-              "_title": "Limelight dist"
             }
           },
           "13,1": {
@@ -511,17 +478,6 @@
               "_title": "SmartDashboard/Odometry Pose"
             }
           },
-          "6,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/turn pid setpoint",
-              "_title": "/SmartDashboard/turn pid setpoint"
-            }
-          },
           "4,4": {
             "size": [
               1,
@@ -531,6 +487,116 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Teleop: Hopper shoot speed",
               "_title": "SmartDashboard/Teleop: Hopper shoot speed"
+            }
+          },
+          "5,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LL dist",
+              "_title": "SmartDashboard/LL dist"
+            }
+          },
+          "2,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/FW setpoint",
+              "_title": "SmartDashboard/FW setpoint"
+            }
+          },
+          "4,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Teleop: shootLL RPM delta",
+              "_title": "/SmartDashboard/Teleop: shootLL RPM delta"
+            }
+          },
+          "1,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/OR: I flywheel",
+              "_title": "/SmartDashboard/OR: I flywheel"
+            }
+          },
+          "2,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/OR: I zone flywheel",
+              "_title": "/SmartDashboard/OR: I zone flywheel"
+            }
+          },
+          "3,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/OR: D flywheel",
+              "_title": "/SmartDashboard/OR: D flywheel"
+            }
+          },
+          "4,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/OR: FF flywheel",
+              "_title": "/SmartDashboard/OR: FF flywheel"
+            }
+          },
+          "0,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/OR: P flywheel",
+              "_title": "/SmartDashboard/OR: P flywheel"
+            }
+          },
+          "7,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/OR: Flywheel setpoint",
+              "_title": "/SmartDashboard/OR: Flywheel setpoint"
+            }
+          },
+          "5,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/OR: Flywheel setpoint",
+              "_title": "/SmartDashboard/OR: Flywheel setpoint"
             }
           }
         }
@@ -1206,9 +1272,9 @@
               "Controls/Show controls": true,
               "Controls/Rotation": "NONE",
               "compression": -1.0,
-              "fps": 20,
-              "imageWidth": 1280,
-              "imageHeight": 720
+              "fps": -1,
+              "imageWidth": 0,
+              "imageHeight": 0
             }
           }
         }
@@ -1257,7 +1323,7 @@
   "windowGeometry": {
     "x": -7.0,
     "y": 2.0,
-    "width": 1932.0,
+    "width": 906.0,
     "height": 1045.0
   }
 }
