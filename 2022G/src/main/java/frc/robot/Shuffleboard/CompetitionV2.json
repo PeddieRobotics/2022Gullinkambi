@@ -288,7 +288,7 @@
               "_title": "DB/Slider 2"
             }
           },
-          "1,0": {
+          "6,5": {
             "size": [
               1,
               1
@@ -478,7 +478,7 @@
               "_title": "SmartDashboard/Odometry Pose"
             }
           },
-          "4,4": {
+          "5,2": {
             "size": [
               1,
               1
@@ -489,7 +489,7 @@
               "_title": "SmartDashboard/Teleop: Hopper shoot speed"
             }
           },
-          "5,2": {
+          "6,4": {
             "size": [
               1,
               1
@@ -500,7 +500,7 @@
               "_title": "SmartDashboard/LL dist"
             }
           },
-          "2,0": {
+          "5,5": {
             "size": [
               1,
               1
@@ -1323,7 +1323,7 @@
   "windowGeometry": {
     "x": -7.0,
     "y": 2.0,
-    "width": 906.0,
+    "width": 1931.0,
     "height": 1045.0
   }
 }
