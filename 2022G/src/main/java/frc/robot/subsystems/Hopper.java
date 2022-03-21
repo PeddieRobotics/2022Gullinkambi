@@ -24,9 +24,7 @@ public class Hopper extends SubsystemBase {
     private CANSparkMax hopperSystem;
     private RelativeEncoder hopperEncoder;
     private SparkMaxPIDController hopperPIDController;
-    private double hopperVelSetpoint;
-    private double initialRevUpTime, elapsedRevUpTime;
-    private boolean revUpStarted, revUpEnded;
+    private double hopperVelSetpoint, hopperPosSetpoint;
 
     // Define sensors for the hopper to count cargo
     private DigitalInput bottomSensor, topSensor;
@@ -40,19 +38,19 @@ public class Hopper extends SubsystemBase {
 
         hopperEncoder = hopperSystem.getEncoder();
 
-        hopperVelSetpoint = 0.0;
-        initialRevUpTime = 0.0;
-        revUpStarted = false;
-        revUpEnded = false;
-
         bottomSensorFilter = LinearFilter.singlePoleIIR(0.2, 0.02);
         topSensorFilter = LinearFilter.singlePoleIIR(0.2, 0.02);
 
         hopperPIDController = hopperSystem.getPIDController();
-        hopperPIDController.setP(Constants.HOPPER_VEL_P);
-        hopperPIDController.setI(Constants.HOPPER_VEL_I);
-        hopperPIDController.setD(Constants.HOPPER_VEL_D);
-        hopperPIDController.setFF(Constants.HOPPER_VEL_FF);
+        hopperPIDController.setP(Constants.HOPPER_VEL_P, 0);
+        hopperPIDController.setI(Constants.HOPPER_VEL_I, 0);
+        hopperPIDController.setD(Constants.HOPPER_VEL_D, 0);
+        hopperPIDController.setFF(Constants.HOPPER_VEL_FF, 0);
+
+        hopperPIDController.setP(Constants.HOPPER_POS_P, 1);
+        hopperPIDController.setI(Constants.HOPPER_POS_I, 1);
+        hopperPIDController.setD(Constants.HOPPER_POS_D, 1);
+        hopperPIDController.setFF(Constants.HOPPER_POS_FF, 1);
 
         bottomSensor = new DigitalInput(1);
         topSensor = new DigitalInput(0);
@@ -82,8 +80,14 @@ public class Hopper extends SubsystemBase {
 
     public void setHopperVelocity(double rpm){
         hopperVelSetpoint = rpm;
-        hopperPIDController.setReference(rpm, ControlType.kVelocity);
+        hopperPIDController.setReference(rpm, ControlType.kVelocity, 0);
     }
+
+    public void setHopperPosition(double pos){
+        hopperPosSetpoint = pos;
+        hopperPIDController.setReference(pos, ControlType.kPosition, 1);
+    }
+
 
     public void runHopper(double speed){
         hopperSystem.set(-speed);
@@ -144,21 +148,27 @@ public class Hopper extends SubsystemBase {
     public void putSmartDashboardOverrides() {
         SmartDashboard.putNumber("OR: Hopper power", 0.0);
         SmartDashboard.putNumber("OR: Hopper velocity", 0.0);
+        SmartDashboard.putNumber("OR: Hopper position", 0.0);
+
         SmartDashboard.putNumber("Teleop: Hopper shoot speed", Constants.HOPPER_SHOOT_SPEED);
         SmartDashboard.putNumber("OR: Hop Vel P", Constants.HOPPER_VEL_P);
         SmartDashboard.putNumber("OR: Hop Vel I", Constants.HOPPER_VEL_I);
         SmartDashboard.putNumber("OR: Hop Vel D", Constants.HOPPER_VEL_D);
         SmartDashboard.putNumber("OR: Hop Vel FF", Constants.HOPPER_VEL_FF);
+        SmartDashboard.putNumber("OR: Hop Pos P", Constants.HOPPER_POS_P);
+        SmartDashboard.putNumber("OR: Hop Pos I", Constants.HOPPER_POS_I);
+        SmartDashboard.putNumber("OR: Hop Pos D", Constants.HOPPER_POS_D);
+        SmartDashboard.putNumber("OR: Hop Pos FF", Constants.HOPPER_POS_FF);
 
     }
 
     public void updateHopperInfoOnDashboard(){
         SmartDashboard.putBoolean("Lower sensor", sensesBallBottom());
         SmartDashboard.putBoolean("Upper sensor", sensesBallTop());
-        SmartDashboard.putNumber("Hopper velocity", getHopperVelocity());
+        SmartDashboard.putNumber("Hopper position", getHopperPosition());
 
         if(Constants.OI_CONFIG != OIConfig.COMPETITION){
-            SmartDashboard.putNumber("Hopper position", getHopperPosition());
+            SmartDashboard.putNumber("Hopper velocity", getHopperVelocity());
         }
     }
 
@@ -166,12 +176,20 @@ public class Hopper extends SubsystemBase {
         if(SmartDashboard.getNumber("OR: Hopper power", 0) > 0){
             runHopper(SmartDashboard.getNumber("OR: Hopper power", 0.0));
         }
-        else{
+        else if(SmartDashboard.getNumber("OR: Hopper velocity", 0) > 0){
             setHopperVelocity(SmartDashboard.getNumber("OR: Hopper velocity", 0.0));
         }
-        hopperPIDController.setP(SmartDashboard.getNumber("OR: Hop Vel P", Constants.HOPPER_VEL_P));
-        hopperPIDController.setI(SmartDashboard.getNumber("OR: Hop Vel I", Constants.HOPPER_VEL_I));
-        hopperPIDController.setD(SmartDashboard.getNumber("OR: Hop Vel D", Constants.HOPPER_VEL_D));
-        hopperPIDController.setFF(SmartDashboard.getNumber("OR: Hop Vel FF", Constants.HOPPER_VEL_FF));
+        else if(SmartDashboard.getNumber("OR: Hopper position", 0.0) != 0){
+            setHopperPosition(SmartDashboard.getNumber("OR: Hopper position", 0.0));
+        }
+        hopperPIDController.setP(SmartDashboard.getNumber("OR: Hop Vel P", Constants.HOPPER_VEL_P), 0);
+        hopperPIDController.setI(SmartDashboard.getNumber("OR: Hop Vel I", Constants.HOPPER_VEL_I), 0);
+        hopperPIDController.setD(SmartDashboard.getNumber("OR: Hop Vel D", Constants.HOPPER_VEL_D), 0);
+        hopperPIDController.setFF(SmartDashboard.getNumber("OR: Hop Vel FF", Constants.HOPPER_VEL_FF), 0);
+
+        hopperPIDController.setP(SmartDashboard.getNumber("OR: Hop Pos P", Constants.HOPPER_POS_P), 1);
+        hopperPIDController.setI(SmartDashboard.getNumber("OR: Hop Pos I", Constants.HOPPER_POS_I), 1);
+        hopperPIDController.setD(SmartDashboard.getNumber("OR: Hop Pos D", Constants.HOPPER_POS_D), 1);
+        hopperPIDController.setFF(SmartDashboard.getNumber("OR: Hop Pos FF", Constants.HOPPER_POS_FF), 1);
     }
 }

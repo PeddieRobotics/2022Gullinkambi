@@ -46,10 +46,16 @@ public final class Constants {
   public static final double HOPPER_VEL_D = 0.0;
   public static final double HOPPER_VEL_FF = 0.00014;
 
+  public static final double HOPPER_POS_P = 0.3;
+  public static final double HOPPER_POS_I = 0.0;
+  public static final double HOPPER_POS_D = 0.0;
+  public static final double HOPPER_POS_FF = 0.0;
+
+
   // Flywheel constants
   public static final int FLYWHEEL_MAX_CURRENT = 40; // amps
 
-  public static final double FLYWHEEL_P = 0.0001;
+  public static final double FLYWHEEL_P = 0.00005;
   public static final double FLYWHEEL_I = 0.0000005;
   public static final double FLYWHEEL_D = 0.0;
   public static final double FLYWHEEL_FF = 0.000182;
@@ -65,6 +71,8 @@ public final class Constants {
 
   public static final double FLYWHEEL_MAX_POWER = 1;
   public static final double FLYWHEEL_MAX_RPM = 4000;
+
+  public static final double FLYWHEEL_SHOOT_DELAY = 2.0;
 
   // Climber constants
   public static final double CLIMBER_TOP_ENCODER_POSITION = -116;

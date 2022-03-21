@@ -91,7 +91,6 @@ public class RobotContainer {
     climber.putSmartDashboardOverrides();
     flywheel.putSmartDashboardOverrides();
     SmartDashboard.putString("Mode", Constants.OI_CONFIG.toString());
-    SmartDashboard.putData(CommandScheduler.getInstance());
   }
 
   // Overrides for interfacing with robot hardware

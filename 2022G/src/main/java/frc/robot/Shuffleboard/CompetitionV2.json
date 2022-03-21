@@ -119,17 +119,6 @@
               "_title": "Remaining Match Time"
             }
           },
-          "6,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Toggle Button",
-              "_source0": "network_table:///SmartDashboard/RevUp AI",
-              "_title": "RevUp AI"
-            }
-          },
           "2,5": {
             "size": [
               2,
@@ -196,17 +185,6 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Heading",
               "_title": "Heading"
-            }
-          },
-          "4,0": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "ComboBox Chooser",
-              "_source0": "network_table:///SmartDashboard/Auto Routines",
-              "_title": "Auto Routines"
             }
           },
           "13,0": {
@@ -408,20 +386,7 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "5,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Lower sensor",
-              "_title": "SmartDashboard/Lower sensor",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
-          "4,1": {
+          "4,0": {
             "size": [
               1,
               1
@@ -456,17 +421,6 @@
               "_title": "SmartDashboard/Odometry Y"
             }
           },
-          "4,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///limelight/tx",
-              "_title": "limelight/tx"
-            }
-          },
           "2,2": {
             "size": [
               1,
@@ -489,7 +443,7 @@
               "_title": "SmartDashboard/Teleop: Hopper shoot speed"
             }
           },
-          "5,2": {
+          "4,2": {
             "size": [
               1,
               1
@@ -588,7 +542,73 @@
               "_title": "/SmartDashboard/OR: Flywheel setpoint"
             }
           },
+          "6,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/OR: Hop Pos D",
+              "_title": "SmartDashboard/OR: Hop Pos D"
+            }
+          },
+          "6,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/OR: Hop Pos FF",
+              "_title": "SmartDashboard/OR: Hop Pos FF"
+            }
+          },
+          "5,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/OR: Hop Pos I",
+              "_title": "SmartDashboard/OR: Hop Pos I"
+            }
+          },
+          "5,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/OR: Hop Pos P",
+              "_title": "SmartDashboard/OR: Hop Pos P"
+            }
+          },
           "5,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/OR: Hopper position",
+              "_title": "SmartDashboard/OR: Hopper position"
+            }
+          },
+          "6,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Hopper position",
+              "_title": "SmartDashboard/Hopper position"
+            }
+          },
+          "5,2": {
             "size": [
               1,
               1
@@ -596,7 +616,62 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/OR: Flywheel setpoint",
-              "_title": "/SmartDashboard/OR: Flywheel setpoint"
+              "_title": "SmartDashboard/OR: Flywheel setpoint"
+            }
+          },
+          "5,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Toggle Switch",
+              "_source0": "network_table:///SmartDashboard/OR: Intake solenoid",
+              "_title": "SmartDashboard/OR: Intake solenoid"
+            }
+          },
+          "6,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/OR: Intake speed",
+              "_title": "SmartDashboard/OR: Intake speed"
+            }
+          },
+          "4,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/OR: Hopper power",
+              "_title": "SmartDashboard/OR: Hopper power"
+            }
+          },
+          "6,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Toggle Switch",
+              "_source0": "network_table:///SmartDashboard/OR: Flywheel lock",
+              "_title": "SmartDashboard/OR: Flywheel lock"
+            }
+          },
+          "5,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Toggle Switch",
+              "_source0": "network_table:///SmartDashboard/OR: Hood up",
+              "_title": "SmartDashboard/OR: Hood up"
             }
           }
         }
@@ -1323,7 +1398,7 @@
   "windowGeometry": {
     "x": -7.0,
     "y": 2.0,
-    "width": 906.0,
+    "width": 1081.0,
     "height": 1045.0
   }
 }

@@ -17,6 +17,8 @@ public class ShootWithLL extends CommandBase {
   private Limelight limelight;
   private double rpm;
   private boolean isAuto;
+  private boolean shotOnce;
+  private double firstShotTime;
 
   public ShootWithLL(boolean autonomous) {
     flywheel = Flywheel.getInstance();
@@ -26,11 +28,13 @@ public class ShootWithLL extends CommandBase {
     addRequirements(flywheel, hopper);
 
     isAuto = autonomous;
+    shotOnce = false;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    shotOnce = false;
     drivetrain.setBrake();
     rpm = Constants.DIST_TO_RPM.get(limelight.getDistance());
     flywheel.setHood(true); // turn hood on for LL shot
@@ -42,8 +46,14 @@ public class ShootWithLL extends CommandBase {
   @Override
   public void execute() {
     // Check whether the speed of flywheel is good enough to shoot
-    if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_SHOOTLL)) {
-      hopper.setHopperVelocity(SmartDashboard.getNumber("Teleop: Hopper shoot speed", Constants.HOPPER_SHOOT_SPEED));
+    if (!shotOnce && flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_SHOOTLL)) {
+      hopper.setHopperPosition(hopper.getHopperPosition()-23);
+      shotOnce = true;
+      firstShotTime = Timer.getFPGATimestamp();
+    }
+
+    if(shotOnce && Timer.getFPGATimestamp() - firstShotTime > Constants.FLYWHEEL_SHOOT_DELAY){
+      hopper.setHopperPosition(hopper.getHopperPosition()-23);
     }
   }
 
@@ -53,7 +63,6 @@ public class ShootWithLL extends CommandBase {
     drivetrain.setLockedOnTarget(false);
     flywheel.setShooterLock(false);
     if(!isAuto){
-      hopper.stopHopper();
       flywheel.runFlywheelSetpoint(0);
       flywheel.setHood(false);
       drivetrain.setCoast();
