@@ -30,7 +30,7 @@
               "imageHeight": 0
             }
           },
-          "6,1": {
+          "6,0": {
             "size": [
               5,
               5
@@ -49,76 +49,6 @@
               "imageHeight": 0
             }
           },
-          "4,5": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Flywheel setpoint",
-              "_title": "Flywheel setpoint"
-            }
-          },
-          "1,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Climber encoder",
-              "_title": "Climber encoder"
-            }
-          },
-          "3,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Hood up",
-              "_title": "Hood up",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
-          "1,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Hopper speed",
-              "_title": "Hopper speed"
-            }
-          },
-          "0,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Intake solenoid",
-              "_title": "Intake solenoid",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
-          "0,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Intake speed",
-              "_title": "Intake speed"
-            }
-          },
           "13,2": {
             "size": [
               2,
@@ -130,9 +60,9 @@
               "_title": "Remaining Match Time"
             }
           },
-          "8,0": {
+          "2,3": {
             "size": [
-              3,
+              2,
               1
             ],
             "content": {
@@ -141,18 +71,7 @@
               "_title": "Remaining Match Time"
             }
           },
-          "6,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Toggle Button",
-              "_source0": "network_table:///SmartDashboard/RevUp AI",
-              "_title": "RevUp AI"
-            }
-          },
-          "2,5": {
+          "3,2": {
             "size": [
               2,
               1
@@ -163,7 +82,7 @@
               "_title": "Teleop: layup RPM"
             }
           },
-          "0,5": {
+          "1,2": {
             "size": [
               2,
               1
@@ -174,7 +93,7 @@
               "_title": "Teleop: shoot low RPM"
             }
           },
-          "4,4": {
+          "4,1": {
             "size": [
               2,
               1
@@ -185,7 +104,7 @@
               "_title": "Teleop: shootLL RPM delta"
             }
           },
-          "0,4": {
+          "0,1": {
             "size": [
               2,
               1
@@ -196,7 +115,7 @@
               "_title": "Teleop: Intake speed"
             }
           },
-          "2,4": {
+          "2,1": {
             "size": [
               2,
               1
@@ -207,20 +126,7 @@
               "_title": "Teleop: Hopper speed"
             }
           },
-          "2,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Lock activated",
-              "_title": "Lock activated",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
-          "3,0": {
+          "1,0": {
             "size": [
               1,
               1
@@ -231,7 +137,7 @@
               "_title": "Heading"
             }
           },
-          "4,0": {
+          "2,0": {
             "size": [
               2,
               1
@@ -255,9 +161,9 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "7,0": {
+          "4,0": {
             "size": [
-              1,
+              2,
               1
             ],
             "content": {
@@ -266,7 +172,7 @@
               "_title": "SmartDashboard/LL dist"
             }
           },
-          "2,0": {
+          "0,0": {
             "size": [
               1,
               1
@@ -275,83 +181,6 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/FW velocity",
               "_title": "SmartDashboard/FW velocity"
-            }
-          },
-          "5,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Odometry Pose",
-              "_title": "SmartDashboard/Odometry Pose"
-            }
-          },
-          "4,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Odometry X",
-              "_title": "SmartDashboard/Odometry X"
-            }
-          },
-          "5,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Odometry Y",
-              "_title": "SmartDashboard/Odometry Y"
-            }
-          },
-          "5,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/OR: FF flywheel",
-              "_title": "SmartDashboard/OR: FF flywheel"
-            }
-          },
-          "4,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/OR: D flywheel",
-              "_title": "SmartDashboard/OR: D flywheel"
-            }
-          },
-          "3,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/OR: I flywheel",
-              "_title": "SmartDashboard/OR: I flywheel"
-            }
-          },
-          "2,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/OR: P flywheel",
-              "_title": "SmartDashboard/OR: P flywheel"
             }
           }
         }
@@ -1002,12 +831,25 @@
         "titleType": 0,
         "tiles": {}
       }
+    },
+    {
+      "title": "Tab 7",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "titleType": 0,
+        "tiles": {}
+      }
     }
   ],
   "windowGeometry": {
-    "x": -159.1999969482422,
-    "y": 7.199999809265137,
-    "width": 1553.5999755859375,
-    "height": 881.5999755859375
+    "x": -6.0,
+    "y": 0.0,
+    "width": 3853.0,
+    "height": 1047.0
   }
 }
