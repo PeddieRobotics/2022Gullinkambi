@@ -35,7 +35,8 @@ public final class Constants {
 
   // Hopper constants
   public static final int HOPPER_MAX_CURRENT = 30; // amps
-  public static final double HOPPER_SHOOT_SPEED = -3000; // rpm
+  public static final double HOPPER_SHOOT_LAYUP_SPEED = -3000; // rpm
+  public static final double HOPPER_SHOOT_LL_SPEED = -4000; // rpm
   public static final double HOPPER_SHOOT_POWER = 0.65;
   public static final double HOPPER_INDEX_POWER = 0.7;
   public static final double LOWER_SENSOR_INPUT_THRESHOLD = 0.99;
@@ -88,7 +89,7 @@ public final class Constants {
   public static final double TARGET_HEIGHT = 104;
   
   public static final double [] LL_DIST = new double[]{50,60,70,80,90,100,110,120,130,140,150,160};
-  public static final double [] RPMS = new double[]{2280,2350,2430,2530,2620,2720,2810,2900,3000,3150,3310,3460};
+  public static final double [] RPMS = new double[]{2280,2350,2430,2530,2620,2720,2810,2900,3000,3100,3250,3400};
   public static LookupTable DIST_TO_RPM = new LookupTable(LL_DIST, RPMS);
 
   // OI constants

@@ -40,7 +40,7 @@ public class ShootLayup extends CommandBase {
   public void execute() {
     // Check whether the speed of flywheel is good enough to shoot
     if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_LAYUP)) {
-      hopper.setHopperVelocity(SmartDashboard.getNumber("Teleop: Hopper shoot speed", Constants.HOPPER_SHOOT_SPEED));
+      hopper.setHopperVelocity(SmartDashboard.getNumber("Teleop: Hopper shoot layup speed", Constants.HOPPER_SHOOT_LAYUP_SPEED));
     }
 
   }

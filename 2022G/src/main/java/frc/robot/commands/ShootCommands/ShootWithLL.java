@@ -43,7 +43,7 @@ public class ShootWithLL extends CommandBase {
   public void execute() {
     // Check whether the speed of flywheel is good enough to shoot
     if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_SHOOTLL)) {
-      hopper.setHopperVelocity(SmartDashboard.getNumber("Teleop: Hopper shoot speed", Constants.HOPPER_SHOOT_SPEED));
+      hopper.setHopperVelocity(SmartDashboard.getNumber("Teleop: Hopper shoot LL speed", Constants.HOPPER_SHOOT_LL_SPEED));
     }
   }
 
