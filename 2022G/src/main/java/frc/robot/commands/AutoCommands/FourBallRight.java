@@ -27,7 +27,8 @@ public class FourBallRight extends SequentialCommandGroup{
             new TurnToAngle(155),
             part2,
             new StopIntake(),
-            new ShootWithLLForTime(5)
+            new ShootWithLLUntilEmpty(0.3),
+            new SetFlywheelRPM(0)
         );
     }
 }

@@ -52,7 +52,7 @@ public final class Constants {
 
   public static final double FLYWHEEL_P = 0.0001;
   public static final double FLYWHEEL_I = 0.0000005;
-  public static final double FLYWHEEL_D = 0.0;
+  public static final double FLYWHEEL_D = 0.01;
   public static final double FLYWHEEL_FF = 0.000182;
   public static final double FLYWHEEL_IZONE = 100;
 
@@ -88,8 +88,8 @@ public final class Constants {
   public static final double LL_PANNING_ANGLE = 0;
   public static final double TARGET_HEIGHT = 104;
   
-  public static final double [] LL_DIST = new double[]{50,60,70,80,90,100,110,120,130,140,150,160};
-  public static final double [] RPMS = new double[]{2280,2350,2430,2530,2620,2720,2810,2900,3000,3100,3250,3400};
+  public static final double [] LL_DIST = new double[]{40,50,60,70,80,90,100,110,120,130,140,150,160};
+  public static final double [] RPMS = new double[]{2340,2340,2360,2430,2490,2570,2680,2770,2880,2960,3060,3210,3350};
   public static LookupTable DIST_TO_RPM = new LookupTable(LL_DIST, RPMS);
 
   // OI constants

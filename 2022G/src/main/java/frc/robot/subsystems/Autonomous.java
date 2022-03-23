@@ -50,11 +50,10 @@ public class Autonomous extends SubsystemBase {
     private SendableChooser<Command> autoRoutineSelector;
     private Hashtable<String,Command> autoRoutines;
 
-    private Trajectory sanityCheck, pathVerification, pathVerification_2, pathVerification_2b, pathVerification_3, pathVerification_4, pathVerification_5, pathVerification_6, straightLine_PW, lPath_manual, lPath_PW, lollipopRight_PW;
+    private Trajectory sanityCheck, pathVerification, pathVerification_2, pathVerification_2b, straightLine_PW, lPath_manual, lPath_PW, lollipopRight_PW;
     private Trajectory twoBallLeftUpShoot, twoBallRightDownShoot, twoBallLeftRude_1, twoBallLeftRude_2, twoBallLeftRude_3;
-    private Trajectory threeBallRight_LL_1, threeBallRight_LL_2, threeBallRight_Layup_1, threeBallRight_Layup_2;
     private Trajectory fourBallRight_1, fourBallRight_2, fourBallRight_3, fourBallLeft_1, fourBallLeft_2, fourBallLeft_3;
-    private Trajectory fiveBallRight_1, fiveBallRight_2, fiveBallRight_3, fiveBallRight_4, fiveBallRight_3_Alt, fiveBallRight_4_Alt, fiveBallRight_3_Alt2, fiveBallRight_4_Alt2;
+    private Trajectory fiveBallRight_1, fiveBallRight_2, fiveBallRight_3, fiveBallRight_4, fiveBallRight_5, fiveBallRight_3_Alt, fiveBallRight_4_Alt, fiveBallRight_3_Alt2, fiveBallRight_4_Alt2;
 
     public Autonomous() {
         autoRoutines = new Hashtable<String,Command>();
@@ -105,11 +104,11 @@ public class Autonomous extends SubsystemBase {
 
         //autoRoutines.put("CMD Group: 4 Ball Rude (Right)", new FourBallRightRude(fourBallRight_1.getInitialPose(), createCommandFromTrajectory(fourBallRight_1), createCommandFromTrajectory(fourBallRight_2), createCommandFromTrajectory(fourBallRight_3)));
 
-        autoRoutines.put("CMD Group: 5 Ball (Right) centered", new FiveBallRight(fiveBallRight_1.getInitialPose(), createCommandFromTrajectory(fiveBallRight_1), createCommandFromTrajectory(fiveBallRight_2), createCommandFromTrajectory(fiveBallRight_3), createCommandFromTrajectory(fiveBallRight_4)));
+        autoRoutines.put("CMD Group: 5 Ball (Right) centered", new FiveBallRight(fiveBallRight_1.getInitialPose(), createCommandFromTrajectory(fiveBallRight_1), createCommandFromTrajectory(fiveBallRight_2), createCommandFromTrajectory(fiveBallRight_3), createCommandFromTrajectory(fiveBallRight_4), createCommandFromTrajectory(fiveBallRight_5)));
 
-        autoRoutines.put("CMD Group: 5 Ball (Right) offset", new FiveBallRight(fiveBallRight_1.getInitialPose(), createCommandFromTrajectory(fiveBallRight_1), createCommandFromTrajectory(fiveBallRight_2), createCommandFromTrajectory(fiveBallRight_3_Alt), createCommandFromTrajectory(fiveBallRight_4_Alt)));
+        autoRoutines.put("CMD Group: 5 Ball (Right) offset", new FiveBallRight(fiveBallRight_1.getInitialPose(), createCommandFromTrajectory(fiveBallRight_1), createCommandFromTrajectory(fiveBallRight_2), createCommandFromTrajectory(fiveBallRight_3_Alt), createCommandFromTrajectory(fiveBallRight_4_Alt), createCommandFromTrajectory(fiveBallRight_5)));
 
-        autoRoutines.put("CMD Group: 5 Ball (Right) offset more", new FiveBallRight(fiveBallRight_1.getInitialPose(), createCommandFromTrajectory(fiveBallRight_1), createCommandFromTrajectory(fiveBallRight_2), createCommandFromTrajectory(fiveBallRight_3_Alt2), createCommandFromTrajectory(fiveBallRight_4_Alt2)));
+        autoRoutines.put("CMD Group: 5 Ball (Right) offset more", new FiveBallRight(fiveBallRight_1.getInitialPose(), createCommandFromTrajectory(fiveBallRight_1), createCommandFromTrajectory(fiveBallRight_2), createCommandFromTrajectory(fiveBallRight_3_Alt2), createCommandFromTrajectory(fiveBallRight_4_Alt2), createCommandFromTrajectory(fiveBallRight_5)));
 
     }
 
@@ -136,7 +135,7 @@ public class Autonomous extends SubsystemBase {
         //twoBallLeftRude_3 = PathPlanner.loadPath("2BallLeftRude_Part3", Constants.kMaxSpeedMetersPerSecond*0.8, Constants.kMaxAccelerationMetersPerSecondSquared*0.8);
 
         fourBallRight_1 = PathPlanner.loadPath("4BallRight_Part1", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
-        fourBallRight_2 = PathPlanner.loadPath("4BallRight_Part2", Constants.kMaxSpeedMetersPerSecond*1.2, Constants.kMaxAccelerationMetersPerSecondSquared*1.2);
+        fourBallRight_2 = PathPlanner.loadPath("4BallRight_Part2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
         
         //fourBallRight_3 = PathPlanner.loadPath("4BallRight_Part3", Constants.kMaxSpeedMetersPerSecond*1.2, Constants.kMaxAccelerationMetersPerSecondSquared*1.2);
 
@@ -148,6 +147,8 @@ public class Autonomous extends SubsystemBase {
         fiveBallRight_2 = PathPlanner.loadPath("5BallRight_Part2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
         fiveBallRight_3 = PathPlanner.loadPath("5BallRight_Part3", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
         fiveBallRight_4 = PathPlanner.loadPath("5BallRight_Part4", Constants.kMaxSpeedMetersPerSecond*1.5, Constants.kMaxAccelerationMetersPerSecondSquared*1.5, true);
+
+        fiveBallRight_5 = PathPlanner.loadPath("5BallRight_Part5", Constants.kMaxSpeedMetersPerSecond*1.5, Constants.kMaxAccelerationMetersPerSecondSquared*1.5);
 
         fiveBallRight_3_Alt = PathPlanner.loadPath("5BallRight_Part3_Alt", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
         fiveBallRight_4_Alt = PathPlanner.loadPath("5BallRight_Part4_Alt", Constants.kMaxSpeedMetersPerSecond*1.5, Constants.kMaxAccelerationMetersPerSecondSquared*1.5, true);

@@ -29,12 +29,13 @@ public class FourBallLeft extends SequentialCommandGroup{
                 part2,
                 new SequentialCommandGroup(new WaitCommand(1.3), new AutoIntakeWithHopper(1.0, 0.7))
             ),
-            new WaitCommand(1),
+            new WaitCommand(2),
             new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),
             part3,
             new StopIntake(),
             new TurnToAngle(150),
-            new ShootWithLLForTime(5)
+            new ShootWithLLUntilEmpty(0.3),
+            new SetFlywheelRPM(0)
         );
     }
 }

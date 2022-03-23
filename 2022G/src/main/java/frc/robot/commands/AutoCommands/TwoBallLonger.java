@@ -20,7 +20,8 @@ public class TwoBallLonger extends  SequentialCommandGroup{
                 part1
             ),
             new StopIntake(),
-            new ShootWithLLForTime(5)
+            new ShootWithLLUntilEmpty(0.3),
+            new SetFlywheelRPM(0)
         );
     }
 }
