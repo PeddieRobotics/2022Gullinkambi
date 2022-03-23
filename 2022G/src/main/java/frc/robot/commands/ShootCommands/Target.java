@@ -74,6 +74,9 @@ public class Target extends CommandBase {
     if(limelight.hasTarget() && !interrupted){
       drivetrain.setLockedOnTarget(true);
     }
+    else{
+      flywheel.runFlywheelSetpoint(0);
+    }
 
   }
 

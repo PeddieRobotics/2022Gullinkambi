@@ -7,26 +7,28 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.DriveCommands.ResetOdometry;
 import frc.robot.commands.DriveCommands.TurnToAngle;
 import frc.robot.commands.IntakeCommands.AutoIntakeWithHopper;
+import frc.robot.commands.IntakeCommands.StopIntake;
 import frc.robot.commands.ShootCommands.SetFlywheelRPM;
 import frc.robot.utils.Constants;
 
-public class TwoBallLeftRude extends SequentialCommandGroup{
-    public TwoBallLeftRude(Pose2d initialPose, RamseteCommand part1, RamseteCommand part2, RamseteCommand part3){
+public class FourBallRight extends SequentialCommandGroup{ 
+
+    public FourBallRight(Pose2d initialPose, RamseteCommand part1, RamseteCommand part2){
         addCommands(
             new ResetOdometry(initialPose),
             new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),
             new ParallelCommandGroup(
-                new AutoIntakeWithHopper(1.0, 0.7),
+                new AutoIntakeWithHopper(0.7, 0.7),
                 part1
             ),
-            new ShootWithLLUntilEmpty(0.5),
-            new TurnToAngle(-120),
+            new ShootWithLLUntilEmpty(0.3),
+            new AutoIntakeWithHopper(1.0, 0.7),
+            new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),
+            new TurnToAngle(155),
             part2,
-            new TurnToAngle(60),
-            part3,
-            new TurnToAngle(0),
-            new ShootLowUntilEmpty(1750, 0.5),
-            new TurnToAngle(28)
+            new StopIntake(),
+            new ShootWithLLUntilEmpty(0.3),
+            new SetFlywheelRPM(0)
         );
     }
 }

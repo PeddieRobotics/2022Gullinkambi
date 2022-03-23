@@ -12,10 +12,10 @@ public class AutoIntakeWithHopper extends CommandBase {
   private double indexSpeed, hopperSpeed;
 
   /** Creates a new AutoIntakeWithHopper. */
-  public AutoIntakeWithHopper(double indexSpeed, double hopperSpeed) {
+  public AutoIntakeWithHopper(double intakeSpeed, double hopperSpeed) {
     intake = Intake.getInstance();
     hopper = Hopper.getInstance();
-    this.indexSpeed = indexSpeed;
+    this.indexSpeed = intakeSpeed;
     this.hopperSpeed = hopperSpeed;
     addRequirements(intake, hopper);
 
