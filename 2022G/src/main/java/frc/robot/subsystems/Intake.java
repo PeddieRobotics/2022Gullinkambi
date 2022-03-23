@@ -84,9 +84,8 @@ public class Intake extends SubsystemBase {
 
   public void updateIntakeInfoOnDashboard(){
     SmartDashboard.putBoolean("Intake solenoid", getIntakeSolenoid());
-
+    SmartDashboard.putNumber("Intake speed", getIntakeSpeed());
     if(Constants.OI_CONFIG != OIConfig.COMPETITION){
-      SmartDashboard.putNumber("Intake speed", getIntakeSpeed());
       SmartDashboard.putNumber("Intake current", getIntakeCurrent());
     }
 
