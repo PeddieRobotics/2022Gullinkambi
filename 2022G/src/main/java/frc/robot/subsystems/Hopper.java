@@ -164,7 +164,7 @@ public class Hopper extends SubsystemBase {
     }
 
     public void updateHopperFromDashboard() {
-        if(SmartDashboard.getNumber("OR: Hopper power", 0) > 0){
+        if(SmartDashboard.getNumber("OR: Hopper power", 0) != 0){
             runHopper(SmartDashboard.getNumber("OR: Hopper power", 0.0));
         }
         else{
