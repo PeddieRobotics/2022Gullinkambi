@@ -5,11 +5,14 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
@@ -17,6 +20,7 @@ import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -44,7 +48,15 @@ public class Drivetrain extends SubsystemBase {
 
   private boolean lockedOnTarget;
 
+  // For autonomous, keep track of previous left/right wheel speed setpoints for estimating acceleration component of movement
+  private double prevLeftWheelSpeed, prevRightWheelSpeed;
+  private double prevPIDUpdateTime;
+
   private final RelativeEncoder leftEncoder, rightEncoder;
+
+  private SparkMaxPIDController leftDrivePIDController, rightDrivePIDController;
+
+  private SimpleMotorFeedforward leftDriveFF, rightDriveFF;
 
   private PIDController turnToAnglePIDController;
 
@@ -79,13 +91,12 @@ public class Drivetrain extends SubsystemBase {
     rightEncoder = rightMaster.getEncoder();
     resetEncoders();
 
-
     drive = new DifferentialDrive(leftMotors, rightMotors);
     drive.setDeadband(Constants.DRIVING_DEADBANDS);
     drive.setSafetyEnabled(false);
 
-    leftMaster.setInverted(true);
-    rightMaster.setInverted(false);
+    leftMaster.setInverted(false);
+    rightMaster.setInverted(true);
 
     gyro = new ADIS16470_IMU();
 
@@ -94,9 +105,25 @@ public class Drivetrain extends SubsystemBase {
     setConversionFactors();
 
     inverseMode = false;
-    brakeMode = false;
 
     lockedOnTarget = false;
+
+    prevLeftWheelSpeed = 0.0;
+    prevRightWheelSpeed = 0.0;
+    prevPIDUpdateTime = -1;
+
+    leftDrivePIDController = leftMaster.getPIDController();
+    leftDrivePIDController.setP(Constants.kPDriveVel);
+    rightDrivePIDController = rightMaster.getPIDController();
+    rightDrivePIDController.setP(Constants.kPDriveVel);
+
+    leftDriveFF = new SimpleMotorFeedforward(Constants.ksVoltsLeft,
+    Constants.kvVoltSecondsPerMeterLeft,
+    Constants.kaVoltSecondsSquaredPerMeterLeft);
+
+    rightDriveFF = new SimpleMotorFeedforward(Constants.ksVoltsRight,
+    Constants.kvVoltSecondsPerMeterRight,
+    Constants.kaVoltSecondsSquaredPerMeterRight);
 
     turnToAnglePIDController = new PIDController(Constants.kTurnToAngleP, Constants.kTurnToAngleI, Constants.kTurnToAngleD);
     // Set the controller to be continuous (because it is an angle controller)
@@ -141,13 +168,13 @@ public class Drivetrain extends SubsystemBase {
 
   public void updateDrivetrainInfoOnDashboard() {
     SmartDashboard.putNumber("Heading", getHeading());
+    SmartDashboard.putBoolean("Locked on target", isLockedOnTarget());  
 
     //only heading and odometry in competition mode
     if(Constants.OI_CONFIG != OIConfig.COMPETITION){
       SmartDashboard.putNumber("Odometry X", odometry.getPoseMeters().getTranslation().getX());
       SmartDashboard.putNumber("Odometry Y", odometry.getPoseMeters().getTranslation().getY());
       SmartDashboard.putNumber("Odometry Pose", getPoseHeading());
-      SmartDashboard.putBoolean("Locked on target", isLockedOnTarget());  
 
       SmartDashboard.putNumber("LDrive enc pos", getLeftEncoderPosition());
       SmartDashboard.putNumber("RDrive enc pos", getRightEncoderPosition());
@@ -187,7 +214,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void arcadeDrive(double speed, double turn) {
-    drive.arcadeDrive(speed * Constants.SPEED_MULTIPLIER, turn * Constants.TURN_MULTIPLIER,
+    drive.arcadeDrive(speed * Constants.SPEED_MULTIPLIER, -turn * Constants.TURN_MULTIPLIER,
         Constants.DRIVE_USE_SQUARED_INPUTS);
   }
 
@@ -249,7 +276,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public double getRightEncoderPosition(){
-    return -rightEncoder.getPosition();
+    return rightEncoder.getPosition();
   }
 
   public double getLeftEncoderVelocity(){
@@ -257,7 +284,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public double getRightEncoderVelocity(){
-    return -rightEncoder.getVelocity();
+    return rightEncoder.getVelocity();
   }
 
   public double getAverageEncoderDistance(){
@@ -365,18 +392,6 @@ public class Drivetrain extends SubsystemBase {
     return inverseMode;
   }
 
-  public void setToBrakeMode(){
-    brakeMode = true;
-  }
-
-  public void setToCoastMode(){
-    brakeMode = false;
-  }
-
-  public boolean isBrakeMode(){
-    return brakeMode;
-  }
-
   public PIDController getTurnPID(){
     return turnToAnglePIDController;
   }
@@ -387,6 +402,22 @@ public class Drivetrain extends SubsystemBase {
 
   public void setLockedOnTarget(boolean lockedOn){
     lockedOnTarget = lockedOn;
+  }
+
+  public void updateDrivePIDControllers(double leftWheelSpeed, double rightWheelSpeed) {
+    double dt = Timer.getFPGATimestamp() - prevPIDUpdateTime;
+    if(prevPIDUpdateTime != -1){
+      leftDrivePIDController.setReference(leftWheelSpeed, CANSparkMax.ControlType.kVelocity, 0, leftDriveFF.calculate(leftWheelSpeed, (leftWheelSpeed-prevLeftWheelSpeed)/dt));
+      rightDrivePIDController.setReference(rightWheelSpeed, CANSparkMax.ControlType.kVelocity, 0, rightDriveFF.calculate(rightWheelSpeed, (rightWheelSpeed-prevRightWheelSpeed)/dt));
+    }
+    else{
+      leftDrivePIDController.setReference(leftWheelSpeed, CANSparkMax.ControlType.kVelocity, 0, leftDriveFF.calculate(leftWheelSpeed));
+      rightDrivePIDController.setReference(rightWheelSpeed, CANSparkMax.ControlType.kVelocity, 1, rightDriveFF.calculate(rightWheelSpeed));
+    }
+    prevLeftWheelSpeed = leftWheelSpeed;
+    prevRightWheelSpeed = rightWheelSpeed;
+    prevPIDUpdateTime = Timer.getFPGATimestamp();
+    drive.feed();
   }
 
 }

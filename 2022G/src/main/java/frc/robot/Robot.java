@@ -64,7 +64,8 @@ public class Robot extends LoggedRobotCustom {
     //Camera
     driverCamera = CameraServer.startAutomaticCapture("USBCamera", 0);
     driverCamera.setExposureAuto();
-    driverCamera.setFPS(10);
+    driverCamera.setFPS(15);
+    driverCamera.setResolution(480,320);
     driverCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
   }
 

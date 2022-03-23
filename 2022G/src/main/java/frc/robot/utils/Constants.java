@@ -35,7 +35,8 @@ public final class Constants {
 
   // Hopper constants
   public static final int HOPPER_MAX_CURRENT = 30; // amps
-  public static final double HOPPER_SHOOT_SPEED = -3000; // rpm
+  public static final double HOPPER_SHOOT_LAYUP_SPEED = -3000; // rpm
+  public static final double HOPPER_SHOOT_LL_SPEED = -4000; // rpm
   public static final double HOPPER_SHOOT_POWER = 0.65;
   public static final double HOPPER_INDEX_POWER = 0.7;
   public static final double LOWER_SENSOR_INPUT_THRESHOLD = 0.99;
@@ -50,8 +51,8 @@ public final class Constants {
   public static final int FLYWHEEL_MAX_CURRENT = 40; // amps
 
   public static final double FLYWHEEL_P = 0.0001;
-  public static final double FLYWHEEL_I = 0.000001;
-  public static final double FLYWHEEL_D = 0.001;
+  public static final double FLYWHEEL_I = 0.0000005;
+  public static final double FLYWHEEL_D = 0.01;
   public static final double FLYWHEEL_FF = 0.000182;
   public static final double FLYWHEEL_IZONE = 100;
 
@@ -59,9 +60,9 @@ public final class Constants {
   public static final double FLYWHEEL_RPM_LOW = 1300;
   public static final double FLYWHEEL_RPM_REV_UP = 1500;
 
-  public static final double FLYWHEEL_THRESHOLD_LAYUP = 600;
-  public static final double FLYWHEEL_THRESHOLD_LOW = 600;
-  public static final double FLYWHEEL_THRESHOLD_SHOOTLL = 100;
+  public static final double FLYWHEEL_THRESHOLD_LAYUP = 50;
+  public static final double FLYWHEEL_THRESHOLD_LOW = 50;
+  public static final double FLYWHEEL_THRESHOLD_SHOOTLL = 50;
 
   public static final double FLYWHEEL_MAX_POWER = 1;
   public static final double FLYWHEEL_MAX_RPM = 4000;
@@ -87,8 +88,8 @@ public final class Constants {
   public static final double LL_PANNING_ANGLE = 0;
   public static final double TARGET_HEIGHT = 104;
   
-  public static final double [] LL_DIST = new double[]{50,60,70,80,90,100,110,120,130,140};
-  public static final double [] RPMS = new double[]{2415,2585,2545,2625,2695,2765,2835,2970,3060,3210};
+  public static final double [] LL_DIST = new double[]{40,50,60,70,80,90,100,110,120,130,140,150,160};
+  public static final double [] RPMS = new double[]{2340,2340,2360,2430,2490,2570,2680,2770,2880,2960,3060,3210,3350};
   public static LookupTable DIST_TO_RPM = new LookupTable(LL_DIST, RPMS);
 
   // OI constants
@@ -101,7 +102,7 @@ public final class Constants {
 
   public static final double DRIVE_GEAR_RATIO = 7.6388888;
   public static final double CONVERT_INCHES_TO_METERS = 0.0254;
-  public static final double DRIVE_WHEEL_DIAMETER = 4.0 * Constants.CONVERT_INCHES_TO_METERS;
+  public static final double DRIVE_WHEEL_DIAMETER = 3.95 * Constants.CONVERT_INCHES_TO_METERS;
 
   public static final double DRIVE_ENC_ROT_TO_DIST = (1 / Constants.DRIVE_GEAR_RATIO)
       * Math.PI
@@ -109,18 +110,22 @@ public final class Constants {
   // meters)
 
     // Autonomous constants
-    public static final double ksVolts = 0.15893;
-    public static final double kvVoltSecondsPerMeter = 3.1138;
-    public static final double kaVoltSecondsSquaredPerMeter = 0.3875;
+    public static final double ksVoltsLeft = 0.13408;
+    public static final double kvVoltSecondsPerMeterLeft = 3.1544;
+    public static final double kaVoltSecondsSquaredPerMeterLeft = 0.13889;
 
-    public static final double kPDriveVel = 0.03125; //1.4228E-05; //0.00020646; // 0.03125;
+    public static final double ksVoltsRight = 0.1255;
+    public static final double kvVoltSecondsPerMeterRight = 3.1233;
+    public static final double kaVoltSecondsSquaredPerMeterRight = 0.13889;
+
+    public static final double kPDriveVel = 0.25; //0.5; //0.0013735; // 0.03125; //0.03125; //1.4228E-05; //0.00020646; // 0.03125;
     
     public static final double kTrackwidthMeters = 0.72791; /* True calculations: 0.653*/
     public static final DifferentialDriveKinematics kDriveKinematics =
         new DifferentialDriveKinematics(kTrackwidthMeters);
 
-    public static final double kMaxSpeedMetersPerSecond = 3.0;
-    public static final double kMaxAccelerationMetersPerSecondSquared = 3.0;
+    public static final double kMaxSpeedMetersPerSecond = 3;
+    public static final double kMaxAccelerationMetersPerSecondSquared = 3;
 
     // Reasonable baseline values for a RAMSETE follower in units of meters and seconds
     public static final double kRamseteB = 2;

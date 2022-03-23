@@ -144,7 +144,8 @@ public class Hopper extends SubsystemBase {
     public void putSmartDashboardOverrides() {
         SmartDashboard.putNumber("OR: Hopper power", 0.0);
         SmartDashboard.putNumber("OR: Hopper velocity", 0.0);
-        SmartDashboard.putNumber("Teleop: Hopper shoot speed", Constants.HOPPER_SHOOT_SPEED);
+        SmartDashboard.putNumber("Teleop: Hopper shoot layup speed", Constants.HOPPER_SHOOT_LAYUP_SPEED);
+        SmartDashboard.putNumber("Teleop: Hopper shoot LL speed", Constants.HOPPER_SHOOT_LL_SPEED);
         SmartDashboard.putNumber("OR: Hop Vel P", Constants.HOPPER_VEL_P);
         SmartDashboard.putNumber("OR: Hop Vel I", Constants.HOPPER_VEL_I);
         SmartDashboard.putNumber("OR: Hop Vel D", Constants.HOPPER_VEL_D);
@@ -155,9 +156,9 @@ public class Hopper extends SubsystemBase {
     public void updateHopperInfoOnDashboard(){
         SmartDashboard.putBoolean("Lower sensor", sensesBallBottom());
         SmartDashboard.putBoolean("Upper sensor", sensesBallTop());
+        SmartDashboard.putNumber("Hopper velocity", getHopperVelocity());
 
         if(Constants.OI_CONFIG != OIConfig.COMPETITION){
-            SmartDashboard.putNumber("Hopper velocity", getHopperVelocity());
             SmartDashboard.putNumber("Hopper position", getHopperPosition());
         }
     }
