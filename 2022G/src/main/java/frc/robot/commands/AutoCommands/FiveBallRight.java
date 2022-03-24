@@ -30,7 +30,7 @@ public class FiveBallRight extends SequentialCommandGroup{
             new ShootWithLLUntilEmpty(0.3),
             new AutoIntakeWithHopper(1, 0.7),
             part3,
-            new WaitCommand(2),
+            new WaitCommand(1),
             part4,
             new ShootWithLLUntilEmpty(0.3),
             new TurnToAngle(-20)
