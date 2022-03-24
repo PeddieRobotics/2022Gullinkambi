@@ -50,7 +50,7 @@ public final class Constants {
   // Flywheel constants
   public static final int FLYWHEEL_MAX_CURRENT = 40; // amps
 
-  public static final double FLYWHEEL_P = 0.00003;
+  public static final double FLYWHEEL_P = 0.00002;
   public static final double FLYWHEEL_I = 0.0000005;
   public static final double FLYWHEEL_D = 0.0;
   public static final double FLYWHEEL_FF = 0.0;
