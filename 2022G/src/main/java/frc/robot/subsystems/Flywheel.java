@@ -90,7 +90,7 @@ public class Flywheel extends SubsystemBase {
     if (flywheelSetpoint > Constants.FLYWHEEL_MAX_RPM) {
       flywheelSetpoint = 0;
     }
-    flywheelPIDController.setReference(flywheelSetpoint, ControlType.kVelocity, 0, flywheelFF.calculate(flywheelSetpoint));
+    flywheelPIDController.setReference(flywheelSetpoint, ControlType.kVelocity, 0, flywheelFF.calculate(flywheelSetpoint/60.0));
   }
 
   public void runFlywheelPower(double power) {

@@ -22,8 +22,8 @@
     12
   ],
   "primary motors inverted": [
-    false,
-    true
+    true,
+    false
   ],
   "secondary encoder inverted": false,
   "secondary encoder ports": [
