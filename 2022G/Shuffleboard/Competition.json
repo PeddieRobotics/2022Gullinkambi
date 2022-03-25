@@ -193,15 +193,26 @@
               "_source0": "network_table:///SmartDashboard/Teleop: Hopper shoot LL speed",
               "_title": "/SmartDashboard/Teleop: Hopper shoot LL speed"
             }
+          },
+          "7,5": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Reload LL Network Table",
+              "_title": "/SmartDashboard/Reload LL Network Table"
+            }
           }
         }
       }
     }
   ],
   "windowGeometry": {
-    "x": -18.0,
-    "y": 9.0,
-    "width": 3756.0,
+    "x": -2.0,
+    "y": 4.0,
+    "width": 1940.0,
     "height": 1047.0
   }
 }

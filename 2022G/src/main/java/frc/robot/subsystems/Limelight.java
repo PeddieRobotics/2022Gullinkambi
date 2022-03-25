@@ -5,6 +5,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.*;
 import frc.robot.utils.Constants.OIConfig;
@@ -48,7 +49,6 @@ public class Limelight extends SubsystemBase {
   }
 
   @Override
-  
   public void periodic() {
     updateRollingAverages();
     if(Constants.USE_LOGGING){
@@ -57,12 +57,20 @@ public class Limelight extends SubsystemBase {
 
   }
 
+  public boolean isActive(){
+    return limelightTable.getKeys().toArray().length > 0;
+  }
+
   public PIDController getPIDController(){
     return limelightPIDController;
   }
 
   public double getFF(){
     return ff;
+  }
+
+  public void reloadLimelightTable(){
+    limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
   }
 
   // Tv is whether the limelight has a valid target
@@ -143,6 +151,7 @@ public class Limelight extends SubsystemBase {
   }
 
   public void putSmartDashboardOverrides(){
+    SmartDashboard.putData("Reload LL Network Table", new InstantCommand(this::reloadLimelightTable));
     SmartDashboard.putNumber("LL P", Constants.LL_P);
     SmartDashboard.putNumber("LL I", Constants.LL_I);
     SmartDashboard.putNumber("LL D", Constants.LL_D);
