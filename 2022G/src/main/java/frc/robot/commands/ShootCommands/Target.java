@@ -22,7 +22,7 @@ public class Target extends CommandBase {
   private double angle_bound;
   private PIDController limelightPIDController;
   private double initialTime;
-  private boolean isAuto;
+  private boolean isAuto, limelightBroken;
 
   public Target(boolean autonomous) {
     limelight = Limelight.getInstance();
@@ -42,6 +42,9 @@ public class Target extends CommandBase {
       // Assume by default that we're not locked on a limelight target. Shouldn't be needed, but placed here as a safety on the logic elsewhere.
       drivetrain.setLockedOnTarget(false);
       initialTime = Timer.getFPGATimestamp();
+      if(!limelight.isActive()){
+        limelightBroken = true;
+      }
   }
 
   @Override
@@ -76,10 +79,10 @@ public class Target extends CommandBase {
     drivetrain.arcadeDrive(0,0);
     // If we end this command with the LL seeing target AND we weren't interrupted (e.g. trigger release), we are locked to target now
     // Otherwise we must be ending immediately because no target was found for alignment
-    if(limelight.hasTarget() && !interrupted){
+    if((limelightBroken || limelight.hasTarget()) && !interrupted){
       drivetrain.setLockedOnTarget(true);
     }
-    else{
+    else if(!limelightBroken){
       flywheel.runFlywheelSetpoint(0);
     }
 
@@ -87,7 +90,10 @@ public class Target extends CommandBase {
 
   @Override
   public boolean isFinished() { 
-    if(isAuto){
+    if(limelightBroken){
+      return true;
+    }
+    else if(isAuto){
       return (Math.abs(limelight.getTx()) < angle_bound);  
     }
     else{
