@@ -5,10 +5,11 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.*;
+import frc.robot.utils.Constants;
 import frc.robot.utils.Constants.OIConfig;
+import frc.robot.utils.RollingAverage;
+import frc.robot.utils.UpdateLogs;
 
 public class Limelight extends SubsystemBase {
   /**
@@ -20,6 +21,9 @@ public class Limelight extends SubsystemBase {
   private PIDController limelightPIDController;
 
   private double ff;
+
+  private double prevTlEntry;
+  private int inactiveCount;
   
   private NetworkTable limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
   private NetworkTableEntry tx = limelightTable.getEntry("tx");
@@ -38,6 +42,8 @@ public class Limelight extends SubsystemBase {
   public Limelight() {
     limelightPIDController = new PIDController(Constants.LL_P, Constants.LL_I, Constants.LL_D);
     ff = Constants.LL_FF;
+    prevTlEntry = 0.0;
+    inactiveCount = 0;
   }
 
   public static Limelight getInstance() {
@@ -50,6 +56,14 @@ public class Limelight extends SubsystemBase {
 
   @Override
   public void periodic() {
+    double tlEntry = limelightTable.getEntry("tl").getDouble(0.0);
+    if(prevTlEntry == tlEntry){
+      inactiveCount++;
+    }
+    else{
+      prevTlEntry = tlEntry;
+      inactiveCount = 0;
+    }
     updateRollingAverages();
     if(Constants.USE_LOGGING){
       updateLogs.updateLimelightLogData();
@@ -58,7 +72,7 @@ public class Limelight extends SubsystemBase {
   }
 
   public boolean isActive(){
-    return limelightTable.getKeys().toArray().length > 0;
+    return inactiveCount < 5;
   }
 
   public PIDController getPIDController(){
@@ -67,10 +81,6 @@ public class Limelight extends SubsystemBase {
 
   public double getFF(){
     return ff;
-  }
-
-  public void reloadLimelightTable(){
-    limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
   }
 
   // Tv is whether the limelight has a valid target
@@ -151,7 +161,6 @@ public class Limelight extends SubsystemBase {
   }
 
   public void putSmartDashboardOverrides(){
-    SmartDashboard.putData("Reload LL Network Table", new InstantCommand(this::reloadLimelightTable));
     SmartDashboard.putNumber("LL P", Constants.LL_P);
     SmartDashboard.putNumber("LL I", Constants.LL_I);
     SmartDashboard.putNumber("LL D", Constants.LL_D);
