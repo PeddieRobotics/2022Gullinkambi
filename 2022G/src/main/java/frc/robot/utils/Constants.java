@@ -58,7 +58,7 @@ public final class Constants {
 
   public static final double FLYWHEEL_RPM_LAYUP = 2500;
   public static final double FLYWHEEL_RPM_LOW = 1300;
-  public static final double FLYWHEEL_RPM_REV_UP = 1500;
+  public static final double FLYWHEEL_RPM_REV_UP = 2300;
 
   public static final double FLYWHEEL_THRESHOLD_LAYUP = 50;
   public static final double FLYWHEEL_THRESHOLD_LOW = 50;
