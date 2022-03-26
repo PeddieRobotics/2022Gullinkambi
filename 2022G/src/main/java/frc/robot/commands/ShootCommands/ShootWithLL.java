@@ -36,7 +36,7 @@ public class ShootWithLL extends CommandBase {
       flywheel.runFlywheelSetpoint(rpm + SmartDashboard.getNumber("Teleop: shootLL RPM delta", 0));
     }
     else{
-      flywheel.runFlywheelSetpoint(2600);          
+      flywheel.runFlywheelSetpoint(2600 + SmartDashboard.getNumber("Teleop: shootLL RPM delta", 0));          
     }
     
     drivetrain.setBrake();

@@ -65,7 +65,7 @@ public final class Constants {
   public static final double FLYWHEEL_THRESHOLD_SHOOTLL = 50;
 
   public static final double FLYWHEEL_MAX_POWER = 1;
-  public static final double FLYWHEEL_MAX_RPM = 4000;
+  public static final double FLYWHEEL_MAX_RPM = 4500;
 
   // Climber constants
   public static final double CLIMBER_TOP_ENCODER_POSITION = -116;
@@ -88,8 +88,8 @@ public final class Constants {
   public static final double LL_PANNING_ANGLE = 0;
   public static final double TARGET_HEIGHT = 104;
   
-  public static final double [] LL_DIST = new double[]{60, 68, 90, 104, 120, 135, 150, 178};
-  public static final double [] RPMS = new double[]{2360, 2400, 2585, 2700, 2810, 2990, 3200, 3590};
+  public static final double [] LL_DIST = new double[]{60, 68, 90, 104, 120, 135, 150, 178, 190};
+  public static final double [] RPMS = new double[]{2360, 2400, 2585, 2700, 2810, 2990, 3200, 3590, 3750};
   public static LookupTable DIST_TO_RPM = new LookupTable(LL_DIST, RPMS);
 
   // OI constants

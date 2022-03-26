@@ -14,7 +14,7 @@ import frc.robot.commands.ShootCommands.SetFlywheelRPM;
 
 public class FiveBallRight extends SequentialCommandGroup{ 
 
-    public FiveBallRight(Pose2d initialPose, RamseteCommand part1, RamseteCommand part2, RamseteCommand part3, RamseteCommand part4, RamseteCommand part5){
+    public FiveBallRight(Pose2d initialPose, RamseteCommand part1, RamseteCommand part2, RamseteCommand part3, RamseteCommand part4){
         addCommands(
             new ResetOdometry(initialPose),
             new SetFlywheelRPM(2500),
