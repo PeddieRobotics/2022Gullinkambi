@@ -21,10 +21,9 @@ public class Target extends CommandBase {
   private double average_error;
   private double angle_bound;
   private PIDController limelightPIDController;
-  private double initialTime;
   private boolean isAuto, limelightBroken;
 
-  public Target(boolean autonomous) {
+  public Target() {
     limelight = Limelight.getInstance();
     drivetrain = Drivetrain.getInstance();
     flywheel = Flywheel.getInstance();
@@ -35,13 +34,11 @@ public class Target extends CommandBase {
 
     angle_bound = Constants.LL_ANGLE_BOUND;
 
-    isAuto = autonomous;
   }
   @Override
   public void initialize() {
       // Assume by default that we're not locked on a limelight target. Shouldn't be needed, but placed here as a safety on the logic elsewhere.
       drivetrain.setLockedOnTarget(false);
-      initialTime = Timer.getFPGATimestamp();
       if(!limelight.isActive()){
         limelightBroken = true;
       }
@@ -93,11 +90,8 @@ public class Target extends CommandBase {
     if(limelightBroken){
       return true;
     }
-    else if(isAuto){
-      return (Math.abs(limelight.getTx()) < angle_bound);  
-    }
     else{
-      return (Math.abs(limelight.getTx()) < angle_bound) && (Timer.getFPGATimestamp()-initialTime > 0.3);
+      return (Math.abs(limelight.getTx()) < angle_bound);  
     }
   }
 }

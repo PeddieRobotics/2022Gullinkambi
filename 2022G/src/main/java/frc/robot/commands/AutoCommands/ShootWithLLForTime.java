@@ -14,7 +14,7 @@ public class ShootWithLLForTime extends SequentialCommandGroup{
     public ShootWithLLForTime(int x) {
         addCommands(
             new ParallelRaceGroup(
-                new SequentialCommandGroup(new Target(true), new ConditionalCommand(new ShootWithLL(true), new BlankCommand(), Drivetrain.getInstance()::isLockedOnTarget)),
+                new SequentialCommandGroup(new Target(), new ConditionalCommand(new ShootWithLL(true), new BlankCommand(), Drivetrain.getInstance()::isLockedOnTarget)),
                 new WaitCommand(x)
             )
         );
