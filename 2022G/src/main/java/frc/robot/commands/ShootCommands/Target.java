@@ -98,7 +98,7 @@ public class Target extends CommandBase {
       return (Math.abs(limelight.getTx()) < angle_bound);
     }
     else{
-      return (Math.abs(limelight.getTx()) < angle_bound) && (Timer.getFPGATimestamp()-initialTime > 0.12);  
+      return (Math.abs(limelight.getTx()) < angle_bound) && (Timer.getFPGATimestamp()-initialTime > 0.5);  
     }
   }
 }
