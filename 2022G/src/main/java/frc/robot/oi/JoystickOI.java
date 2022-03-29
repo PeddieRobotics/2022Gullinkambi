@@ -3,22 +3,17 @@ package frc.robot.oi;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.AutoCommands.ShootWithLLUntilEmpty;
 import frc.robot.commands.ClimbCommands.ExtendArm;
 import frc.robot.commands.ClimbCommands.RetractArm;
-import frc.robot.commands.DriveCommands.LLDriveToTarget;
+import frc.robot.commands.DriveCommands.Target;
 import frc.robot.commands.DriveCommands.TurnToAngle;
-import frc.robot.commands.IntakeCommands.CheckIfHopperEmpty;
 import frc.robot.commands.IntakeCommands.RunIntake;
 import frc.robot.commands.IntakeCommands.StopIntake;
-import frc.robot.commands.ShootCommands.BlankCommand;
+import frc.robot.commands.ShootCommands.PrepareToShoot;
 import frc.robot.commands.ShootCommands.ShootLayup;
 import frc.robot.commands.ShootCommands.ShootWithLL;
-import frc.robot.commands.ShootCommands.Target;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.utils.ControllerMap;
@@ -67,9 +62,9 @@ public class JoystickOI {
     leftButton2.toggleWhenPressed(new ConditionalCommand(new InstantCommand(drivetrain::setToRegularMode, drivetrain), new InstantCommand(drivetrain::setToInverseMode, drivetrain), drivetrain::isInverseMode));
     
     rightTrigger.whenHeld(new ShootLayup(false));
-    rightButton2.whenHeld(new SequentialCommandGroup(new Target(false), new ConditionalCommand(new ShootWithLL(false), new BlankCommand(), drivetrain::isLockedOnTarget)));
+    rightButton2.whenHeld(new SequentialCommandGroup(new PrepareToShoot(), new Target(), new ShootWithLL(false)));
     rightButton3.whenHeld(new ExtendArm()).whenReleased(new RetractArm());
-
+    rightButton4.whenPressed(new TurnToAngle(drivetrain.getPoseHeading()+90));
   }
 
   public double getSpeed() {

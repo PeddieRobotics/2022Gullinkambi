@@ -46,7 +46,7 @@ public class Drivetrain extends SubsystemBase {
   private boolean inverseMode;
   private boolean brakeMode;
 
-  private boolean lockedOnTarget;
+  private double shootingAngle;
 
   // For autonomous, keep track of previous left/right wheel speed setpoints for estimating acceleration component of movement
   private double prevLeftWheelSpeed, prevRightWheelSpeed;
@@ -106,7 +106,7 @@ public class Drivetrain extends SubsystemBase {
 
     inverseMode = false;
 
-    lockedOnTarget = false;
+    shootingAngle = 0.0;
 
     prevLeftWheelSpeed = 0.0;
     prevRightWheelSpeed = 0.0;
@@ -166,16 +166,23 @@ public class Drivetrain extends SubsystemBase {
     return new DifferentialDriveWheelSpeeds(getLeftEncoderVelocity(), getRightEncoderVelocity());
   }
 
+  public double getShootingAngle(){
+    return shootingAngle;
+  }
+
+  public void setShootingAngle(double angle){
+    shootingAngle = angle;
+  }
+
   public void updateDrivetrainInfoOnDashboard() {
     SmartDashboard.putNumber("Heading", getHeading());
-    SmartDashboard.putBoolean("Locked on target", isLockedOnTarget());  
+    SmartDashboard.putNumber("Odometry X", odometry.getPoseMeters().getTranslation().getX());
+    SmartDashboard.putNumber("Odometry Y", odometry.getPoseMeters().getTranslation().getY());
+    SmartDashboard.putNumber("Odometry Pose", getPoseHeading());
+    SmartDashboard.putNumber("Shooting Angle", getShootingAngle());
 
     //only heading and odometry in competition mode
     if(Constants.OI_CONFIG != OIConfig.COMPETITION){
-      SmartDashboard.putNumber("Odometry X", odometry.getPoseMeters().getTranslation().getX());
-      SmartDashboard.putNumber("Odometry Y", odometry.getPoseMeters().getTranslation().getY());
-      SmartDashboard.putNumber("Odometry Pose", getPoseHeading());
-
       SmartDashboard.putNumber("LDrive enc pos", getLeftEncoderPosition());
       SmartDashboard.putNumber("RDrive enc pos", getRightEncoderPosition());
       SmartDashboard.putNumber("LDrive enc vel", getLeftEncoderVelocity());
@@ -394,14 +401,6 @@ public class Drivetrain extends SubsystemBase {
 
   public PIDController getTurnPID(){
     return turnToAnglePIDController;
-  }
-
-  public boolean isLockedOnTarget(){
-    return lockedOnTarget;
-  }
-
-  public void setLockedOnTarget(boolean lockedOn){
-    lockedOnTarget = lockedOn;
   }
 
   public void updateDrivePIDControllers(double leftWheelSpeed, double rightWheelSpeed) {

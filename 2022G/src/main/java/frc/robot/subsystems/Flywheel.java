@@ -12,6 +12,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -33,6 +34,8 @@ public class Flywheel extends SubsystemBase {
   private Solenoid hoodSolenoid, shooterLockSolenoid;
 
   private double flywheelSetpoint = 0;
+
+  private SimpleMotorFeedforward flywheelFF;
 
   private static UpdateLogs updateLogs = UpdateLogs.getInstance();
 
@@ -57,12 +60,14 @@ public class Flywheel extends SubsystemBase {
     kIz = Constants.FLYWHEEL_IZONE;
     kFF = Constants.FLYWHEEL_FF;
 
+    flywheelFF = new SimpleMotorFeedforward(Constants.ksFlywheel, Constants.kvFlywheel, Constants.kaFlywheel);
+
     // Configure PID controller for the flywheel
     flywheelPIDController.setP(Constants.FLYWHEEL_P);
     flywheelPIDController.setI(Constants.FLYWHEEL_I);
     flywheelPIDController.setD(Constants.FLYWHEEL_D);
     flywheelPIDController.setIZone(Constants.FLYWHEEL_IZONE);
-    flywheelPIDController.setFF(Constants.FLYWHEEL_FF);
+    // flywheelPIDController.setFF(Constants.FLYWHEEL_FF);
     flywheelPIDController.setOutputRange(0, 1);
 
     // Set up pneumatics

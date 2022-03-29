@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.IntakeCommands.CheckIfHopperEmpty;
 import frc.robot.commands.ShootCommands.BlankCommand;
 import frc.robot.commands.ShootCommands.ShootWithLL;
-import frc.robot.commands.ShootCommands.Target;
 import frc.robot.subsystems.Drivetrain;
 
 public class ShootWithLLUntilEmptyNoTarget extends SequentialCommandGroup{

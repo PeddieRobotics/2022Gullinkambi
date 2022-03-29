@@ -22,12 +22,12 @@ public final class Constants {
   public static final double SPEED_MULTIPLIER = 1;
   public static final double TURN_MULTIPLIER = 1;
 
-  public static final double kTurnToAngleP = 0.0055;
+  public static final double kTurnToAngleP = 0.01;
   public static final double kTurnToAngleI = 0.0000005;
   public static final double kTurnToAngleD = 0.0;
   public static final double kTurnToAngleFF = 0.15;
   public static final double kTurnToAngleToleranceDeg = 0.5;
-  public static final double kTurnToAngleRateToleranceDegPerS = 0;
+  public static final double kTurnToAngleRateToleranceDegPerS = 0.0;
 
   // Intake constants
   public static final int INTAKE_MAX_CURRENT = 30; // amps
@@ -50,22 +50,28 @@ public final class Constants {
   // Flywheel constants
   public static final int FLYWHEEL_MAX_CURRENT = 40; // amps
 
-  public static final double FLYWHEEL_P = 0.0001;
-  public static final double FLYWHEEL_I = 0.0000005;
-  public static final double FLYWHEEL_D = 0.01;
-  public static final double FLYWHEEL_FF = 0.000182;
+  public static final double FLYWHEEL_P = 0.0002;
+  public static final double FLYWHEEL_I = 0.0;
+  public static final double FLYWHEEL_D = 0.0;
+  public static final double FLYWHEEL_FF = 0.00018;
   public static final double FLYWHEEL_IZONE = 100;
+
+  public static final double ksFlywheel = 0.24292*0.965;
+  public static final double kvFlywheel = 0.12977*0.965;
+  public static final double kaFlywheel = 0.0053723*0.965;
 
   public static final double FLYWHEEL_RPM_LAYUP = 2500;
   public static final double FLYWHEEL_RPM_LOW = 1300;
   public static final double FLYWHEEL_RPM_REV_UP = 2300;
 
-  public static final double FLYWHEEL_THRESHOLD_LAYUP = 50;
-  public static final double FLYWHEEL_THRESHOLD_LOW = 50;
-  public static final double FLYWHEEL_THRESHOLD_SHOOTLL = 50;
+  public static final double FLYWHEEL_THRESHOLD_LAYUP = 100;
+  public static final double FLYWHEEL_THRESHOLD_LOW = 100;
+  public static final double FLYWHEEL_THRESHOLD_SHOOTLL = 100;
 
   public static final double FLYWHEEL_MAX_POWER = 1;
   public static final double FLYWHEEL_MAX_RPM = 4500;
+
+
 
   // Climber constants
   public static final double CLIMBER_TOP_ENCODER_POSITION = -116;

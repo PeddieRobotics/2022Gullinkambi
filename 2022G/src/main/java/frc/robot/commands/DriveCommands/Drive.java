@@ -33,8 +33,6 @@ public class Drive extends CommandBase {
     // Initializes the drive command
     @Override
     public void initialize() {
-        // If we're driving, we're not locked on a limelight target. Shouldn't be needed, but placed here as a safety on the logic elsewhere.
-        drivetrain.setLockedOnTarget(false);
     }
 
     // Executes the drive command
@@ -78,6 +76,7 @@ public class Drive extends CommandBase {
     // End the command if it is interrupted
     @Override
     public void end(boolean interrupted) {
+        drivetrain.curvatureDrive(0, 0);
     }
 
     // Checks if the command is finished

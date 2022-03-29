@@ -31,33 +31,26 @@ public class ShootWithLL extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if(limelight.isActive()){
-      rpm = Constants.DIST_TO_RPM.get(limelight.getDistance());
-      flywheel.runFlywheelSetpoint(rpm + SmartDashboard.getNumber("Teleop: shootLL RPM delta", 0));
-    }
-    else{
-      flywheel.runFlywheelSetpoint(2600 + SmartDashboard.getNumber("Teleop: shootLL RPM delta", 0));          
-    }
-    
-    drivetrain.setBrake();
-    flywheel.setHood(true); // turn hood on for LL shot
-
+    // Check the rpm one more time and make a last second adjustment as needed
+    //double rpm = Constants.DIST_TO_RPM.get(limelight.getDistance());
+    //flywheel.runFlywheelSetpoint(rpm + SmartDashboard.getNumber("Teleop: shootLL RPM delta", 0));
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // Check whether the speed of flywheel is good enough to shoot
-    if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_SHOOTLL)) {
-      flywheel.setShooterLock(true);
-      hopper.setHopperVelocity(SmartDashboard.getNumber("Teleop: Hopper shoot LL speed", Constants.HOPPER_SHOOT_LL_SPEED));
+    if(limelight.hasTarget() && Math.abs(drivetrain.getPoseHeading()-drivetrain.getShootingAngle()) < 1.0){
+      // Check whether the speed of flywheel is good enough to shoot
+      if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_SHOOTLL)) {
+        flywheel.setShooterLock(true);
+        hopper.setHopperVelocity(SmartDashboard.getNumber("Teleop: Hopper shoot LL speed", Constants.HOPPER_SHOOT_LL_SPEED));
+      }
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    drivetrain.setLockedOnTarget(false);
     flywheel.setShooterLock(false);
     if(!isAuto){
       hopper.stopHopper();

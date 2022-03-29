@@ -193,15 +193,152 @@
               "_source0": "network_table:///SmartDashboard/Teleop: Hopper shoot LL speed",
               "_title": "/SmartDashboard/Teleop: Hopper shoot LL speed"
             }
+          },
+          "4,5": {
+            "size": [
+              4,
+              1
+            ],
+            "content": {
+              "_type": "Network Table Tree",
+              "_source0": "network_table:///SmartDashboard/Scheduler",
+              "_title": "SmartDashboard/Scheduler"
+            }
+          },
+          "3,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Odometry Pose",
+              "_title": "SmartDashboard/Odometry Pose"
+            }
+          },
+          "2,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Shooting Angle",
+              "_title": "SmartDashboard/Shooting Angle"
+            }
+          },
+          "5,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/isAtRPM",
+              "_title": "SmartDashboard/isAtRPM",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "1,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///limelight/tx",
+              "_title": "limelight/tx"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Tab 2",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "titleType": 0,
+        "tiles": {
+          "0,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/OR: P flywheel",
+              "_title": "/SmartDashboard/OR: P flywheel"
+            }
+          },
+          "0,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/OR: FF flywheel",
+              "_title": "/SmartDashboard/OR: FF flywheel"
+            }
+          },
+          "1,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/OR: I flywheel",
+              "_title": "/SmartDashboard/OR: I flywheel"
+            }
+          },
+          "2,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/OR: D flywheel",
+              "_title": "/SmartDashboard/OR: D flywheel"
+            }
+          },
+          "1,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/OR: I zone flywheel",
+              "_title": "SmartDashboard/OR: I zone flywheel"
+            }
+          },
+          "2,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/OR: Flywheel setpoint",
+              "_title": "/SmartDashboard/OR: Flywheel setpoint"
+            }
           }
         }
       }
     }
   ],
   "windowGeometry": {
-    "x": -7.0,
-    "y": 7.0,
-    "width": 1934.0,
+    "x": 22.0,
+    "y": 33.0,
+    "width": 1314.0,
     "height": 1040.0
   }
 }
