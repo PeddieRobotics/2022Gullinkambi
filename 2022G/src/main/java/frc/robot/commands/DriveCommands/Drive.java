@@ -1,5 +1,6 @@
 package frc.robot.commands.DriveCommands;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
@@ -14,9 +15,11 @@ public class Drive extends CommandBase {
     private Drivetrain drivetrain;
     private XboxOI xboxOI;
     private JoystickOI joystickOI;
+    private SlewRateLimiter filter;
 
     public Drive() {
         drivetrain = Drivetrain.getInstance();
+        filter = new SlewRateLimiter(1.8);
 
         if (Constants.OI_CONFIG == OIConfig.COMPETITION) {
             xboxOI = XboxOI.getInstance();
@@ -68,9 +71,9 @@ public class Drive extends CommandBase {
         }
 
         if (!reverse) {
-            drivetrain.curvatureDrive(speedInput, turnInput);
+            drivetrain.curvatureDrive(filter.calculate(speedInput), turnInput);
         } else {
-            drivetrain.curvatureDrive(-speedInput, turnInput);
+            drivetrain.curvatureDrive(-filter.calculate(speedInput), turnInput);
         }
 
     }
