@@ -85,6 +85,7 @@ public class RobotContainer {
   }
 
   public void setupSmartDashboard() {
+    drivetrain.putSmartDashboardOverrides();
     intake.putSmartDashboardOverrides();
     hopper.putSmartDashboardOverrides();
     limelight.putSmartDashboardOverrides();

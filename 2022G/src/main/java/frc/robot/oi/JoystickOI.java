@@ -7,15 +7,17 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ClimbCommands.ExtendArm;
 import frc.robot.commands.ClimbCommands.RetractArm;
-import frc.robot.commands.DriveCommands.Target;
+import frc.robot.commands.DriveCommands.TargetToAngle;
 import frc.robot.commands.DriveCommands.TurnToAngle;
 import frc.robot.commands.IntakeCommands.RunIntake;
 import frc.robot.commands.IntakeCommands.StopIntake;
+import frc.robot.commands.ShootCommands.BlankCommand;
 import frc.robot.commands.ShootCommands.PrepareToShoot;
 import frc.robot.commands.ShootCommands.ShootLayup;
 import frc.robot.commands.ShootCommands.ShootWithLL;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Limelight;
 import frc.robot.utils.ControllerMap;
 
 public class JoystickOI {
@@ -26,6 +28,7 @@ public class JoystickOI {
 
   private Drivetrain drivetrain;
   private Intake intake;
+  private Limelight limelight;
 
   private JoystickButton leftTrigger, leftButton2, leftButton3, leftButton4;
   private JoystickButton rightTrigger, rightButton2, rightButton3, rightButton4;
@@ -33,6 +36,7 @@ public class JoystickOI {
   public JoystickOI() {
     drivetrain = Drivetrain.getInstance();
     intake = Intake.getInstance();
+    limelight = Limelight.getInstance();
     
     initializeJoysticks();
     configureJoysticks();
@@ -62,9 +66,8 @@ public class JoystickOI {
     leftButton2.toggleWhenPressed(new ConditionalCommand(new InstantCommand(drivetrain::setToRegularMode, drivetrain), new InstantCommand(drivetrain::setToInverseMode, drivetrain), drivetrain::isInverseMode));
     
     rightTrigger.whenHeld(new ShootLayup(false));
-    rightButton2.whenHeld(new SequentialCommandGroup(new PrepareToShoot(), new Target(), new ShootWithLL(false)));
+    rightButton2.whenHeld(new ConditionalCommand(new SequentialCommandGroup(new PrepareToShoot(), new TargetToAngle(), new ShootWithLL(false)), new BlankCommand(), limelight::hasTarget));
     rightButton3.whenHeld(new ExtendArm()).whenReleased(new RetractArm());
-    rightButton4.whenPressed(new TurnToAngle(drivetrain.getPoseHeading()+90));
   }
 
   public double getSpeed() {

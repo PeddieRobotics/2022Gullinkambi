@@ -250,6 +250,105 @@
               "_source0": "network_table:///limelight/tx",
               "_title": "limelight/tx"
             }
+          },
+          "5,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/angle D",
+              "_title": "/SmartDashboard/angle D"
+            }
+          },
+          "5,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/angle P",
+              "_title": "/SmartDashboard/angle P"
+            }
+          },
+          "8,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/angle I",
+              "_title": "/SmartDashboard/angle I"
+            }
+          },
+          "9,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/angle FF",
+              "_title": "/SmartDashboard/angle FF"
+            }
+          },
+          "10,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Adjustment",
+              "_title": "/SmartDashboard/Adjustment"
+            }
+          },
+          "11,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/New dist",
+              "_title": "/SmartDashboard/New dist"
+            }
+          },
+          "11,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/OR: P flywheel",
+              "_title": "/SmartDashboard/OR: P flywheel"
+            }
+          },
+          "11,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/OR: D flywheel",
+              "_title": "/SmartDashboard/OR: D flywheel"
+            }
+          },
+          "11,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/OR: I flywheel",
+              "_title": "/SmartDashboard/OR: I flywheel"
+            }
           }
         }
       }
@@ -336,9 +435,9 @@
     }
   ],
   "windowGeometry": {
-    "x": 22.0,
-    "y": 33.0,
-    "width": 1314.0,
-    "height": 1040.0
+    "x": -123.0,
+    "y": 46.0,
+    "width": 1827.0,
+    "height": 1027.0
   }
 }

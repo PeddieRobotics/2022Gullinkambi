@@ -60,6 +60,8 @@ public class Drivetrain extends SubsystemBase {
 
   private PIDController turnToAnglePIDController;
 
+  private double turnToAngleFF;
+
   //Logging
   private static UpdateLogs updateLogs = UpdateLogs.getInstance();
   private double speedSetpoint, turnSetpoint;
@@ -132,10 +134,13 @@ public class Drivetrain extends SubsystemBase {
     // setpoint before it is considered as having reached the reference
     turnToAnglePIDController.setTolerance(Constants.kTurnToAngleToleranceDeg, Constants.kTurnToAngleRateToleranceDegPerS);
 
+    turnToAngleFF = Constants.kTurnToAngleFF;
   }
 
   @Override
   public void periodic() {
+    turnToAnglePIDController.setPID(SmartDashboard.getNumber("angle P", Constants.kTurnToAngleP), SmartDashboard.getNumber("angle I", Constants.kTurnToAngleI), SmartDashboard.getNumber("angle D", Constants.kTurnToAngleD));
+    turnToAngleFF = SmartDashboard.getNumber("angle FF", Constants.kTurnToAngleFF);
     odometry.update(getHeadingAsRotation2d(), leftEncoder.getPosition(), rightEncoder.getPosition());
     if(Constants.USE_LOGGING){
       updateLogs.updateDrivetrainLogData();
@@ -401,6 +406,19 @@ public class Drivetrain extends SubsystemBase {
 
   public PIDController getTurnPID(){
     return turnToAnglePIDController;
+  }
+
+  public double getTurnFF(){
+    return turnToAngleFF;
+  }
+
+  public void putSmartDashboardOverrides(){
+    SmartDashboard.putNumber("angle P", Constants.kTurnToAngleP);
+    SmartDashboard.putNumber("angle I", Constants.kTurnToAngleI);
+    SmartDashboard.putNumber("angle D", Constants.kTurnToAngleD);
+    SmartDashboard.putNumber("angle FF", Constants.kTurnToAngleFF);
+
+
   }
 
   public void updateDrivePIDControllers(double leftWheelSpeed, double rightWheelSpeed) {

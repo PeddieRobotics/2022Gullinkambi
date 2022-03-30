@@ -39,7 +39,7 @@ public class ShootWithLL extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(limelight.hasTarget() && Math.abs(drivetrain.getPoseHeading()-drivetrain.getShootingAngle()) < 1.0){
+    if(limelight.hasTarget()){
       // Check whether the speed of flywheel is good enough to shoot
       if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_SHOOTLL)) {
         flywheel.setShooterLock(true);

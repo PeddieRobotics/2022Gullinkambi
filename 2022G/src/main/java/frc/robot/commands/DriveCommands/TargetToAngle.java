@@ -5,7 +5,7 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.utils.Constants;
 
 /** A command that will turn the robot to the specified angle. */
-public class Target extends CommandBase{
+public class TargetToAngle extends CommandBase{
   /**
    * Turns to robot to the specified angle.
    *
@@ -17,7 +17,7 @@ public class Target extends CommandBase{
 
    private double targetAngleDegrees;
 
-  public Target() {
+  public TargetToAngle() {
     drivetrain = Drivetrain.getInstance();
 
     addRequirements(drivetrain);
@@ -35,9 +35,9 @@ public class Target extends CommandBase{
   public void execute(){
     double output = drivetrain.getTurnPID().calculate(drivetrain.getPoseHeading(), targetAngleDegrees);
     if (output > 0) {
-      drivetrain.arcadeDrive(0, output + Constants.kTurnToAngleFF);
+      drivetrain.arcadeDrive(0, output + drivetrain.getTurnFF());
     } else if (output < 0) {
-      drivetrain.arcadeDrive(0, output - Constants.kTurnToAngleFF);
+      drivetrain.arcadeDrive(0, output - drivetrain.getTurnFF());
     } else {
       drivetrain.arcadeDrive(0, output);
     }

@@ -22,8 +22,8 @@ public final class Constants {
   public static final double SPEED_MULTIPLIER = 1;
   public static final double TURN_MULTIPLIER = 1;
 
-  public static final double kTurnToAngleP = 0.01;
-  public static final double kTurnToAngleI = 0.0000005;
+  public static final double kTurnToAngleP = 0.008;
+  public static final double kTurnToAngleI = 0.0;
   public static final double kTurnToAngleD = 0.0;
   public static final double kTurnToAngleFF = 0.15;
   public static final double kTurnToAngleToleranceDeg = 0.5;
@@ -50,15 +50,15 @@ public final class Constants {
   // Flywheel constants
   public static final int FLYWHEEL_MAX_CURRENT = 40; // amps
 
-  public static final double FLYWHEEL_P = 0.0002;
+  public static final double FLYWHEEL_P = 0.0001;
   public static final double FLYWHEEL_I = 0.0;
   public static final double FLYWHEEL_D = 0.0;
-  public static final double FLYWHEEL_FF = 0.00018;
+  public static final double FLYWHEEL_FF = 0.0;
   public static final double FLYWHEEL_IZONE = 100;
 
-  public static final double ksFlywheel = 0.24292*0.965;
-  public static final double kvFlywheel = 0.12977*0.965;
-  public static final double kaFlywheel = 0.0053723*0.965;
+  public static final double ksFlywheel = 0.24292*0.97;
+  public static final double kvFlywheel = 0.12977*0.97;
+  public static final double kaFlywheel = 0.0053723*0.97;
 
   public static final double FLYWHEEL_RPM_LAYUP = 2500;
   public static final double FLYWHEEL_RPM_LOW = 1300;

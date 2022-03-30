@@ -54,12 +54,6 @@ public class Flywheel extends SubsystemBase {
     flywheelPIDController = flywheelPrimary.getPIDController();
     flywheelEncoder = flywheelPrimary.getEncoder();
 
-    kP = Constants.FLYWHEEL_P;
-    kI = Constants.FLYWHEEL_I;
-    kD = Constants.FLYWHEEL_D;
-    kIz = Constants.FLYWHEEL_IZONE;
-    kFF = Constants.FLYWHEEL_FF;
-
     flywheelFF = new SimpleMotorFeedforward(Constants.ksFlywheel, Constants.kvFlywheel, Constants.kaFlywheel);
 
     // Configure PID controller for the flywheel
@@ -67,7 +61,6 @@ public class Flywheel extends SubsystemBase {
     flywheelPIDController.setI(Constants.FLYWHEEL_I);
     flywheelPIDController.setD(Constants.FLYWHEEL_D);
     flywheelPIDController.setIZone(Constants.FLYWHEEL_IZONE);
-    // flywheelPIDController.setFF(Constants.FLYWHEEL_FF);
     flywheelPIDController.setOutputRange(0, 1);
 
     // Set up pneumatics
@@ -96,7 +89,7 @@ public class Flywheel extends SubsystemBase {
     if (flywheelSetpoint > Constants.FLYWHEEL_MAX_RPM) {
       flywheelSetpoint = 0;
     }
-    flywheelPIDController.setReference(flywheelSetpoint, ControlType.kVelocity);
+    flywheelPIDController.setReference(flywheelSetpoint, ControlType.kVelocity, 0, flywheelFF.calculate(flywheelSetpoint/60.0));
   }
 
   public void runFlywheelPower(double power) {
