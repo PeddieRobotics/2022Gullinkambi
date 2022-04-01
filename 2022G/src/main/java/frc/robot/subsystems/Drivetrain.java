@@ -91,6 +91,8 @@ public class Drivetrain extends SubsystemBase {
     rightEncoder = rightMaster.getEncoder();
     resetEncoders();
 
+    setClosedLoopRampRates();
+
     drive = new DifferentialDrive(leftMotors, rightMotors);
     drive.setDeadband(Constants.DRIVING_DEADBANDS);
     drive.setSafetyEnabled(false);
@@ -159,6 +161,16 @@ public class Drivetrain extends SubsystemBase {
     rightEncoder.setPositionConversionFactor(Constants.DRIVE_ENC_ROT_TO_DIST);
     leftEncoder.setVelocityConversionFactor(Constants.DRIVE_ENC_ROT_TO_DIST / 60.0);
     rightEncoder.setVelocityConversionFactor(Constants.DRIVE_ENC_ROT_TO_DIST / 60.0);
+  }
+
+  private void setClosedLoopRampRates(){
+    leftMaster.setClosedLoopRampRate(Constants.DRIVETRAIN_CLOSEDLOOP_RAMPRATE);
+    rightMaster.setClosedLoopRampRate(Constants.DRIVETRAIN_CLOSEDLOOP_RAMPRATE);
+    leftFollower1.setClosedLoopRampRate(Constants.DRIVETRAIN_CLOSEDLOOP_RAMPRATE);
+    rightFollower1.setClosedLoopRampRate(Constants.DRIVETRAIN_CLOSEDLOOP_RAMPRATE);
+    leftFollower2.setClosedLoopRampRate(Constants.DRIVETRAIN_CLOSEDLOOP_RAMPRATE);
+    rightFollower2.setClosedLoopRampRate(Constants.DRIVETRAIN_CLOSEDLOOP_RAMPRATE);
+
   }
 
   // Returns the current wheel speeds
