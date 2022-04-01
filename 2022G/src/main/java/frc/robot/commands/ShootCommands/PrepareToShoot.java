@@ -31,42 +31,41 @@ public class PrepareToShoot extends CommandBase {
       if(limelight.hasTarget()){
         // Set to brake mode
         drivetrain.setBrake();
+        // Turn hood on for LL shot
+        // flywheel.setHood(true);
+
+        double currentPoseHeading = drivetrain.getPoseHeading();
 
         // Check if the limelight isn't working, if so we want to end immediately and not try to target
-        if(!limelight.isActive()){
-          limelightBroken = true;
-        }
-
-        // Get horizontal angular error from limelight and calculate new heading
-        double distOld = limelight.getDistance();
-        double tx = Math.toRadians(limelight.getTx());
-        double offset = 5.0; // inches from limelight to gyro
-        double currentPoseHeading = drivetrain.getPoseHeading();
-        double adjustment = Math.toDegrees(Math.atan(distOld*Math.sin(tx)/(distOld*Math.cos(tx)+offset)));
-        SmartDashboard.putNumber("Adjustment", adjustment);
-        double newPoseHeading = currentPoseHeading - 1.2*adjustment;
-
-        double distNew = distOld * Math.sin(tx)/Math.sin(Math.toRadians(1.2*adjustment));
-        SmartDashboard.putNumber("New dist", distNew);
-
         if(limelight.isActive()){
+          // Get horizontal angular error from limelight and calculate new heading
+          double d = limelight.getDistance();
+          double tx = Math.toRadians(limelight.getTx());
+          double offset = 5.0; // inches from limelight to gyro
+          double h = Constants.TARGET_HEIGHT - Constants.LL_HEIGHT;
+          double theta1 = Math.acos((-h*h + (d*d + h*h)*Math.cos(tx))/(d*d));
+          double theta2 = Math.toDegrees(Math.atan(d*Math.sin(theta1)/(d*Math.cos(theta1)+offset)));
+          SmartDashboard.putNumber("d", d);
+          SmartDashboard.putNumber("h", h);
+          SmartDashboard.putNumber("theta1", Math.toDegrees(theta1));
+          SmartDashboard.putNumber("theta2", theta2);
+          double newPoseHeading = currentPoseHeading - Math.signum(tx)*theta2;
+  
+          double distNew = d * Math.sin(theta1)/Math.sin(Math.toRadians(theta2));
+          SmartDashboard.putNumber("New dist", distNew);
+
+          // Now get the flywheel up to speed
           drivetrain.setShootingAngle(newPoseHeading);
-        }
-        else{
-          drivetrain.setShootingAngle(currentPoseHeading);
-        }
+          // double rpm = Constants.DIST_TO_RPM.get(d);
+          // flywheel.runFlywheelSetpoint(rpm + SmartDashboard.getNumber("Teleop: shootLL RPM delta", 0));
 
-        // Now get the flywheel up to speed
-        if(limelight.isActive()){
-          double rpm = Constants.DIST_TO_RPM.get(limelight.getDistance());
-          flywheel.runFlywheelSetpoint(rpm + SmartDashboard.getNumber("Teleop: shootLL RPM delta", 0));
         }
         else{
+          limelightBroken = true;
+          drivetrain.setShootingAngle(currentPoseHeading);
           flywheel.runFlywheelSetpoint(2600 + SmartDashboard.getNumber("Teleop: shootLL RPM delta", 0));          
         }
         
-        // Turn hood on for LL shot
-        flywheel.setHood(true);
       }
     }
 

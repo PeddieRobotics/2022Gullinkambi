@@ -126,7 +126,7 @@ public class Limelight extends SubsystemBase {
       return 0;
     }
      else return (Constants.TARGET_HEIGHT-Constants.LL_HEIGHT)/
-     (Math.tan(Math.toRadians(Constants.LL_ANGLE+Constants.LL_PANNING_ANGLE+ty.getDouble(0.0))));
+     (Math.tan(Math.toRadians(Constants.LL_ANGLE+Constants.LL_PANNING_ANGLE+ty.getDouble(0.0)))*Math.cos(Math.toRadians(tx.getDouble(0.0))));
   }
   
   public boolean hasTarget(){

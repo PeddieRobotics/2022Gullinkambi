@@ -66,7 +66,7 @@ public class JoystickOI {
     leftButton2.toggleWhenPressed(new ConditionalCommand(new InstantCommand(drivetrain::setToRegularMode, drivetrain), new InstantCommand(drivetrain::setToInverseMode, drivetrain), drivetrain::isInverseMode));
     
     rightTrigger.whenHeld(new ShootLayup(false));
-    rightButton2.whenHeld(new ConditionalCommand(new SequentialCommandGroup(new PrepareToShoot(), new TargetToAngle(), new ShootWithLL(false)), new BlankCommand(), limelight::hasTarget));
+    rightButton2.whenHeld(new ConditionalCommand(new SequentialCommandGroup(new PrepareToShoot(), new TargetToAngle()), new BlankCommand(), limelight::hasTarget));
     rightButton3.whenHeld(new ExtendArm()).whenReleased(new RetractArm());
   }
 

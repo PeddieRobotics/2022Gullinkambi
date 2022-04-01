@@ -349,6 +349,28 @@
               "_source0": "network_table:///SmartDashboard/OR: I flywheel",
               "_title": "/SmartDashboard/OR: I flywheel"
             }
+          },
+          "11,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/theta1",
+              "_title": "SmartDashboard/theta1"
+            }
+          },
+          "11,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/theta2",
+              "_title": "SmartDashboard/theta2"
+            }
           }
         }
       }
@@ -435,8 +457,8 @@
     }
   ],
   "windowGeometry": {
-    "x": -123.0,
-    "y": 46.0,
+    "x": 5.0,
+    "y": 31.0,
     "width": 1827.0,
     "height": 1027.0
   }
