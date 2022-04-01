@@ -84,11 +84,11 @@ public final class Constants {
   public static final int CLIMBER_MAX_CURRENT = 60;
 
   // Limelight constants
-  public static final double LL_P = 0.008;
+  public static final double LL_P = 0.01;
   public static final double LL_I = 0;
   public static final double LL_D = 0;
-  public static final double LL_FF = 0.15;
-  public static final double LL_ANGLE_BOUND = 0.5;
+  public static final double LL_FF = 0.1;
+  public static final double LL_ANGLE_BOUND = 1.0;
   public static final double LL_ANGLE = 45; 
   public static final double LL_HEIGHT = 26.25;
   public static final double LL_PANNING_ANGLE = 0;

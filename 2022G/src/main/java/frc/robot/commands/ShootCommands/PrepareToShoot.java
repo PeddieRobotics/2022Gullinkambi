@@ -41,9 +41,10 @@ public class PrepareToShoot extends CommandBase {
           // Get horizontal angular error from limelight and calculate new heading
           double d = limelight.getDistance();
           double tx = Math.toRadians(limelight.getTx());
-          double offset = 5.0; // inches from limelight to gyro
+          double offset = 18.0; // inches from limelight to gyro
           double h = Constants.TARGET_HEIGHT - Constants.LL_HEIGHT;
           double theta1 = Math.acos((-h*h + (d*d + h*h)*Math.cos(tx))/(d*d));
+          //double theta1 = Math.atan((Math.sqrt(h*h + d*d)*Math.tan(tx))/h);
           double theta2 = Math.toDegrees(Math.atan(d*Math.sin(theta1)/(d*Math.cos(theta1)+offset)));
           SmartDashboard.putNumber("d", d);
           SmartDashboard.putNumber("h", h);
@@ -51,7 +52,7 @@ public class PrepareToShoot extends CommandBase {
           SmartDashboard.putNumber("theta2", theta2);
           double newPoseHeading = currentPoseHeading - Math.signum(tx)*theta2;
   
-          double distNew = d * Math.sin(theta1)/Math.sin(Math.toRadians(theta2));
+          double distNew = d * Math.sin(theta1)/Math.sin(Math.toRadians(theta2)) - offset;
           SmartDashboard.putNumber("New dist", distNew);
 
           // Now get the flywheel up to speed
