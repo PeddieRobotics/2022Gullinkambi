@@ -28,8 +28,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.commands.AutoCommands.FiveBallRight;
-import frc.robot.commands.AutoCommands.FiveBallRight;
+import frc.robot.commands.AutoCommands.FiveBallRightBackupSlow;
+import frc.robot.commands.AutoCommands.FiveBallRightSeneca;
+import frc.robot.commands.AutoCommands.FiveBallRightSeneca;
 import frc.robot.commands.AutoCommands.FourBallLeft;
 import frc.robot.commands.AutoCommands.FourBallRight;
 import frc.robot.commands.AutoCommands.FourBallRightRude;
@@ -53,7 +54,7 @@ public class Autonomous extends SubsystemBase {
     private Trajectory sanityCheck, pathVerification, pathVerification_2, pathVerification_2b, straightLine_PW, lPath_manual, lPath_PW, lollipopRight_PW;
     private Trajectory twoBallLeftUpShoot, twoBallRightDownShoot, twoBallLeftRude_1, twoBallLeftRude_2, twoBallLeftRude_3;
     private Trajectory fourBallRight_1, fourBallRight_2, fourBallRight_3, fourBallLeft_1, fourBallLeft_2, fourBallLeft_3;
-    private Trajectory fiveBallRight_1, fiveBallRight_2, fiveBallRight_3, fiveBallRight_4, fiveBallRight_3_Alt, fiveBallRight_4_Alt, fiveBallRight_3_Alt2, fiveBallRight_4_Alt2;
+    private Trajectory fiveBallRight_1, fiveBallRight_2, fiveBallRight_3, fiveBallRight_4, fiveBallRight_backupSlow_1, fiveBallRight_backupSlow_2, fiveBallRight_backupSlow_3, fiveBallRight_backupSlow_4, fiveBallRight_backupSlow_5;
 
     public Autonomous() {
         autoRoutines = new Hashtable<String,Command>();
@@ -104,12 +105,11 @@ public class Autonomous extends SubsystemBase {
 
         //autoRoutines.put("CMD Group: 4 Ball Rude (Right)", new FourBallRightRude(fourBallRight_1.getInitialPose(), createCommandFromTrajectory(fourBallRight_1), createCommandFromTrajectory(fourBallRight_2), createCommandFromTrajectory(fourBallRight_3)));
 
-        autoRoutines.put("CMD Group: 5 Ball (Right) centered", new FiveBallRight(fiveBallRight_1.getInitialPose(), createCommandFromTrajectory(fiveBallRight_1), createCommandFromTrajectory(fiveBallRight_2), createCommandFromTrajectory(fiveBallRight_3), createCommandFromTrajectory(fiveBallRight_4)));
+        autoRoutines.put("CMD Group: 5 Ball (Right) Seneca", new FiveBallRightSeneca(fiveBallRight_1.getInitialPose(), createCommandFromTrajectory(fiveBallRight_1), createCommandFromTrajectory(fiveBallRight_2), createCommandFromTrajectory(fiveBallRight_3), createCommandFromTrajectory(fiveBallRight_4)));
+        
+        autoRoutines.put("CMD Group: 5 Ball (Right) BackupSlow", new FiveBallRightBackupSlow(fiveBallRight_backupSlow_1.getInitialPose(), createCommandFromTrajectory(fiveBallRight_backupSlow_1), createCommandFromTrajectory(fiveBallRight_backupSlow_2), createCommandFromTrajectory(fiveBallRight_backupSlow_3), createCommandFromTrajectory(fiveBallRight_backupSlow_4), createCommandFromTrajectory(fiveBallRight_backupSlow_5)));
 
-        // autoRoutines.put("CMD Group: 5 Ball (Right) offset", new FiveBallRight(fiveBallRight_1.getInitialPose(), createCommandFromTrajectory(fiveBallRight_1), createCommandFromTrajectory(fiveBallRight_2), createCommandFromTrajectory(fiveBallRight_3_Alt), createCommandFromTrajectory(fiveBallRight_4_Alt));
-
-        // autoRoutines.put("CMD Group: 5 Ball (Right) offset more", new FiveBallRight(fiveBallRight_1.getInitialPose(), createCommandFromTrajectory(fiveBallRight_1), createCommandFromTrajectory(fiveBallRight_2), createCommandFromTrajectory(fiveBallRight_3_Alt2), createCommandFromTrajectory(fiveBallRight_4_Alt2));
-
+        
     }
 
     public Command returnAutonomousCommand() {
@@ -147,12 +147,12 @@ public class Autonomous extends SubsystemBase {
         fiveBallRight_2 = PathPlanner.loadPath("5BallRight_Part2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
         fiveBallRight_3 = PathPlanner.loadPath("5BallRight_Part3", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
         fiveBallRight_4 = PathPlanner.loadPath("5BallRight_Part4", Constants.kMaxSpeedMetersPerSecond*1.3, Constants.kMaxAccelerationMetersPerSecondSquared*1.3, true);
-
-        fiveBallRight_3_Alt = PathPlanner.loadPath("5BallRight_Part3_Alt", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared*0.9);
-        fiveBallRight_4_Alt = PathPlanner.loadPath("5BallRight_Part4_Alt", Constants.kMaxSpeedMetersPerSecond*1.3, Constants.kMaxAccelerationMetersPerSecondSquared*1.3, true);
-
-        fiveBallRight_3_Alt2 = PathPlanner.loadPath("5BallRight_Part3_Alt2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared*0.9);
-        fiveBallRight_4_Alt2 = PathPlanner.loadPath("5BallRight_Part4_Alt2", Constants.kMaxSpeedMetersPerSecond*1.3, Constants.kMaxAccelerationMetersPerSecondSquared*1.3, true);
+        
+        fiveBallRight_backupSlow_1 = PathPlanner.loadPath("5BallRight_BackupSlow_Part1", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
+        fiveBallRight_backupSlow_2 = PathPlanner.loadPath("5BallRight_BackupSlow_Part2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
+        fiveBallRight_backupSlow_3 = PathPlanner.loadPath("5BallRight_BackupSlow_Part3", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
+        fiveBallRight_backupSlow_4 = PathPlanner.loadPath("5BallRight_BackupSlow_Part4", Constants.kMaxSpeedMetersPerSecond*0.2, Constants.kMaxAccelerationMetersPerSecondSquared, true);
+        fiveBallRight_backupSlow_5 = PathPlanner.loadPath("5BallRight_BackupSlow_Part5", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared, true);
 
     }
  

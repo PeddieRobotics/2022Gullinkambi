@@ -12,9 +12,9 @@ import frc.robot.commands.IntakeCommands.AutoIntakeWithHopper;
 import frc.robot.commands.IntakeCommands.StopIntake;
 import frc.robot.commands.ShootCommands.SetFlywheelRPM;
 
-public class FiveBallRight extends SequentialCommandGroup{ 
+public class FiveBallRightSeneca extends SequentialCommandGroup{ 
 
-    public FiveBallRight(Pose2d initialPose, RamseteCommand part1, RamseteCommand part2, RamseteCommand part3, RamseteCommand part4){
+    public FiveBallRightSeneca(Pose2d initialPose, RamseteCommand part1, RamseteCommand part2, RamseteCommand part3, RamseteCommand part4){
         addCommands(
             new ResetOdometry(initialPose),
             new SetFlywheelRPM(2500),
