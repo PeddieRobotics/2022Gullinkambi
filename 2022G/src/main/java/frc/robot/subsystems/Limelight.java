@@ -22,9 +22,6 @@ public class Limelight extends SubsystemBase {
 
   private double ff;
 
-  private double prevTlEntry;
-  private int inactiveCount;
-  
   private NetworkTable limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
   private NetworkTableEntry tx = limelightTable.getEntry("tx");
   private NetworkTableEntry ty = limelightTable.getEntry("ty");
@@ -42,8 +39,6 @@ public class Limelight extends SubsystemBase {
   public Limelight() {
     limelightPIDController = new PIDController(Constants.LL_P, Constants.LL_I, Constants.LL_D);
     ff = Constants.LL_FF;
-    prevTlEntry = 0.0;
-    inactiveCount = 0;
   }
 
   public static Limelight getInstance() {
@@ -56,23 +51,11 @@ public class Limelight extends SubsystemBase {
 
   @Override
   public void periodic() {
-    double tlEntry = limelightTable.getEntry("tl").getDouble(0.0);
-    if(prevTlEntry == tlEntry){
-      inactiveCount++;
-    }
-    else{
-      prevTlEntry = tlEntry;
-      inactiveCount = 0;
-    }
     updateRollingAverages();
     if(Constants.USE_LOGGING){
       updateLogs.updateLimelightLogData();
     }
 
-  }
-
-  public boolean isActive(){
-    return inactiveCount < 5;
   }
 
   public PIDController getPIDController(){
