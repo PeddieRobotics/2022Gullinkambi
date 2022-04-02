@@ -37,18 +37,7 @@ public class RevUpFlywheel extends CommandBase {
         if (SmartDashboard.getBoolean("RevUp AI", true)) {
             if (hopper.sensesBallBottomFiltered() && hopper.sensesBallTop()) {
                 intake.stopIntake();
-                if(limelight.hasTarget() && Math.abs(limelight.getTxAverage()) < 10){
-                    double dist = limelight.getDistance();
-                    if(dist > 110 && dist < 140){
-                        flywheel.runFlywheelSetpoint(Constants.FLYWHEEL_RPM_REV_UP_MEDIUM);
-                    }
-                    else if(dist >= 140){
-                        flywheel.runFlywheelSetpoint(Constants.FLYWHEEL_RPM_REV_UP_FAR);
-                    }
-                }
-                else{
-                    flywheel.runFlywheelSetpoint(Constants.FLYWHEEL_RPM_REV_UP_STANDARD);
-                }
+                flywheel.runFlywheelSetpoint(Constants.FLYWHEEL_RPM_REV_UP_STANDARD);
             }
         }
     }

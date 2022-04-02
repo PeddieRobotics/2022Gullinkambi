@@ -36,8 +36,8 @@ public final class Constants {
 
   // Hopper constants
   public static final int HOPPER_MAX_CURRENT = 30; // amps
-  public static final double HOPPER_SHOOT_LAYUP_SPEED = -4200; // rpm
-  public static final double HOPPER_SHOOT_LL_SPEED = -4200; // rpm
+  public static final double HOPPER_SHOOT_LAYUP_SPEED = -3000; // rpm
+  public static final double HOPPER_SHOOT_LL_SPEED = -3800; // rpm
   public static final double HOPPER_SHOOT_POWER = 0.65;
   public static final double HOPPER_INDEX_POWER = 0.7;
   public static final double LOWER_SENSOR_INPUT_THRESHOLD = 0.99;
@@ -70,9 +70,9 @@ public final class Constants {
   public static final double FLYWHEEL_MAX_POWER = 1;
   public static final double FLYWHEEL_MAX_RPM = 4500;
 
-  public static final double ksFlywheel = 0.24292*0.952;
-  public static final double kvFlywheel = 0.12977*0.952;
-  public static final double kaFlywheel = 0.0053723*0.952;
+  public static final double ksFlywheel = 0.24292*0.97;
+  public static final double kvFlywheel = 0.12977*0.97;
+  public static final double kaFlywheel = 0.0053723*0.97;
 
   // Climber constants
   public static final double CLIMBER_TOP_ENCODER_POSITION = -116;
@@ -95,8 +95,8 @@ public final class Constants {
   public static final double LL_PANNING_ANGLE = 0;
   public static final double TARGET_HEIGHT = 104;
   
-  public static final double [] LL_DIST = new double[]{60, 68, 90, 104, 120, 135, 150, 178, 190};
-  public static final double [] RPMS = new double[]{2360, 2400, 2585, 2700, 2810, 2990, 3200, 3590, 3750};
+  public static final double [] LL_DIST = new double[]{62, 73, 90, 105, 120, 135, 150, 170, 190};
+  public static final double [] RPMS = new double[]{2300, 2370, 2510, 2635, 2860, 2920, 3160, 3500, 3750};
   public static LookupTable DIST_TO_RPM = new LookupTable(LL_DIST, RPMS);
 
   // OI constants
