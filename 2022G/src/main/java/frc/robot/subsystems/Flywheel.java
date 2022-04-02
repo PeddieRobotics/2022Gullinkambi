@@ -59,7 +59,7 @@ public class Flywheel extends SubsystemBase {
     flywheelPIDController.setI(Constants.FLYWHEEL_I);
     flywheelPIDController.setD(Constants.FLYWHEEL_D);
     flywheelPIDController.setIZone(Constants.FLYWHEEL_IZONE);
-    // flywheelPIDController.setFF(Constants.FLYWHEEL_FF);
+    flywheelPIDController.setFF(Constants.FLYWHEEL_FF);
     flywheelPIDController.setOutputRange(0, 1);
 
     flywheelFF = new SimpleMotorFeedforward(Constants.ksFlywheel, Constants.kvFlywheel, Constants.kaFlywheel);

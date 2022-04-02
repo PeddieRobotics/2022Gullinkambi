@@ -19,7 +19,7 @@ public final class Constants {
   public static final boolean DRIVE_USE_SQUARED_INPUTS = false;
 
   public static final double DRIVING_DEADBANDS = 0.1;
-  public static final double SPEED_MULTIPLIER = 1;
+  public static final double SPEED_MULTIPLIER = 1.5;
   public static final double TURN_MULTIPLIER = 1;
   public static final double DRIVETRAIN_CLOSEDLOOP_RAMPRATE = 0.1;
 
@@ -36,8 +36,8 @@ public final class Constants {
 
   // Hopper constants
   public static final int HOPPER_MAX_CURRENT = 30; // amps
-  public static final double HOPPER_SHOOT_LAYUP_SPEED = -2500; // rpm
-  public static final double HOPPER_SHOOT_LL_SPEED = -3000; // rpm
+  public static final double HOPPER_SHOOT_LAYUP_SPEED = -4200; // rpm
+  public static final double HOPPER_SHOOT_LL_SPEED = -4200; // rpm
   public static final double HOPPER_SHOOT_POWER = 0.65;
   public static final double HOPPER_INDEX_POWER = 0.7;
   public static final double LOWER_SENSOR_INPUT_THRESHOLD = 0.99;
@@ -51,13 +51,13 @@ public final class Constants {
   // Flywheel constants
   public static final int FLYWHEEL_MAX_CURRENT = 40; // amps
 
-  public static final double FLYWHEEL_P = 0.0; //0.00002;
-  public static final double FLYWHEEL_I = 0.0; //0.0000001;
+  public static final double FLYWHEEL_P = 0.00002;
+  public static final double FLYWHEEL_I = 0.0000001;
   public static final double FLYWHEEL_D = 0.0;
   public static final double FLYWHEEL_FF = 0.0;
   public static final double FLYWHEEL_IZONE = 60;
 
-  public static final double FLYWHEEL_RPM_LAYUP = 2500;
+  public static final double FLYWHEEL_RPM_LAYUP = 2650;
   public static final double FLYWHEEL_RPM_LOW = 1300;
   public static final double FLYWHEEL_RPM_REV_UP = 2800;
 
