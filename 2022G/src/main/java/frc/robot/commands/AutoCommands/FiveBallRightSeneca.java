@@ -17,17 +17,19 @@ public class FiveBallRightSeneca extends SequentialCommandGroup{
     public FiveBallRightSeneca(Pose2d initialPose, RamseteCommand part1, RamseteCommand part2, RamseteCommand part3, RamseteCommand part4){
         addCommands(
             new ResetOdometry(initialPose),
-            new SetFlywheelRPM(2500),
+            new SetFlywheelRPM(2700),
             new ParallelCommandGroup(
                 new AutoIntakeWithHopper(1, 1),
                 part1
             ),
             new StopIntake(),
             new ShootWithLLUntilEmpty(0.3),
+            new SetFlywheelRPM(2600),
             new ParallelCommandGroup(
                 new SequentialCommandGroup(new WaitCommand(0.5), new AutoIntakeWithHopper(1, 1)),
             part2),
             new ShootWithLLUntilEmpty(0.3),
+            new SetFlywheelRPM(2700),
             new AutoIntakeWithHopper(1, 0.7),
             part3,
             new WaitCommand(1),

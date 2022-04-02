@@ -51,15 +51,15 @@ public final class Constants {
   // Flywheel constants
   public static final int FLYWHEEL_MAX_CURRENT = 40; // amps
 
-  public static final double FLYWHEEL_P = 0.0001;
-  public static final double FLYWHEEL_I = 0.0000005;
-  public static final double FLYWHEEL_D = 0.01;
-  public static final double FLYWHEEL_FF = 0.000182;
-  public static final double FLYWHEEL_IZONE = 100;
+  public static final double FLYWHEEL_P = 0.0; //0.00002;
+  public static final double FLYWHEEL_I = 0.0; //0.0000001;
+  public static final double FLYWHEEL_D = 0.0;
+  public static final double FLYWHEEL_FF = 0.0;
+  public static final double FLYWHEEL_IZONE = 60;
 
   public static final double FLYWHEEL_RPM_LAYUP = 2500;
   public static final double FLYWHEEL_RPM_LOW = 1300;
-  public static final double FLYWHEEL_RPM_REV_UP = 2300;
+  public static final double FLYWHEEL_RPM_REV_UP = 2800;
 
   public static final double FLYWHEEL_THRESHOLD_LAYUP = 50;
   public static final double FLYWHEEL_THRESHOLD_LOW = 50;
@@ -67,6 +67,10 @@ public final class Constants {
 
   public static final double FLYWHEEL_MAX_POWER = 1;
   public static final double FLYWHEEL_MAX_RPM = 4500;
+
+  public static final double ksFlywheel = 0.24292*0.952;
+  public static final double kvFlywheel = 0.12977*0.952;
+  public static final double kaFlywheel = 0.0053723*0.952;
 
   // Climber constants
   public static final double CLIMBER_TOP_ENCODER_POSITION = -116;

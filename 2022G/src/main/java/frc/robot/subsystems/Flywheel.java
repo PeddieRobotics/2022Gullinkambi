@@ -12,6 +12,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -32,6 +33,8 @@ public class Flywheel extends SubsystemBase {
 
   private Solenoid hoodSolenoid, shooterLockSolenoid;
 
+  private SimpleMotorFeedforward flywheelFF;
+
   private double flywheelSetpoint = 0;
 
   private static UpdateLogs updateLogs = UpdateLogs.getInstance();
@@ -51,19 +54,15 @@ public class Flywheel extends SubsystemBase {
     flywheelPIDController = flywheelPrimary.getPIDController();
     flywheelEncoder = flywheelPrimary.getEncoder();
 
-    kP = Constants.FLYWHEEL_P;
-    kI = Constants.FLYWHEEL_I;
-    kD = Constants.FLYWHEEL_D;
-    kIz = Constants.FLYWHEEL_IZONE;
-    kFF = Constants.FLYWHEEL_FF;
-
     // Configure PID controller for the flywheel
     flywheelPIDController.setP(Constants.FLYWHEEL_P);
     flywheelPIDController.setI(Constants.FLYWHEEL_I);
     flywheelPIDController.setD(Constants.FLYWHEEL_D);
     flywheelPIDController.setIZone(Constants.FLYWHEEL_IZONE);
-    flywheelPIDController.setFF(Constants.FLYWHEEL_FF);
+    // flywheelPIDController.setFF(Constants.FLYWHEEL_FF);
     flywheelPIDController.setOutputRange(0, 1);
+
+    flywheelFF = new SimpleMotorFeedforward(Constants.ksFlywheel, Constants.kvFlywheel, Constants.kaFlywheel);
 
     // Set up pneumatics
     hoodSolenoid = new Solenoid(RobotMapGullinkambi.PNEUMATICS_HUB, PneumaticsModuleType.REVPH, RobotMapGullinkambi.SOLENOID_HOOD);
@@ -78,7 +77,6 @@ public class Flywheel extends SubsystemBase {
   }
 
   public static Flywheel getInstance() {
-
     if (flywheel == null) {
       flywheel = new Flywheel();
     }
@@ -91,7 +89,7 @@ public class Flywheel extends SubsystemBase {
     if (flywheelSetpoint > Constants.FLYWHEEL_MAX_RPM) {
       flywheelSetpoint = 0;
     }
-    flywheelPIDController.setReference(flywheelSetpoint, ControlType.kVelocity);
+    flywheelPIDController.setReference(flywheelSetpoint, ControlType.kVelocity, 0, flywheelFF.calculate(flywheelSetpoint/60.0));
   }
 
   public void runFlywheelPower(double power) {
@@ -153,6 +151,7 @@ public class Flywheel extends SubsystemBase {
 
   public void updateFlywheelInfoOnDashboard(){
     SmartDashboard.putNumber("FW velocity", getFlywheelVelocity());
+    SmartDashboard.putNumber("FW velocity 2", flywheelSecondary.getEncoder().getVelocity());
     SmartDashboard.putNumber("FW setpoint", getFlywheelSetpoint());
     SmartDashboard.putBoolean("Lock activated", getShooterLock());
     SmartDashboard.putBoolean("Hood up", getHood());
@@ -163,6 +162,7 @@ public class Flywheel extends SubsystemBase {
   public double getFlywheelSetpoint() {
     return flywheelSetpoint;
   }
+
 
   public double getFlywheelVelocity(){
     return flywheelEncoder.getVelocity();
@@ -192,11 +192,11 @@ public class Flywheel extends SubsystemBase {
   }
 
   public void updateFlywheelPIDFromDashboard(){
-    flywheelPIDController.setP(SmartDashboard.getNumber("OR: P flywheel", Constants.FLYWHEEL_P));
-    flywheelPIDController.setI(SmartDashboard.getNumber("OR: I flywheel", Constants.FLYWHEEL_I));
-    flywheelPIDController.setD(SmartDashboard.getNumber("OR: D flywheel", Constants.FLYWHEEL_D));
-    flywheelPIDController.setIZone(SmartDashboard.getNumber("OR: I zone flywheel", Constants.FLYWHEEL_IZONE));
-    flywheelPIDController.setFF(SmartDashboard.getNumber("OR: FF flywheel", Constants.FLYWHEEL_FF));
+    flywheelPIDController.setP(SmartDashboard.getNumber("OR: P flywheel", Constants.FLYWHEEL_P), 0);
+    flywheelPIDController.setI(SmartDashboard.getNumber("OR: I flywheel", Constants.FLYWHEEL_I), 0);
+    flywheelPIDController.setD(SmartDashboard.getNumber("OR: D flywheel", Constants.FLYWHEEL_D), 0);
+    flywheelPIDController.setIZone(SmartDashboard.getNumber("OR: I zone flywheel", Constants.FLYWHEEL_IZONE), 0);
+    flywheelPIDController.setFF(SmartDashboard.getNumber("OR: FF flywheel", Constants.FLYWHEEL_FF), 0);
 
   }
 
