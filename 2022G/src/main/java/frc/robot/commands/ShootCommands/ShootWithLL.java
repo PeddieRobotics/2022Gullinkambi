@@ -31,12 +31,12 @@ public class ShootWithLL extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if(limelight.isActive()){
+    if(!SmartDashboard.getBoolean("LL Shot Override", false)){
       rpm = Constants.DIST_TO_RPM.get(limelight.getDistance());
       flywheel.runFlywheelSetpoint(rpm + SmartDashboard.getNumber("Teleop: shootLL RPM delta", 0));
     }
     else{
-      flywheel.runFlywheelSetpoint(2600 + SmartDashboard.getNumber("Teleop: shootLL RPM delta", 0));          
+      flywheel.runFlywheelSetpoint(2510 + SmartDashboard.getNumber("Teleop: shootLL RPM delta", 0));          
     }
     
     drivetrain.setBrake();
