@@ -30,6 +30,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.AutoCommands.FiveBallRightBackupSlow;
 import frc.robot.commands.AutoCommands.FiveBallRightSeneca;
+import frc.robot.commands.AutoCommands.FiveBallRightSenecaUpgrade;
 import frc.robot.commands.AutoCommands.FiveBallRightSeneca;
 import frc.robot.commands.AutoCommands.FourBallLeft;
 import frc.robot.commands.AutoCommands.FourBallRight;
@@ -54,7 +55,7 @@ public class Autonomous extends SubsystemBase {
     private Trajectory sanityCheck, pathVerification, pathVerification_2, pathVerification_2b, straightLine_PW, lPath_manual, lPath_PW, lollipopRight_PW;
     private Trajectory twoBallLeftUpShoot, twoBallRightDownShoot, twoBallLeftRude_1, twoBallLeftRude_2, twoBallLeftRude_3;
     private Trajectory fourBallRight_1, fourBallRight_2, fourBallRight_3, fourBallLeft_1, fourBallLeft_2, fourBallLeft_3;
-    private Trajectory fiveBallRight_1, fiveBallRight_2, fiveBallRight_3, fiveBallRight_4, fiveBallRight_backupSlow_1, fiveBallRight_backupSlow_2, fiveBallRight_backupSlow_3, fiveBallRight_backupSlow_4, fiveBallRight_backupSlow_5;
+    private Trajectory fiveBallRightSeneca_1, fiveBallRightSeneca_2, fiveBallRightSeneca_3, fiveBallRightSeneca_4, fiveBallRightSenecaUpgrade_1, fiveBallRightSenecaUpgrade_2, fiveBallRightSenecaUpgrade_3, fiveBallRightSenecaUpgrade_4, fiveBallRight_backupSlow_1, fiveBallRight_backupSlow_2, fiveBallRight_backupSlow_3, fiveBallRight_backupSlow_4, fiveBallRight_backupSlow_5;
 
     public Autonomous() {
         autoRoutines = new Hashtable<String,Command>();
@@ -96,18 +97,20 @@ public class Autonomous extends SubsystemBase {
         //autoRoutines.put("L Path (PW)", new SequentialCommandGroup(new ResetOdometry(lPath_PW.getInitialPose()), createCommandFromTrajectory(lPath_PW)));
         //autoRoutines.put("Lollipop Right (PW)", new SequentialCommandGroup(new ResetOdometry(lollipopRight_PW.getInitialPose()), createCommandFromTrajectory(lollipopRight_PW)));
 
-        autoRoutines.put("CMD Group: 2 Ball (longer)", new TwoBallLonger(twoBallLeftUpShoot.getInitialPose(), createCommandFromTrajectory(twoBallLeftUpShoot)));
-        autoRoutines.put("CMD Group: 2 Ball (shorter)", new TwoBallShorter(twoBallRightDownShoot.getInitialPose(), createCommandFromTrajectory(twoBallRightDownShoot)));
+        autoRoutines.put("2 Ball (longer)", new TwoBallLonger(twoBallLeftUpShoot.getInitialPose(), createCommandFromTrajectory(twoBallLeftUpShoot)));
+        autoRoutines.put("2 Ball (shorter)", new TwoBallShorter(twoBallRightDownShoot.getInitialPose(), createCommandFromTrajectory(twoBallRightDownShoot)));
         //autoRoutines.put("CMD Group: 2 Ball Left Rude", new TwoBallLeftRude(twoBallLeftRude_1.getInitialPose(), createCommandFromTrajectory(twoBallLeftRude_1), createCommandFromTrajectory(twoBallLeftRude_2), createCommandFromTrajectory(twoBallLeftRude_3)));
 
-        autoRoutines.put("CMD Group: 4 Ball (Right)", new FourBallRight(fourBallRight_1.getInitialPose(), createCommandFromTrajectory(fourBallRight_1), createCommandFromTrajectory(fourBallRight_2)));
-        autoRoutines.put("CMD Group: 4 Ball (Left)", new FourBallLeft(fourBallLeft_1.getInitialPose(), createCommandFromTrajectory(fourBallLeft_1), createCommandFromTrajectory(fourBallLeft_2), createCommandFromTrajectory(fourBallLeft_3)));
+        autoRoutines.put("4 Ball (Right)", new FourBallRight(fourBallRight_1.getInitialPose(), createCommandFromTrajectory(fourBallRight_1), createCommandFromTrajectory(fourBallRight_2)));
+        autoRoutines.put("4 Ball (Left)", new FourBallLeft(fourBallLeft_1.getInitialPose(), createCommandFromTrajectory(fourBallLeft_1), createCommandFromTrajectory(fourBallLeft_2), createCommandFromTrajectory(fourBallLeft_3)));
 
         //autoRoutines.put("CMD Group: 4 Ball Rude (Right)", new FourBallRightRude(fourBallRight_1.getInitialPose(), createCommandFromTrajectory(fourBallRight_1), createCommandFromTrajectory(fourBallRight_2), createCommandFromTrajectory(fourBallRight_3)));
 
-        autoRoutines.put("CMD Group: 5 Ball (Right) Seneca", new FiveBallRightSeneca(fiveBallRight_1.getInitialPose(), createCommandFromTrajectory(fiveBallRight_1), createCommandFromTrajectory(fiveBallRight_2), createCommandFromTrajectory(fiveBallRight_3), createCommandFromTrajectory(fiveBallRight_4)));
+        autoRoutines.put("5 Ball (Right) Seneca", new FiveBallRightSeneca(fiveBallRightSeneca_1.getInitialPose(), createCommandFromTrajectory(fiveBallRightSeneca_1), createCommandFromTrajectory(fiveBallRightSeneca_2), createCommandFromTrajectory(fiveBallRightSeneca_3), createCommandFromTrajectory(fiveBallRightSeneca_4)));
         
-        autoRoutines.put("CMD Group: 5 Ball (Right) BackupSlow", new FiveBallRightBackupSlow(fiveBallRight_backupSlow_1.getInitialPose(), createCommandFromTrajectory(fiveBallRight_backupSlow_1), createCommandFromTrajectory(fiveBallRight_backupSlow_2), createCommandFromTrajectory(fiveBallRight_backupSlow_3), createCommandFromTrajectory(fiveBallRight_backupSlow_4), createCommandFromTrajectory(fiveBallRight_backupSlow_5)));
+        autoRoutines.put("5 Ball (Right) SenecaUpgrade", new FiveBallRightSenecaUpgrade(fiveBallRightSenecaUpgrade_1.getInitialPose(), createCommandFromTrajectory(fiveBallRightSenecaUpgrade_1), createCommandFromTrajectory(fiveBallRightSenecaUpgrade_2), createCommandFromTrajectory(fiveBallRightSenecaUpgrade_3), createCommandFromTrajectory(fiveBallRightSenecaUpgrade_4)));
+
+        autoRoutines.put("5 Ball (Right) BackupSlow", new FiveBallRightBackupSlow(fiveBallRight_backupSlow_1.getInitialPose(), createCommandFromTrajectory(fiveBallRight_backupSlow_1), createCommandFromTrajectory(fiveBallRight_backupSlow_2), createCommandFromTrajectory(fiveBallRight_backupSlow_3), createCommandFromTrajectory(fiveBallRight_backupSlow_4), createCommandFromTrajectory(fiveBallRight_backupSlow_5)));
 
         
     }
@@ -143,10 +146,15 @@ public class Autonomous extends SubsystemBase {
         fourBallLeft_2 = PathPlanner.loadPath("4BallLeft_Part2", Constants.kMaxSpeedMetersPerSecond*1.3, Constants.kMaxAccelerationMetersPerSecondSquared*1.3);
         fourBallLeft_3 = PathPlanner.loadPath("4BallLeft_Part3", Constants.kMaxSpeedMetersPerSecond*1.3, Constants.kMaxAccelerationMetersPerSecondSquared*1.3, true);
 
-        fiveBallRight_1 = PathPlanner.loadPath("5BallRight_Part1", Constants.kMaxSpeedMetersPerSecond*1.2, Constants.kMaxAccelerationMetersPerSecondSquared*1.2);
-        fiveBallRight_2 = PathPlanner.loadPath("5BallRight_Part2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
-        fiveBallRight_3 = PathPlanner.loadPath("5BallRight_Part3", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
-        fiveBallRight_4 = PathPlanner.loadPath("5BallRight_Part4", Constants.kMaxSpeedMetersPerSecond*1.3, Constants.kMaxAccelerationMetersPerSecondSquared*1.3, true);
+        fiveBallRightSeneca_1 = PathPlanner.loadPath("5BallRight_Seneca_Part1", Constants.kMaxSpeedMetersPerSecond*1.2, Constants.kMaxAccelerationMetersPerSecondSquared*1.2);
+        fiveBallRightSeneca_2 = PathPlanner.loadPath("5BallRight_Seneca_Part2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
+        fiveBallRightSeneca_3 = PathPlanner.loadPath("5BallRight_Seneca_Part3", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
+        fiveBallRightSeneca_4 = PathPlanner.loadPath("5BallRight_Seneca_Part4", Constants.kMaxSpeedMetersPerSecond*1.3, Constants.kMaxAccelerationMetersPerSecondSquared*1.3, true);
+      
+        fiveBallRightSenecaUpgrade_1 = PathPlanner.loadPath("5BallRight_Seneca_Part1_Upgrade", Constants.kMaxSpeedMetersPerSecond*1.2, Constants.kMaxAccelerationMetersPerSecondSquared*1.2);
+        fiveBallRightSenecaUpgrade_2 = PathPlanner.loadPath("5BallRight_Seneca_Part2_Upgrade", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
+        fiveBallRightSenecaUpgrade_3 = PathPlanner.loadPath("5BallRight_Seneca_Part3_Upgrade", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
+        fiveBallRightSenecaUpgrade_4 = PathPlanner.loadPath("5BallRight_Seneca_Part4_Upgrade", Constants.kMaxSpeedMetersPerSecond*1.3, Constants.kMaxAccelerationMetersPerSecondSquared*1.3, true);
         
         fiveBallRight_backupSlow_1 = PathPlanner.loadPath("5BallRight_BackupSlow_Part1", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
         fiveBallRight_backupSlow_2 = PathPlanner.loadPath("5BallRight_BackupSlow_Part2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
