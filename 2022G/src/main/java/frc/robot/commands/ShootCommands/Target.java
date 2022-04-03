@@ -2,6 +2,7 @@ package frc.robot.commands.ShootCommands;
 
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Flywheel;
+import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.Limelight;
 import frc.robot.utils.Constants;
 import frc.robot.utils.RollingAverage;
@@ -14,6 +15,7 @@ public class Target extends CommandBase {
   private final Limelight limelight;
   private final Drivetrain drivetrain;
   private final Flywheel flywheel;
+  private final Lights lights;
 
   private double ff;
   private double steering_adjust;
@@ -28,6 +30,7 @@ public class Target extends CommandBase {
     limelight = Limelight.getInstance();
     drivetrain = Drivetrain.getInstance();
     flywheel = Flywheel.getInstance();
+    lights = Lights.getInstance();
 
     addRequirements(drivetrain, flywheel);
 
@@ -82,6 +85,10 @@ public class Target extends CommandBase {
     }
     else{
       flywheel.runFlywheelSetpoint(0);
+    }
+
+    if(isAuto){
+      lights.on();
     }
 
   }

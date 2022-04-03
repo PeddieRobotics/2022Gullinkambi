@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hopper;
+import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.Limelight;
 import frc.robot.utils.Constants;
 
@@ -15,6 +16,8 @@ public class ShootWithLL extends CommandBase {
   private Hopper hopper;
   private Drivetrain drivetrain;
   private Limelight limelight;
+  private Lights lights;
+
   private double rpm;
   private boolean isAuto;
 
@@ -23,6 +26,8 @@ public class ShootWithLL extends CommandBase {
     hopper = Hopper.getInstance();
     drivetrain = Drivetrain.getInstance();
     limelight = Limelight.getInstance();
+    lights = Lights.getInstance();
+
     addRequirements(flywheel, hopper);
 
     isAuto = autonomous;
@@ -64,6 +69,9 @@ public class ShootWithLL extends CommandBase {
       flywheel.runFlywheelSetpoint(0);
       flywheel.setHood(false);
       drivetrain.setCoast();
+    }
+    else{
+      lights.off();
     }
   }
 

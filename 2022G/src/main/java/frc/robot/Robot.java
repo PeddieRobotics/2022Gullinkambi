@@ -139,7 +139,6 @@ public class Robot extends LoggedRobotCustom {
     if (autonomousCommand != null) {
       autonomousCommand.cancel();
     }
-    // lights.on();
     CommandScheduler.getInstance().schedule(new InitializeArm());
   }
 

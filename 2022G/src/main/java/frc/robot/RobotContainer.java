@@ -16,6 +16,8 @@ import frc.robot.commands.ClimbCommands.InitializeArm;
 import frc.robot.commands.ClimbCommands.RetractArm;
 import frc.robot.commands.DriveCommands.Drive;
 import frc.robot.commands.IntakeCommands.IndexCargo;
+import frc.robot.commands.LightCommands.FlashLights;
+import frc.robot.commands.LightCommands.SignalWithLights;
 import frc.robot.commands.ShootCommands.RevUpFlywheel;
 import frc.robot.oi.OI;
 import frc.robot.subsystems.Autonomous;
@@ -67,6 +69,8 @@ public class RobotContainer {
     intake.register();
     hopper.setDefaultCommand(new IndexCargo());
     flywheel.setDefaultCommand(new RevUpFlywheel());
+    // lights.setDefaultCommand(new SignalWithLights());
+    lights.register();
     climber.register();
     limelight.register();
 
@@ -120,6 +124,7 @@ public class RobotContainer {
     intake.stopIntake();
     hopper.stopHopper();
     flywheel.stopFlywheel();
+    lights.resetLightBooleans();
   }
 
   public void setDrivetrainToCoastMode() {
