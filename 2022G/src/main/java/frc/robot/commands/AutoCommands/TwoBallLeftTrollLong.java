@@ -10,8 +10,8 @@ import frc.robot.commands.IntakeCommands.AutoIntakeWithHopper;
 import frc.robot.commands.ShootCommands.SetFlywheelRPM;
 import frc.robot.utils.Constants;
 
-public class TwoBallLeftRude extends SequentialCommandGroup{
-    public TwoBallLeftRude(Pose2d initialPose, RamseteCommand part1, RamseteCommand part2, RamseteCommand part3){
+public class TwoBallLeftTrollLong extends SequentialCommandGroup{
+    public TwoBallLeftTrollLong(Pose2d initialPose, RamseteCommand part1, RamseteCommand part2, RamseteCommand part3){
         addCommands(
             new ResetOdometry(initialPose),
             new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),

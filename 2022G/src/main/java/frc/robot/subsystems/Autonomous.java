@@ -121,21 +121,21 @@ public class Autonomous extends SubsystemBase {
         fiveBallRightSeneca_3 = PathPlanner.loadPath("5BallRight_Seneca_Part3", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
         fiveBallRightSeneca_4 = PathPlanner.loadPath("5BallRight_Seneca_Part4", Constants.kMaxSpeedMetersPerSecond*1.3, Constants.kMaxAccelerationMetersPerSecondSquared*1.3, true);
       
-        fiveBallRightDCMP_1 = PathPlanner.loadPath("5BallRight_DCMP_Part1_Upgrade", Constants.kMaxSpeedMetersPerSecond*1.2, Constants.kMaxAccelerationMetersPerSecondSquared*1.2);
-        fiveBallRightDCMP_2 = PathPlanner.loadPath("5BallRight_DCMP_Part2_Upgrade", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
-        fiveBallRightDCMP_3 = PathPlanner.loadPath("5BallRight_DCMP_Part3_Upgrade", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
-        fiveBallRightDCMP_4 = PathPlanner.loadPath("5BallRight_DCMP_Part4_Upgrade", Constants.kMaxSpeedMetersPerSecond*1.3, Constants.kMaxAccelerationMetersPerSecondSquared*1.3, true);
+        fiveBallRightDCMP_1 = PathPlanner.loadPath("5BallRight_DCMP_Part1", Constants.kMaxSpeedMetersPerSecond*1.2, Constants.kMaxAccelerationMetersPerSecondSquared*1.2);
+        fiveBallRightDCMP_2 = PathPlanner.loadPath("5BallRight_DCMP_Part2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
+        fiveBallRightDCMP_3 = PathPlanner.loadPath("5BallRight_DCMP_Part3", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
+        fiveBallRightDCMP_4 = PathPlanner.loadPath("5BallRight_DCMP_Part4", Constants.kMaxSpeedMetersPerSecond*1.3, Constants.kMaxAccelerationMetersPerSecondSquared*1.3, true);
        
         fiveBallRightDCMPNoPivot_1 = PathPlanner.loadPath("5BallRight_DCMPNoPivot_Part1", Constants.kMaxSpeedMetersPerSecond*1.2, Constants.kMaxAccelerationMetersPerSecondSquared*1.2);
         fiveBallRightDCMPNoPivot_2 = PathPlanner.loadPath("5BallRight_DCMPNoPivot_Part2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
         fiveBallRightDCMPNoPivot_3 = PathPlanner.loadPath("5BallRight_DCMPNoPivot_Part3", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
         fiveBallRightDCMPNoPivot_4 = PathPlanner.loadPath("5BallRight_DCMPNoPivot_Part4", Constants.kMaxSpeedMetersPerSecond*1.3, Constants.kMaxAccelerationMetersPerSecondSquared*1.3, true);
 
-        fiveBallRightDCMPBackAway_1 = PathPlanner.loadPath("5BallRightDCMPBackAway_Part1", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
-        fiveBallRightDCMPBackAway_2 = PathPlanner.loadPath("5BallRightDCMPBackAway_Part2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
-        fiveBallRightDCMPBackAway_3 = PathPlanner.loadPath("5BallRightDCMPBackAway_Part3", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
-        fiveBallRightDCMPBackAway_4 = PathPlanner.loadPath("5BallRightDCMPBackAway_Part4", Constants.kMaxSpeedMetersPerSecond*0.2, Constants.kMaxAccelerationMetersPerSecondSquared, true);
-        fiveBallRightDCMPBackAway_5 = PathPlanner.loadPath("5BallRightDCMPBackAway_Part5", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared, true);
+        fiveBallRightDCMPBackAway_1 = PathPlanner.loadPath("5BallRight_DCMPBackAway_Part1", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
+        fiveBallRightDCMPBackAway_2 = PathPlanner.loadPath("5BallRight_DCMPBackAway_Part2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
+        fiveBallRightDCMPBackAway_3 = PathPlanner.loadPath("5BallRight_DCMPBackAway_Part3", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
+        fiveBallRightDCMPBackAway_4 = PathPlanner.loadPath("5BallRight_DCMPBackAway_Part4", Constants.kMaxSpeedMetersPerSecond*0.2, Constants.kMaxAccelerationMetersPerSecondSquared, true);
+        fiveBallRightDCMPBackAway_5 = PathPlanner.loadPath("5BallRight_DCMPBackAway_Part5", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared, true);
 
     }
  

@@ -5,16 +5,15 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.DriveCommands.Drive;
 import frc.robot.commands.DriveCommands.ResetOdometry;
 import frc.robot.commands.DriveCommands.TurnToAngle;
 import frc.robot.commands.IntakeCommands.AutoIntakeWithHopper;
 import frc.robot.commands.IntakeCommands.StopIntake;
 import frc.robot.commands.ShootCommands.SetFlywheelRPM;
 
-public class FiveBallRightBackupSlow extends SequentialCommandGroup{ 
+public class FiveBallRightDCMPBackAway extends SequentialCommandGroup{ 
 
-    public FiveBallRightBackupSlow(Pose2d initialPose, RamseteCommand part1, RamseteCommand part2, RamseteCommand part3, RamseteCommand part4, RamseteCommand part5){
+    public FiveBallRightDCMPBackAway(Pose2d initialPose, RamseteCommand part1, RamseteCommand part2, RamseteCommand part3, RamseteCommand part4, RamseteCommand part5){
         addCommands(
             new ResetOdometry(initialPose),
             new SetFlywheelRPM(2700),

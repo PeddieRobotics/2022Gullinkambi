@@ -9,15 +9,9 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.ClimbCommands.ExtendArm;
-import frc.robot.commands.ClimbCommands.InitializeArm;
-import frc.robot.commands.ClimbCommands.RetractArm;
 import frc.robot.commands.DriveCommands.Drive;
 import frc.robot.commands.IntakeCommands.IndexCargo;
-import frc.robot.commands.LightCommands.FlashLights;
-import frc.robot.commands.LightCommands.SignalWithLights;
 import frc.robot.commands.ShootCommands.RevUpFlywheel;
 import frc.robot.oi.OI;
 import frc.robot.subsystems.Autonomous;
@@ -26,9 +20,9 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.Limelight;
 import frc.robot.utils.Constants;
-import frc.robot.subsystems.Lights;
 
 /**
  * This class is where the bulk of the robot should be declared. Since

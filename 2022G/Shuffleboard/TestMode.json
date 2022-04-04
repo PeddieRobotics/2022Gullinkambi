@@ -425,14 +425,58 @@
               "_source0": "network_table:///SmartDashboard/OR: D flywheel",
               "_title": "SmartDashboard/OR: D flywheel"
             }
+          },
+          "9,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LL D",
+              "_title": "SmartDashboard/LL D"
+            }
+          },
+          "10,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LL FF",
+              "_title": "SmartDashboard/LL FF"
+            }
+          },
+          "7,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LL P",
+              "_title": "SmartDashboard/LL P"
+            }
+          },
+          "8,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LL I",
+              "_title": "SmartDashboard/LL I"
+            }
           }
         }
       }
     }
   ],
   "windowGeometry": {
-    "x": 14.0,
-    "y": -1080.0,
+    "x": 0.0,
+    "y": 0.0,
     "width": 1913.0,
     "height": 1047.0
   }

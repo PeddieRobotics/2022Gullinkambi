@@ -134,6 +134,8 @@ public class Limelight extends SubsystemBase {
     
     SmartDashboard.putNumber("LL dist", getDistance());
     SmartDashboard.putBoolean("LL has target", hasTarget());
+    SmartDashboard.putNumber("LL tx avg", getTxAverage());
+
   }
 
   public void updateLimelightFromDashboard(){

@@ -7,13 +7,14 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.*;
+import frc.robot.utils.Constants;
 import frc.robot.utils.Constants.OIConfig;
+import frc.robot.utils.RobotMapGullinkambi;
+import frc.robot.utils.UpdateLogs;
 
 public class Intake extends SubsystemBase {
 
