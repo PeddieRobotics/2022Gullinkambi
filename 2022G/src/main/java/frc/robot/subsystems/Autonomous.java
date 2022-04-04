@@ -25,7 +25,7 @@ import frc.robot.commands.AutoCommands.FiveBallRightDCMPNoPivot;
 import frc.robot.commands.AutoCommands.FourBallLeft;
 import frc.robot.commands.AutoCommands.FourBallRight;
 import frc.robot.commands.AutoCommands.TwoBallLeftTrollLong;
-import frc.robot.commands.AutoCommands.TwoBallLeftRudeShort;
+import frc.robot.commands.AutoCommands.TwoBallLeftTrollShort;
 import frc.robot.commands.AutoCommands.TwoBallLong;
 import frc.robot.commands.AutoCommands.TwoBallShort;
 import frc.robot.utils.Constants;
@@ -76,10 +76,10 @@ public class Autonomous extends SubsystemBase {
         // autoRoutines.put("Sanity Check", new SequentialCommandGroup(new ResetOdometry(sanityCheck.getInitialPose()),createCommandFromTrajectory(sanityCheck)));
         // autoRoutines.put("Path Verification", new SequentialCommandGroup(new ResetOdometry(pathVerification.getInitialPose()),createCommandFromTrajectory(pathVerification)));
 
-        autoRoutines.put("2 Ball (long)", new TwoBallLong(twoBallLong.getInitialPose(), createCommandFromTrajectory(twoBallLong)));
-        autoRoutines.put("2 Ball (short)", new TwoBallShort(twoBallShort.getInitialPose(), createCommandFromTrajectory(twoBallShort)));
-        autoRoutines.put("2 Ball Left Troll (long)", new TwoBallLeftTrollLong(twoBallLeftTrollLong_1.getInitialPose(), createCommandFromTrajectory(twoBallLeftTrollLong_1), createCommandFromTrajectory(twoBallLeftTrollLong_2), createCommandFromTrajectory(twoBallLeftTrollLong_3)));
-        autoRoutines.put("2 Ball Left Troll (short)", new TwoBallLeftRudeShort(twoBallLeftTrollShort_1.getInitialPose(), createCommandFromTrajectory(twoBallLeftTrollShort_1), createCommandFromTrajectory(twoBallLeftTrollShort_2)));
+        autoRoutines.put("2 Ball (Long)", new TwoBallLong(twoBallLong.getInitialPose(), createCommandFromTrajectory(twoBallLong)));
+        autoRoutines.put("2 Ball (Short)", new TwoBallShort(twoBallShort.getInitialPose(), createCommandFromTrajectory(twoBallShort)));
+        autoRoutines.put("2 Ball Left Troll (Long)", new TwoBallLeftTrollLong(twoBallLeftTrollLong_1.getInitialPose(), createCommandFromTrajectory(twoBallLeftTrollLong_1), createCommandFromTrajectory(twoBallLeftTrollLong_2), createCommandFromTrajectory(twoBallLeftTrollLong_3)));
+        autoRoutines.put("2 Ball Left Troll (Short)", new TwoBallLeftTrollShort(twoBallLeftTrollShort_1.getInitialPose(), createCommandFromTrajectory(twoBallLeftTrollShort_1), createCommandFromTrajectory(twoBallLeftTrollShort_2)));
 
         autoRoutines.put("4 Ball (Right)", new FourBallRight(fourBallRight_1.getInitialPose(), createCommandFromTrajectory(fourBallRight_1), createCommandFromTrajectory(fourBallRight_2)));
         autoRoutines.put("4 Ball (Left)", new FourBallLeft(fourBallLeft_1.getInitialPose(), createCommandFromTrajectory(fourBallLeft_1), createCommandFromTrajectory(fourBallLeft_2), createCommandFromTrajectory(fourBallLeft_3)));
