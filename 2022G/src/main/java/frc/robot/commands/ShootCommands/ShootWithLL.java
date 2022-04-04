@@ -1,6 +1,5 @@
 package frc.robot.commands.ShootCommands;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
@@ -41,7 +40,7 @@ public class ShootWithLL extends CommandBase {
       flywheel.runFlywheelSetpoint(rpm + SmartDashboard.getNumber("Teleop: shootLL RPM delta", 0));
     }
     else{
-      flywheel.runFlywheelSetpoint(2510 + SmartDashboard.getNumber("Teleop: shootLL RPM delta", 0));          
+      flywheel.runFlywheelSetpoint(2550 + SmartDashboard.getNumber("Teleop: shootLL RPM delta", 0));          
     }
     
     drivetrain.setBrake();

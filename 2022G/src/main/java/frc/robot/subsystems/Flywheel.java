@@ -135,6 +135,9 @@ public class Flywheel extends SubsystemBase {
     SmartDashboard.putNumber("OR: Flywheel setpoint", 0);
     SmartDashboard.putBoolean("OR: Flywheel lock", false);
     SmartDashboard.putBoolean("OR: Hood up", false);
+
+    SmartDashboard.putBoolean("LL Shot Override", false);
+    
     SmartDashboard.putNumber("Teleop: shoot low RPM", Constants.FLYWHEEL_RPM_LOW);
     SmartDashboard.putNumber("Teleop: layup RPM", Constants.FLYWHEEL_RPM_LAYUP);
     SmartDashboard.putNumber("Teleop: shootLL RPM delta", 0);
@@ -151,7 +154,6 @@ public class Flywheel extends SubsystemBase {
 
   public void updateFlywheelInfoOnDashboard(){
     SmartDashboard.putNumber("FW velocity", getFlywheelVelocity());
-    SmartDashboard.putNumber("FW velocity 2", flywheelSecondary.getEncoder().getVelocity());
     SmartDashboard.putNumber("FW setpoint", getFlywheelSetpoint());
     SmartDashboard.putBoolean("Lock activated", getShooterLock());
     SmartDashboard.putBoolean("Hood up", getHood());
