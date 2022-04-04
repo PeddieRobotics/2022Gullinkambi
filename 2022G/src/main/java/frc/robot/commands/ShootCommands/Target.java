@@ -44,6 +44,7 @@ public class Target extends CommandBase {
   public void initialize() {
       // Assume by default that we're not locked on a limelight target. Shouldn't be needed, but placed here as a safety on the logic elsewhere.
       drivetrain.setLockedOnTarget(false);
+      drivetrain.setBrake();
       initialTime = Timer.getFPGATimestamp();
   }
 

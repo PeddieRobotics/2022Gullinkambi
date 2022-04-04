@@ -1,8 +1,6 @@
 package frc.robot.commands.DriveCommands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
 import frc.robot.oi.JoystickOI;
 import frc.robot.oi.XboxOI;
 import frc.robot.subsystems.Drivetrain;
@@ -78,6 +76,7 @@ public class Drive extends CommandBase {
     // End the command if it is interrupted
     @Override
     public void end(boolean interrupted) {
+        drivetrain.curvatureDrive(0, 0);
     }
 
     // Checks if the command is finished
