@@ -22,18 +22,18 @@ public class FiveBallRightDCMPBackAway extends SequentialCommandGroup{
                 part1
             ),
             new StopIntake(),
-            new ShootWithLLUntilEmptyNoTarget(0.3),
+            new ShootWithLLUntilEmpty(0.3),
             new SetFlywheelRPM(2700),
             new ParallelCommandGroup(
                 new SequentialCommandGroup(new WaitCommand(0.5), new AutoIntakeWithHopper(1, 1)),
             part2),
-            new ShootWithLLUntilEmptyNoTarget(0.3),
+            new ShootWithLLUntilEmpty(0.3),
             new AutoIntakeWithHopper(1, 0.7),
             part3,
             part4,
             new SetFlywheelRPM(2700),
             part5,
-            new ShootWithLLUntilEmptyNoTarget(0.3),
+            new ShootWithLLUntilEmpty(0.3),
             new TurnToAngle(-20)
         );
     }
