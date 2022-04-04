@@ -11,8 +11,8 @@ import frc.robot.commands.IntakeCommands.UnjamIntake;
 import frc.robot.commands.ShootCommands.SetFlywheelRPM;
 import frc.robot.utils.Constants;
 
-public class TwoBallLeftRudeShort extends SequentialCommandGroup{
-    public TwoBallLeftRudeShort(Pose2d initialPose, RamseteCommand part1, RamseteCommand part2){
+public class TwoBallLeftTrollShort extends SequentialCommandGroup{
+    public TwoBallLeftTrollShort(Pose2d initialPose, RamseteCommand part1, RamseteCommand part2){
         addCommands(
             new ResetOdometry(initialPose),
             new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),
@@ -26,6 +26,7 @@ public class TwoBallLeftRudeShort extends SequentialCommandGroup{
             part2,
             new TurnToAngle(180),
             new UnjamIntake(true),
+            new WaitCommand(0.1),
             new TurnToAngle(28)
         );
     }
