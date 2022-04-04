@@ -24,7 +24,7 @@ public class FiveBallRightSeneca extends SequentialCommandGroup{
             ),
             new StopIntake(),
             new ShootWithLLUntilEmpty(0.3),
-            new SetFlywheelRPM(2600),
+            new SetFlywheelRPM(2700),
             new ParallelCommandGroup(
                 new SequentialCommandGroup(new WaitCommand(0.5), new AutoIntakeWithHopper(1, 1)),
             part2),

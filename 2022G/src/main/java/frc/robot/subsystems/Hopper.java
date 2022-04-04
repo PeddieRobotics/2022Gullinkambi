@@ -141,6 +141,10 @@ public class Hopper extends SubsystemBase {
         return filteredInput;
     }
 
+    public boolean isHopperFull(){
+        return sensesBallTop() && sensesBallBottom();
+    }
+
     public void putSmartDashboardOverrides() {
         SmartDashboard.putNumber("OR: Hopper power", 0.0);
         SmartDashboard.putNumber("OR: Hopper velocity", 0.0);
@@ -156,6 +160,7 @@ public class Hopper extends SubsystemBase {
     public void updateHopperInfoOnDashboard(){
         SmartDashboard.putBoolean("Lower sensor", sensesBallBottom());
         SmartDashboard.putBoolean("Upper sensor", sensesBallTop());
+        SmartDashboard.putBoolean("Hopper full", isHopperFull());
         SmartDashboard.putNumber("Hopper velocity", getHopperVelocity());
 
         if(Constants.OI_CONFIG != OIConfig.COMPETITION){
