@@ -41,7 +41,6 @@ public class ShootLow extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     hopper.stopHopper();
-    flywheel.setHood(false);
     flywheel.runFlywheelSetpoint(0);
     flywheel.setShooterLock(false);
   }

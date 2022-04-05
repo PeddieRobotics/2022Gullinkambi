@@ -79,7 +79,6 @@ public class ShootWithLL extends CommandBase {
     if(!isAuto){
       hopper.stopHopper();
       flywheel.runFlywheelSetpoint(0);
-      flywheel.setHood(false);
       drivetrain.setCoast();
     }
     else{
