@@ -31,7 +31,6 @@ public class ShootLayup extends CommandBase {
     drivetrain.setBrake();
     drivetrain.arcadeDrive(0, 0);
     flywheel.setHood(false); // no hood for high shot
-    flywheel.setShooterLock(true);
     flywheel.runFlywheelSetpoint(SmartDashboard.getNumber("Teleop: layup RPM", Constants.FLYWHEEL_RPM_LAYUP));
   }
 
@@ -40,6 +39,7 @@ public class ShootLayup extends CommandBase {
   public void execute() {
     // Check whether the speed of flywheel is good enough to shoot
     if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_LAYUP)) {
+      flywheel.setShooterLock(true);
       hopper.setHopperVelocity(SmartDashboard.getNumber("Teleop: Hopper shoot layup speed", Constants.HOPPER_SHOOT_LAYUP_SPEED));
     }
 

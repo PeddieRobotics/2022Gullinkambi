@@ -1,6 +1,7 @@
 package frc.robot.commands.ShootCommands;
 
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Limelight;
 import frc.robot.utils.Constants;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hopper;
@@ -12,14 +13,16 @@ public class RevUpFlywheel extends CommandBase {
     private Intake intake;
     private Flywheel flywheel;
     private Hopper hopper;
+    private Limelight limelight;
 
     /** Creates a new RevUpFlywheel. */
     public RevUpFlywheel() {
         intake = Intake.getInstance();
         flywheel = Flywheel.getInstance();
         hopper = Hopper.getInstance();
+        limelight = Limelight.getInstance();
 
-        addRequirements(flywheel, intake);
+        addRequirements(flywheel, intake, limelight);
 
     }
 
@@ -34,7 +37,7 @@ public class RevUpFlywheel extends CommandBase {
         if (SmartDashboard.getBoolean("RevUp AI", true)) {
             if (hopper.sensesBallBottomFiltered() && hopper.sensesBallTop()) {
                 intake.stopIntake();
-                flywheel.runFlywheelSetpoint(Constants.FLYWHEEL_RPM_REV_UP);
+                flywheel.runFlywheelSetpoint(Constants.FLYWHEEL_RPM_REV_UP_STANDARD);
             }
         }
     }

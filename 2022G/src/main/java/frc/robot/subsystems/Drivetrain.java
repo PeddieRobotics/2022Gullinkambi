@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
@@ -17,18 +16,16 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.oi.JoystickOI;
-import frc.robot.oi.XboxOI;
-import frc.robot.utils.*;
+import frc.robot.utils.Constants;
 import frc.robot.utils.Constants.OIConfig;
+import frc.robot.utils.RobotMapGullinkambi;
+import frc.robot.utils.UpdateLogs;
 
 public class Drivetrain extends SubsystemBase {
   private static Drivetrain drivetrain;
@@ -90,6 +87,8 @@ public class Drivetrain extends SubsystemBase {
     leftEncoder = leftMaster.getEncoder();
     rightEncoder = rightMaster.getEncoder();
     resetEncoders();
+
+    setClosedLoopRampRates();
 
     drive = new DifferentialDrive(leftMotors, rightMotors);
     drive.setDeadband(Constants.DRIVING_DEADBANDS);
@@ -159,6 +158,20 @@ public class Drivetrain extends SubsystemBase {
     rightEncoder.setPositionConversionFactor(Constants.DRIVE_ENC_ROT_TO_DIST);
     leftEncoder.setVelocityConversionFactor(Constants.DRIVE_ENC_ROT_TO_DIST / 60.0);
     rightEncoder.setVelocityConversionFactor(Constants.DRIVE_ENC_ROT_TO_DIST / 60.0);
+  }
+
+  private void setClosedLoopRampRates(){
+    leftMaster.setClosedLoopRampRate(Constants.DRIVETRAIN_CLOSEDLOOP_RAMPRATE);
+    rightMaster.setClosedLoopRampRate(Constants.DRIVETRAIN_CLOSEDLOOP_RAMPRATE);
+    leftFollower1.setClosedLoopRampRate(Constants.DRIVETRAIN_CLOSEDLOOP_RAMPRATE);
+    rightFollower1.setClosedLoopRampRate(Constants.DRIVETRAIN_CLOSEDLOOP_RAMPRATE);
+    leftFollower2.setClosedLoopRampRate(Constants.DRIVETRAIN_CLOSEDLOOP_RAMPRATE);
+    rightFollower2.setClosedLoopRampRate(Constants.DRIVETRAIN_CLOSEDLOOP_RAMPRATE);
+
+  }
+
+  public double getGyroRate(){
+    return gyro.getRate();
   }
 
   // Returns the current wheel speeds

@@ -13,8 +13,8 @@
         "tiles": {
           "1,2": {
             "size": [
-              3,
-              2
+              6,
+              4
             ],
             "content": {
               "_type": "Camera Stream",
@@ -239,7 +239,7 @@
           },
           "10,1": {
             "size": [
-              1,
+              2,
               1
             ],
             "content": {
@@ -381,15 +381,103 @@
               "_source0": "network_table:///SmartDashboard/limelight_Stream",
               "_title": "SmartDashboard/limelight_Stream"
             }
+          },
+          "8,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/OR: I flywheel",
+              "_title": "SmartDashboard/OR: I flywheel"
+            }
+          },
+          "7,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/OR: P flywheel",
+              "_title": "SmartDashboard/OR: P flywheel"
+            }
+          },
+          "9,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/OR: I zone flywheel",
+              "_title": "SmartDashboard/OR: I zone flywheel"
+            }
+          },
+          "10,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/OR: D flywheel",
+              "_title": "SmartDashboard/OR: D flywheel"
+            }
+          },
+          "9,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LL D",
+              "_title": "SmartDashboard/LL D"
+            }
+          },
+          "10,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LL FF",
+              "_title": "SmartDashboard/LL FF"
+            }
+          },
+          "7,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LL P",
+              "_title": "SmartDashboard/LL P"
+            }
+          },
+          "8,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LL I",
+              "_title": "SmartDashboard/LL I"
+            }
           }
         }
       }
     }
   ],
   "windowGeometry": {
-    "x": -8.0,
-    "y": -8.0,
-    "width": 1936.0,
-    "height": 1056.0
+    "x": 0.0,
+    "y": 0.0,
+    "width": 1913.0,
+    "height": 1047.0
   }
 }

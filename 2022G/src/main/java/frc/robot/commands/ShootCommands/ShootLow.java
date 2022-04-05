@@ -23,7 +23,6 @@ public class ShootLow extends CommandBase {
   @Override
   public void initialize() {
     flywheel.setHood(true);
-    flywheel.setShooterLock(true);
     flywheel.runFlywheelSetpoint(rpm);
   }
 
@@ -32,6 +31,7 @@ public class ShootLow extends CommandBase {
   public void execute() {
     // Check whether the speed of flywheel is good enough to shoot
     if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_LOW)) {
+      flywheel.setShooterLock(true);
       hopper.setHopperVelocity(SmartDashboard.getNumber("Teleop: Hopper shoot layup speed", Constants.HOPPER_SHOOT_LAYUP_SPEED));
     }
 

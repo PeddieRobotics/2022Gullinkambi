@@ -8,28 +8,32 @@ import frc.robot.subsystems.Lights;
 /** An example command that uses an example subsystem. */
 public class FlashLights extends CommandBase {
   private Lights light;
-  double initialTime, previousFlashTime, totalTime;
+  double initialTime, previousFlashTime, totalTime, rate;
 
-  public FlashLights(double seconds) {
-    light = light.getInstance();
+  public FlashLights(double seconds, double flashRate) {
+    light = Lights.getInstance();
     initialTime = 0.0;
     previousFlashTime = 0.0;
     totalTime = seconds;
+    rate = flashRate;
+
+    addRequirements(light);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
       initialTime = Timer.getFPGATimestamp();
-      light.on();
+      SmartDashboard.putNumber("light initial time", initialTime);
       previousFlashTime = Timer.getFPGATimestamp();
-      light.setLightsFlashing(true);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(Timer.getFPGATimestamp()-previousFlashTime > 0.5){
+    SmartDashboard.putBoolean("light periodic running", true);
+
+    if(Timer.getFPGATimestamp()-previousFlashTime > rate){
         if(light.isOn()){
             light.off();
         }
@@ -37,6 +41,7 @@ public class FlashLights extends CommandBase {
             light.on();
         }
         previousFlashTime = Timer.getFPGATimestamp();
+        SmartDashboard.putNumber("light prev time", previousFlashTime);
 
     }
 
@@ -45,8 +50,7 @@ public class FlashLights extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-      light.on();
-      light.setLightsFlashing(false);
+      light.off();
     }
   
 

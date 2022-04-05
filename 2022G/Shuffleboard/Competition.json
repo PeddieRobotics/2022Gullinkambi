@@ -147,7 +147,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/LL dist",
-              "_title": "SmartDashboard/LL dist"
+              "_title": "LL dist"
             }
           },
           "3,1": {
@@ -158,7 +158,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/FW velocity",
-              "_title": "/SmartDashboard/FW velocity"
+              "_title": "FW velocity"
             }
           },
           "1,1": {
@@ -169,7 +169,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/FW setpoint",
-              "_title": "/SmartDashboard/FW setpoint"
+              "_title": "FW setpoint"
             }
           },
           "1,3": {
@@ -180,7 +180,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Teleop: Hopper shoot layup speed",
-              "_title": "/SmartDashboard/Teleop: Hopper shoot layup speed"
+              "_title": "Teleop: Hopper shoot layup speed"
             }
           },
           "3,3": {
@@ -191,7 +191,31 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Teleop: Hopper shoot LL speed",
-              "_title": "/SmartDashboard/Teleop: Hopper shoot LL speed"
+              "_title": "Teleop: Hopper shoot LL speed"
+            }
+          },
+          "5,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Toggle Switch",
+              "_source0": "network_table:///SmartDashboard/LL Shot Override",
+              "_title": "LL Shot Override"
+            }
+          },
+          "5,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Hopper full",
+              "_title": "Hopper full",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
             }
           }
         }
@@ -199,9 +223,9 @@
     }
   ],
   "windowGeometry": {
-    "x": -2.0,
-    "y": 4.0,
-    "width": 1940.0,
-    "height": 1047.0
+    "x": -8.0,
+    "y": -1088.0,
+    "width": 1936.0,
+    "height": 1056.0
   }
 }

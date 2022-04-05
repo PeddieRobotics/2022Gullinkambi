@@ -10,8 +10,8 @@ import frc.robot.commands.IntakeCommands.StopIntake;
 import frc.robot.commands.ShootCommands.SetFlywheelRPM;
 import frc.robot.utils.Constants;
 
-public class TwoBallShorter extends  SequentialCommandGroup{
-    public TwoBallShorter(Pose2d initialPose, RamseteCommand part1){
+public class TwoBallShort extends  SequentialCommandGroup{
+    public TwoBallShort(Pose2d initialPose, RamseteCommand part1){
         addCommands(
             new ResetOdometry(initialPose),
             new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),
@@ -20,7 +20,7 @@ public class TwoBallShorter extends  SequentialCommandGroup{
                 part1
             ),
             new StopIntake(),
-            new ShootWithLLUntilEmpty(0.3),
+            new ShootWithLLUntilEmpty(0.5),
             new SetFlywheelRPM(0)
         );
     }

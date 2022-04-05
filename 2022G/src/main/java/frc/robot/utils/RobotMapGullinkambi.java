@@ -1,7 +1,5 @@
 package frc.robot.utils;
 
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
-
 public class RobotMapGullinkambi {
   // CAN IDs
   // Gullinkambi

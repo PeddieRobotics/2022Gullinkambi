@@ -1,21 +1,20 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.*;
-import frc.robot.utils.RobotMapGullinkambi;
+import frc.robot.utils.Constants;
 import frc.robot.utils.Constants.OIConfig;
+import frc.robot.utils.RobotMapGullinkambi;
+import frc.robot.utils.UpdateLogs;
 
 public class Hopper extends SubsystemBase {
     private static Hopper hopper;
@@ -141,6 +140,10 @@ public class Hopper extends SubsystemBase {
         return filteredInput;
     }
 
+    public boolean isHopperFull(){
+        return sensesBallTop() && sensesBallBottom();
+    }
+
     public void putSmartDashboardOverrides() {
         SmartDashboard.putNumber("OR: Hopper power", 0.0);
         SmartDashboard.putNumber("OR: Hopper velocity", 0.0);
@@ -156,6 +159,7 @@ public class Hopper extends SubsystemBase {
     public void updateHopperInfoOnDashboard(){
         SmartDashboard.putBoolean("Lower sensor", sensesBallBottom());
         SmartDashboard.putBoolean("Upper sensor", sensesBallTop());
+        SmartDashboard.putBoolean("Hopper full", isHopperFull());
         SmartDashboard.putNumber("Hopper velocity", getHopperVelocity());
 
         if(Constants.OI_CONFIG != OIConfig.COMPETITION){
