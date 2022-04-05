@@ -205,10 +205,10 @@
               "_title": "LL Shot Override"
             }
           },
-          "5,2": {
+          "13,4": {
             "size": [
-              1,
-              1
+              2,
+              2
             ],
             "content": {
               "_type": "Boolean Box",
@@ -224,7 +224,7 @@
   ],
   "windowGeometry": {
     "x": -8.0,
-    "y": -1088.0,
+    "y": -8.0,
     "width": 1936.0,
     "height": 1056.0
   }
