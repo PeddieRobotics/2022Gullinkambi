@@ -52,9 +52,22 @@ public class ShootWithLL extends CommandBase {
   @Override
   public void execute() {
     // Check whether the speed of flywheel is good enough to shoot
-    if (flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_SHOOTLL)) {
+    if (!flywheel.getShooterLock() && flywheel.isAtRPM(Constants.FLYWHEEL_THRESHOLD_SHOOTLL)) {
       flywheel.setShooterLock(true);
-      hopper.setHopperVelocity(SmartDashboard.getNumber("Teleop: Hopper shoot LL speed", Constants.HOPPER_SHOOT_LL_SPEED));
+      double dist = limelight.getDistance();
+      if(dist < 100){
+        hopper.setHopperVelocity(SmartDashboard.getNumber("Teleop: Hopper shoot LL speed", Constants.HOPPER_SHOOT_LL_SPEED));
+      }
+      else if(dist >= 100 && dist < 115){
+        hopper.setHopperVelocity(SmartDashboard.getNumber("Teleop: Hopper shoot LL speed", Constants.HOPPER_SHOOT_LL_SPEED) + 600);
+      }
+      else if(dist >= 115 & dist < 130){
+        hopper.setHopperVelocity(SmartDashboard.getNumber("Teleop: Hopper shoot LL speed", Constants.HOPPER_SHOOT_LL_SPEED) + 1200);
+      }
+      else if(limelight.getDistance() >= 130){
+        hopper.setHopperVelocity(SmartDashboard.getNumber("Teleop: Hopper shoot LL speed", Constants.HOPPER_SHOOT_LL_SPEED) + 1800);
+      }
+
     }
   }
 
@@ -72,6 +85,7 @@ public class ShootWithLL extends CommandBase {
     else{
       lights.off();
     }
+
   }
 
   // Returns true when the command should end.

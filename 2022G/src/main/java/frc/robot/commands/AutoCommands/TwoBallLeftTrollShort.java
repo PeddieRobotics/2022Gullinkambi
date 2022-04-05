@@ -26,8 +26,7 @@ public class TwoBallLeftTrollShort extends SequentialCommandGroup{
             new TurnToAngle(60),
             part2,
             new TurnToAngle(180),
-            new UnjamIntake(true),
-            new WaitCommand(0.1),
+            new ParallelCommandGroup(new WaitCommand(1.5), new UnjamIntake(true)),
             new TurnToAngle(28)
         );
     }

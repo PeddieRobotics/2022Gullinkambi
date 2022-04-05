@@ -80,11 +80,12 @@ public class Target extends CommandBase {
     drivetrain.arcadeDrive(0,0);
     // If we end this command with the LL seeing target AND we weren't interrupted (e.g. trigger release), we are locked to target now
     // Otherwise we must be ending immediately because no target was found for alignment
-    if(!interrupted){
+    if(limelight.hasTarget() && !interrupted){
       drivetrain.setLockedOnTarget(true);
     }
     else{
       flywheel.runFlywheelSetpoint(0);
+      drivetrain.setCoast();
     }
 
     if(isAuto){
@@ -102,7 +103,10 @@ public class Target extends CommandBase {
       return (Math.abs(limelight.getTxAverage()) < angle_bound);
     }
     else{
-      return (Math.abs(limelight.getTxAverage()) < angle_bound) && (Timer.getFPGATimestamp()-initialTime > 0.12);  
+      if((Math.abs(drivetrain.getGyroRate()) > 5.0) && (Timer.getFPGATimestamp()-initialTime < 0.5)){
+        return false;
+      }
+      return ((Math.abs(limelight.getTxAverage()) < angle_bound) && (Timer.getFPGATimestamp()-initialTime > 0.12));  
     }
   }
 }

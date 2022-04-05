@@ -36,8 +36,8 @@ public final class Constants {
 
   // Hopper constants
   public static final int HOPPER_MAX_CURRENT = 30; // amps
-  public static final double HOPPER_SHOOT_LAYUP_SPEED = -3000; // rpm
-  public static final double HOPPER_SHOOT_LL_SPEED = -3800; // rpm
+  public static final double HOPPER_SHOOT_LAYUP_SPEED = -3800; // rpm
+  public static final double HOPPER_SHOOT_LL_SPEED = -5000; // rpm
   public static final double HOPPER_SHOOT_POWER = 0.65;
   public static final double HOPPER_INDEX_POWER = 0.7;
   public static final double LOWER_SENSOR_INPUT_THRESHOLD = 0.99;
@@ -57,11 +57,9 @@ public final class Constants {
   public static final double FLYWHEEL_FF = 0.0;
   public static final double FLYWHEEL_IZONE = 60;
 
-  public static final double FLYWHEEL_RPM_LAYUP = 2650;
+  public static final double FLYWHEEL_RPM_LAYUP = 2600;
   public static final double FLYWHEEL_RPM_LOW = 1300;
   public static final double FLYWHEEL_RPM_REV_UP_STANDARD = 2800;
-  public static final double FLYWHEEL_RPM_REV_UP_MEDIUM = 3100;
-  public static final double FLYWHEEL_RPM_REV_UP_FAR = 3300;
 
   public static final double FLYWHEEL_THRESHOLD_LAYUP = 50;
   public static final double FLYWHEEL_THRESHOLD_LOW = 50;
@@ -96,7 +94,7 @@ public final class Constants {
   public static final double TARGET_HEIGHT = 104;
   
   public static final double [] LL_DIST = new double[]{62, 73, 90, 105, 120, 135, 150, 170, 190};
-  public static final double [] RPMS = new double[]{2300, 2370, 2510, 2620, 2850, 2920, 3160, 3500, 3750};
+  public static final double [] RPMS = new double[]{2300, 2370, 2510, 2620, 2830, 2930, 3160, 3500, 3750};
   public static LookupTable DIST_TO_RPM = new LookupTable(LL_DIST, RPMS);
 
   // OI constants
@@ -125,7 +123,7 @@ public final class Constants {
     public static final double kvVoltSecondsPerMeterRight = 3.1233;
     public static final double kaVoltSecondsSquaredPerMeterRight = 0.13889;
 
-    public static final double kPDriveVel = 0.25; //0.5; //0.0013735; // 0.03125; //0.03125; //1.4228E-05; //0.00020646; // 0.03125;
+    public static final double kPDriveVel = 0.25;
     
     public static final double kTrackwidthMeters = 0.72791; /* True calculations: 0.653*/
     public static final DifferentialDriveKinematics kDriveKinematics =
