@@ -114,6 +114,7 @@ public class Flywheel extends SubsystemBase {
   public void setShooterLock(boolean isActivated) {
     shooterLockSolenoid.set(isActivated);
   }
+  
 
   public boolean getHood() {
     return hoodSolenoid.get();
@@ -127,7 +128,6 @@ public class Flywheel extends SubsystemBase {
     flywheelSetpoint = 0;
     flywheelPIDController.setReference(flywheelSetpoint, ControlType.kVelocity);
     flywheel.setShooterLock(false);
-    flywheel.setHood(false);
   }
 
   public void putSmartDashboardOverrides() {

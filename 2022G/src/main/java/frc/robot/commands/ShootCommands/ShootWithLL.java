@@ -44,7 +44,7 @@ public class ShootWithLL extends CommandBase {
     }
     
     drivetrain.setBrake();
-    flywheel.setHood(true); // turn hood on for LL shot
+    flywheel.setHood(false); // turn hood on for LL shot
 
   }
 
@@ -79,7 +79,6 @@ public class ShootWithLL extends CommandBase {
     if(!isAuto){
       hopper.stopHopper();
       flywheel.runFlywheelSetpoint(0);
-      flywheel.setHood(false);
       drivetrain.setCoast();
     }
     else{

@@ -30,7 +30,7 @@ public class ShootLayup extends CommandBase {
   public void initialize() {
     drivetrain.setBrake();
     drivetrain.arcadeDrive(0, 0);
-    flywheel.setHood(false); // no hood for high shot
+    flywheel.setHood(true); // no hood for high shot
     flywheel.runFlywheelSetpoint(SmartDashboard.getNumber("Teleop: layup RPM", Constants.FLYWHEEL_RPM_LAYUP));
   }
 

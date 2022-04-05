@@ -22,7 +22,7 @@ public class ShootLow extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    flywheel.setHood(true);
+    flywheel.setHood(false);
     flywheel.runFlywheelSetpoint(rpm);
   }
 
@@ -41,7 +41,6 @@ public class ShootLow extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     hopper.stopHopper();
-    flywheel.setHood(false);
     flywheel.runFlywheelSetpoint(0);
     flywheel.setShooterLock(false);
   }

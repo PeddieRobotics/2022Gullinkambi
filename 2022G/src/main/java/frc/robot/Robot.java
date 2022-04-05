@@ -35,7 +35,8 @@ public class Robot extends LoggedRobotCustom {
   private RobotContainer robotContainer;
   private Lights lights;
 
-  private UsbCamera driverCamera;
+  private UsbCamera intakeCamera;
+  // private UsbCamera climberArmCamera;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -61,11 +62,17 @@ public class Robot extends LoggedRobotCustom {
     lights = Lights.getInstance();
 
     //Camera
-    driverCamera = CameraServer.startAutomaticCapture("USBCamera", 0);
-    driverCamera.setExposureAuto();
-    driverCamera.setFPS(15);
-    driverCamera.setResolution(480,320);
-    driverCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+    intakeCamera = CameraServer.startAutomaticCapture("USBCamera_Intake", 0);
+    intakeCamera.setExposureAuto();
+    intakeCamera.setFPS(15);
+    intakeCamera.setResolution(480,320);
+    intakeCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+
+    // climberArmCamera = CameraServer.startAutomaticCapture("USBCamera_Arm", 1); //not sure if this should be 0 or 1
+    // climberArmCamera.setExposureAuto();
+    // climberArmCamera.setFPS(15);
+    // climberArmCamera.setResolution(480, 320);
+    // climberArmCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
   }
 
   /**
