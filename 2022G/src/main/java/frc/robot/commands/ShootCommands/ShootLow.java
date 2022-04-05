@@ -22,7 +22,7 @@ public class ShootLow extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    flywheel.setHood(true);
+    flywheel.setHood(false);
     flywheel.runFlywheelSetpoint(rpm);
   }
 
