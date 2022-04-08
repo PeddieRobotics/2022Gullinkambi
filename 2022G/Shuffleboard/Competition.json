@@ -180,7 +180,7 @@
               "Crosshair/Crosshair color": "#FFFFFFFF",
               "Controls/Show controls": true,
               "Controls/Rotation": "NONE",
-              "compression": 61.0,
+              "compression": 8.934426229508196,
               "fps": -1,
               "imageWidth": -1,
               "imageHeight": -1
@@ -210,9 +210,9 @@
     }
   ],
   "windowGeometry": {
-    "x": -26.0,
-    "y": 8.0,
-    "width": 3860.0,
+    "x": -7.0,
+    "y": 0.0,
+    "width": 1934.0,
     "height": 1047.0
   }
 }
