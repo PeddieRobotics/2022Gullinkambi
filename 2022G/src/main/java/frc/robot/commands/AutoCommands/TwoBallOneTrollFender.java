@@ -12,8 +12,8 @@ import frc.robot.commands.IntakeCommands.UnjamIntake;
 import frc.robot.commands.ShootCommands.SetFlywheelRPM;
 import frc.robot.utils.Constants;
 
-public class TwoBallOneTrollHangar extends SequentialCommandGroup{
-    public TwoBallOneTrollHangar(Pose2d initialPose, RamseteCommand part1, RamseteCommand part2){
+public class TwoBallOneTrollFender extends SequentialCommandGroup{
+    public TwoBallOneTrollFender(Pose2d initialPose, RamseteCommand part1, RamseteCommand part2){
         addCommands(
             new ResetOdometry(initialPose),
             new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),
@@ -25,7 +25,7 @@ public class TwoBallOneTrollHangar extends SequentialCommandGroup{
             new SetFlywheelRPM(0),
             new TurnToAngle(60),
             part2,
-            new TurnToAngle(180),
+            new TurnToAngle(-65),
             new ParallelCommandGroup(new WaitCommand(1.5), new UnjamIntake(true)),
             new TurnToAngle(28)
         );
