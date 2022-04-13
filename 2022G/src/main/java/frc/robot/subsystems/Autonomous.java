@@ -28,6 +28,7 @@ import frc.robot.commands.AutoCommands.TwoBallLeftTrollLong;
 import frc.robot.commands.AutoCommands.TwoBallLeftTrollShort;
 import frc.robot.commands.AutoCommands.TwoBallLong;
 import frc.robot.commands.AutoCommands.TwoBallShort;
+import frc.robot.commands.AutoCommands.TwoBallTwoTrollFenderShort;
 import frc.robot.commands.AutoCommands.TwoBallTwoTrollHangarShort;
 import frc.robot.utils.Constants;
 
@@ -80,6 +81,7 @@ public class Autonomous extends SubsystemBase {
         autoRoutines.put("2 Ball (Long)", new TwoBallLong(twoBallLong.getInitialPose(), createCommandFromTrajectory(twoBallLong)));
         autoRoutines.put("2 Ball (Short)", new TwoBallShort(twoBallShort.getInitialPose(), createCommandFromTrajectory(twoBallShort)));
         
+        autoRoutines.put("2 Ball 2 Troll Short (Fender)", new TwoBallTwoTrollFenderShort(twoBallTwoTrollShort_1.getInitialPose(), createCommandFromTrajectory(twoBallTwoTrollShort_1), createCommandFromTrajectory(twoBallTwoTrollShort_2), createCommandFromTrajectory(twoBallTwoTrollShort_3)));
         autoRoutines.put("2 Ball 2 Troll Short (Hangar)", new TwoBallTwoTrollHangarShort(twoBallTwoTrollShort_1.getInitialPose(), createCommandFromTrajectory(twoBallTwoTrollShort_1), createCommandFromTrajectory(twoBallTwoTrollShort_2), createCommandFromTrajectory(twoBallTwoTrollShort_3)));
         autoRoutines.put("4 Ball (Right)", new FourBallRight(fourBallRight_1.getInitialPose(), createCommandFromTrajectory(fourBallRight_1), createCommandFromTrajectory(fourBallRight_2)));
         autoRoutines.put("4 Ball (Left)", new FourBallLeft(fourBallLeft_1.getInitialPose(), createCommandFromTrajectory(fourBallLeft_1), createCommandFromTrajectory(fourBallLeft_2), createCommandFromTrajectory(fourBallLeft_3)));
