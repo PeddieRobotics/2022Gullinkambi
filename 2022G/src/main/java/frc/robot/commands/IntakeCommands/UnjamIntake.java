@@ -15,12 +15,14 @@ public class UnjamIntake extends CommandBase {
     private boolean unjamOneBall;
     private double initialTime;
     public boolean armed, armedAgain;
+    private double speed;
 
-    public UnjamIntake(boolean unjamOne) {
+    public UnjamIntake(double speed, boolean unjamOne) {
         m_intake = Intake.getInstance();
         m_hopper = Hopper.getInstance();
         m_flywheel = Flywheel.getInstance();
         addRequirements(m_intake, m_hopper, m_flywheel);
+        this.speed = speed;
 
         armed = false;
         armedAgain = false;
@@ -33,7 +35,7 @@ public class UnjamIntake extends CommandBase {
 
         m_intake.setIntakeSolenoid(true);
         m_flywheel.runFlywheelSetpoint(0);
-        m_intake.reverseIntake(SmartDashboard.getNumber("Teleop: Intake speed", Constants.INTAKE_SPEED));
+        m_intake.reverseIntake(speed);
         if(!unjamOneBall){
             m_hopper.reverseHopper(Constants.HOPPER_INDEX_POWER);
         }
