@@ -6,8 +6,10 @@ import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.DriveCommands.ResetOdometry;
+import frc.robot.commands.DriveCommands.StopDrivetrain;
 import frc.robot.commands.DriveCommands.TurnToAngle;
 import frc.robot.commands.IntakeCommands.AutoIntakeWithHopper;
+import frc.robot.commands.IntakeCommands.StopIntake;
 import frc.robot.commands.IntakeCommands.UnjamIntake;
 import frc.robot.commands.ShootCommands.SetFlywheelRPM;
 import frc.robot.utils.Constants;
@@ -27,7 +29,8 @@ public class TwoBallOneTrollHangar extends SequentialCommandGroup{
             part2,
             new StopIntake(),
             new TurnToAngle(180),
-            new ParallelCommandGroup(new WaitCommand(1.5), new UnjamIntake(0.4, true)),
+            new StopDrivetrain(),
+            new UnjamIntake(0.4, false),
             new TurnToAngle(28)
         );
     }
