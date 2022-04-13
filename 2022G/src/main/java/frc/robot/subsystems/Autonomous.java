@@ -24,8 +24,7 @@ import frc.robot.commands.AutoCommands.FiveBallRightDCMP;
 import frc.robot.commands.AutoCommands.FiveBallRightDCMPNoPivot;
 import frc.robot.commands.AutoCommands.FourBallLeft;
 import frc.robot.commands.AutoCommands.FourBallRight;
-import frc.robot.commands.AutoCommands.TwoBallLeftTrollLong;
-import frc.robot.commands.AutoCommands.TwoBallLeftTrollShort;
+import frc.robot.commands.AutoCommands.TwoBallTwoTrollLongFender; //new path 
 import frc.robot.commands.AutoCommands.TwoBallLong;
 import frc.robot.commands.AutoCommands.TwoBallOneTrollFender;
 import frc.robot.commands.AutoCommands.TwoBallOneTrollHangar;
@@ -41,7 +40,7 @@ public class Autonomous extends SubsystemBase {
     private Hashtable<String,Command> autoRoutines;
 
     private Trajectory sanityCheck, pathVerification;
-    private Trajectory twoBallLong, twoBallShort, twoBallOneTroll_1, twoBallOneTroll_2;
+    private Trajectory twoBallLong, twoBallShort, twoBallOneTroll_1, twoBallOneTroll_2, twoBallTwoTrollLongFender_1, twoBallTwoTrollLongFender_2, twoBallTwoTrollLongFender_3;
     private Trajectory fourBallRight_1, fourBallRight_2, fourBallLeft_1, fourBallLeft_2, fourBallLeft_3;
     private Trajectory fiveBallRightSeneca_1, fiveBallRightSeneca_2, fiveBallRightSeneca_3, fiveBallRightSeneca_4, fiveBallRightDCMP_1, fiveBallRightDCMP_2, fiveBallRightDCMP_3, fiveBallRightDCMP_4, fiveBallRightDCMPNoPivot_1, fiveBallRightDCMPNoPivot_2, fiveBallRightDCMPNoPivot_3, fiveBallRightDCMPNoPivot_4, fiveBallRightDCMPBackAway_1, fiveBallRightDCMPBackAway_2, fiveBallRightDCMPBackAway_3, fiveBallRightDCMPBackAway_4, fiveBallRightDCMPBackAway_5;
 
@@ -83,6 +82,8 @@ public class Autonomous extends SubsystemBase {
 
         autoRoutines.put("2 Ball 1 Troll Hangar", new TwoBallOneTrollHangar(twoBallOneTroll_1.getInitialPose(), createCommandFromTrajectory(twoBallOneTroll_1), createCommandFromTrajectory(twoBallOneTroll_2)));
         autoRoutines.put("2 Ball 1 Troll Fender", new TwoBallOneTrollFender(twoBallOneTroll_1.getInitialPose(), createCommandFromTrajectory(twoBallOneTroll_1), createCommandFromTrajectory(twoBallOneTroll_2)));
+        
+        autoRoutines.put("2 Ball Troll Long (Fender)", new TwoBallTwoTrollLongFender(twoBallTwoTrollLongFender_1.getInitialPose(), createCommandFromTrajectory(twoBallTwoTrollLongFender_1), createCommandFromTrajectory(twoBallTwoTrollLongFender_2), createCommandFromTrajectory(twoBallTwoTrollLongFender_3)));
 
         autoRoutines.put("4 Ball (Right)", new FourBallRight(fourBallRight_1.getInitialPose(), createCommandFromTrajectory(fourBallRight_1), createCommandFromTrajectory(fourBallRight_2)));
         autoRoutines.put("4 Ball (Left)", new FourBallLeft(fourBallLeft_1.getInitialPose(), createCommandFromTrajectory(fourBallLeft_1), createCommandFromTrajectory(fourBallLeft_2), createCommandFromTrajectory(fourBallLeft_3)));
@@ -108,6 +109,10 @@ public class Autonomous extends SubsystemBase {
         twoBallOneTroll_1 = PathPlanner.loadPath("2B1T_1", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
         twoBallOneTroll_2 = PathPlanner.loadPath("2B1T_2", Constants.kMaxSpeedMetersPerSecond*0.8, Constants.kMaxAccelerationMetersPerSecondSquared*0.8);
       
+        twoBallTwoTrollLongFender_1 = PathPlanner.loadPath("2B2TLong_1", Constants.kMaxSpeedMetersPerSecond*0.7, Constants.kMaxAccelerationMetersPerSecondSquared*0.7);
+        twoBallTwoTrollLongFender_2 = PathPlanner.loadPath("2B2TLong_2", Constants.kMaxSpeedMetersPerSecond*0.7, Constants.kMaxAccelerationMetersPerSecondSquared*0.7);
+        twoBallTwoTrollLongFender_3 = PathPlanner.loadPath("2B2TLong_3", Constants.kMaxSpeedMetersPerSecond*0.7, Constants.kMaxAccelerationMetersPerSecondSquared*0.7);
+
         fourBallRight_1 = PathPlanner.loadPath("4BallRight_Part1", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
         fourBallRight_2 = PathPlanner.loadPath("4BallRight_Part2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
         
