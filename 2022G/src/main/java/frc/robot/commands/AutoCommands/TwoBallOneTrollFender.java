@@ -26,11 +26,11 @@ public class TwoBallOneTrollFender extends SequentialCommandGroup{
             new SetFlywheelRPM(0),
             new TurnToAngle(60),
             part2,
-            //new TurnToAngle(-65),
+            new StopIntake(),
+            new TurnToAngle(-65),
             new StopDrivetrain(),
-            new WaitCommand(3),
-            new UnjamIntake(0.4, false)
-            //new TurnToAngle(28)
+            new UnjamIntake(0.4, false),
+            new TurnToAngle(28)
         );
     }
 }

@@ -25,6 +25,7 @@ public class TwoBallOneTrollHangar extends SequentialCommandGroup{
             new SetFlywheelRPM(0),
             new TurnToAngle(60),
             part2,
+            new StopIntake(),
             new TurnToAngle(180),
             new ParallelCommandGroup(new WaitCommand(1.5), new UnjamIntake(0.4, true)),
             new TurnToAngle(28)
