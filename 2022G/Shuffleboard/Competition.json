@@ -11,9 +11,9 @@
         "vgap": 16.0,
         "titleType": 0,
         "tiles": {
-          "19,0": {
+          "21,0": {
             "size": [
-              3,
+              2,
               1
             ],
             "content": {
@@ -154,9 +154,9 @@
               "_title": "LL Shot Override"
             }
           },
-          "22,0": {
+          "23,0": {
             "size": [
-              3,
+              2,
               1
             ],
             "content": {
@@ -167,9 +167,9 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "19,1": {
+          "21,1": {
             "size": [
-              6,
+              5,
               5
             ],
             "content": {
@@ -188,7 +188,7 @@
           },
           "13,0": {
             "size": [
-              6,
+              8,
               6
             ],
             "content": {
@@ -204,15 +204,37 @@
               "imageWidth": 0,
               "imageHeight": 0
             }
+          },
+          "6,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Troll Auto Post-Shoot Delay",
+              "_title": "/SmartDashboard/Troll Auto Post-Shoot Delay"
+            }
+          },
+          "5,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Troll Auto Start Delay",
+              "_title": "/SmartDashboard/Troll Auto Start Delay"
+            }
           }
         }
       }
     }
   ],
   "windowGeometry": {
-    "x": -7.0,
-    "y": 0.0,
-    "width": 1934.0,
+    "x": -8.0,
+    "y": 2.0,
+    "width": 3860.0,
     "height": 1047.0
   }
 }
