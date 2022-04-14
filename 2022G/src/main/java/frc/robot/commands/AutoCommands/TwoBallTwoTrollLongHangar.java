@@ -1,6 +1,7 @@
 package frc.robot.commands.AutoCommands;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
@@ -19,6 +20,7 @@ public class TwoBallTwoTrollLongHangar extends SequentialCommandGroup{
     public TwoBallTwoTrollLongHangar(Pose2d initialPose, RamseteCommand part1, RamseteCommand part2, RamseteCommand part3){
         addCommands(
             new ResetOdometry(initialPose),
+            new AutoWaitFromDashboard("Troll Auto Start Delay"),
             new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),
             new ParallelCommandGroup(
                 new AutoIntakeWithHopper(1.0, 0.7),
@@ -26,6 +28,7 @@ public class TwoBallTwoTrollLongHangar extends SequentialCommandGroup{
             ),
             new ShootWithLLUntilEmpty(0.3),
             new SetFlywheelRPM(0),
+            new AutoWaitFromDashboard("Troll Auto Post-Shoot Delay"),
             new TurnToAngle(60),
             part2,
             new TurnToAngle(175),
