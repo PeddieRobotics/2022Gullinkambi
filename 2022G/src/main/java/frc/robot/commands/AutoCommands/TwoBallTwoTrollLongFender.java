@@ -2,6 +2,7 @@ package frc.robot.commands.AutoCommands;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -9,8 +10,8 @@ import frc.robot.commands.DriveCommands.ResetOdometry;
 import frc.robot.commands.DriveCommands.StopDrivetrain;
 import frc.robot.commands.DriveCommands.TurnToAngle;
 import frc.robot.commands.IntakeCommands.AutoIntakeWithHopper;
+import frc.robot.commands.IntakeCommands.StopIntake;
 import frc.robot.commands.IntakeCommands.UnjamIntake;
-import frc.robot.commands.IntakeCommands.UnjamSetSpeed;
 import frc.robot.commands.ShootCommands.SetFlywheelRPM;
 import frc.robot.utils.Constants;
 
@@ -23,14 +24,15 @@ public class TwoBallTwoTrollLongFender extends SequentialCommandGroup{
                 new AutoIntakeWithHopper(1.0, 0.7),
                 part1
             ),
-            new ShootWithLLUntilEmpty(0.5),
+            new ShootWithLLUntilEmpty(0.3),
+            new SetFlywheelRPM(0),
             new TurnToAngle(60),
             part2,
             new TurnToAngle(175),
             part3,
             new StopDrivetrain(),
-            new WaitCommand(2),
-            new UnjamSetSpeed(0.4, false)
+            new StopIntake(),
+            new ParallelRaceGroup(new UnjamIntake(0.3, false), new WaitCommand(3))
         );
     }
 }

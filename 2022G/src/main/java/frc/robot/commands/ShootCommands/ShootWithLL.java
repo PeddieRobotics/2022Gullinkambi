@@ -71,7 +71,6 @@ public class ShootWithLL extends CommandBase {
     else{
       lights.off();
     }
-
   }
 
   // Returns true when the command should end.

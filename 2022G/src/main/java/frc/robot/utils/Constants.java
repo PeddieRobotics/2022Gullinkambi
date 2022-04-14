@@ -37,7 +37,7 @@ public final class Constants {
   // Hopper constants
   public static final int HOPPER_MAX_CURRENT = 30; // amps
   public static final double HOPPER_SHOOT_LAYUP_SPEED = -2200; // rpm
-  public static final double HOPPER_SHOOT_LL_SPEED = -3800; // rpm
+  public static final double HOPPER_SHOOT_LL_SPEED = -4500; // rpm
   public static final double HOPPER_SHOOT_POWER = 0.65;
   public static final double HOPPER_INDEX_POWER = 0.7;
   public static final double LOWER_SENSOR_INPUT_THRESHOLD = 0.99;
@@ -84,9 +84,9 @@ public final class Constants {
   public static final int CLIMBER_MAX_CURRENT = 60;
 
   // Limelight constants
-  public static final double LL_P = 0.006;
+  public static final double LL_P = 0.01;
   public static final double LL_I = 0;
-  public static final double LL_D = 0;
+  public static final double LL_D = 0.0005;
   public static final double LL_FF = 0.15;
   public static final double LL_ANGLE_BOUND = 1.0;
   public static final double LL_ANGLE = 45; 
