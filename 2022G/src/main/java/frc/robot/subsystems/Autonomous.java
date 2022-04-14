@@ -22,6 +22,7 @@ import frc.robot.commands.AutoCommands.FiveBallRightDCMPBackAway;
 import frc.robot.commands.AutoCommands.FiveBallRightSeneca;
 import frc.robot.commands.AutoCommands.FiveBallRightDCMP;
 import frc.robot.commands.AutoCommands.FiveBallRightDCMPNoPivot;
+import frc.robot.commands.AutoCommands.FiveBallRightDCMPPivotBackAway;
 import frc.robot.commands.AutoCommands.FourBallLeft;
 import frc.robot.commands.AutoCommands.FourBallRight;
 import frc.robot.commands.AutoCommands.TwoBallTwoTrollLongFender; //new path 
@@ -45,7 +46,7 @@ public class Autonomous extends SubsystemBase {
     private Trajectory sanityCheck, pathVerification;
     private Trajectory twoBallLong, twoBallShort, twoBallOneTroll_1, twoBallOneTroll_2, twoBallTwoTrollShort_1, twoBallTwoTrollShort_2, twoBallTwoTrollShort_3, twoBallTwoTrollLong_1, twoBallTwoTrollLong_2, twoBallTwoTrollLong_3;
     private Trajectory fourBallRight_1, fourBallRight_2, fourBallLeft_1, fourBallLeft_2, fourBallLeft_3;
-    private Trajectory fiveBallRightSeneca_1, fiveBallRightSeneca_2, fiveBallRightSeneca_3, fiveBallRightSeneca_4, fiveBallRightDCMP_1, fiveBallRightDCMP_2, fiveBallRightDCMP_3, fiveBallRightDCMP_4, fiveBallRightDCMPNoPivot_1, fiveBallRightDCMPNoPivot_2, fiveBallRightDCMPNoPivot_3, fiveBallRightDCMPNoPivot_4, fiveBallRightDCMPBackAway_1, fiveBallRightDCMPBackAway_2, fiveBallRightDCMPBackAway_3, fiveBallRightDCMPBackAway_4, fiveBallRightDCMPBackAway_5;
+    private Trajectory fiveBallRightSeneca_1, fiveBallRightSeneca_2, fiveBallRightSeneca_3, fiveBallRightSeneca_4, fiveBallRightDCMP_1, fiveBallRightDCMP_2, fiveBallRightDCMP_3, fiveBallRightDCMP_4, fiveBallRightDCMPNoPivot_1, fiveBallRightDCMPNoPivot_2, fiveBallRightDCMPNoPivot_3, fiveBallRightDCMPNoPivot_4, fiveBallRightDCMPBackAway_1, fiveBallRightDCMPBackAway_2, fiveBallRightDCMPBackAway_3, fiveBallRightDCMPBackAway_4, fiveBallRightDCMPBackAway_5, fiveBallRightDCMPPivotBackAway_1, fiveBallRightDCMPPivotBackAway_2, fiveBallRightDCMPPivotBackAway_3, fiveBallRightDCMPPivotBackAway_4, fiveBallRightDCMPPivotBackAway_5;
 
     public Autonomous() {
         autoRoutines = new Hashtable<String,Command>();
@@ -99,7 +100,8 @@ public class Autonomous extends SubsystemBase {
         autoRoutines.put("5 Ball (Right) DCMP", new FiveBallRightDCMP(fiveBallRightDCMP_1.getInitialPose(), createCommandFromTrajectory(fiveBallRightDCMP_1), createCommandFromTrajectory(fiveBallRightDCMP_2), createCommandFromTrajectory(fiveBallRightDCMP_3), createCommandFromTrajectory(fiveBallRightDCMP_4)));
         autoRoutines.put("5 Ball (Right) DCMP NO PIVOT", new FiveBallRightDCMPNoPivot(fiveBallRightDCMPNoPivot_1.getInitialPose(), createCommandFromTrajectory(fiveBallRightDCMPNoPivot_1), createCommandFromTrajectory(fiveBallRightDCMPNoPivot_2), createCommandFromTrajectory(fiveBallRightDCMPNoPivot_3), createCommandFromTrajectory(fiveBallRightDCMPNoPivot_4)));
         autoRoutines.put("5 Ball (Right) DCMP BackAway", new FiveBallRightDCMPBackAway(fiveBallRightDCMPBackAway_1.getInitialPose(), createCommandFromTrajectory(fiveBallRightDCMPBackAway_1), createCommandFromTrajectory(fiveBallRightDCMPBackAway_2), createCommandFromTrajectory(fiveBallRightDCMPBackAway_3), createCommandFromTrajectory(fiveBallRightDCMPBackAway_4), createCommandFromTrajectory(fiveBallRightDCMPBackAway_5)));
-   
+        autoRoutines.put("5 Ball (Right) DCMP Pivot BackAway", new FiveBallRightDCMPPivotBackAway(fiveBallRightDCMPPivotBackAway_1.getInitialPose(), createCommandFromTrajectory(fiveBallRightDCMPPivotBackAway_1), createCommandFromTrajectory(fiveBallRightDCMPPivotBackAway_2), createCommandFromTrajectory(fiveBallRightDCMPPivotBackAway_3), createCommandFromTrajectory(fiveBallRightDCMPPivotBackAway_4), createCommandFromTrajectory(fiveBallRightDCMPPivotBackAway_5)));
+
     }
 
     public Command returnAutonomousCommand() {
@@ -151,6 +153,12 @@ public class Autonomous extends SubsystemBase {
         fiveBallRightDCMPBackAway_3 = PathPlanner.loadPath("5BallRight_DCMPBackAway_Part3", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
         fiveBallRightDCMPBackAway_4 = PathPlanner.loadPath("5BallRight_DCMPBackAway_Part4", Constants.kMaxSpeedMetersPerSecond*0.2, Constants.kMaxAccelerationMetersPerSecondSquared, true);
         fiveBallRightDCMPBackAway_5 = PathPlanner.loadPath("5BallRight_DCMPBackAway_Part5", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared, true);
+
+        fiveBallRightDCMPPivotBackAway_1 = PathPlanner.loadPath("5BallRight_DCMPPivotBackAway_Part1", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
+        fiveBallRightDCMPPivotBackAway_2 = PathPlanner.loadPath("5BallRight_DCMPPivotBackAway_Part2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
+        fiveBallRightDCMPPivotBackAway_3 = PathPlanner.loadPath("5BallRight_DCMPPivotBackAway_Part3", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
+        fiveBallRightDCMPPivotBackAway_4 = PathPlanner.loadPath("5BallRight_DCMPPivotBackAway_Part4", Constants.kMaxSpeedMetersPerSecond*0.2, Constants.kMaxAccelerationMetersPerSecondSquared*0.2, true);
+        fiveBallRightDCMPPivotBackAway_5 = PathPlanner.loadPath("5BallRight_DCMPPivotBackAway_Part5", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared, true);
 
     }
  
