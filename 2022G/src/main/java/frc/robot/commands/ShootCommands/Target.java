@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Flywheel;
+import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.Limelight;
 import frc.robot.utils.Constants;
@@ -15,6 +16,7 @@ public class Target extends CommandBase {
   private final Drivetrain drivetrain;
   private final Flywheel flywheel;
   private final Lights lights;
+  private final Hopper hopper;
 
   private double ff;
   private double steering_adjust;
@@ -30,6 +32,7 @@ public class Target extends CommandBase {
     drivetrain = Drivetrain.getInstance();
     flywheel = Flywheel.getInstance();
     lights = Lights.getInstance();
+    hopper = Hopper.getInstance();
 
     addRequirements(drivetrain, flywheel);
 
@@ -73,6 +76,10 @@ public class Target extends CommandBase {
        steering_adjust = 0;
      }  
       drivetrain.arcadeDrive(0, steering_adjust);
+
+      if((Math.abs(limelight.getTxAverage()) < angle_bound*2)){
+        hopper.setHopperVelocity(SmartDashboard.getNumber("Teleop: Hopper shoot LL speed", Constants.HOPPER_SHOOT_LL_SPEED));
+      }
   }
 
   @Override
@@ -106,7 +113,7 @@ public class Target extends CommandBase {
       if((Math.abs(drivetrain.getGyroRate()) > 5.0) && (Timer.getFPGATimestamp()-initialTime < 0.5)){
         return false;
       }
-      return ((Math.abs(limelight.getTxAverage()) < angle_bound) && (Timer.getFPGATimestamp()-initialTime > 0.12));  
+      return ((Math.abs(limelight.getTxAverage()) < angle_bound) && (Timer.getFPGATimestamp()-initialTime > 0.1));  
     }
   }
 }

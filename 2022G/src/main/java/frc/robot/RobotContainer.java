@@ -89,6 +89,8 @@ public class RobotContainer {
     climber.putSmartDashboardOverrides();
     flywheel.putSmartDashboardOverrides();
     SmartDashboard.putString("Mode", Constants.OI_CONFIG.toString());
+    SmartDashboard.putNumber("Troll Auto Start Delay", 0.0);
+    SmartDashboard.putNumber("Troll Auto Post-Shoot Delay", 0.0);
     SmartDashboard.putData(CommandScheduler.getInstance());
   }
 

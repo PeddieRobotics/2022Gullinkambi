@@ -11,48 +11,10 @@
         "vgap": 16.0,
         "titleType": 0,
         "tiles": {
-          "15,0": {
-            "size": [
-              10,
-              6
-            ],
-            "content": {
-              "_type": "Camera Stream",
-              "_source0": "camera_server://USBCamera",
-              "_title": "USBCamera",
-              "Crosshair/Show crosshair": true,
-              "Crosshair/Crosshair color": "#FFFFFFFF",
-              "Controls/Show controls": true,
-              "Controls/Rotation": "NONE",
-              "compression": -1.0,
-              "fps": -1,
-              "imageWidth": 0,
-              "imageHeight": 0
-            }
-          },
-          "6,0": {
-            "size": [
-              5,
-              5
-            ],
-            "content": {
-              "_type": "Camera Stream",
-              "_source0": "camera_server://limelight",
-              "_title": "limelight",
-              "Crosshair/Show crosshair": true,
-              "Crosshair/Crosshair color": "#FFFFFFFF",
-              "Controls/Show controls": true,
-              "Controls/Rotation": "NONE",
-              "compression": -1.0,
-              "fps": -1,
-              "imageWidth": 0,
-              "imageHeight": 0
-            }
-          },
-          "13,2": {
+          "21,0": {
             "size": [
               2,
-              2
+              1
             ],
             "content": {
               "_type": "Text View",
@@ -126,19 +88,6 @@
               "_title": "Auto Routines"
             }
           },
-          "13,0": {
-            "size": [
-              2,
-              2
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/LL has target",
-              "_title": "SmartDashboard/LL has target",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
           "0,0": {
             "size": [
               2,
@@ -205,10 +154,10 @@
               "_title": "LL Shot Override"
             }
           },
-          "13,4": {
+          "23,0": {
             "size": [
               2,
-              2
+              1
             ],
             "content": {
               "_type": "Boolean Box",
@@ -217,6 +166,66 @@
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
             }
+          },
+          "21,1": {
+            "size": [
+              5,
+              5
+            ],
+            "content": {
+              "_type": "Camera Stream",
+              "_source0": "camera_server://USBCamera_Intake",
+              "_title": "USBCamera_Intake",
+              "Crosshair/Show crosshair": true,
+              "Crosshair/Crosshair color": "#FFFFFFFF",
+              "Controls/Show controls": true,
+              "Controls/Rotation": "NONE",
+              "compression": -1.0,
+              "fps": -1,
+              "imageWidth": 0,
+              "imageHeight": 0
+            }
+          },
+          "13,0": {
+            "size": [
+              8,
+              6
+            ],
+            "content": {
+              "_type": "Camera Stream",
+              "_source0": "camera_server://limelight",
+              "_title": "limelight",
+              "Crosshair/Show crosshair": true,
+              "Crosshair/Crosshair color": "#FFFFFFFF",
+              "Controls/Show controls": true,
+              "Controls/Rotation": "NONE",
+              "compression": -1.0,
+              "fps": -1,
+              "imageWidth": 0,
+              "imageHeight": 0
+            }
+          },
+          "6,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Troll Auto Post-Shoot Delay",
+              "_title": "/SmartDashboard/Troll Auto Post-Shoot Delay"
+            }
+          },
+          "5,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Troll Auto Start Delay",
+              "_title": "/SmartDashboard/Troll Auto Start Delay"
+            }
           }
         }
       }
@@ -224,8 +233,8 @@
   ],
   "windowGeometry": {
     "x": -8.0,
-    "y": -8.0,
-    "width": 1936.0,
-    "height": 1056.0
+    "y": 2.0,
+    "width": 3860.0,
+    "height": 1047.0
   }
 }

@@ -22,12 +22,17 @@ import frc.robot.commands.AutoCommands.FiveBallRightDCMPBackAway;
 import frc.robot.commands.AutoCommands.FiveBallRightSeneca;
 import frc.robot.commands.AutoCommands.FiveBallRightDCMP;
 import frc.robot.commands.AutoCommands.FiveBallRightDCMPNoPivot;
+import frc.robot.commands.AutoCommands.FiveBallRightDCMPPivotBackAway;
 import frc.robot.commands.AutoCommands.FourBallLeft;
 import frc.robot.commands.AutoCommands.FourBallRight;
-import frc.robot.commands.AutoCommands.TwoBallLeftTrollLong;
-import frc.robot.commands.AutoCommands.TwoBallLeftTrollShort;
+import frc.robot.commands.AutoCommands.TwoBallTwoTrollLongFender; //new path 
+import frc.robot.commands.AutoCommands.TwoBallTwoTrollLongHangar;
 import frc.robot.commands.AutoCommands.TwoBallLong;
+import frc.robot.commands.AutoCommands.TwoBallOneTrollFender;
+import frc.robot.commands.AutoCommands.TwoBallOneTrollHangar;
 import frc.robot.commands.AutoCommands.TwoBallShort;
+import frc.robot.commands.AutoCommands.TwoBallTwoTrollShortFender;
+import frc.robot.commands.AutoCommands.TwoBallTwoTrollShortHangar;
 import frc.robot.utils.Constants;
 
 public class Autonomous extends SubsystemBase {
@@ -39,9 +44,9 @@ public class Autonomous extends SubsystemBase {
     private Hashtable<String,Command> autoRoutines;
 
     private Trajectory sanityCheck, pathVerification;
-    private Trajectory twoBallLong, twoBallShort, twoBallLeftTrollLong_1, twoBallLeftTrollLong_2, twoBallLeftTrollLong_3, twoBallLeftTrollShort_1, twoBallLeftTrollShort_2;
+    private Trajectory twoBallLong, twoBallShort, twoBallOneTroll_1, twoBallOneTroll_2, twoBallTwoTrollShort_1, twoBallTwoTrollShort_2, twoBallTwoTrollShort_3, twoBallTwoTrollLong_1, twoBallTwoTrollLong_2, twoBallTwoTrollLong_3;
     private Trajectory fourBallRight_1, fourBallRight_2, fourBallLeft_1, fourBallLeft_2, fourBallLeft_3;
-    private Trajectory fiveBallRightSeneca_1, fiveBallRightSeneca_2, fiveBallRightSeneca_3, fiveBallRightSeneca_4, fiveBallRightDCMP_1, fiveBallRightDCMP_2, fiveBallRightDCMP_3, fiveBallRightDCMP_4, fiveBallRightDCMPNoPivot_1, fiveBallRightDCMPNoPivot_2, fiveBallRightDCMPNoPivot_3, fiveBallRightDCMPNoPivot_4, fiveBallRightDCMPBackAway_1, fiveBallRightDCMPBackAway_2, fiveBallRightDCMPBackAway_3, fiveBallRightDCMPBackAway_4, fiveBallRightDCMPBackAway_5;
+    private Trajectory fiveBallRightSeneca_1, fiveBallRightSeneca_2, fiveBallRightSeneca_3, fiveBallRightSeneca_4, fiveBallRightDCMP_1, fiveBallRightDCMP_2, fiveBallRightDCMP_3, fiveBallRightDCMP_4, fiveBallRightDCMPNoPivot_1, fiveBallRightDCMPNoPivot_2, fiveBallRightDCMPNoPivot_3, fiveBallRightDCMPNoPivot_4, fiveBallRightDCMPBackAway_1, fiveBallRightDCMPBackAway_2, fiveBallRightDCMPBackAway_3, fiveBallRightDCMPBackAway_4, fiveBallRightDCMPBackAway_5, fiveBallRightDCMPPivotBackAway_1, fiveBallRightDCMPPivotBackAway_2, fiveBallRightDCMPPivotBackAway_3, fiveBallRightDCMPPivotBackAway_4, fiveBallRightDCMPPivotBackAway_5;
 
     public Autonomous() {
         autoRoutines = new Hashtable<String,Command>();
@@ -78,9 +83,16 @@ public class Autonomous extends SubsystemBase {
 
         autoRoutines.put("2 Ball (Long)", new TwoBallLong(twoBallLong.getInitialPose(), createCommandFromTrajectory(twoBallLong)));
         autoRoutines.put("2 Ball (Short)", new TwoBallShort(twoBallShort.getInitialPose(), createCommandFromTrajectory(twoBallShort)));
-        autoRoutines.put("2 Ball Left Troll (Long)", new TwoBallLeftTrollLong(twoBallLeftTrollLong_1.getInitialPose(), createCommandFromTrajectory(twoBallLeftTrollLong_1), createCommandFromTrajectory(twoBallLeftTrollLong_2), createCommandFromTrajectory(twoBallLeftTrollLong_3)));
-        autoRoutines.put("2 Ball Left Troll (Short)", new TwoBallLeftTrollShort(twoBallLeftTrollShort_1.getInitialPose(), createCommandFromTrajectory(twoBallLeftTrollShort_1), createCommandFromTrajectory(twoBallLeftTrollShort_2)));
 
+        autoRoutines.put("2 Ball 1 Troll (Fender)", new TwoBallOneTrollFender(twoBallOneTroll_1.getInitialPose(), createCommandFromTrajectory(twoBallOneTroll_1), createCommandFromTrajectory(twoBallOneTroll_2)));
+        autoRoutines.put("2 Ball 1 Troll (Hangar)", new TwoBallOneTrollHangar(twoBallOneTroll_1.getInitialPose(), createCommandFromTrajectory(twoBallOneTroll_1), createCommandFromTrajectory(twoBallOneTroll_2)));
+     
+        autoRoutines.put("2 Ball 2 Troll Long (Fender)", new TwoBallTwoTrollLongFender(twoBallTwoTrollLong_1.getInitialPose(), createCommandFromTrajectory(twoBallTwoTrollLong_1), createCommandFromTrajectory(twoBallTwoTrollLong_2), createCommandFromTrajectory(twoBallTwoTrollLong_3)));
+        autoRoutines.put("2 Ball 2 Troll Long (Hangar)", new TwoBallTwoTrollLongHangar(twoBallTwoTrollLong_1.getInitialPose(), createCommandFromTrajectory(twoBallTwoTrollLong_1), createCommandFromTrajectory(twoBallTwoTrollLong_2), createCommandFromTrajectory(twoBallTwoTrollLong_3)));
+
+        autoRoutines.put("2 Ball 2 Troll Short (Fender)", new TwoBallTwoTrollShortFender(twoBallTwoTrollShort_1.getInitialPose(), createCommandFromTrajectory(twoBallTwoTrollShort_1), createCommandFromTrajectory(twoBallTwoTrollShort_2), createCommandFromTrajectory(twoBallTwoTrollShort_3)));
+        autoRoutines.put("2 Ball 2 Troll Short (Hangar)", new TwoBallTwoTrollShortHangar(twoBallTwoTrollShort_1.getInitialPose(), createCommandFromTrajectory(twoBallTwoTrollShort_1), createCommandFromTrajectory(twoBallTwoTrollShort_2), createCommandFromTrajectory(twoBallTwoTrollShort_3)));
+        
         autoRoutines.put("4 Ball (Right)", new FourBallRight(fourBallRight_1.getInitialPose(), createCommandFromTrajectory(fourBallRight_1), createCommandFromTrajectory(fourBallRight_2)));
         autoRoutines.put("4 Ball (Left)", new FourBallLeft(fourBallLeft_1.getInitialPose(), createCommandFromTrajectory(fourBallLeft_1), createCommandFromTrajectory(fourBallLeft_2), createCommandFromTrajectory(fourBallLeft_3)));
 
@@ -88,7 +100,8 @@ public class Autonomous extends SubsystemBase {
         autoRoutines.put("5 Ball (Right) DCMP", new FiveBallRightDCMP(fiveBallRightDCMP_1.getInitialPose(), createCommandFromTrajectory(fiveBallRightDCMP_1), createCommandFromTrajectory(fiveBallRightDCMP_2), createCommandFromTrajectory(fiveBallRightDCMP_3), createCommandFromTrajectory(fiveBallRightDCMP_4)));
         autoRoutines.put("5 Ball (Right) DCMP NO PIVOT", new FiveBallRightDCMPNoPivot(fiveBallRightDCMPNoPivot_1.getInitialPose(), createCommandFromTrajectory(fiveBallRightDCMPNoPivot_1), createCommandFromTrajectory(fiveBallRightDCMPNoPivot_2), createCommandFromTrajectory(fiveBallRightDCMPNoPivot_3), createCommandFromTrajectory(fiveBallRightDCMPNoPivot_4)));
         autoRoutines.put("5 Ball (Right) DCMP BackAway", new FiveBallRightDCMPBackAway(fiveBallRightDCMPBackAway_1.getInitialPose(), createCommandFromTrajectory(fiveBallRightDCMPBackAway_1), createCommandFromTrajectory(fiveBallRightDCMPBackAway_2), createCommandFromTrajectory(fiveBallRightDCMPBackAway_3), createCommandFromTrajectory(fiveBallRightDCMPBackAway_4), createCommandFromTrajectory(fiveBallRightDCMPBackAway_5)));
-   
+        autoRoutines.put("5 Ball (Right) DCMP Pivot BackAway", new FiveBallRightDCMPPivotBackAway(fiveBallRightDCMPPivotBackAway_1.getInitialPose(), createCommandFromTrajectory(fiveBallRightDCMPPivotBackAway_1), createCommandFromTrajectory(fiveBallRightDCMPPivotBackAway_2), createCommandFromTrajectory(fiveBallRightDCMPPivotBackAway_3), createCommandFromTrajectory(fiveBallRightDCMPPivotBackAway_4), createCommandFromTrajectory(fiveBallRightDCMPPivotBackAway_5)));
+
     }
 
     public Command returnAutonomousCommand() {
@@ -102,12 +115,16 @@ public class Autonomous extends SubsystemBase {
         twoBallLong = PathPlanner.loadPath("2BallLong", Constants.kMaxSpeedMetersPerSecond*0.8, Constants.kMaxAccelerationMetersPerSecondSquared*0.8);
         twoBallShort = PathPlanner.loadPath("2BallShort", Constants.kMaxSpeedMetersPerSecond*0.8, Constants.kMaxAccelerationMetersPerSecondSquared*0.8);
 
-        twoBallLeftTrollLong_1 = PathPlanner.loadPath("2BallLeftTrollLong_Part1", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
-        twoBallLeftTrollLong_2 = PathPlanner.loadPath("2BallLeftTrollLong_Part2", Constants.kMaxSpeedMetersPerSecond*0.8, Constants.kMaxAccelerationMetersPerSecondSquared*0.8);
-        twoBallLeftTrollLong_3 = PathPlanner.loadPath("2BallLeftTrollLong_Part3", Constants.kMaxSpeedMetersPerSecond*0.8, Constants.kMaxAccelerationMetersPerSecondSquared*0.8);
-
-        twoBallLeftTrollShort_1 = PathPlanner.loadPath("2BallLeftTrollShort_Part1", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
-        twoBallLeftTrollShort_2 = PathPlanner.loadPath("2BallLeftTrollShort_Part2", Constants.kMaxSpeedMetersPerSecond*0.8, Constants.kMaxAccelerationMetersPerSecondSquared*0.8);
+        twoBallOneTroll_1 = PathPlanner.loadPath("2B1T_1", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
+        twoBallOneTroll_2 = PathPlanner.loadPath("2B1T_2", Constants.kMaxSpeedMetersPerSecond*0.8, Constants.kMaxAccelerationMetersPerSecondSquared*0.8);
+      
+        twoBallTwoTrollLong_1 = PathPlanner.loadPath("2B2TLong_1", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
+        twoBallTwoTrollLong_2 = PathPlanner.loadPath("2B2TLong_2", Constants.kMaxSpeedMetersPerSecond*0.8, Constants.kMaxAccelerationMetersPerSecondSquared*0.8);
+        twoBallTwoTrollLong_3 = PathPlanner.loadPath("2B2TLong_3", Constants.kMaxSpeedMetersPerSecond*0.8, Constants.kMaxAccelerationMetersPerSecondSquared*0.8);
+        
+        twoBallTwoTrollShort_1 = PathPlanner.loadPath("2B2TShort_1", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
+        twoBallTwoTrollShort_2 = PathPlanner.loadPath("2B2TShort_2", Constants.kMaxSpeedMetersPerSecond*0.8, Constants.kMaxAccelerationMetersPerSecondSquared*0.8);
+        twoBallTwoTrollShort_3 = PathPlanner.loadPath("2B2TShort_3", Constants.kMaxSpeedMetersPerSecond*0.8, Constants.kMaxAccelerationMetersPerSecondSquared*0.8);
 
         fourBallRight_1 = PathPlanner.loadPath("4BallRight_Part1", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
         fourBallRight_2 = PathPlanner.loadPath("4BallRight_Part2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
@@ -136,6 +153,12 @@ public class Autonomous extends SubsystemBase {
         fiveBallRightDCMPBackAway_3 = PathPlanner.loadPath("5BallRight_DCMPBackAway_Part3", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
         fiveBallRightDCMPBackAway_4 = PathPlanner.loadPath("5BallRight_DCMPBackAway_Part4", Constants.kMaxSpeedMetersPerSecond*0.2, Constants.kMaxAccelerationMetersPerSecondSquared, true);
         fiveBallRightDCMPBackAway_5 = PathPlanner.loadPath("5BallRight_DCMPBackAway_Part5", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared, true);
+
+        fiveBallRightDCMPPivotBackAway_1 = PathPlanner.loadPath("5BallRight_DCMPPivotBackAway_Part1", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
+        fiveBallRightDCMPPivotBackAway_2 = PathPlanner.loadPath("5BallRight_DCMPPivotBackAway_Part2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
+        fiveBallRightDCMPPivotBackAway_3 = PathPlanner.loadPath("5BallRight_DCMPPivotBackAway_Part3", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
+        fiveBallRightDCMPPivotBackAway_4 = PathPlanner.loadPath("5BallRight_DCMPPivotBackAway_Part4", Constants.kMaxSpeedMetersPerSecond*0.2, Constants.kMaxAccelerationMetersPerSecondSquared*0.2, true);
+        fiveBallRightDCMPPivotBackAway_5 = PathPlanner.loadPath("5BallRight_DCMPPivotBackAway_Part5", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared, true);
 
     }
  
