@@ -12,6 +12,7 @@ import org.littletonrobotics.junction.io.LogSocketServer;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.ClimbCommands.InitializeArm;
@@ -36,7 +37,7 @@ public class Robot extends LoggedRobotCustom {
   private Lights lights;
 
   private UsbCamera intakeCamera;
-  // private UsbCamera climberArmCamera;
+  private UsbCamera climberArmCamera;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -65,14 +66,16 @@ public class Robot extends LoggedRobotCustom {
     intakeCamera = CameraServer.startAutomaticCapture("USBCamera_Intake", 0);
     intakeCamera.setExposureAuto();
     intakeCamera.setFPS(15);
-    intakeCamera.setResolution(480,320);
+    intakeCamera.setResolution(320,180);
     intakeCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
 
-    // climberArmCamera = CameraServer.startAutomaticCapture("USBCamera_Arm", 1); //not sure if this should be 0 or 1
-    // climberArmCamera.setExposureAuto();
-    // climberArmCamera.setFPS(15);
-    // climberArmCamera.setResolution(480, 320);
-    // climberArmCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+    climberArmCamera = CameraServer.startAutomaticCapture("USBCamera_Arm", 1); 
+    climberArmCamera.setExposureAuto();
+    climberArmCamera.setFPS(15);
+    climberArmCamera.setResolution(480, 320);
+    climberArmCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").setNumber(2);
   }
 
   /**
