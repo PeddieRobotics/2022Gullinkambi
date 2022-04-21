@@ -31,6 +31,7 @@ public class FiveBallRightDCMPPivotBackAway extends SequentialCommandGroup{
             new ShootWithLLUntilEmpty(0.3),
             new AutoIntakeWithHopper(1, 0.7),
             part3,
+            new WaitCommand(0.5),
             part4,
             new SetFlywheelRPM(2700),
             part5,

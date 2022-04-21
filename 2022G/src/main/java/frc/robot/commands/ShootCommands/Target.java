@@ -77,9 +77,6 @@ public class Target extends CommandBase {
      }  
       drivetrain.arcadeDrive(0, steering_adjust);
 
-      if((Math.abs(limelight.getTxAverage()) < angle_bound*2)){
-        hopper.setHopperVelocity(SmartDashboard.getNumber("Teleop: Hopper shoot LL speed", Constants.HOPPER_SHOOT_LL_SPEED));
-      }
   }
 
   @Override
@@ -113,7 +110,7 @@ public class Target extends CommandBase {
       if((Math.abs(drivetrain.getGyroRate()) > 5.0) && (Timer.getFPGATimestamp()-initialTime < 0.5)){
         return false;
       }
-      return ((Math.abs(limelight.getTxAverage()) < angle_bound) && (Timer.getFPGATimestamp()-initialTime > 0.1));  
+      return ((Math.abs(limelight.getTxAverage()) < angle_bound) && (Timer.getFPGATimestamp()-initialTime > 0.12));  
     }
   }
 }
