@@ -157,7 +157,7 @@ public class Autonomous extends SubsystemBase {
         fiveBallRightDCMPPivotBackAway_1 = PathPlanner.loadPath("5BallRight_DCMPPivotBackAway_Part1", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
         fiveBallRightDCMPPivotBackAway_2 = PathPlanner.loadPath("5BallRight_DCMPPivotBackAway_Part2", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
         fiveBallRightDCMPPivotBackAway_3 = PathPlanner.loadPath("5BallRight_DCMPPivotBackAway_Part3", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared);
-        fiveBallRightDCMPPivotBackAway_4 = PathPlanner.loadPath("5BallRight_DCMPPivotBackAway_Part4", Constants.kMaxSpeedMetersPerSecond*0.2, Constants.kMaxAccelerationMetersPerSecondSquared*0.2, true);
+        fiveBallRightDCMPPivotBackAway_4 = PathPlanner.loadPath("5BallRight_DCMPPivotBackAway_Part4", 0.2, 0.2, true);
         fiveBallRightDCMPPivotBackAway_5 = PathPlanner.loadPath("5BallRight_DCMPPivotBackAway_Part5", Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared, true);
 
     }
