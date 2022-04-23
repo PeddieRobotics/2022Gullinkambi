@@ -14,12 +14,14 @@ public class TwoBallShort extends  SequentialCommandGroup{
     public TwoBallShort(Pose2d initialPose, RamseteCommand part1){
         addCommands(
             new ResetOdometry(initialPose),
+            new AutoWaitFromDashboard("Troll Auto Start Delay"),
             new SetFlywheelRPM(Constants.FLYWHEEL_RPM_LAYUP),
-            new ParallelCommandGroup(
-                new AutoIntakeWithHopper(1.0, 0.7),
-                part1
-            ),
-            new StopIntake(),
+            // new ParallelCommandGroup(
+            //     new AutoIntakeWithHopper(1.0, 0.7),
+            //     part1
+            // ),
+            part1,
+            //new StopIntake(),
             new ShootWithLLUntilEmpty(0.5),
             new SetFlywheelRPM(0)
         );
