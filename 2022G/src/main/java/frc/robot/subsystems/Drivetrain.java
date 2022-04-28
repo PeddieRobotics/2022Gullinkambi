@@ -136,9 +136,6 @@ public class Drivetrain extends SubsystemBase {
   @Override
   public void periodic() {
     odometry.update(getHeadingAsRotation2d(), leftEncoder.getPosition(), rightEncoder.getPosition());
-    if(Constants.USE_LOGGING){
-      updateLogs.updateDrivetrainLogData();
-    }
   }
 
   @Override

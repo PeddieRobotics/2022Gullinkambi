@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.Constants;
 import frc.robot.utils.Constants.OIConfig;
 import frc.robot.utils.RollingAverage;
-import frc.robot.utils.UpdateLogs;
 
 public class Limelight extends SubsystemBase {
   /**
@@ -52,9 +51,6 @@ public class Limelight extends SubsystemBase {
   @Override
   public void periodic() {
     updateRollingAverages();
-    if(Constants.USE_LOGGING){
-      updateLogs.updateLimelightLogData();
-    }
 
   }
 

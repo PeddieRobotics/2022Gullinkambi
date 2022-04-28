@@ -4,8 +4,6 @@ import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 
 
 public final class Constants {
-  // use logging?
-  public static final boolean USE_LOGGING = false;
   
   //uncommment whichever one you want to use & comment the rest
   public static final OIConfig OI_CONFIG = OIConfig.COMPETITION; 

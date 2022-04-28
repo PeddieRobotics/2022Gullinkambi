@@ -19,9 +19,6 @@ import frc.robot.commands.ClimbCommands.InitializeArm;
 import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.Limelight;
 import frc.robot.utils.Constants;
-import frc.robot.utils.LoggingCustoms.LoggedRobotCustom;
-import frc.robot.utils.LoggingCustoms.LoggerCustom;
-
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to
@@ -31,7 +28,7 @@ import frc.robot.utils.LoggingCustoms.LoggerCustom;
  * build.gradle file in the
  * project.
  */
-public class Robot extends LoggedRobotCustom {
+public class Robot extends TimedRobot {
   private Command autonomousCommand;
   private RobotContainer robotContainer;
   private Lights lights;
@@ -46,16 +43,6 @@ public class Robot extends LoggedRobotCustom {
    */
   @Override
   public void robotInit() {
-    
-    if(Constants.USE_LOGGING){
-      LoggerCustom logger = LoggerCustom.getInstance();
-      setUseTiming(true);
-      LoggedNetworkTables.getInstance().addTable("/LiveWindow");
-      logger.addDataReceiver(new ByteLogReceiver("/home/lvuser/"));
-      logger.addDataReceiver(new LogSocketServer(5800));
-      logger.start();
-    }
-
     robotContainer = new RobotContainer();
     robotContainer.setDrivetrainToCoastMode();
     robotContainer.calibrateGyro();

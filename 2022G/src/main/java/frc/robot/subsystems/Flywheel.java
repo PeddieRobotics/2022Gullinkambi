@@ -71,9 +71,7 @@ public class Flywheel extends SubsystemBase {
 
   @Override
   public void periodic() {
-    if(Constants.USE_LOGGING){
-      updateLogs.updateFlywheelLogData();
-    }
+
   }
 
   public static Flywheel getInstance() {

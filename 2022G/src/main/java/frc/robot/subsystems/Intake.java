@@ -23,9 +23,6 @@ public class Intake extends SubsystemBase {
   private Solenoid intakeSolenoid;
   private CANSparkMax intakeMotor;
 
-  private static UpdateLogs updateLogs = UpdateLogs.getInstance();
-
-
   public Intake() {
     intakeSolenoid = new Solenoid(RobotMapGullinkambi.PNEUMATICS_HUB, PneumaticsModuleType.REVPH, RobotMapGullinkambi.SOLENOID_INTAKE);
     intakeMotor = new CANSparkMax(RobotMapGullinkambi.MOTOR_INTAKE, MotorType.kBrushed);
@@ -35,9 +32,7 @@ public class Intake extends SubsystemBase {
 
   @Override
   public void periodic() {
-    if(Constants.USE_LOGGING){
-      updateLogs.updateIntakeLogData();
-    }
+
   }
 
   public static Intake getInstance() {
