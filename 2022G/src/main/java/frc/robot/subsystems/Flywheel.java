@@ -18,7 +18,6 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.Constants;
-import frc.robot.utils.UpdateLogs;
 import frc.robot.utils.RobotMapGullinkambi;
 
 public class Flywheel extends SubsystemBase {
@@ -36,9 +35,6 @@ public class Flywheel extends SubsystemBase {
   private SimpleMotorFeedforward flywheelFF;
 
   private double flywheelSetpoint = 0;
-
-  private static UpdateLogs updateLogs = UpdateLogs.getInstance();
-
 
   public Flywheel() {
     // Set up flywheel motors

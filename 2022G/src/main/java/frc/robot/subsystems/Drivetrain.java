@@ -25,7 +25,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.Constants;
 import frc.robot.utils.Constants.OIConfig;
 import frc.robot.utils.RobotMapGullinkambi;
-import frc.robot.utils.UpdateLogs;
 
 public class Drivetrain extends SubsystemBase {
   private static Drivetrain drivetrain;
@@ -58,7 +57,6 @@ public class Drivetrain extends SubsystemBase {
   private PIDController turnToAnglePIDController;
 
   //Logging
-  private static UpdateLogs updateLogs = UpdateLogs.getInstance();
   private double speedSetpoint, turnSetpoint;
 
   public Drivetrain() {

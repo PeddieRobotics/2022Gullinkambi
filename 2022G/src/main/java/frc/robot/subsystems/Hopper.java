@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.Constants;
 import frc.robot.utils.Constants.OIConfig;
 import frc.robot.utils.RobotMapGullinkambi;
-import frc.robot.utils.UpdateLogs;
 
 public class Hopper extends SubsystemBase {
     private static Hopper hopper;
@@ -29,8 +28,6 @@ public class Hopper extends SubsystemBase {
 
     // Define sensors for the hopper to count cargo
     private DigitalInput bottomSensor, topSensor;
-
-    private static UpdateLogs updateLogs = UpdateLogs.getInstance();
 
     public Hopper() {
         hopperSystem = new CANSparkMax(RobotMapGullinkambi.MOTOR_HOPPER, MotorType.kBrushless);

@@ -31,9 +31,6 @@ public class Limelight extends SubsystemBase {
   
   private RollingAverage txAverage = new RollingAverage();
   private RollingAverage tyAverage = new RollingAverage();
-
-  private static UpdateLogs updateLogs = UpdateLogs.getInstance();
-
     
   public Limelight() {
     limelightPIDController = new PIDController(Constants.LL_P, Constants.LL_I, Constants.LL_D);

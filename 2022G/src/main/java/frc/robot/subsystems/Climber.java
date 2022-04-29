@@ -16,9 +16,6 @@ import frc.robot.utils.*;
 public class Climber extends SubsystemBase {
   private static Climber climber;
   
-
-  private static UpdateLogs updateLogs = UpdateLogs.getInstance();
-
   private CANSparkMax armMotor1, armMotor2;
   private DigitalInput armSensor;
   private Solenoid armBrake; 
@@ -131,9 +128,6 @@ public class Climber extends SubsystemBase {
 
   @Override
   public void periodic() {
-    if(Constants.USE_LOGGING){
-      updateLogs.updateClimberLogData();
-    }
   }
 
   public double getarmMotor1Velocity(){
