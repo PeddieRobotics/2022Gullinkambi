@@ -44,20 +44,20 @@ public class Robot extends TimedRobot {
     robotContainer.setupSmartDashboard();
     lights = Lights.getInstance();
 
-    //Camera
-    intakeCamera = CameraServer.startAutomaticCapture("USBCamera_Intake", 0);
-    intakeCamera.setExposureAuto();
-    intakeCamera.setFPS(15);
-    intakeCamera.setResolution(320,180);
-    intakeCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+    // //Camera
+    // intakeCamera = CameraServer.startAutomaticCapture("USBCamera_Intake", 0);
+    // intakeCamera.setExposureAuto();
+    // intakeCamera.setFPS(15);
+    // intakeCamera.setResolution(320,180);
+    // intakeCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
 
-    climberArmCamera = CameraServer.startAutomaticCapture("USBCamera_Arm", 1); 
-    climberArmCamera.setExposureAuto();
-    climberArmCamera.setFPS(15);
-    climberArmCamera.setResolution(480, 320);
-    climberArmCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+    // climberArmCamera = CameraServer.startAutomaticCapture("USBCamera_Arm", 1); 
+    // climberArmCamera.setExposureAuto();
+    // climberArmCamera.setFPS(15);
+    // climberArmCamera.setResolution(480, 320);
+    // climberArmCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
 
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").setNumber(2);
+    // NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").setNumber(2);
   }
 
   /**
@@ -147,5 +147,9 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
     robotContainer.testAllSystems();
+  }
+  @Override
+  public void simulationPeriodic(){
+
   }
 }
