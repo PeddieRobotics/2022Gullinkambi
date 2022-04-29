@@ -8,8 +8,12 @@ package frc.robot;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
+import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.simulation.EncoderSim;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.simulation.FlywheelSim;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.ClimbCommands.InitializeArm;
@@ -24,6 +28,9 @@ import frc.robot.subsystems.Lights;
  * project.
  */
 public class Robot extends TimedRobot {
+  private static final int kEncoderAChannel = 0;
+  private static final int kEncoderBChannel = 1;
+
   private Command autonomousCommand;
   private RobotContainer robotContainer;
   private Lights lights;
@@ -31,6 +38,11 @@ public class Robot extends TimedRobot {
   private UsbCamera intakeCamera;
   private UsbCamera climberArmCamera;
 
+  private final DCMotor flywheelGearbox = DCMotor.getNEO(2);
+  private final Encoder encoder = new Encoder(kEncoderAChannel, kEncoderBChannel);
+  private final FlywheelSim flywheelSim = new FlywheelSim(flywheelGearbox, 1.0, 0.158151833);
+  private final EncoderSim encoderSim = new EncoderSim(encoder);
+  private final CAN
   /**
    * This function is run when the robot is first started up and should be used
    * for any
@@ -45,7 +57,7 @@ public class Robot extends TimedRobot {
     lights = Lights.getInstance();
 
     //Camera
-    intakeCamera = CameraServer.startAutomaticCapture("USBCamera_Intake", 0);
+    /*intakeCamera = CameraServer.startAutomaticCapture("USBCamera_Intake", 0);
     intakeCamera.setExposureAuto();
     intakeCamera.setFPS(15);
     intakeCamera.setResolution(320,180);
@@ -58,6 +70,7 @@ public class Robot extends TimedRobot {
     climberArmCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
 
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").setNumber(2);
+    */
   }
 
   /**
@@ -82,6 +95,11 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     robotContainer.updateInfoOnDashboard();
+  }
+
+  @Override
+  public void simulationPeriodic() {
+  flywheelSim.setInput()
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
