@@ -14,6 +14,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.ClimbCommands.InitializeArm;
 import frc.robot.subsystems.Lights;
+
+import edu.wpi.first.util.datalog.DataLog;
+import edu.wpi.first.wpilibj.DataLogManager;
+import edu.wpi.first.util.datalog.BooleanLogEntry;
+
+
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to
@@ -31,6 +38,8 @@ public class Robot extends TimedRobot {
   private UsbCamera intakeCamera;
   private UsbCamera climberArmCamera;
 
+  private BooleanLogEntry IntakeUsed; //just used as an example
+
   /**
    * This function is run when the robot is first started up and should be used
    * for any
@@ -43,6 +52,12 @@ public class Robot extends TimedRobot {
     robotContainer.calibrateGyro();
     robotContainer.setupSmartDashboard();
     lights = Lights.getInstance();
+
+    DataLogManager.start();
+
+    DataLog log = DataLogManager.getLog();
+    IntakeUsed = new BooleanLogEntry(log, "/my/Intake");
+
 
     //Camera
     intakeCamera = CameraServer.startAutomaticCapture("USBCamera_Intake", 0);
@@ -135,6 +150,9 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    if(robotContainer.getIntakeState()){
+      IntakeUsed.append(true);
+    }
   }
 
   @Override
