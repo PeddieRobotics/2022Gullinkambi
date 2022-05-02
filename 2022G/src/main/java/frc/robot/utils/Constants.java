@@ -6,9 +6,10 @@ import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 public final class Constants {
   
   //uncommment whichever one you want to use & comment the rest
-  public static final OIConfig OI_CONFIG = OIConfig.COMPETITION; 
+  //public static final OIConfig OI_CONFIG = OIConfig.COMPETITION; 
   // public static final OIConfig OI_CONFIG = OIConfig.XBOX_TEST;
   //public static final OIConfig OI_CONFIG = OIConfig.JOYSTICK_TEST;
+  public static final OIConfig OI_CONFIG = OIConfig.PS5_TEST;
 
   // Drivetrain constants
   public static final int DRIVETRAIN_MAX_CURRENT = 40;
@@ -101,7 +102,7 @@ public final class Constants {
   public static final double XBOX_TRIGGER_DEADZONE = 0;
 
   public enum OIConfig {
-    XBOX_TEST, JOYSTICK_TEST, COMPETITION
+    XBOX_TEST, JOYSTICK_TEST, COMPETITION, PS5_TEST
   }
 
   public static final double DRIVE_GEAR_RATIO = 7.6388888;

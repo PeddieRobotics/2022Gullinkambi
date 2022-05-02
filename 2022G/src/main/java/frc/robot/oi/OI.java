@@ -9,6 +9,7 @@ public class OI {
   private static OI oi;
   private XboxOI m_XboxOI;
   private JoystickOI m_JoystickOI;
+  private PS5OI m_PS5OI;
 
   public OI() {
 
@@ -24,6 +25,9 @@ public class OI {
     } else if (Constants.OI_CONFIG == OIConfig.JOYSTICK_TEST) {
 
       m_JoystickOI = JoystickOI.getInstance();
+    }
+    else if (Constants.OI_CONFIG == OIConfig.PS5_TEST){
+      m_PS5OI = PS5OI.getInstance();
     }
 
   }
