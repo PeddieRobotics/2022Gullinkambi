@@ -10,16 +10,23 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
+import edu.wpi.first.wpilibj.simulation.EncoderSim;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.Constants;
@@ -84,6 +91,8 @@ public class Drivetrain extends SubsystemBase {
 
     leftEncoder = leftMaster.getEncoder();
     rightEncoder = rightMaster.getEncoder();
+
+    EncoderSim simEncoder = new EncoderSim((Encoder) leftMaster.getEncoder()); //if something is wrong with the drivetrain sim, it is probably this.
     resetEncoders();
 
     setClosedLoopRampRates();
@@ -139,6 +148,12 @@ public class Drivetrain extends SubsystemBase {
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
+    driveSim.setInputs(leftMaster.get() * RobotController.getInputVoltage(),
+    rightMaster.get() * RobotController.getInputVoltage());
+
+    driveSim.update(0.02);
+
+    leftEncoderSim.setDistance(driveSim.getLeftPositionMeters());
   }
 
   public static Drivetrain getInstance() {
@@ -427,5 +442,12 @@ public class Drivetrain extends SubsystemBase {
     prevPIDUpdateTime = Timer.getFPGATimestamp();
     drive.feed();
   }
-
+  DifferentialDrivetrainSim driveSim = new DifferentialDrivetrainSim(
+    DCMotor.getNEO(3), 
+    7.64, 
+    5.5,
+     57.606, 
+     Units.inchesToMeters(4), 
+     0.653, 
+     VecBuilder.fill(0.001, 0.001, 0.001, 0.1, 0.1, 0.005, 0.005));
 }
