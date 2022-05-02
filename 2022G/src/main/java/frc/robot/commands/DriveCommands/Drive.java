@@ -2,6 +2,7 @@ package frc.robot.commands.DriveCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.oi.JoystickOI;
+import frc.robot.oi.PS5OI;
 import frc.robot.oi.XboxOI;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.utils.Constants;
@@ -12,6 +13,7 @@ public class Drive extends CommandBase {
     private Drivetrain drivetrain;
     private XboxOI xboxOI;
     private JoystickOI joystickOI;
+    private PS5OI ps5OI;
 
     public Drive() {
         drivetrain = Drivetrain.getInstance();
@@ -23,6 +25,9 @@ public class Drive extends CommandBase {
             xboxOI = XboxOI.getInstance();
         } else if (Constants.OI_CONFIG == OIConfig.JOYSTICK_TEST) {
             joystickOI = JoystickOI.getInstance();
+        }
+        else if (Constants.OI_CONFIG == OIConfig.PS5_TEST){
+            ps5OI = PS5OI.getInstance();
         }
 
         addRequirements(drivetrain);
@@ -63,6 +68,11 @@ public class Drive extends CommandBase {
             turnInput = joystickOI.getTurn();
             reverse = drivetrain.isInverseMode();
 
+        }
+        else if (Constants.OI_CONFIG == OIConfig.PS5_TEST){
+            speedInput = ps5OI.getSpeed();
+            turnInput = ps5OI.getTurn();
+            reverse = drivetrain.isInverseMode();
         }
 
         if (!reverse) {
