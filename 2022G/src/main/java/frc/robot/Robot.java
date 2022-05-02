@@ -64,20 +64,32 @@ public class Robot extends TimedRobot {
     lights = Lights.getInstance();
 
     //Camera
+<<<<<<< HEAD
     /*intakeCamera = CameraServer.startAutomaticCapture("USBCamera_Intake", 0);
     intakeCamera.setExposureAuto();
     intakeCamera.setFPS(15);
     intakeCamera.setResolution(320,180);
     intakeCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+=======
+    // intakeCamera = CameraServer.startAutomaticCapture("USBCamera_Intake", 0);
+    // intakeCamera.setExposureAuto();
+    // intakeCamera.setFPS(15);
+    // intakeCamera.setResolution(320,180);
+    // intakeCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+>>>>>>> c4af2c093887d22bb8893efee7d619845ad6f687
 
-    climberArmCamera = CameraServer.startAutomaticCapture("USBCamera_Arm", 1); 
-    climberArmCamera.setExposureAuto();
-    climberArmCamera.setFPS(15);
-    climberArmCamera.setResolution(480, 320);
-    climberArmCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+    // climberArmCamera = CameraServer.startAutomaticCapture("USBCamera_Arm", 1); 
+    // climberArmCamera.setExposureAuto();
+    // climberArmCamera.setFPS(15);
+    // climberArmCamera.setResolution(480, 320);
+    // climberArmCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
 
+<<<<<<< HEAD
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").setNumber(2);
     */
+=======
+    // NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").setNumber(2);
+>>>>>>> c4af2c093887d22bb8893efee7d619845ad6f687
   }
 
   /**

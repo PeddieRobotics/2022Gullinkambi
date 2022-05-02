@@ -32,6 +32,7 @@
     }
   },
   "NetworkTables": {
+<<<<<<< HEAD
     "FMSInfo": {
       "open": true
     },
@@ -39,6 +40,9 @@
       "Drivetrain": {
         "open": true
       },
+=======
+    "SmartDashboard": {
+>>>>>>> c4af2c093887d22bb8893efee7d619845ad6f687
       "open": true
     }
   }
