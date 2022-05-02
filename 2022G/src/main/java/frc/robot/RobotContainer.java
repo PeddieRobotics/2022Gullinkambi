@@ -24,6 +24,7 @@ import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.Limelight;
 import frc.robot.utils.Constants;
 
+
 /**
  * This class is where the bulk of the robot should be declared. Since
  * Command-based is a
@@ -43,6 +44,10 @@ public class RobotContainer {
   private final Flywheel flywheel;
   private final Climber climber;
   private final Limelight limelight;
+
+  //private BooleanLogEntry IntakeUsed; //just used as an example
+
+  
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -138,5 +143,10 @@ public class RobotContainer {
   public void setDrivetrainToBrakeMode() {
     drivetrain.setBrake();
   }
+
+  public boolean getIntakeState(){
+    return (intake.getSolenoidState());
+  }
+
 
 }
