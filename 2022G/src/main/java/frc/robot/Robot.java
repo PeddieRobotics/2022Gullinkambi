@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.simulation.EncoderSim;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.simulation.FlywheelSim;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.ClimbCommands.InitializeArm;
@@ -34,8 +35,8 @@ import frc.robot.subsystems.Lights;
  */
 public class Robot extends TimedRobot {
   private static final int kMotorPort = 0;
-  private static final int kEncoderAChannel = 0;
-  private static final int kEncoderBChannel = 1;
+  //private static final int kEncoderAChannel = 0;
+ // private static final int kEncoderBChannel = 1;
 
   private Command autonomousCommand;
   private RobotContainer robotContainer;
@@ -46,10 +47,10 @@ public class Robot extends TimedRobot {
   private Flywheel flywheel;
 
   private final DCMotor flywheelGearbox = DCMotor.getNEO(2);
-  private final Encoder encoder = new Encoder(kEncoderAChannel, kEncoderBChannel);
+  //private final Encoder encoder = new Encoder(kEncoderAChannel, kEncoderBChannel);
   private final FlywheelSim flywheelSim = new FlywheelSim(flywheelGearbox, 1.0, 0.158151833);
-  private final EncoderSim encoderSim = new EncoderSim(encoder);
-  private final CANSparkMax canSparkMaxMotor = new CANSparkMax(kMotorPort, MotorType.kBrushless);
+//private final EncoderSim encoderSim = new EncoderSim(encoder);
+  //private final CANSparkMax canSparkMaxMotor = new CANSparkMax(kMotorPort, MotorType.kBrushless);
   /**
    * This function is run when the robot is first started up and should be used
    * for any
@@ -64,19 +65,11 @@ public class Robot extends TimedRobot {
     lights = Lights.getInstance();
 
     //Camera
-<<<<<<< HEAD
-    /*intakeCamera = CameraServer.startAutomaticCapture("USBCamera_Intake", 0);
-    intakeCamera.setExposureAuto();
-    intakeCamera.setFPS(15);
-    intakeCamera.setResolution(320,180);
-    intakeCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
-=======
     // intakeCamera = CameraServer.startAutomaticCapture("USBCamera_Intake", 0);
     // intakeCamera.setExposureAuto();
     // intakeCamera.setFPS(15);
     // intakeCamera.setResolution(320,180);
     // intakeCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
->>>>>>> c4af2c093887d22bb8893efee7d619845ad6f687
 
     // climberArmCamera = CameraServer.startAutomaticCapture("USBCamera_Arm", 1); 
     // climberArmCamera.setExposureAuto();
@@ -84,12 +77,7 @@ public class Robot extends TimedRobot {
     // climberArmCamera.setResolution(480, 320);
     // climberArmCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
 
-<<<<<<< HEAD
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").setNumber(2);
-    */
-=======
-    // NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").setNumber(2);
->>>>>>> c4af2c093887d22bb8893efee7d619845ad6f687
+    //NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").setNumber(2);
   }
 
   /**
@@ -118,10 +106,13 @@ public class Robot extends TimedRobot {
 
   @Override
   public void simulationPeriodic() {
-  flywheelSim.setInput(canSparkMaxMotor.get() * RobotController.getBatteryVoltage());
-  //Update with a loop, standard loop time is 20ms
-  flywheelSim.update(0.020);
-  //flywheelSIm.setInput(), this is where I left off, to continue tomorrow, -Anthony
+    SmartDashboard.putNumber("SIM: Flywheel Velocity Input Power", Flywheel.getInstance().getFlywheelPower());
+    SmartDashboard.putNumber("SIM: Robot Battery Voltage", RobotController.getBatteryVoltage());
+    flywheelSim.setInput(Flywheel.getInstance().getFlywheelPower() * RobotController.getBatteryVoltage());
+    //Update with a loop, standard loop time is 20ms
+    flywheelSim.update(0.020);
+    double flywheelVelocityRPM = flywheelSim.getAngularVelocityRPM();
+    SmartDashboard.putNumber("SIM: Flywheel Velocity RPM", flywheelVelocityRPM);
   }
 
   /** This function is called once each time the robot enters Disabled mode. */

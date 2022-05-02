@@ -109,6 +109,10 @@ public class Flywheel extends SubsystemBase {
     shooterLockSolenoid.set(isActivated);
   }
   
+public double getFlywheelPower(){
+  return flywheelPrimary.get();
+}
+
 
   public boolean getHood() {
     return hoodSolenoid.get();

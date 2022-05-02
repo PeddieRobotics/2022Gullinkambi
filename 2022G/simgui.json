@@ -1,13 +1,4 @@
 {
-  "HALProvider": {
-    "Other Devices": {
-      "SPARK MAX [10]": {
-        "header": {
-          "open": true
-        }
-      }
-    }
-  },
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
@@ -32,17 +23,7 @@
     }
   },
   "NetworkTables": {
-<<<<<<< HEAD
-    "FMSInfo": {
-      "open": true
-    },
-    "LiveWindow": {
-      "Drivetrain": {
-        "open": true
-      },
-=======
     "SmartDashboard": {
->>>>>>> c4af2c093887d22bb8893efee7d619845ad6f687
       "open": true
     }
   }
