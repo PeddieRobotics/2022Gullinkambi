@@ -14,8 +14,12 @@ repositories {
         credentials {
             username = "Mechanical-Advantage-Bot"
             password = "ghp_ykO20iuCY5H2i" + "LgmNxz8VIKJ2uQa6g1DdV0i"
+
+            
         }
     }
+    mavenCentral()
+    maven{ url "https://frcmaven.wpi.edu:443/artifactory/release" }
 }
 
 configurations.all {
@@ -82,6 +86,8 @@ dependencies {
     simulationRelease wpi.sim.enableRelease()
 
     testImplementation 'junit:junit:4.12'
+    compileOnly 'edu.wpi.first.shuffleboard:api:2020.+'
+   compileOnly 'edu.wpi.first.shuffleboard.plugin:networktables:2020.+'
 }
 
 // Simulation configuration (e.g. environment variables).
