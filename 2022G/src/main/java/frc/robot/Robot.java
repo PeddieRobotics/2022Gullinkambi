@@ -38,7 +38,7 @@ public class Robot extends TimedRobot {
   private UsbCamera intakeCamera;
   private UsbCamera climberArmCamera;
 
-  private BooleanLogEntry IntakeUsed; //just used as an example
+  private BooleanLogEntry LoggingTest; //just used as an example
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -56,7 +56,7 @@ public class Robot extends TimedRobot {
     DataLogManager.start();
 
     DataLog log = DataLogManager.getLog();
-    IntakeUsed = new BooleanLogEntry(log, "/my/Intake");
+    LoggingTest = new BooleanLogEntry(log, "/my/Intake");
 
 
     //Camera
@@ -150,9 +150,13 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    /*
     if(robotContainer.getIntakeState()){
-      IntakeUsed.append(true);
+      LoggingTest.append(true);
     }
+    */
+
+    LoggingTest.append(true);
   }
 
   @Override

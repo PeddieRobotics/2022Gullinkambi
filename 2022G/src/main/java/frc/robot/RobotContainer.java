@@ -144,9 +144,11 @@ public class RobotContainer {
     drivetrain.setBrake();
   }
 
+  /*
   public boolean getIntakeState(){
     return (intake.getSolenoidState());
   }
+  */
 
 
 }
