@@ -18,6 +18,8 @@ import frc.robot.subsystems.Lights;
 import edu.wpi.first.util.datalog.DataLog;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.util.datalog.BooleanLogEntry;
+import edu.wpi.first.util.datalog.StringLogEntry;
+import edu.wpi.first.util.datalog.IntegerLogEntry;
 
 
 
@@ -39,6 +41,8 @@ public class Robot extends TimedRobot {
   private UsbCamera climberArmCamera;
 
   private BooleanLogEntry LoggingTest; //just used as an example
+  private IntegerLogEntry LogCycles; //just used as an example
+  private int logClock;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -53,10 +57,12 @@ public class Robot extends TimedRobot {
     robotContainer.setupSmartDashboard();
     lights = Lights.getInstance();
 
-    DataLogManager.start();
-
+    DataLogManager.start("","",10);
+    DataLogManager.logNetworkTables(false); //DO NOT REMOVE EVER
     DataLog log = DataLogManager.getLog();
-    LoggingTest = new BooleanLogEntry(log, "/my/Intake");
+
+    LoggingTest = new BooleanLogEntry(log, "/my/Test");
+    LogCycles = new IntegerLogEntry(log, "/my/Cycles");
 
 
     //Camera
@@ -150,13 +156,11 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    /*
-    if(robotContainer.getIntakeState()){
+    logClock++;
+    if(logClock%50==0){
       LoggingTest.append(true);
     }
-    */
-
-    LoggingTest.append(true);
+    LogCycles.append(logClock);
   }
 
   @Override
