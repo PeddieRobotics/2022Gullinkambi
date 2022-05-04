@@ -53,12 +53,62 @@ public class PS5OI {
     }
 
     public double getSpeed(){
-        return -driverPS5Controller.getRawAxis(ControllerMap.PS5_LEFT_STICK_Y);
+        return -calculateThingySquared(driverPS5Controller.getRawAxis(ControllerMap.PS5_LEFT_STICK_Y));
     }
 
     public double getTurn(){
-        return driverPS5Controller.getRawAxis(ControllerMap.PS5_RIGHT_STICK_X);
+        return calculateThingySquared(driverPS5Controller.getRawAxis(ControllerMap.PS5_RIGHT_STICK_X));
     }
+
+    private double calculateThingy(double joystickInput){
+        if(joystickInput == 0){
+          return 0;
+        }
+        double absJoystickInput = Math.abs(joystickInput);
+        double sign = joystickInput/absJoystickInput;
+        if (absJoystickInput >= 0.05 && absJoystickInput<0.9){
+          return sign*(absJoystickInput-0.05)*(0.7/(0.9-0.05));
+        }
+        else if (absJoystickInput >=0.9){
+          return sign*(0.7+(absJoystickInput-0.9)*((1-0.7)/(1-0.9)));
+        }
+        return 0;
+    
+      }
+
+      private double calculateThingySquared(double joystickInput){
+          //not really squared, its to the 1.5 power hehe XD
+        if(joystickInput == 0){
+          return 0;
+        }
+        double absJoystickInput = Math.abs(joystickInput);
+        double sign = joystickInput/absJoystickInput;
+        if (absJoystickInput >= 0.05 && absJoystickInput<0.9){
+          return sign*Math.pow((absJoystickInput-0.05)*(0.7/(0.9-0.05)), 1.5);
+        }
+        else if (absJoystickInput >=0.9){
+          return sign*Math.pow((0.7+(absJoystickInput-0.9)*((1-0.7)/(1-0.9))), 1.5);
+        }
+        return 0;
+    
+      }
+
+      private double calculateThingySixtyPercent(double joystickInput){
+          //When joystick is at 90% input, scale is so that max output is 60%
+        if(joystickInput == 0){
+          return 0;
+        }
+        double absJoystickInput = Math.abs(joystickInput);
+        double sign = joystickInput/absJoystickInput;
+        if (absJoystickInput >= 0.05 && absJoystickInput<0.9){
+          return sign*(absJoystickInput-0.05)*(0.6/(0.9-0.05));
+        }
+        else if (absJoystickInput >=0.9){
+          return sign*(0.6+(absJoystickInput-0.9)*((1-0.6)/(1-0.9)));
+        }
+        return 0;
+    
+      }
 
 
 }

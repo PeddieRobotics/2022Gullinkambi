@@ -87,9 +87,10 @@ public class Drivetrain extends SubsystemBase {
     resetEncoders();
 
     setClosedLoopRampRates();
+    setOpenLoopRampRates();
 
     drive = new DifferentialDrive(leftMotors, rightMotors);
-    drive.setDeadband(Constants.DRIVING_DEADBANDS);
+    //drive.setDeadband(Constants.DRIVING_DEADBANDS);
     drive.setSafetyEnabled(false);
 
     leftMaster.setInverted(false);
@@ -148,6 +149,7 @@ public class Drivetrain extends SubsystemBase {
     return drivetrain;
   }
 
+  
   private void setConversionFactors() {
     leftEncoder.setPositionConversionFactor(Constants.DRIVE_ENC_ROT_TO_DIST);
     rightEncoder.setPositionConversionFactor(Constants.DRIVE_ENC_ROT_TO_DIST);
@@ -163,6 +165,15 @@ public class Drivetrain extends SubsystemBase {
     leftFollower2.setClosedLoopRampRate(Constants.DRIVETRAIN_CLOSEDLOOP_RAMPRATE);
     rightFollower2.setClosedLoopRampRate(Constants.DRIVETRAIN_CLOSEDLOOP_RAMPRATE);
 
+  }
+
+  private void setOpenLoopRampRates(){
+    leftMaster.setOpenLoopRampRate(Constants.DRIVETRAIN_OPENLOOP_RAMPRATE);
+    rightMaster.setOpenLoopRampRate(Constants.DRIVETRAIN_OPENLOOP_RAMPRATE);
+    leftFollower1.setOpenLoopRampRate(Constants.DRIVETRAIN_OPENLOOP_RAMPRATE);
+    rightFollower1.setOpenLoopRampRate(Constants.DRIVETRAIN_OPENLOOP_RAMPRATE);
+    leftFollower2.setOpenLoopRampRate(Constants.DRIVETRAIN_OPENLOOP_RAMPRATE);
+    rightFollower2.setOpenLoopRampRate(Constants.DRIVETRAIN_OPENLOOP_RAMPRATE);
   }
 
   public double getGyroRate(){
