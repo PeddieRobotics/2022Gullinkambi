@@ -24,6 +24,12 @@ import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.Limelight;
 import frc.robot.utils.Constants;
 
+import edu.wpi.first.util.datalog.DataLog;
+import edu.wpi.first.wpilibj.DataLogManager;
+import edu.wpi.first.util.datalog.BooleanLogEntry;
+import edu.wpi.first.util.datalog.StringLogEntry;
+import edu.wpi.first.util.datalog.IntegerLogEntry;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -45,6 +51,10 @@ public class RobotContainer {
   private final Climber climber;
   private final Limelight limelight;
 
+  private BooleanLogEntry LoggingTest; //just used as an example
+  private IntegerLogEntry LogCycles; //just used as an example
+  private int logClock;
+
   //private BooleanLogEntry IntakeUsed; //just used as an example
 
   
@@ -63,6 +73,15 @@ public class RobotContainer {
     oi = OI.getInstance();
     lights = Lights.getInstance();
     autonomous = Autonomous.getInstance();
+
+
+    DataLogManager.start("","",10);
+    DataLogManager.logNetworkTables(false); //DO NOT REMOVE EVER
+    DataLog log = DataLogManager.getLog();
+
+    LoggingTest = new BooleanLogEntry(log, "/my/Test");
+    LogCycles = new IntegerLogEntry(log, "/my/Cycles");
+
 
     drivetrain.setDefaultCommand(new Drive());
     intake.register();
@@ -142,6 +161,19 @@ public class RobotContainer {
 
   public void setDrivetrainToBrakeMode() {
     drivetrain.setBrake();
+  }
+
+  public void teleopInitLog(){
+    logClock=0;
+  }
+
+  public void teleopPeriodicLog(){
+    logClock++;
+    if(logClock%10==0){
+      LoggingTest.append(true);
+    }
+    LogCycles.append(logClock);
+
   }
 
   /*

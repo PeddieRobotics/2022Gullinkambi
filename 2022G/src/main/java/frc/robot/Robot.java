@@ -40,10 +40,6 @@ public class Robot extends TimedRobot {
   private UsbCamera intakeCamera;
   private UsbCamera climberArmCamera;
 
-  private BooleanLogEntry LoggingTest; //just used as an example
-  private IntegerLogEntry LogCycles; //just used as an example
-  private int logClock;
-
   /**
    * This function is run when the robot is first started up and should be used
    * for any
@@ -56,13 +52,6 @@ public class Robot extends TimedRobot {
     robotContainer.calibrateGyro();
     robotContainer.setupSmartDashboard();
     lights = Lights.getInstance();
-
-    DataLogManager.start("","",10);
-    DataLogManager.logNetworkTables(false); //DO NOT REMOVE EVER
-    DataLog log = DataLogManager.getLog();
-
-    LoggingTest = new BooleanLogEntry(log, "/my/Test");
-    LogCycles = new IntegerLogEntry(log, "/my/Cycles");
 
 
     //Camera
@@ -151,16 +140,16 @@ public class Robot extends TimedRobot {
       autonomousCommand.cancel();
     }
     CommandScheduler.getInstance().schedule(new InitializeArm());
+
+    robotContainer.teleopInitLog();
   }
 
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    logClock++;
-    if(logClock%50==0){
-      LoggingTest.append(true);
-    }
-    LogCycles.append(logClock);
+
+    robotContainer.teleopPeriodicLog();
+
   }
 
   @Override
