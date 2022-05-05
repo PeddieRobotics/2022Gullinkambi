@@ -53,6 +53,7 @@ public class RobotContainer {
 
   private BooleanLogEntry LoggingTest; //just used as an example
   private IntegerLogEntry LogCycles; //just used as an example
+  private StringLogEntry logString;
   private int logClock;
 
   //private BooleanLogEntry IntakeUsed; //just used as an example
@@ -79,8 +80,11 @@ public class RobotContainer {
     DataLogManager.logNetworkTables(false); //DO NOT REMOVE EVER
     DataLog log = DataLogManager.getLog();
 
-    LoggingTest = new BooleanLogEntry(log, "/my/Test");
-    LogCycles = new IntegerLogEntry(log, "/my/Cycles");
+      /*
+    LoggingTest = new BooleanLogEntry(log, "/test/Test");
+    LogCycles = new IntegerLogEntry(log, "/test/Cycles");
+    logString = new StringLogEntry(log, "/test/mama");
+    */
 
 
     drivetrain.setDefaultCommand(new Drive());
@@ -168,11 +172,18 @@ public class RobotContainer {
   }
 
   public void teleopPeriodicLog(){
+    /*
     logClock++;
     if(logClock%10==0){
       LoggingTest.append(true);
     }
+    if(logClock%2==0){
+      logString.append("JOE");
+    }else{
+      logString.append("MAMA");
+    }
     LogCycles.append(logClock);
+    */
 
   }
 
