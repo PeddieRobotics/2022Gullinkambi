@@ -4,12 +4,14 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 
+import edu.wpi.first.hal.SimDouble;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
@@ -31,6 +33,7 @@ import edu.wpi.first.wpilibj.simulation.AnalogEncoderSim;
 import edu.wpi.first.wpilibj.simulation.AnalogGyroSim;
 import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
 import edu.wpi.first.wpilibj.simulation.EncoderSim;
+import edu.wpi.first.wpilibj.simulation.SimDeviceSim;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -68,12 +71,22 @@ public class Drivetrain extends SubsystemBase {
 
   private PIDController turnToAnglePIDController;
   
-  // private final EncoderSim leftEncoderSim, rightEncoderSim;
+  private final EncoderSim leftEncoderSim, rightEncoderSim;
 
   private final ADIS16470_IMUSim gyroSim;
   private Field2d field;
-   
-   
+
+
+  DCMotor neoGearbox = DCMotor.getNEO(3);
+  DifferentialDrivetrainSim driveSim = new DifferentialDrivetrainSim(
+    neoGearbox, 
+    7.64, 
+    5.5,
+     57.606, 
+     Units.inchesToMeters(4), 
+     0.653, 
+     VecBuilder.fill(0.001, 0.001, 0.001, 0.1, 0.1, 0.005, 0.005));
+
   //Logging
   private double speedSetpoint, turnSetpoint;
 
@@ -102,9 +115,10 @@ public class Drivetrain extends SubsystemBase {
 
     leftEncoder = leftMaster.getEncoder();
     rightEncoder = rightMaster.getEncoder();
-   // EncoderSim simEncoder = new EncoderSim((Encoder) leftMaster.getEncoder()); //if something is wrong with the drivetrain sim, it is probably this.
-    // leftEncoderSim = new EncoderSim((Encoder) leftEncoder); 
-    // rightEncoderSim = new EncoderSim((Encoder) rightEncoder);
+    leftEncoderSim = EncoderSim.createForIndex(0); 
+    rightEncoderSim = EncoderSim.createForIndex(1);
+
+
 
     resetEncoders();
 
@@ -158,6 +172,9 @@ public class Drivetrain extends SubsystemBase {
   @Override
   public void periodic() {
     odometry.update(getHeadingAsRotation2d(), leftEncoder.getPosition(), rightEncoder.getPosition());
+    SmartDashboard.putNumber("LeftEncoderSim Dist", leftEncoderSim.getDistance());
+    SmartDashboard.putNumber("RightEncoderSim Dist", rightEncoderSim.getDistance());
+    odometry.update(driveSim.getHeading(), leftEncoderSim.getDistance(),rightEncoderSim.getDistance());
     field.setRobotPose(odometry.getPoseMeters());
   }
 
@@ -172,10 +189,15 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("SIM right master", -rightMaster.get());
 
     SmartDashboard.putNumber("sim left pos meters", driveSim.getLeftPositionMeters());
-    // leftEncoderSim.setDistance(driveSim.getLeftPositionMeters());
-    // leftEncoderSim.setRate(driveSim.getLeftVelocityMetersPerSecond());
-    // rightEncoderSim.setDistance(driveSim.getRightPositionMeters());
-    // rightEncoderSim.setRate(driveSim.getRightVelocityMetersPerSecond());
+
+    //trying the simulated device thing for the encoder (maybe?)
+    //theres nothing in the simulated device thing that works
+
+
+    leftEncoderSim.setDistance(driveSim.getLeftPositionMeters());
+    leftEncoderSim.setRate(driveSim.getLeftVelocityMetersPerSecond());
+    rightEncoderSim.setDistance(driveSim.getRightPositionMeters());
+    rightEncoderSim.setRate(driveSim.getRightVelocityMetersPerSecond());
     // gyroSim.setGyroAngleX(-driveSim.getHeading().getDegrees());
     //gyroSim.setGyroAngleY(-driveSim.getHeading().getDegrees()); //either x, y, z or all three(?) but getAngle() 
     gyroSim.setGyroAngleZ(-driveSim.getHeading().getDegrees());
@@ -469,12 +491,4 @@ public class Drivetrain extends SubsystemBase {
     prevPIDUpdateTime = Timer.getFPGATimestamp();
     drive.feed();
   }
-  DifferentialDrivetrainSim driveSim = new DifferentialDrivetrainSim(
-    DCMotor.getNEO(3), 
-    7.64, 
-    5.5,
-     57.606, 
-     Units.inchesToMeters(4), 
-     0.653, 
-     VecBuilder.fill(0.001, 0.001, 0.001, 0.1, 0.1, 0.005, 0.005));
 }
