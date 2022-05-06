@@ -11,12 +11,16 @@ import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.Limelight;
 import frc.robot.utils.Constants;
 
+import frc.robot.subsystems.Logging;
+
 public class Target extends CommandBase {
   private final Limelight limelight;
   private final Drivetrain drivetrain;
   private final Flywheel flywheel;
   private final Lights lights;
   private final Hopper hopper;
+
+  private final Logging logging;
 
   private double ff;
   private double steering_adjust;
@@ -33,6 +37,7 @@ public class Target extends CommandBase {
     flywheel = Flywheel.getInstance();
     lights = Lights.getInstance();
     hopper = Hopper.getInstance();
+    logging = Logging.getInstance();
 
     addRequirements(drivetrain, flywheel);
 
@@ -46,6 +51,9 @@ public class Target extends CommandBase {
   @Override
   public void initialize() {
       // Assume by default that we're not locked on a limelight target. Shouldn't be needed, but placed here as a safety on the logic elsewhere.
+
+      logging.log("Target");
+
       drivetrain.setLockedOnTarget(false);
       drivetrain.setBrake();
       initialTime = Timer.getFPGATimestamp();

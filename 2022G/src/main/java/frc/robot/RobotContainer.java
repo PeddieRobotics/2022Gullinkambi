@@ -30,6 +30,8 @@ import edu.wpi.first.util.datalog.BooleanLogEntry;
 import edu.wpi.first.util.datalog.StringLogEntry;
 import edu.wpi.first.util.datalog.IntegerLogEntry;
 
+import frc.robot.subsystems.Logging;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -50,6 +52,8 @@ public class RobotContainer {
   private final Flywheel flywheel;
   private final Climber climber;
   private final Limelight limelight;
+
+  private final Logging logging;
 
   private BooleanLogEntry LoggingTest; //just used as an example
   private IntegerLogEntry LogCycles; //just used as an example
@@ -75,16 +79,18 @@ public class RobotContainer {
     lights = Lights.getInstance();
     autonomous = Autonomous.getInstance();
 
+    logging = Logging.getInstance();
 
-    DataLogManager.start("","",10);
-    DataLogManager.logNetworkTables(false); //DO NOT REMOVE EVER
-    DataLog log = DataLogManager.getLog();
 
-      /*
-    LoggingTest = new BooleanLogEntry(log, "/test/Test");
-    LogCycles = new IntegerLogEntry(log, "/test/Cycles");
-    logString = new StringLogEntry(log, "/test/mama");
-    */
+    // DataLogManager.start("","",10);
+    // DataLogManager.logNetworkTables(false); //DO NOT REMOVE EVER
+    // DataLog log = DataLogManager.getLog();
+
+    
+    // LoggingTest = new BooleanLogEntry(log, "/test/Test");
+    // LogCycles = new IntegerLogEntry(log, "/test/Cycles");
+    // logString = new StringLogEntry(log, "/test/mama");
+    
 
 
     drivetrain.setDefaultCommand(new Drive());
@@ -95,6 +101,8 @@ public class RobotContainer {
     lights.register();
     climber.register();
     limelight.register();
+
+    logging.register();
 
     setupSmartDashboard();
 
@@ -168,22 +176,22 @@ public class RobotContainer {
   }
 
   public void teleopInitLog(){
-    logClock=0;
+    //logClock=0;
   }
 
   public void teleopPeriodicLog(){
-    /*
-    logClock++;
-    if(logClock%10==0){
-      LoggingTest.append(true);
-    }
-    if(logClock%2==0){
-      logString.append("JOE");
-    }else{
-      logString.append("MAMA");
-    }
-    LogCycles.append(logClock);
-    */
+    
+    // logClock++;
+    // if(logClock%10==0){
+    //   LoggingTest.append(true);
+    // }
+    // if(logClock%2==0){
+    //   logString.append("JOE");
+    // }else{
+    //   logString.append("MAMA");
+    // }
+    // LogCycles.append(logClock);
+    
 
   }
 

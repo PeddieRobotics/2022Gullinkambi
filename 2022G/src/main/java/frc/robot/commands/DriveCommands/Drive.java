@@ -7,14 +7,20 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.utils.Constants;
 import frc.robot.utils.Constants.OIConfig;
 
+import frc.robot.subsystems.Logging;
+
 public class Drive extends CommandBase {
 
     private Drivetrain drivetrain;
     private XboxOI xboxOI;
     private JoystickOI joystickOI;
 
+    private Logging logging;
+
     public Drive() {
         drivetrain = Drivetrain.getInstance();
+        
+        logging = Logging.getInstance();
 
         if (Constants.OI_CONFIG == OIConfig.COMPETITION) {
             xboxOI = XboxOI.getInstance();
@@ -32,6 +38,7 @@ public class Drive extends CommandBase {
     @Override
     public void initialize() {
         // If we're driving, we're not locked on a limelight target. Shouldn't be needed, but placed here as a safety on the logic elsewhere.
+        logging.log("Drive");
         drivetrain.setLockedOnTarget(false);
     }
 
