@@ -1,6 +1,7 @@
 package frc.robot.oi;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -53,14 +54,14 @@ public class PS5OI {
     }
 
     public double getSpeed(){
-        return -calculateThingySquared(driverPS5Controller.getRawAxis(ControllerMap.PS5_LEFT_STICK_Y));
+        return -transformJoystickInputSquared(driverPS5Controller.getRawAxis(ControllerMap.PS5_LEFT_STICK_Y));
     }
 
     public double getTurn(){
-        return calculateThingySquared(driverPS5Controller.getRawAxis(ControllerMap.PS5_RIGHT_STICK_X));
+        return transformJoystickInputSquared(driverPS5Controller.getRawAxis(ControllerMap.PS5_RIGHT_STICK_X));
     }
 
-    private double calculateThingy(double joystickInput){
+    private double transformJoystickInput(double joystickInput){
         if(joystickInput == 0){
           return 0;
         }
@@ -76,7 +77,7 @@ public class PS5OI {
     
       }
 
-      private double calculateThingySquared(double joystickInput){
+      private double transformJoystickInputSquared(double joystickInput){
           //not really squared, its to the 1.5 power hehe XD
         if(joystickInput == 0){
           return 0;
@@ -93,7 +94,7 @@ public class PS5OI {
     
       }
 
-      private double calculateThingySixtyPercent(double joystickInput){
+      private double transformJoystickInputSixtyPercent(double joystickInput){
           //When joystick is at 90% input, scale is so that max output is 60%
         if(joystickInput == 0){
           return 0;

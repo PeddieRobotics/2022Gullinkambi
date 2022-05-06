@@ -21,7 +21,7 @@ public final class Constants {
   public static final double SPEED_MULTIPLIER = 1.5;
   public static final double TURN_MULTIPLIER = 1;
   public static final double DRIVETRAIN_CLOSEDLOOP_RAMPRATE = 0.1;
-  public static final double DRIVETRAIN_OPENLOOP_RAMPRATE = 0.15;
+  public static final double DRIVETRAIN_OPENLOOP_RAMPRATE = 0.1;
 
   public static final double kTurnToAngleP = 0.0055;
   public static final double kTurnToAngleI = 0.0000005;
