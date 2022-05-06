@@ -113,6 +113,7 @@ public class Robot extends TimedRobot {
     flywheelSim.update(0.020);
     double flywheelVelocityRPM = flywheelSim.getAngularVelocityRPM();
     SmartDashboard.putNumber("SIM: Flywheel Velocity RPM", flywheelVelocityRPM);
+    
   }
 
   /** This function is called once each time the robot enters Disabled mode. */

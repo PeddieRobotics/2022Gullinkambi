@@ -20,13 +20,18 @@ import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
+import edu.wpi.first.wpilibj.AnalogEncoder;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.simulation.ADIS16470_IMUSim;
+import edu.wpi.first.wpilibj.simulation.AnalogEncoderSim;
+import edu.wpi.first.wpilibj.simulation.AnalogGyroSim;
 import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
 import edu.wpi.first.wpilibj.simulation.EncoderSim;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.Constants;
@@ -62,7 +67,13 @@ public class Drivetrain extends SubsystemBase {
   private SimpleMotorFeedforward leftDriveFF, rightDriveFF;
 
   private PIDController turnToAnglePIDController;
+  
+  // private final EncoderSim leftEncoderSim, rightEncoderSim;
 
+  private final ADIS16470_IMUSim gyroSim;
+  private Field2d field;
+   
+   
   //Logging
   private double speedSetpoint, turnSetpoint;
 
@@ -91,8 +102,10 @@ public class Drivetrain extends SubsystemBase {
 
     leftEncoder = leftMaster.getEncoder();
     rightEncoder = rightMaster.getEncoder();
+   // EncoderSim simEncoder = new EncoderSim((Encoder) leftMaster.getEncoder()); //if something is wrong with the drivetrain sim, it is probably this.
+    // leftEncoderSim = new EncoderSim((Encoder) leftEncoder); 
+    // rightEncoderSim = new EncoderSim((Encoder) rightEncoder);
 
-    EncoderSim simEncoder = new EncoderSim((Encoder) leftMaster.getEncoder()); //if something is wrong with the drivetrain sim, it is probably this.
     resetEncoders();
 
     setClosedLoopRampRates();
@@ -105,7 +118,9 @@ public class Drivetrain extends SubsystemBase {
     rightMaster.setInverted(true);
 
     gyro = new ADIS16470_IMU();
-
+    gyroSim = new ADIS16470_IMUSim(gyro);
+    field = new Field2d();
+    SmartDashboard.putData("my field", field);
     odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
 
     setConversionFactors();
@@ -137,23 +152,35 @@ public class Drivetrain extends SubsystemBase {
     // Set the controller tolerance - the delta tolerance ensures the robot is stationary at the
     // setpoint before it is considered as having reached the reference
     turnToAnglePIDController.setTolerance(Constants.kTurnToAngleToleranceDeg, Constants.kTurnToAngleRateToleranceDegPerS);
-
+    
   }
 
   @Override
   public void periodic() {
     odometry.update(getHeadingAsRotation2d(), leftEncoder.getPosition(), rightEncoder.getPosition());
+    field.setRobotPose(odometry.getPoseMeters());
   }
 
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
     driveSim.setInputs(leftMaster.get() * RobotController.getInputVoltage(),
-    rightMaster.get() * RobotController.getInputVoltage());
+    -rightMaster.get() * RobotController.getInputVoltage()); //neg right master because it's inverted
 
     driveSim.update(0.02);
+    SmartDashboard.putNumber("SIM left master", leftMaster.get());
+    SmartDashboard.putNumber("SIM right master", -rightMaster.get());
 
-    leftEncoderSim.setDistance(driveSim.getLeftPositionMeters());
+    SmartDashboard.putNumber("sim left pos meters", driveSim.getLeftPositionMeters());
+    // leftEncoderSim.setDistance(driveSim.getLeftPositionMeters());
+    // leftEncoderSim.setRate(driveSim.getLeftVelocityMetersPerSecond());
+    // rightEncoderSim.setDistance(driveSim.getRightPositionMeters());
+    // rightEncoderSim.setRate(driveSim.getRightVelocityMetersPerSecond());
+    // gyroSim.setGyroAngleX(-driveSim.getHeading().getDegrees());
+    //gyroSim.setGyroAngleY(-driveSim.getHeading().getDegrees()); //either x, y, z or all three(?) but getAngle() 
+    gyroSim.setGyroAngleZ(-driveSim.getHeading().getDegrees());
+
+
   }
 
   public static Drivetrain getInstance() {

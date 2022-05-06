@@ -207,7 +207,7 @@
           },
           "6,1": {
             "size": [
-              1,
+              2,
               1
             ],
             "content": {
@@ -216,9 +216,9 @@
               "_title": "/SmartDashboard/Troll Auto Post-Shoot Delay"
             }
           },
-          "5,1": {
+          "5,2": {
             "size": [
-              1,
+              2,
               1
             ],
             "content": {
@@ -234,7 +234,7 @@
   "windowGeometry": {
     "x": -7.0,
     "y": 0.0,
-    "width": 1934.0,
+    "width": 1094.0,
     "height": 1047.0
   }
 }

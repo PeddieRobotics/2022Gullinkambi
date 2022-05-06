@@ -19,7 +19,9 @@
       "/LiveWindow/Ungrouped/PIDController[2]": "PIDController",
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
       "/SmartDashboard/Auto Routines": "String Chooser",
-      "/SmartDashboard/Scheduler": "Scheduler"
+      "/SmartDashboard/Field": "Field2d",
+      "/SmartDashboard/Scheduler": "Scheduler",
+      "/SmartDashboard/my field": "Field2d"
     }
   },
   "NetworkTables": {
