@@ -233,7 +233,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void arcadeDrive(double speed, double turn) {
-    drive.arcadeDrive(speed * Constants.SPEED_MULTIPLIER, -turn * Constants.TURN_MULTIPLIER,
+    drive.arcadeDrive(speed * Constants.SPEED_MULTIPLIER, turn * Constants.TURN_MULTIPLIER,
         Constants.DRIVE_USE_SQUARED_INPUTS);
   }
 

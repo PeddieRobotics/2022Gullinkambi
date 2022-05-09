@@ -1,4 +1,4 @@
-package frc.robot.oi;
+  package frc.robot.oi;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -54,12 +54,17 @@ public class PS5OI {
     }
 
     public double getSpeed(){
-        return -transformJoystickInputSquared(driverPS5Controller.getRawAxis(ControllerMap.PS5_LEFT_STICK_Y));
+      return -transformJoystickInputSquared(driverPS5Controller.getRawAxis(ControllerMap.PS5_LEFT_STICK_Y));
     }
 
     public double getTurn(){
-        return transformJoystickInputSquared(driverPS5Controller.getRawAxis(ControllerMap.PS5_RIGHT_STICK_X));
+      //SmartDashboard.putNumber("Min Turn Value", testTransformJoystickInput(driverPS5Controller.getRawAxis(ControllerMap.PS5_RIGHT_STICK_X)));
+
+      //return transformJoystickInputSquared(driverPS5Controller.getRawAxis(ControllerMap.PS5_RIGHT_STICK_X));
+
+      return transformTurnJoystickInput(driverPS5Controller.getRawAxis(ControllerMap.PS5_RIGHT_STICK_X), getSpeed(), 0.09, 0.05); 
     }
+
 
     private double transformJoystickInput(double joystickInput){
         if(joystickInput == 0){
@@ -109,6 +114,33 @@ public class PS5OI {
         }
         return 0;
     
+      }
+
+      private double transformTurnJoystickInput(double turnJoystickInput, double speed, double turnFF, double deadband){
+        double transformedValue;
+        if (turnJoystickInput==0){
+          return 0;
+        }
+        double absSpeed = Math.abs(speed);
+        double absJoystickInput = Math.abs(turnJoystickInput);
+        double sign = turnJoystickInput/absJoystickInput;
+        if (absJoystickInput > deadband){
+          if (absSpeed >= turnFF){
+            transformedValue = (absJoystickInput-deadband)*((1-turnFF)/(1-deadband));
+          }
+          else {
+            transformedValue = (turnFF-absSpeed)+(absJoystickInput-deadband)*((1-turnFF)/(1-deadband));
+          }
+          if (transformedValue > 1){
+            return 1*sign;
+          }
+          else {
+            return transformedValue*sign;
+          }
+        }
+        else{
+          return 0;
+        }
       }
 
 
