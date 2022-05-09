@@ -8,7 +8,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ClimbCommands.ExtendArm;
 import frc.robot.commands.ClimbCommands.RetractArm;
 import frc.robot.commands.IntakeCommands.RunIntake;
+import frc.robot.commands.IntakeCommands.RunIntakeEndImmediately;
 import frc.robot.commands.IntakeCommands.StopIntake;
+import frc.robot.commands.IntakeCommands.UnjamIntakeWheels;
 import frc.robot.commands.ShootCommands.BlankCommand;
 import frc.robot.commands.ShootCommands.ShootLayup;
 import frc.robot.commands.ShootCommands.ShootWithLL;
@@ -49,6 +51,7 @@ public class PS5OI {
             new JoystickButton(driverPS5Controller, ControllerMap.PS5_X).whenHeld(new SequentialCommandGroup(new Target(false), new ConditionalCommand(new ShootWithLL(false), new BlankCommand(), drivetrain::isLockedOnTarget)));
             new JoystickButton(driverPS5Controller, ControllerMap.PS5_SQUARE).whenHeld(new ShootLayup(false));
             new JoystickButton(driverPS5Controller, ControllerMap.PS5_R1).whenHeld(new ExtendArm()).whenReleased(new RetractArm());
+            new JoystickButton(driverPS5Controller, ControllerMap.PS5_L1).whenHeld(new UnjamIntakeWheels(Constants.INTAKE_SPEED));//.whenReleased(new RunIntakeEndImmediately());
 
         }
     }
