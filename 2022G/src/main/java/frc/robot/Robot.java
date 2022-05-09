@@ -102,6 +102,7 @@ public class Robot extends TimedRobot {
     robotContainer.setDrivetrainToCoastMode();
     robotContainer.stopAllSystems();
     robotContainer.setupSmartDashboard();
+    robotContainer.endLog();
   }
 
   @Override
@@ -148,7 +149,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-    robotContainer.teleopPeriodicLog();
+  //  robotContainer.teleopPeriodicLog();
 
   }
 

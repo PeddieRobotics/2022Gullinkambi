@@ -52,7 +52,7 @@ public class Target extends CommandBase {
   public void initialize() {
       // Assume by default that we're not locked on a limelight target. Shouldn't be needed, but placed here as a safety on the logic elsewhere.
 
-      logging.log("Target");
+      logging.logCommand("Target Start");
 
       drivetrain.setLockedOnTarget(false);
       drivetrain.setBrake();
@@ -89,6 +89,9 @@ public class Target extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
+
+    logging.logCommand("Target End");
+
     drivetrain.arcadeDrive(0,0);
     // If we end this command with the LL seeing target AND we weren't interrupted (e.g. trigger release), we are locked to target now
     // Otherwise we must be ending immediately because no target was found for alignment

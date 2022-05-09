@@ -38,7 +38,7 @@ public class Drive extends CommandBase {
     @Override
     public void initialize() {
         // If we're driving, we're not locked on a limelight target. Shouldn't be needed, but placed here as a safety on the logic elsewhere.
-        logging.log("Drive");
+        logging.logCommand("Drive Start");
         drivetrain.setLockedOnTarget(false);
     }
 
@@ -72,6 +72,8 @@ public class Drive extends CommandBase {
 
         }
 
+        logging.logInput(speedInput,turnInput);
+
         if (!reverse) {
             drivetrain.curvatureDrive(speedInput, turnInput);
         } else {
@@ -83,6 +85,9 @@ public class Drive extends CommandBase {
     // End the command if it is interrupted
     @Override
     public void end(boolean interrupted) {
+
+        logging.logCommand("Drive End");
+
         drivetrain.curvatureDrive(0, 0);
     }
 

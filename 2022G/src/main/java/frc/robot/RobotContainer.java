@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.DriveCommands.Drive;
 import frc.robot.commands.IntakeCommands.IndexCargo;
 import frc.robot.commands.ShootCommands.RevUpFlywheel;
+import frc.robot.oi.JoystickOI;
 import frc.robot.oi.OI;
 import frc.robot.subsystems.Autonomous;
 import frc.robot.subsystems.Climber;
@@ -54,11 +55,6 @@ public class RobotContainer {
   private final Limelight limelight;
 
   private final Logging logging;
-
-  private BooleanLogEntry LoggingTest; //just used as an example
-  private IntegerLogEntry LogCycles; //just used as an example
-  private StringLogEntry logString;
-  private int logClock;
 
   //private BooleanLogEntry IntakeUsed; //just used as an example
 
@@ -176,23 +172,11 @@ public class RobotContainer {
   }
 
   public void teleopInitLog(){
-    //logClock=0;
+    logging.teleopInit();
   }
 
-  public void teleopPeriodicLog(){
-    
-    // logClock++;
-    // if(logClock%10==0){
-    //   LoggingTest.append(true);
-    // }
-    // if(logClock%2==0){
-    //   logString.append("JOE");
-    // }else{
-    //   logString.append("MAMA");
-    // }
-    // LogCycles.append(logClock);
-    
-
+  public void endLog(){
+    logging.endLog();
   }
 
   /*
