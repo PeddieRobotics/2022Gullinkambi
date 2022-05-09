@@ -25,12 +25,6 @@ import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.Limelight;
 import frc.robot.utils.Constants;
 
-import edu.wpi.first.util.datalog.DataLog;
-import edu.wpi.first.wpilibj.DataLogManager;
-import edu.wpi.first.util.datalog.BooleanLogEntry;
-import edu.wpi.first.util.datalog.StringLogEntry;
-import edu.wpi.first.util.datalog.IntegerLogEntry;
-
 import frc.robot.subsystems.Logging;
 
 
