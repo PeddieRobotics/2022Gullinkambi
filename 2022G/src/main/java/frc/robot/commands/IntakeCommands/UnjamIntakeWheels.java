@@ -20,9 +20,9 @@ public class UnjamIntakeWheels extends CommandBase {
     public UnjamIntakeWheels(double speed) {
         m_intake = Intake.getInstance();
          m_hopper = Hopper.getInstance();
-        // m_flywheel = Flywheel.getInstance();
+        m_flywheel = Flywheel.getInstance();
         // addRequirements(m_intake, m_hopper, m_flywheel);
-        addRequirements(m_intake, m_hopper);
+        addRequirements(m_intake, m_hopper, m_flywheel);
         this.speed = speed;
 
         // armed = false;
