@@ -16,6 +16,7 @@ public class UnjamIntakeSecondBall extends CommandBase {
     private double initialTime;
     public boolean armed, armedAgain;
     private double speed;
+    private int state;
 
     public UnjamIntakeSecondBall(double speed) {
         m_intake = Intake.getInstance();
@@ -23,7 +24,6 @@ public class UnjamIntakeSecondBall extends CommandBase {
         m_flywheel = Flywheel.getInstance();
         addRequirements(m_intake, m_hopper, m_flywheel);
         this.speed = speed;
-
         
     }
 
@@ -33,24 +33,23 @@ public class UnjamIntakeSecondBall extends CommandBase {
         m_flywheel.runFlywheelSetpoint(0);
         m_intake.reverseIntake(speed);
         m_hopper.reverseHopper(Constants.HOPPER_INDEX_POWER);
+        if(m_hopper.sensesBallBottomFiltered() && m_hopper.sensesBallTopFiltered()){
+            state = 1;
+        } else{
+            state = 0;
+        }
+
+
     }    
 
     @Override
-    public void execute() {
-        if (!m_hopper.sensesBallBottomFiltered()){
-            m_hopper.stopHopper();
-        }
-        
 
-        // if(unjamOneBall){
-        //     if(!armed && m_intake.getIntakeCurrent() > 25.0){
-        //         armed = true;
-        //     }
-        //     if(armed && !armedAgain && m_intake.getIntakeCurrent() < 10.0){
-        //         m_hopper.reverseHopper(Constants.HOPPER_INDEX_POWER);
-        //         armedAgain = true;
-        //     }
-        // }
+    public void execute() {
+        if(state == 1){
+            if(!m_hopper.sensesBallBottomFiltered()){
+                m_hopper.stopHopper();
+            }
+        }
     }
 
     // Called once the command ends or is interrupted.
@@ -64,21 +63,5 @@ public class UnjamIntakeSecondBall extends CommandBase {
     @Override
     public boolean isFinished() {
         return false;
-    //     if(unjamOneBall){
-    //         // Do not allow the robot to try to pop a single ball out for greater than 3 seconds, indicates a different issue...
-    //         if(Timer.getFPGATimestamp() - initialTime > 3){
-    //             return true;
-    //         }
-    //         // End the command immediately if the robot is actually empty so we do not get stuck into an unjamming loop
-    //         if(!armed && !armedAgain && !m_hopper.sensesBallTop() && !m_hopper.sensesBallBottom()){
-    //             return true;
-    //         }
-    //         // If we detect a spike in the intake current again, stop unjamming since we've gotten rid of one ball
-    //         if(armedAgain && m_intake.getIntakeCurrent() > 10.0){
-    //             return true;
-    //         }
-    //     }
-    //     return false;
-    // }
 }
 }

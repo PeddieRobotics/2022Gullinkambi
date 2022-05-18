@@ -154,6 +154,7 @@ public class Hopper extends SubsystemBase {
     public void updateHopperInfoOnDashboard(){
         SmartDashboard.putBoolean("Lower sensor", sensesBallBottom());
         SmartDashboard.putBoolean("Upper sensor", sensesBallTop());
+        SmartDashboard.putBoolean("Upper Sensor Filtered", sensesBallTopFiltered());
         SmartDashboard.putBoolean("Hopper full", isHopperFull());
         SmartDashboard.putNumber("Hopper velocity", getHopperVelocity());
 
