@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.AutoCommands.FiveBallRightDCMPBackAway;
 import frc.robot.commands.AutoCommands.FiveBallRightSeneca;
+import frc.robot.commands.AutoCommands.FiveBallRightBrunswickEruption;
 import frc.robot.commands.AutoCommands.FiveBallRightDCMP;
 import frc.robot.commands.AutoCommands.FiveBallRightDCMPNoPivot;
 import frc.robot.commands.AutoCommands.FiveBallRightDCMPPauseAway;
@@ -97,6 +98,9 @@ public class Autonomous extends SubsystemBase {
         autoRoutines.put("4 Ball (Right)", new FourBallRight(fourBallRight_1.getInitialPose(), createCommandFromTrajectory(fourBallRight_1), createCommandFromTrajectory(fourBallRight_2)));
         autoRoutines.put("4 Ball (Left)", new FourBallLeft(fourBallLeft_1.getInitialPose(), createCommandFromTrajectory(fourBallLeft_1), createCommandFromTrajectory(fourBallLeft_2), createCommandFromTrajectory(fourBallLeft_3)));
 
+        //
+        autoRoutines.put("5 Ball (Right) Brunswick Eruption", new FiveBallRightBrunswickEruption(fiveBallRightDCMPNoPivot_1.getInitialPose(), createCommandFromTrajectory(fiveBallRightDCMPNoPivot_1), createCommandFromTrajectory(fiveBallRightDCMPNoPivot_2), createCommandFromTrajectory(fiveBallRightDCMPNoPivot_3), createCommandFromTrajectory(fiveBallRightDCMPNoPivot_4)));
+        //
         autoRoutines.put("5 Ball (Right) Seneca", new FiveBallRightSeneca(fiveBallRightSeneca_1.getInitialPose(), createCommandFromTrajectory(fiveBallRightSeneca_1), createCommandFromTrajectory(fiveBallRightSeneca_2), createCommandFromTrajectory(fiveBallRightSeneca_3), createCommandFromTrajectory(fiveBallRightSeneca_4)));
         autoRoutines.put("5 Ball (Right) DCMP", new FiveBallRightDCMP(fiveBallRightDCMP_1.getInitialPose(), createCommandFromTrajectory(fiveBallRightDCMP_1), createCommandFromTrajectory(fiveBallRightDCMP_2), createCommandFromTrajectory(fiveBallRightDCMP_3), createCommandFromTrajectory(fiveBallRightDCMP_4)));
         autoRoutines.put("5 Ball (Right) DCMP NO PIVOT", new FiveBallRightDCMPNoPivot(fiveBallRightDCMPNoPivot_1.getInitialPose(), createCommandFromTrajectory(fiveBallRightDCMPNoPivot_1), createCommandFromTrajectory(fiveBallRightDCMPNoPivot_2), createCommandFromTrajectory(fiveBallRightDCMPNoPivot_3), createCommandFromTrajectory(fiveBallRightDCMPNoPivot_4)));
