@@ -43,6 +43,7 @@ public class Hopper extends SubsystemBase {
         initialRevUpTime = 0.0;
         revUpStarted = false;
         revUpEnded = false;
+        
 
         bottomSensorFilter = LinearFilter.singlePoleIIR(0.2, 0.02);
         topSensorFilter = LinearFilter.singlePoleIIR(0.2, 0.02);
