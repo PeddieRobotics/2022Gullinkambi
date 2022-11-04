@@ -6,10 +6,10 @@ import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 public final class Constants {
   
   //uncommment whichever one you want to use & comment the rest
-  //public static final OIConfig OI_CONFIG = OIConfig.COMPETITION; 
+  public static final OIConfig OI_CONFIG = OIConfig.COMPETITION; 
   // public static final OIConfig OI_CONFIG = OIConfig.XBOX_TEST;
   //public static final OIConfig OI_CONFIG = OIConfig.JOYSTICK_TEST;
-  public static final OIConfig OI_CONFIG = OIConfig.PS5_TEST;
+  // public static final OIConfig OI_CONFIG = OIConfig.PS5_TEST;
 
   // Drivetrain constants
   public static final int DRIVETRAIN_MAX_CURRENT = 40;
