@@ -17,7 +17,7 @@ public final class Constants {
   public static final boolean DRIVE_USE_NORMALIZED_INPUTS = false;
   public static final boolean DRIVE_USE_SQUARED_INPUTS = false;
 
-  public static final double DRIVING_DEADBANDS = 0.1;
+  public static final double DRIVING_DEADBANDS = 0.15;
   public static final double SPEED_MULTIPLIER = 1.5;
   public static final double TURN_MULTIPLIER = 1;
   public static final double DRIVETRAIN_CLOSEDLOOP_RAMPRATE = 0.1;
@@ -95,7 +95,8 @@ public final class Constants {
   public static final double TARGET_HEIGHT = 104;
   
   public static final double [] LL_DIST = new double[]{62, 73, 90, 105, 120, 135, 150, 170, 190};
-  public static final double [] RPMS = new double[]{2200, 2270, 2410, 2520, 2700, 2800, 3020, 3340, 3590};
+  public static final double i = 200;
+  public static final double [] RPMS = new double[]{2200+i, 2270+i, 2410+i, 2520+i, 2700+i, 2800+i, 3020+i, 3340+i, 3590+i};
   public static LookupTable DIST_TO_RPM = new LookupTable(LL_DIST, RPMS);
 
   // OI constants
