@@ -36,7 +36,7 @@ public final class Constants {
 
   // Hopper constants
   public static final int HOPPER_MAX_CURRENT = 30; // amps
-  public static final double HOPPER_SHOOT_LAYUP_SPEED = -2200; // rpm
+  public static final double HOPPER_SHOOT_LAYUP_SPEED = -1800; // rpm
   public static final double HOPPER_SHOOT_LL_SPEED = -3800; // rpm
   public static final double HOPPER_SHOOT_POWER = 0.65;
   public static final double HOPPER_INDEX_POWER = 0.7;
@@ -58,7 +58,7 @@ public final class Constants {
   public static final double FLYWHEEL_FF = 0.0;
   public static final double FLYWHEEL_IZONE = 60;
 
-  public static final double FLYWHEEL_RPM_LAYUP = 2600;
+  public static final double FLYWHEEL_RPM_LAYUP = 2650;
   public static final double FLYWHEEL_RPM_LOW = 1300;
   public static final double FLYWHEEL_RPM_REV_UP_STANDARD = 2800;
 
