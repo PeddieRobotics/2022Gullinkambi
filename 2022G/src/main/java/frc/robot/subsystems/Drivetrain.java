@@ -98,7 +98,7 @@ public class Drivetrain extends SubsystemBase {
 
     gyro = new ADIS16470_IMU();
 
-    odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
+    odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()), leftEncoder.getPosition(), rightEncoder.getPosition());
 
     setConversionFactors();
 
@@ -257,7 +257,7 @@ public class Drivetrain extends SubsystemBase {
 
   public void resetPose(Pose2d estimatedPostition, Rotation2d gyroAngle) {
     resetEncoders();
-    odometry.resetPosition(estimatedPostition, gyroAngle);
+    odometry.resetPosition(gyroAngle, 0, 0, estimatedPostition);
   }
 
   public void calibrateGyro() {
